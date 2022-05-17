@@ -9,7 +9,7 @@ const userRouter = express.Router();
 
 userRouter.get("/profile", getUserProfile);
 userRouter
-  .post("/edit-profile")
+  .route("/edit-profile")
   .get(getUserEditProfile)
   .post(postUserEditProfile);
 
