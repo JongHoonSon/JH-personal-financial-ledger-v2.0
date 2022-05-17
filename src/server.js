@@ -1,13 +1,14 @@
-const express = require("express");
+import express from "express";
 
 const app = express();
 
-const port = app.listen(5050);
+const PORT = process.env.PORT || 4000;
 
 app.get("/", function (req, res) {
   res.send("<h1>Hello</h1>");
 });
 
-app.listen(port, function () {
-  console.log(`express server start! http://localhost:5050/`);
-});
+const handleListening = () =>
+  console.log(`express server start! http://localhost:${PORT}/`);
+
+app.listen(PORT, handleListening);
