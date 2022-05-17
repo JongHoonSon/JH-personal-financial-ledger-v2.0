@@ -1,6 +1,6 @@
-let express = require("express");
+const express = require("express");
 
-let app = express();
+const app = express();
 
 const port = app.listen(5050);
 
