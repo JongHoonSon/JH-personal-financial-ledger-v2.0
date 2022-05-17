@@ -1,11 +1,11 @@
 import express from "express";
 import ledgerRouter from "./routers/ledgerRouter";
-import rootRouter from "./routers/rootRouter";
+import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 
 const app = express();
 
-app.use("/", rootRouter);
+app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/ledger", ledgerRouter);
 
