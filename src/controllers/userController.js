@@ -1,9 +1,11 @@
-export const getUserProfile = (req, res) => {
-  res.send("This is getUserProfile Page");
+export const getProfile = (req, res) => {
+  res.render("user/profile", { pageTitle: "Profile" });
 };
 
-export const getUserEditProfile = (req, res) => {
-  res.send("This is getUserEditProfile Page");
+export const getEditProfile = (req, res) => {
+  res.render("user/editProfile", {
+    pageTitle: "Edit Profile",
+  });
 };
 
-export const postUserEditProfile = (req, res) => {};
+export const postEditProfile = (req, res) => {};

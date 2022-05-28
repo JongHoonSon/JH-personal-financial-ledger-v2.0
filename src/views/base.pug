@@ -1,0 +1,12 @@
+doctype html
+html(lang="ko")
+    head 
+        title #{pageTitle} | PFL
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+    body 
+        include partials/header.pug
+        include partials/nav.pug
+        h1 from base
+        main
+            block content 
+        include partials/footer.pug

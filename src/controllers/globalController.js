@@ -1,15 +1,15 @@
 export const getHome = (req, res) => {
-  res.redirect("/login");
+  res.render("global/home", { pageTitle: "Home" });
 };
 
 export const getJoin = (req, res) => {
-  res.send("This is getJoin Page");
+  res.render("global/join", { pageTitle: "Join" });
 };
 
 export const postJoin = (req, res) => {};
 
 export const getLogin = (req, res) => {
-  res.send("This is getLogin Page");
+  res.render("global/login", { pageTitle: "Login" });
 };
 
 export const postLogin = (req, res) => {};

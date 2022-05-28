@@ -1,16 +1,13 @@
 import express from "express";
 import {
-  getUserEditProfile,
-  getUserProfile,
-  postUserEditProfile,
+  getEditProfile,
+  getProfile,
+  postEditProfile,
 } from "../controllers/userController";
 
 const userRouter = express.Router();
 
-userRouter.get("/profile", getUserProfile);
-userRouter
-  .route("/edit-profile")
-  .get(getUserEditProfile)
-  .post(postUserEditProfile);
+userRouter.get("/profile", getProfile);
+userRouter.route("/edit-profile").get(getEditProfile).post(postEditProfile);
 
 export default userRouter;
