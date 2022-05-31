@@ -1,1 +1,27 @@
-nav Hello I'm nav
+nav 
+    ul 
+        li#login
+            form(method="POST")
+                label(for="username") ID
+                input(placeholder="ID", id="username", name="username", type="text", required)
+                label(for="password") PW
+                input(placeholder="PW", id="password", name="password", type="password", required)
+                input(type="submit", value="Login")
+
+        li#join
+            a(href="/join") 회원가입
+
+        li#profile 
+            a(href="")
+
+        li#ledger 
+            a(href="") 가계부
+
+        li#pinned 
+            a(href="") 핀 목록
+
+        li#report 
+            a(href="") 소비 리포트
+
+        li#last_expense 
+            a(href="") 마지막 지출일
