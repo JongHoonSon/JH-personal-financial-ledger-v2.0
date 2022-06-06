@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec babel-node src/init.js"
+    "dev": "nodemon --exec babel-node src/init.js",
+    "gulp-dev": "gulp dev",
+    "gulp-build": "gulp build",
+    "gulp-deploy": "gulp deploy"
   },
   "repository": {
     "type": "git",
