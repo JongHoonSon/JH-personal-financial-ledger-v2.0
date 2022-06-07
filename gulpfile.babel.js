@@ -16,21 +16,21 @@ const routes = {
   pug: {
     watch: "src/views/**/*.pug",
     src: "src/views/*.pug",
-    dest: "build",
+    dest: "assets",
   },
   img: {
     src: "src/client/img/*",
-    dest: "build/img",
+    dest: "assets/img",
   },
   scss: {
     watch: "src/client/scss/**/*.scss",
     src: "src/client/scss/styles.scss",
-    dest: "build/css",
+    dest: "assets/css",
   },
   js: {
     watch: "src/client/js/**/*.js",
     src: "src/client/js/main.js",
-    dest: "build/js",
+    dest: "assets/js",
   },
 };
 
@@ -65,17 +65,17 @@ const js = () =>
     )
     .pipe(gulp.dest(routes.js.dest));
 
-const clean = () => del(["build", ".publish"]);
+const clean = () => del(["assets", ".publish"]);
 
 const webserver = () =>
-  gulp.src("build").pipe(ws({ livereload: true, open: true }));
+  gulp.src("assets").pipe(ws({ livereload: true, open: true }));
 
-const ghpage = () => gulp.src("build/**/*").pipe(gghPages());
+const ghpage = () => gulp.src("assets/**/*").pipe(gghPages());
 
 const watch = () => {
   gulp.watch(routes.pug.watch, pug);
   gulp.watch(routes.img.src, img);
-  gulp.watch(routes.scss.src, styles);
+  gulp.watch(routes.scss.watch, styles);
   gulp.watch(routes.js.watch, js);
 };
 
@@ -83,7 +83,7 @@ const prepare = gulp.series([clean, img]);
 
 const assets = gulp.series([pug, styles, js]);
 
-const post = gulp.parallel([webserver, watch]);
+const post = gulp.parallel([watch]);
 
 export const build = gulp.series([prepare, assets]);
 export const dev = gulp.series([build, post]);

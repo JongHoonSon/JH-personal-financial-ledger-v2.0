@@ -10,6 +10,8 @@ const app = express();
 app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 
+app.use("/assets", express.static("assets"));
+
 app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
