@@ -8,6 +8,7 @@ import miniCSS from "gulp-csso";
 import gbro from "gulp-bro";
 import babelify from "babelify";
 import gghPages from "gulp-gh-pages";
+import grename from "gulp-rename";
 
 const gsass = require("gulp-sass")(require("node-sass"));
 
@@ -34,7 +35,11 @@ const routes = {
 };
 
 const pug = () =>
-  gulp.src(routes.pug.src).pipe(gpug()).pipe(gulp.dest(routes.pug.dest));
+  gulp
+    .src(routes.pug.src)
+    .pipe(gpug())
+    .pipe(grename("index.html"))
+    .pipe(gulp.dest(routes.pug.dest));
 
 const img = () =>
   gulp.src(routes.img.src).pipe(gimage()).pipe(gulp.dest(routes.img.dest));
