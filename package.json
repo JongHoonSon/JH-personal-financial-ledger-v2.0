@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec babel-node src/init.js",
-    "gulp-dev": "gulp dev",
-    "gulp-build": "gulp build",
-    "gulp-deploy": "gulp deploy"
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "gulp build",
+    "dev:server": "nodemon --exec babel-node src/init.js",
+    "dev:assets": "gulp dev",
+    "deploy": "gulp deploy"
   },
   "repository": {
     "type": "git",
@@ -46,5 +48,8 @@
     "@babel/node": "^7.17.10",
     "@babel/preset-env": "^7.18.2",
     "nodemon": "^2.0.16"
-  }
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
 }
