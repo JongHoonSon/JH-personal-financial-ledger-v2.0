@@ -1,7 +1,53 @@
 nav {
+  width: 20%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+
   ul {
+    width: 100%;
     li {
-      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 50px;
+    }
+    li#login form {
+      width: 70%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      div#login-input-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          label {
+            display: inline-block;
+            width: 10px;
+          }
+
+          input {
+            margin: 10px 30px;
+          }
+        }
+      }
+
+      div#login-button-section {
+        width: 30%;
+        input {
+          padding: 20px;
+        }
+      }
     }
   }
 }
