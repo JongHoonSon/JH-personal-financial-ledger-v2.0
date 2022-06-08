@@ -2,8 +2,9 @@ doctype html
 html(lang="ko")
     head 
         title #{pageTitle} | PFL
-        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
         link(rel="stylesheet", href="/assets/css/styles.css")
+        link(rel="stylesheet", href="/css/styles.css")
+        // gulp-webserver에서 실행하는 index.html 기준 css 경로
     body 
         include partials/header.pug
         include partials/nav.pug
