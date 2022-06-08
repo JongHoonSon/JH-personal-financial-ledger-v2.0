@@ -1,6 +1,6 @@
 nav {
   width: 20%;
-  height: 80%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,40 +12,47 @@ nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 50px;
+      margin: 50px 10px;
     }
     li#login form {
-      width: 70%;
+      padding: 10%;
+      width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: c;
       align-items: center;
 
       div#login-input-section {
+        width: 60%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
         div {
+          width: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
 
           label {
             display: inline-block;
-            width: 10px;
+            width: 30%;
+            margin-left: 10px;
           }
 
           input {
-            margin: 10px 30px;
+            width: 70%;
+            margin: 10px;
           }
         }
       }
 
       div#login-button-section {
-        width: 30%;
+        width: 40%;
         input {
-          padding: 20px;
+          width: 50%;
+          height: 50px;
+          margin-left: 20%;
         }
       }
     }
