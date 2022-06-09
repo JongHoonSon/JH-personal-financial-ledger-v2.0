@@ -1,16 +1,7 @@
 nav 
     ul 
         li#login
-            form(method="POST")
-                div#login-input-section
-                    div
-                        label(for="username") ID
-                        input(placeholder="ID", id="username", name="username", type="text", required)
-                    div
-                        label(for="password") PW
-                        input(placeholder="PW", id="password", name="password", type="password", required)
-                div#login-button-section
-                    input(type="submit", value="Login")
+            a(href="/login") 로그인
 
         li#join
             a(href="/join") 회원가입

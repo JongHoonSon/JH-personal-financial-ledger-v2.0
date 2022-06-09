@@ -14,47 +14,5 @@ nav {
       align-items: center;
       margin: 50px 10px;
     }
-    li#login form {
-      padding: 10%;
-      width: 100%;
-      display: flex;
-      justify-content: c;
-      align-items: center;
-
-      div#login-input-section {
-        width: 60%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        div {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          label {
-            display: inline-block;
-            width: 30%;
-            margin-left: 10px;
-          }
-
-          input {
-            width: 70%;
-            margin: 10px;
-          }
-        }
-      }
-
-      div#login-button-section {
-        width: 40%;
-        input {
-          width: 50%;
-          height: 50px;
-          margin-left: 20%;
-        }
-      }
-    }
   }
 }
