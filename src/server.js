@@ -16,6 +16,6 @@ app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
 app.use("/ledger", ledgerRouter);
-app.use("/", etcRouter);
+app.use("/etc", etcRouter);
 
 export default app;
