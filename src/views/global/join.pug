@@ -1,4 +1,26 @@
 extends ../base.pug
 
 block content 
-    h1 Hello I'm join
+    div#join-wrapper
+            form(method="POST")
+                div#join-input-section
+                    div
+                        label(for="username") ID
+                        input(placeholder="ID", id="username", name="username", type="text", required)
+                    div
+                        label(for="password") Password
+                        input(placeholder="Password", id="password", name="password", type="password", required)
+                    div 
+                        label(for="password_confirm") Confirm Password
+                        input(placeholder="Confirm Password", id="password_confirm", name="password_confirm", type="password_confirm", required)
+                    div 
+                        label(for="name") Name
+                        input(placeholder="Name", id="name", name="name", type="name", required)
+                    div 
+                        label(for="email") Email
+                        input(placeholder="Email", id="email", name="email", type="email", required)
+                    div 
+                        label(for="nickname") Nickname
+                        input(placeholder="Nickname", id="nickname", name="nickname", type="nickname", required)
+                div#join-button-section
+                    input(type="submit", value="Join")
