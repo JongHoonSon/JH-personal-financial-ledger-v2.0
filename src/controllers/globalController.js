@@ -1,5 +1,3 @@
-import User from "../models/User";
-
 export const getHome = (req, res) => {
   res.render("global/home", { pageTitle: "Home" });
 };
