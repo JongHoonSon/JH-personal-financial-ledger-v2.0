@@ -83,7 +83,7 @@ const prepare = gulp.series([clean, img]);
 
 const assets = gulp.series([pug, styles, js]);
 
-const post = gulp.parallel([webserver, watch]);
+const post = gulp.parallel([watch]);
 
 export const build = gulp.series([prepare, assets]);
 export const dev = gulp.series([build, post]);
