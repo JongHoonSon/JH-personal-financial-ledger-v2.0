@@ -1,3 +1,5 @@
+include mixins/message.pug
+
 doctype html
 html(lang="ko")
     head 
@@ -6,6 +8,12 @@ html(lang="ko")
         // gulp-webserver에서 실행하는 index.html 기준 css 경로
         link(rel="stylesheet", href="/css/styles.css")
     body 
+        if messages.info
+            +message("info", messages.info)
+        if messages.success
+            +message("success", messages.success)
+        if messages.error                     
+            +message("error", messages.error)
         include partials/header.pug
         div#middle
             include partials/nav.pug

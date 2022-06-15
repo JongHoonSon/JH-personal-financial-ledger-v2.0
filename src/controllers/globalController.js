@@ -18,18 +18,21 @@ export const postJoin = async (req, res) => {
   console.log(req.body);
 
   if (password !== password_confirm) {
+    req.flash("error", "Password confirm failed.");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
-
   if (checkUsername === true) {
+    req.flash("error", "This username is already taken");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
   if (checkEmail === true) {
+    req.flash("error", "This email is already taken");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
   if (checkNickname === true) {
+    req.flash("error", "This nickname is already taken");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
@@ -42,9 +45,11 @@ export const postJoin = async (req, res) => {
       nickname,
     });
   } catch (error) {
+    req.flash("error", "An error occurred while creating a user.");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
+  req.flash("success", "User created.");
   return res.redirect("/login");
 };
 
