@@ -5,6 +5,7 @@ import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import etcRouter from "./routers/etcRouter";
 import morgan from "morgan";
+import flash from "express-flash";
 
 const app = express();
 const logger = morgan("dev");
@@ -16,6 +17,7 @@ app.use("/assets", express.static("assets"));
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(flash());
 app.use(logger);
 app.use("/", globalRouter);
 app.use("/user", userRouter);
