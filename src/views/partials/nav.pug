@@ -1,13 +1,18 @@
 nav 
     ul 
-        li#login
-            a(href="/login") 로그인
+        if !loggedIn
+            li#login
+                a(href="/login") 로그인
 
-        li#join
-            a(href="/join") 회원가입
+            li#join
+                a(href="/join") 회원가입
+        
+        if loggedIn 
+            li#logout 
+                a(href="/logout") 로그아웃
 
-        li#profile 
-            a(href="/user/profile") 프로필
+            li#profile 
+                a(href="/user/profile") #{loggedInUser.nickname}의 프로필
 
         li#ledger 
             a(href="/ledger/2022-06/Daily") 가계부

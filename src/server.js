@@ -7,6 +7,7 @@ import etcRouter from "./routers/etcRouter";
 import morgan from "morgan";
 import session from "express-session";
 import flash from "express-flash";
+import { localMiddleware } from "./middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -28,6 +29,7 @@ app.use(
 
 app.use(flash());
 app.use(logger);
+app.use(localMiddleware);
 app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);

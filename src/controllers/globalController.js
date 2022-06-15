@@ -2,6 +2,7 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 
 export const getHome = (req, res) => {
+  console.log(req.session);
   res.render("global/home", { pageTitle: "Home" });
 };
 
@@ -75,6 +76,8 @@ export const postLogin = async (req, res) => {
     return res.status(400).render("global/login", { pageTitle: "Login" });
   }
 
+  req.session.loggedIn = true;
+  req.session.user = user;
   req.flash("success", `Hello, ${user.nickname} !`);
   return res.redirect("/");
 };
