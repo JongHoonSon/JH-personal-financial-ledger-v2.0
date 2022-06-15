@@ -1,3 +1,6 @@
+import User from "../models/User";
+import bcrypt from "bcrypt";
+
 export const getHome = (req, res) => {
   res.render("global/home", { pageTitle: "Home" });
 };
@@ -55,4 +58,23 @@ export const getLogin = (req, res) => {
   res.render("global/login", { pageTitle: "Login" });
 };
 
-export const postLogin = (req, res) => {};
+export const postLogin = async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username, socialOnly: false });
+
+  if (!user) {
+    req.flash("error", "User does not exists.");
+    return res.status(400).render("global/login", { pageTitle: "Login" });
+  }
+
+  const passwordCorrect = await bcrypt.compare(password, user.password);
+
+  if (!passwordCorrect) {
+    req.flash("error", "Incorrect password.");
+    return res.status(400).render("global/login", { pageTitle: "Login" });
+  }
+
+  req.flash("success", `Hello, ${user.nickname} !`);
+  return res.redirect("/");
+};
