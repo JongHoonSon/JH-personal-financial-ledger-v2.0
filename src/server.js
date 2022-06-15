@@ -5,6 +5,7 @@ import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import etcRouter from "./routers/etcRouter";
 import morgan from "morgan";
+import session from "express-session";
 import flash from "express-flash";
 
 const app = express();
@@ -16,6 +17,14 @@ app.set("views", __dirname + "/views");
 app.use("/assets", express.static("assets"));
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: "Hello!",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 app.use(flash());
 app.use(logger);
