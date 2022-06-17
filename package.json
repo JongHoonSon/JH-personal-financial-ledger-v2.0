@@ -27,6 +27,7 @@
     "@babel/register": "^7.17.7",
     "babelify": "^10.0.0",
     "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.6.0",
     "del": "^6.1.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",

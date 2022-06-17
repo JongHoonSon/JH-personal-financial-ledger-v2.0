@@ -6,6 +6,7 @@ import userRouter from "./routers/userRouter";
 import etcRouter from "./routers/etcRouter";
 import morgan from "morgan";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import flash from "express-flash";
 import { localMiddleware } from "./middlewares";
 
@@ -24,6 +25,7 @@ app.use(
     secret: "Hello!",
     resave: true,
     saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })
 );
 
