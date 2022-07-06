@@ -1,7 +1,7 @@
 extends ../base.pug
 
 block content 
-    div
+    div#addItem-wrapper
         div#incomeOrExpense
             ul
                 li#income
@@ -9,9 +9,9 @@ block content
                 li#expense
                     a(href="/item/add-expense") 지출
 
-        div#addIncome-wrapper
+        div#form-wrapper
                 form(method="POST")
-                    div#addIncome-input-section
+                    div#input-section
                         div
                             label(for="date") 날짜
                             input(placeholder="YYYY", id="date", name="date", type="date", required)
@@ -37,5 +37,5 @@ block content
                             select(id="cycle")
                                 option(value="periodicity") 정기성
                                 option(value="one-time") 일회성
-                    div#addIncome-button-section
+                    div#button-section
                         input(type="submit", value="생성")

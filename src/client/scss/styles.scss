@@ -4,6 +4,7 @@
 
 // Components
 @import "./components/footer.scss";
+@import "./components/form.scss";
 @import "./components/header.scss";
 @import "./components/main.scss";
 @import "./components/nav.scss";
@@ -12,7 +13,6 @@
 @import "./screens/etc/chart.scss";
 
 @import "./screens/global/home.scss";
-@import "./screens/global/join.scss";
 @import "./screens/global/login.scss";
 
 @import "./screens/item/addItem.scss";
@@ -45,8 +45,4 @@ body {
     justify-content: center;
     align-items: center;
   }
-}
-
-main {
-  display: block;
 }

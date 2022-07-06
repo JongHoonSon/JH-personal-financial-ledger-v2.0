@@ -1,7 +1,7 @@
 extends ../base.pug
 
 block content 
-    div
+    div#addItem-wrapper
         div#incomeOrExpense
             ul
                 li#income
@@ -9,9 +9,9 @@ block content
                 li#expense
                     a(href="/item/add-expense") 지출
 
-        div#addExpense-wrapper
+        div#form-wrapper
                 form(method="POST")
-                    div#addExpense-input-section
+                    div#input-section
                         div
                             label(for="date") 날짜
                             input(placeholder="YYYY", id="date", name="date", type="date", required)
@@ -47,5 +47,5 @@ block content
                                 option(value="credit_card") 신용카드
                                 option(value="check_card") 체크카드
                                 option(value="cash") 현금
-                    div#addExpense-button-section
+                    div#button-section
                         input(type="submit", value="생성")
