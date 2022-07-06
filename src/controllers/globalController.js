@@ -81,3 +81,12 @@ export const postLogin = async (req, res) => {
   req.flash("success", `Hello, ${user.nickname} !`);
   return res.redirect("/");
 };
+
+export const logout = (req, res) => {
+  const loggedInUserNickname = req.session.user.username;
+  req.session.user = null;
+  req.session.loggedIn = false;
+  res.locals.loggedInUser = req.session.user;
+  req.flash("success", `See you again, ${loggedInUserNickname}!`);
+  return res.redirect("/");
+};
