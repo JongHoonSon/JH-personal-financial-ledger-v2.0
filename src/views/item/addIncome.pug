@@ -1,0 +1,41 @@
+extends ../base.pug
+
+block content 
+    div
+        div#incomeOrExpense
+            ul
+                li#income
+                    a(href="/item/add-income") 수입
+                li#expense
+                    a(href="/item/add-expense") 지출
+
+        div#addIncome-wrapper
+                form(method="POST")
+                    div#addIncome-input-section
+                        div
+                            label(for="date") 날짜
+                            input(placeholder="YYYY", id="date", name="date", type="date", required)
+                            span 년
+                        div
+                            label(for="amount") 금액
+                            input(placeholder="amount", id="amount", name="amount", type="text", required)
+                            span 원
+                        div 
+                            label(for="category") 분류
+                            select(id="category")
+                                option(value="monthly_salary") 월급
+                                option(value="weekly_salary") 주급
+                                option(value="pocket_money") 용돈
+                                option(value="bank_interest") 은행이자
+                                option(value="stock_profit") 주식이윤
+                                option(value="etc") 기타
+                        div 
+                            label(for="description") 설명
+                            input(placeholder="description", id="description", name="description", type="text", required)
+                        div 
+                            label(for="cycle") 주기
+                            select(id="cycle")
+                                option(value="periodicity") 정기성
+                                option(value="one-time") 일회성
+                    div#addIncome-button-section
+                        input(type="submit", value="생성")

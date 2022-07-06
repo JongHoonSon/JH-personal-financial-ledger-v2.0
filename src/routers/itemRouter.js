@@ -1,10 +1,12 @@
 import express from "express";
 import {
-  getAddItem,
+  getAddExpense,
+  getAddIncome,
   getDetailItem,
   getEditItem,
   getPinnedItems,
-  postAddItem,
+  postAddExpense,
+  postAddIncome,
   postAddPin,
   postDeleteItem,
   postDeleteItems,
@@ -14,7 +16,8 @@ import {
 
 const itemRouter = express.Router();
 
-itemRouter.route("/add-item").get(getAddItem).post(postAddItem);
+itemRouter.route("/add-expense").get(getAddExpense).post(postAddExpense);
+itemRouter.route("/add-income").get(getAddIncome).post(postAddIncome);
 itemRouter.route("/edit-item/:itemId").get(getEditItem).post(postEditItem);
 itemRouter.post("/delete-item/:itemId", postDeleteItem);
 itemRouter.post("/delete-items/:itemIds", postDeleteItems);

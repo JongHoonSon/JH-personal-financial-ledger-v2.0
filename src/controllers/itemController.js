@@ -1,8 +1,14 @@
-export const getAddItem = (req, res) => {
-  res.render("item/addItem", { pageTitle: "Add Item" });
+export const getAddExpense = (req, res) => {
+  res.render("item/addExpense", { pageTitle: "Add Expense" });
 };
 
-export const postAddItem = (req, res) => {};
+export const postAddExpense = (req, res) => {};
+
+export const getAddIncome = (req, res) => {
+  res.render("item/addIncome", { pageTitle: "Add Income" });
+};
+
+export const postAddIncome = (req, res) => {};
 
 export const getEditItem = (req, res) => {
   res.render("item/editItem", { pageTitle: "Edit Item" });
