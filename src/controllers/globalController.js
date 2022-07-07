@@ -3,11 +3,11 @@ import bcrypt from "bcrypt";
 
 export const getHome = (req, res) => {
   console.log(req.session);
-  res.render("global/home", { pageTitle: "Home" });
+  res.render("global/home", { pageTitle: "홈" });
 };
 
 export const getJoin = (req, res) => {
-  res.render("global/join", { pageTitle: "Join" });
+  res.render("global/join", { pageTitle: "회원가입" });
 };
 
 export const postJoin = async (req, res) => {
@@ -19,25 +19,25 @@ export const postJoin = async (req, res) => {
       "error",
       "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다."
     );
-    return res.status(400).render("global/join", { pageTitle: "Join" });
+    return res.status(400).render("global/join", { pageTitle: "회원가입" });
   }
 
   const checkUsername = await User.exists({ username });
   if (checkUsername === true) {
     req.flash("error", "이미 사용 중인 아이디입니다.");
-    return res.status(400).render("global/join", { pageTitle: "Join" });
+    return res.status(400).render("global/join", { pageTitle: "회원가입" });
   }
 
   const checkEmail = await User.exists({ email });
   if (checkEmail === true) {
     req.flash("error", "이미 사용 중인 이메일입니다.");
-    return res.status(400).render("global/join", { pageTitle: "Join" });
+    return res.status(400).render("global/join", { pageTitle: "회원가입" });
   }
 
   const checkNickname = await User.exists({ nickname });
   if (checkNickname === true) {
     req.flash("error", "이미 사용 중인 닉네임입니다.");
-    return res.status(400).render("global/join", { pageTitle: "Join" });
+    return res.status(400).render("global/join", { pageTitle: "회원가입" });
   }
 
   try {
@@ -53,12 +53,12 @@ export const postJoin = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "회원가입을 하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).render("global/join", { pageTitle: "Join" });
+    return res.status(400).render("global/join", { pageTitle: "회원가입" });
   }
 };
 
 export const getLogin = (req, res) => {
-  res.render("global/login", { pageTitle: "Login" });
+  res.render("global/login", { pageTitle: "로그인" });
 };
 
 export const postLogin = async (req, res) => {
@@ -67,13 +67,13 @@ export const postLogin = async (req, res) => {
   const user = await User.findOne({ username, socialOnly: false });
   if (!user) {
     req.flash("error", "입력하신 아이디는 없는 아이디입니다.");
-    return res.status(400).render("global/login", { pageTitle: "Login" });
+    return res.status(400).render("global/login", { pageTitle: "로그인" });
   }
 
   const passwordCorrect = await bcrypt.compare(password, user.password);
   if (!passwordCorrect) {
     req.flash("error", "비밀번호가 일치하지 않습니다.");
-    return res.status(400).render("global/login", { pageTitle: "Login" });
+    return res.status(400).render("global/login", { pageTitle: "로그인" });
   }
 
   req.session.loggedIn = true;

@@ -1,10 +1,10 @@
 export const getProfile = (req, res) => {
-  res.render("user/profile", { pageTitle: "Profile" });
+  res.render("user/profile", { pageTitle: "프로필" });
 };
 
 export const getEditProfile = (req, res) => {
   res.render("user/editProfile", {
-    pageTitle: "Edit Profile",
+    pageTitle: "프로필 수정",
   });
 };
 
