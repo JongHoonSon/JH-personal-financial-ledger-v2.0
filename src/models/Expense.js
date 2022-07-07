@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const expenseSchema = new mongoose.Schema({
-  owner: { type: mongoose.Schema.Types.ObjectId, require: true, ref: "User" },
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   date: { type: Date, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
   amount: { type: Number, required: true },
