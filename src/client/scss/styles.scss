@@ -46,3 +46,24 @@ body {
     align-items: center;
   }
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#incomeColor {
+  color: $income-color;
+}
+
+#expenseColor {
+  color: $expense-color;
+}
+
+#incomeBgColor {
+  background-color: $income-color;
+}
+
+#expenseBgColor {
+  background-color: $expense-color;
+}

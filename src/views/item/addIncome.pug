@@ -4,13 +4,13 @@ block content
     div#addItem-wrapper
         div#incomeOrExpense
             ul
-                li#income
-                    a(href="/item/add-income") 수입
-                li#expense
+                li
+                    a#incomeColor(href="/item/add-income") 수입
+                li
                     a(href="/item/add-expense") 지출
 
         div#form-wrapper
-                form(method="POST")
+                form(method="POST")#incomeBgColor
                     div#input-section
                         div
                             label(for="date") 날짜
