@@ -3,7 +3,7 @@ import Expense from "../models/Expense";
 import User from "../models/User";
 
 export const getAddExpense = (req, res) => {
-  res.render("item/addExpense", { pageTitle: "지출 내역 작성" });
+  res.render("item/addExpense", { pageTitle: "지출 내역 추가" });
 };
 
 export const postAddExpense = async (req, res) => {
@@ -32,12 +32,12 @@ export const postAddExpense = async (req, res) => {
     req.flash("error", "지출 내역을 추가하는 과정에서 오류가 발생했습니다.");
     return res
       .status(400)
-      .render("item/addExpense", { pageTitle: "지출 내역 작성" });
+      .render("item/addExpense", { pageTitle: "지출 내역 추가" });
   }
 };
 
 export const getAddIncome = (req, res) => {
-  res.render("item/addIncome", { pageTitle: "수입 내역 작성" });
+  res.render("item/addIncome", { pageTitle: "수입 내역 추가" });
 };
 
 export const postAddIncome = async (req, res) => {
@@ -64,7 +64,7 @@ export const postAddIncome = async (req, res) => {
     req.flash("error", "수입 내역을 추가하는 과정에서 오류가 발생했습니다.");
     return res
       .status(400)
-      .render("item/addIncome", { pageTitle: "수입 내역 작성" });
+      .render("item/addIncome", { pageTitle: "수입 내역 추가" });
   }
 };
 

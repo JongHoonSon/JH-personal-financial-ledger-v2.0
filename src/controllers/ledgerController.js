@@ -11,5 +11,5 @@ export const getLedgerMonthly = (req, res) => {
 };
 
 export const getLedgerYearly = (req, res) => {
-  res.render("ledger/ledgerYearly", { pageTitle: "연별 내역" });
+  res.render("ledger/ledgerYearly", { pageTitle: "연도별 내역" });
 };
