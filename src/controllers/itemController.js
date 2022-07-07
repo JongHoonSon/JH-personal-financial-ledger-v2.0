@@ -1,12 +1,39 @@
 import Income from "../models/Income";
+import Expense from "../models/Expense";
 import User from "../models/User";
 
 export const getAddExpense = (req, res) => {
   res.render("item/addExpense", { pageTitle: "Add Expense" });
 };
 
-export const postAddExpense = (req, res) => {
-  console.log(req.body);
+export const postAddExpense = async (req, res) => {
+  const { date, amount, category, description, cycle, paymentMethod } =
+    req.body;
+
+  const loggedInUser = res.locals.loggedInUser;
+
+  try {
+    const user = await User.findById(loggedInUser._id);
+    const newExpense = await Expense.create({
+      owner: user,
+      date,
+      amount,
+      category,
+      description,
+      cycle,
+      paymentMethod,
+    });
+    user.expenseList.push(newExpense);
+    user.save();
+    req.flash("success", "Expense added.");
+    return res.redirect("/item/add-expense");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "An error occurred while creating a expense.");
+    return res
+      .status(400)
+      .render("item/addExpense", { pageTitle: "Add Expense" });
+  }
 };
 
 export const getAddIncome = (req, res) => {
