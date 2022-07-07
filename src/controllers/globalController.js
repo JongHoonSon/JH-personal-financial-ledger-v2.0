@@ -15,25 +15,28 @@ export const postJoin = async (req, res) => {
     req.body;
 
   if (password !== password_confirm) {
-    req.flash("error", "Password confirm failed.");
+    req.flash(
+      "error",
+      "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다."
+    );
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
   const checkUsername = await User.exists({ username });
   if (checkUsername === true) {
-    req.flash("error", "This username is already taken");
+    req.flash("error", "이미 사용 중인 아이디입니다.");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
   const checkEmail = await User.exists({ email });
   if (checkEmail === true) {
-    req.flash("error", "This email is already taken");
+    req.flash("error", "이미 사용 중인 이메일입니다.");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
   const checkNickname = await User.exists({ nickname });
   if (checkNickname === true) {
-    req.flash("error", "This nickname is already taken");
+    req.flash("error", "이미 사용 중인 닉네임입니다.");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 
@@ -45,11 +48,11 @@ export const postJoin = async (req, res) => {
       email,
       nickname,
     });
-    req.flash("success", "User created.");
+    req.flash("success", "회원가입에 완료했습니다.");
     return res.redirect("/login");
   } catch (error) {
     console.log(error);
-    req.flash("error", "An error occurred while creating a user.");
+    req.flash("error", "회원가입을 하는 과정에서 오류가 발생했습니다.");
     return res.status(400).render("global/join", { pageTitle: "Join" });
   }
 };
@@ -63,20 +66,20 @@ export const postLogin = async (req, res) => {
 
   const user = await User.findOne({ username, socialOnly: false });
   if (!user) {
-    req.flash("error", "User does not exists.");
+    req.flash("error", "입력하신 아이디는 없는 아이디입니다.");
     return res.status(400).render("global/login", { pageTitle: "Login" });
   }
 
   const passwordCorrect = await bcrypt.compare(password, user.password);
   if (!passwordCorrect) {
-    req.flash("error", "Incorrect password.");
+    req.flash("error", "비밀번호가 일치하지 않습니다.");
     return res.status(400).render("global/login", { pageTitle: "Login" });
   }
 
   req.session.loggedIn = true;
   req.session.user = user;
 
-  req.flash("success", `Hello, ${user.nickname} !`);
+  req.flash("success", `안녕하세요, ${user.nickname} 님!`);
   return res.redirect("/");
 };
 
@@ -86,6 +89,6 @@ export const logout = (req, res) => {
   req.session.loggedIn = false;
   res.locals.loggedInUser = req.session.user;
 
-  req.flash("success", `See you again, ${loggedInUserNickname}!`);
+  req.flash("success", `다음에 또 봬요, ${loggedInUserNickname} 님!`);
   return res.redirect("/");
 };

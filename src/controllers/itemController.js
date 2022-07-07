@@ -25,11 +25,11 @@ export const postAddExpense = async (req, res) => {
     });
     user.expenseList.push(newExpense);
     user.save();
-    req.flash("success", "Expense added.");
+    req.flash("success", "지출 내역이 추가되었습니다.");
     return res.redirect("/item/add-expense");
   } catch (error) {
     console.log(error);
-    req.flash("error", "An error occurred while creating a expense.");
+    req.flash("error", "지출 내역을 추가하는 과정에서 오류가 발생했습니다.");
     return res
       .status(400)
       .render("item/addExpense", { pageTitle: "Add Expense" });
@@ -57,11 +57,11 @@ export const postAddIncome = async (req, res) => {
     });
     user.incomeList.push(newIncome);
     user.save();
-    req.flash("success", "Income added.");
+    req.flash("success", "수입 내역이 추가되었습니다.");
     return res.redirect("/item/add-income");
   } catch (error) {
     console.log(error);
-    req.flash("error", "An error occurred while creating a income.");
+    req.flash("error", "수입 내역을 추가하는 과정에서 오류가 발생했습니다.");
     return res
       .status(400)
       .render("item/addIncome", { pageTitle: "Add Income" });
