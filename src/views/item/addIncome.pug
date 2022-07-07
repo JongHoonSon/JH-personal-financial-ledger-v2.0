@@ -22,7 +22,7 @@ block content
                             span 원
                         div 
                             label(for="category") 분류
-                            select(id="category")
+                            select(id="category", name="category", required)
                                 option(value="monthly_salary") 월급
                                 option(value="weekly_salary") 주급
                                 option(value="pocket_money") 용돈
@@ -34,7 +34,7 @@ block content
                             input(placeholder="description", id="description", name="description", type="text")
                         div 
                             label(for="cycle") 주기
-                            select(id="cycle")
+                            select(id="cycle", name="cycle", required)
                                 option(value="periodicity") 정기성
                                 option(value="one-time") 일회성
                     div#button-section
