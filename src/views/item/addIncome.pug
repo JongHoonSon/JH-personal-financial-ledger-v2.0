@@ -2,12 +2,7 @@ extends ../base.pug
 
 block content 
     div#addItem-wrapper
-        div#addItem-nav
-            ul
-                li
-                    a#incomeColor(href="/item/add-income") 수입
-                li
-                    a(href="/item/add-expense") 지출
+        include ../partials/addItem_nav.pug
 
         div#form-wrapper
                 form(method="POST")#incomeBgColor
