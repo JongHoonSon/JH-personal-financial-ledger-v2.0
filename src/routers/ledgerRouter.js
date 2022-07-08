@@ -8,9 +8,15 @@ import {
 
 const ledgerRouter = express.Router();
 
-ledgerRouter.get("/:yyyy([0-9]{4})-:mm([0-9]{2})/daily", getLedgerDaily);
-ledgerRouter.get("/:yyyy([0-9]{4})-:mm([0-9]{2})/weekly", getLedgerWeekly);
+ledgerRouter.get(
+  "/:yyyy([0-9]{4})-:mm([0-9]{2})-:dd([0-9]{2})/daily",
+  getLedgerDaily
+);
+ledgerRouter.get(
+  "/:yyyy([0-9]{4})-:mm([0-9]{2})-:dd([0-9]{2})/weekly",
+  getLedgerWeekly
+);
 ledgerRouter.get("/:yyyy([0-9]{4})-:mm([0-9]{2})/monthly", getLedgerMonthly);
-ledgerRouter.get("/yearly", getLedgerYearly);
+ledgerRouter.get("/:yyyy([0-9]{4})/yearly", getLedgerYearly);
 
 export default ledgerRouter;
