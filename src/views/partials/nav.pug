@@ -15,7 +15,7 @@ nav
                 a(href="/user/profile") #{loggedInUser.nickname}의 프로필
 
         li#ledger 
-            a(href="/ledger/2022-06/Daily") 가계부
+            a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/Daily`) 가계부
 
         li#addItem
             a(href="/item/add-income") 수입/지출 내역 추가
