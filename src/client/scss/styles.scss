@@ -1,21 +1,18 @@
+// Components
+@import "./components/form.scss";
+
 // Config
 @import "./config/_reset.scss";
 @import "./config/_variables.scss";
 
-// Components
-@import "./components/footer.scss";
-@import "./components/form.scss";
-@import "./components/header.scss";
-@import "./components/main.scss";
-@import "./components/nav.scss";
-
 // Screens
 @import "./screens/etc/chart.scss";
+@import "./screens/etc/lastExpense.scss";
 
 @import "./screens/global/home.scss";
+@import "./screens/global/join.scss";
 @import "./screens/global/login.scss";
 
-@import "./screens/item/addItem_nav.scss";
 @import "./screens/item/addItem.scss";
 @import "./screens/item/detailItem.scss";
 @import "./screens/item/editItem.scss";
@@ -25,6 +22,13 @@
 @import "./screens/ledger/ledgerMonthly.scss";
 @import "./screens/ledger/ledgerWeekly.scss";
 @import "./screens/ledger/ledgerYearly.scss";
+
+@import "./screens/partials/addItem_nav.scss";
+@import "./screens/partials/footer.scss";
+@import "./screens/partials/header.scss";
+@import "./screens/partials/ledger_nav.scss";
+@import "./screens/partials/main.scss";
+@import "./screens/partials/nav.scss";
 
 @import "./screens/user/editProfile.scss";
 @import "./screens/user/profile.scss";
