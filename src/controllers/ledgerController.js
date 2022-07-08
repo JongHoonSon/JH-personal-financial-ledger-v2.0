@@ -1,5 +1,23 @@
-export const getLedgerDaily = (req, res) => {
-  res.render("ledger/ledgerDaily", { pageTitle: "일별 내역" });
+import Income from "../models/Income";
+import User from "../models/User";
+
+export const getLedgerDaily = async (req, res) => {
+  const loggedInUser = res.locals.loggedInUser;
+
+  const user = await User.findById(loggedInUser._id)
+    .populate("incomeList")
+    .populate("expenseList");
+
+  const { incomeList, expenseList } = user;
+
+  console.log(incomeList);
+  console.log(expenseList);
+
+  res.render("ledger/ledgerDaily", {
+    pageTitle: "일별 내역",
+    incomeList,
+    expenseList,
+  });
 };
 
 export const getLedgerWeekly = (req, res) => {

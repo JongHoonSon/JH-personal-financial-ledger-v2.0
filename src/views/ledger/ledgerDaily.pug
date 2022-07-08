@@ -1,4 +1,5 @@
 extends ../base.pug
+include ../mixins/item-mixins-daily.pug
 
 block content 
     div#ledger-wrapper
@@ -6,3 +7,9 @@ block content
 
         div#ledger-content
             div#ledger-daily
+                ul
+                    each income in incomeList
+                        +daily(income)
+
+                    each expense in expenseList
+                        +daily(expense)
