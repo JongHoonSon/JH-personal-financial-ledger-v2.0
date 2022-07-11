@@ -2,7 +2,7 @@ import Income from "../models/Income";
 import User from "../models/User";
 
 function sortItem(itemList) {
-  itemList.sort((a, b) => a.date - b.date);
+  itemList.sort((a, b) => b.date - a.date);
 }
 
 function getStringDate(date) {
