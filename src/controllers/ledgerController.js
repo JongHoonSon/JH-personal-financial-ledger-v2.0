@@ -1,6 +1,18 @@
 import Income from "../models/Income";
 import User from "../models/User";
 
+function sortItem(itemList) {
+  itemList.sort((a, b) => a.date - b.date);
+}
+
+function getStringDate(date) {
+  return (
+    date.getFullYear().toString() +
+    (date.getMonth() + 1).toString().padStart(2, 0) +
+    date.getDate().toString().padStart(2, 0)
+  );
+}
+
 export const getLedgerDaily = async (req, res) => {
   const { yyyy, mm, dd } = req.params;
 
@@ -13,24 +25,16 @@ export const getLedgerDaily = async (req, res) => {
   const { incomeList, expenseList } = user;
   const itemList = new Array();
   incomeList.forEach((el) => {
-    if (
-      el.date.getFullYear().toString() === yyyy &&
-      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm &&
-      el.date.getDate().toString().padStart(2, 0) === dd
-    ) {
+    if (getStringDate(el.date) === yyyy + mm + dd) {
       itemList.push(el);
     }
   });
   expenseList.forEach((el) => {
-    if (
-      el.date.getFullYear().toString() === yyyy &&
-      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm &&
-      el.date.getDate().toString().padStart(2, 0) === dd
-    ) {
+    if (getStringDate(el.date) === yyyy + mm + dd) {
       itemList.push(el);
     }
   });
-  itemList.sort((a, b) => a.date - b.date);
+  sortItem(itemList);
 
   res.render("ledger/ledgerDaily", {
     pageTitle: "일별 내역",
