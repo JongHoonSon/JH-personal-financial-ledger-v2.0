@@ -2,6 +2,8 @@ import Income from "../models/Income";
 import User from "../models/User";
 
 export const getLedgerDaily = async (req, res) => {
+  const { yyyy, mm, dd } = req.params;
+
   const loggedInUser = res.locals.loggedInUser;
 
   const user = await User.findById(loggedInUser._id)
@@ -9,14 +11,26 @@ export const getLedgerDaily = async (req, res) => {
     .populate("expenseList");
 
   const { incomeList, expenseList } = user;
-
   const itemList = new Array();
-  itemList.push(...incomeList);
-  itemList.push(...expenseList);
+  incomeList.forEach((el) => {
+    if (
+      el.date.getFullYear().toString() === yyyy &&
+      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm &&
+      el.date.getDate().toString().padStart(2, 0) === dd
+    ) {
+      itemList.push(el);
+    }
+  });
+  expenseList.forEach((el) => {
+    if (
+      el.date.getFullYear().toString() === yyyy &&
+      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm &&
+      el.date.getDate().toString().padStart(2, 0) === dd
+    ) {
+      itemList.push(el);
+    }
+  });
   itemList.sort((a, b) => a.date - b.date);
-
-  console.log("itemList");
-  console.log(itemList);
 
   res.render("ledger/ledgerDaily", {
     pageTitle: "일별 내역",
