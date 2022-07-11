@@ -106,36 +106,6 @@ export const getLedgerWeekly = async (req, res) => {
   nextDate.setDate(todayDate.getDate() + 7);
   const next = getStringDate(nextDate);
 
-  const loggedInUser = res.locals.loggedInUser;
-  const user = await User.findById(loggedInUser._id)
-    .populate("incomeList")
-    .populate("expenseList");
-  const { incomeList, expenseList } = user;
-
-  const itemList = new Array();
-  console.log("item push");
-  incomeList.forEach((el) => {
-    console.log(el.date.getWeek());
-    if (
-      el.date.getFullYear().toString() === yyyy &&
-      el.date.getWeek() === todayWeek
-    ) {
-      itemList.push(el);
-    }
-  });
-  expenseList.forEach((el) => {
-    if (
-      el.date.getFullYear().toString() === yyyy &&
-      el.date.getWeek() === todayWeek
-    ) {
-      itemList.push(el);
-    }
-  });
-  sortItem(itemList);
-
-  const cycle = "weekly";
-  const now = todayStringDate;
-
   const todayDay = todayDate.getDay();
 
   const weekStartDate = new Date(todayDate.getTime());
@@ -145,6 +115,34 @@ export const getLedgerWeekly = async (req, res) => {
   const weekEndDate = new Date(todayDate.getTime());
   weekEndDate.setDate(todayDate.getDate() - todayDay + 6);
   const weekEnd = getStringDate(weekEndDate);
+
+  const loggedInUser = res.locals.loggedInUser;
+  const user = await User.findById(loggedInUser._id)
+    .populate("incomeList")
+    .populate("expenseList");
+  const { incomeList, expenseList } = user;
+
+  const itemList = new Array();
+  incomeList.forEach((el) => {
+    if (
+      getStringDate(el.date) >= weekStart &&
+      getStringDate(el.date) <= weekEnd
+    ) {
+      itemList.push(el);
+    }
+  });
+  expenseList.forEach((el) => {
+    if (
+      getStringDate(el.date) >= weekStart &&
+      getStringDate(el.date) <= weekEnd
+    ) {
+      itemList.push(el);
+    }
+  });
+  sortItem(itemList);
+
+  const cycle = "weekly";
+  const now = todayStringDate;
 
   const calendarTitle = weekStart + " ~ " + weekEnd;
 
@@ -160,6 +158,11 @@ export const getLedgerWeekly = async (req, res) => {
 };
 
 export const getLedgerMonthly = (req, res) => {
+  const { yyyy, mm } = req.params;
+
+  const thisYear = yyyy;
+  const thisMonth = mm;
+
   res.render("ledger/ledgerMonthly", { pageTitle: "월별 내역" });
 };
 
