@@ -10,13 +10,17 @@ export const getLedgerDaily = async (req, res) => {
 
   const { incomeList, expenseList } = user;
 
-  console.log(incomeList);
-  console.log(expenseList);
+  const itemList = new Array();
+  itemList.push(...incomeList);
+  itemList.push(...expenseList);
+  itemList.sort((a, b) => a.date - b.date);
+
+  console.log("itemList");
+  console.log(itemList);
 
   res.render("ledger/ledgerDaily", {
     pageTitle: "일별 내역",
-    incomeList,
-    expenseList,
+    itemList,
   });
 };
 
