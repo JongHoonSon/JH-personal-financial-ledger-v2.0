@@ -1,8 +1,14 @@
 extends ../base.pug
+include ../mixins/item-mixins-list.pug
 
 block content 
     div#ledger-wrapper
         include ../partials/ledger_nav.pug
 
+        include ../partials/ledger_calendar.pug
+
         div#ledger-content
-            div#ledger-yearly
+            div#ledger-list
+                ul
+                    each item in itemList
+                        +list(item)

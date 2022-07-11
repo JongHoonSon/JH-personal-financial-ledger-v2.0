@@ -210,6 +210,42 @@ export const getLedgerMonthly = async (req, res) => {
   });
 };
 
-export const getLedgerYearly = (req, res) => {
-  res.render("ledger/ledgerYearly", { pageTitle: "연도별 내역" });
+export const getLedgerYearly = async (req, res) => {
+  const { yyyy } = req.params;
+
+  const prev = (Number(yyyy) - 1).toString();
+  const next = (Number(yyyy) + 1).toString();
+
+  const loggedInUser = res.locals.loggedInUser;
+  const user = await User.findById(loggedInUser._id)
+    .populate("incomeList")
+    .populate("expenseList");
+  const { incomeList, expenseList } = user;
+
+  const itemList = new Array();
+  incomeList.forEach((el) => {
+    if (el.date.getFullYear().toString() === yyyy) {
+      itemList.push(el);
+    }
+  });
+  expenseList.forEach((el) => {
+    if (el.date.getFullYear().toString() === yyyy) {
+      itemList.push(el);
+    }
+  });
+  sortItem(itemList);
+
+  const cycle = "yearly";
+  const now = yyyy;
+  const calendarTitle = yyyy;
+
+  res.render("ledger/ledgerYearly", {
+    pageTitle: "연도별 내역",
+    itemList,
+    prev,
+    now,
+    next,
+    calendarTitle,
+    cycle,
+  });
 };
