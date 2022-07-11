@@ -1,6 +1,6 @@
-mixin daily(item)
+mixin list(item)
     li
-        div.item-mixins-daily
+        div.item-mixins-list
             ul
                 li(display: inline-block;) #{'날짜 : ' + item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}
                 li #{'금액 : ' + item.amount + '원'}

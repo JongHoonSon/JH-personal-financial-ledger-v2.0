@@ -1,5 +1,5 @@
 extends ../base.pug
-include ../mixins/item-mixins-daily.pug
+include ../mixins/item-mixins-list.pug
 
 block content 
     div#ledger-wrapper
@@ -8,7 +8,7 @@ block content
         include ../partials/ledger_calendar.pug
 
         div#ledger-content
-            div#ledger-daily
+            div#ledger-list
                 ul
                     each item in itemList
-                        +daily(item)
+                        +list(item)
