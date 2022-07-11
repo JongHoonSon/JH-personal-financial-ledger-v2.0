@@ -78,6 +78,7 @@ export const getLedgerDaily = async (req, res) => {
 
   const cycle = "daily";
   const now = todayStringDate;
+  const calendarTitle = todayStringDate;
 
   res.render("ledger/ledgerDaily", {
     pageTitle: "일별 내역",
@@ -85,6 +86,7 @@ export const getLedgerDaily = async (req, res) => {
     prev,
     now,
     next,
+    calendarTitle,
     cycle,
   });
 };
@@ -125,13 +127,20 @@ export const getLedgerWeekly = async (req, res) => {
   });
   sortItem(itemList);
 
-  console.log("itemList");
-  console.log(itemList);
-
   const cycle = "weekly";
   const now = todayStringDate;
 
-  console.log(todayWeek);
+  const todayDay = todayDate.getDay();
+
+  const weekStartDate = new Date(todayDate.getTime());
+  weekStartDate.setDate(todayDate.getDate() - todayDay);
+  const weekStart = getStringDate(weekStartDate);
+
+  const weekEndDate = new Date(todayDate.getTime());
+  weekEndDate.setDate(todayDate.getDate() - todayDay + 6);
+  const weekEnd = getStringDate(weekEndDate);
+
+  const calendarTitle = weekStart + " ~ " + weekEnd;
 
   res.render("ledger/ledgerWeekly", {
     pageTitle: "주별 내역",
@@ -139,6 +148,7 @@ export const getLedgerWeekly = async (req, res) => {
     prev,
     now,
     next,
+    calendarTitle,
     cycle,
   });
 };
