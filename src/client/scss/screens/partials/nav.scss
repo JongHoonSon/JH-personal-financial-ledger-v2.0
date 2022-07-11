@@ -8,11 +8,14 @@ nav {
 
   ul {
     width: 100%;
+    border: 1px solid black;
+
     li {
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 50px 10px;
+      border: 1px solid black;
     }
   }
 }
