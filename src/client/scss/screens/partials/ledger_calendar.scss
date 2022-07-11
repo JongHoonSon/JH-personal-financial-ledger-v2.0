@@ -1,0 +1,12 @@
+#ledger-calendar {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ul li {
+    display: inline-block;
+    margin: 20px;
+  }
+}
