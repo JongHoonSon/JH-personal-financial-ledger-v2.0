@@ -8,7 +8,9 @@ function sortItem(itemList) {
 function getStringDate(date) {
   return (
     date.getFullYear().toString() +
+    "-" +
     (date.getMonth() + 1).toString().padStart(2, 0) +
+    "-" +
     date.getDate().toString().padStart(2, 0)
   );
 }
@@ -16,29 +18,45 @@ function getStringDate(date) {
 export const getLedgerDaily = async (req, res) => {
   const { yyyy, mm, dd } = req.params;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const todayStringDate = yyyy + "-" + mm + "-" + dd;
+  const todayDate = new Date(todayStringDate);
 
+  const prevDate = new Date(todayDate.getTime());
+  prevDate.setDate(todayDate.getDate() - 1);
+  const prevStringDate = getStringDate(prevDate);
+
+  const nextDate = new Date(todayDate.getTime());
+  nextDate.setDate(todayDate.getDate() + 1);
+  const nextStringDate = getStringDate(nextDate);
+
+  const loggedInUser = res.locals.loggedInUser;
   const user = await User.findById(loggedInUser._id)
     .populate("incomeList")
     .populate("expenseList");
-
   const { incomeList, expenseList } = user;
+
   const itemList = new Array();
   incomeList.forEach((el) => {
-    if (getStringDate(el.date) === yyyy + mm + dd) {
+    if (getStringDate(el.date) === todayStringDate) {
       itemList.push(el);
     }
   });
   expenseList.forEach((el) => {
-    if (getStringDate(el.date) === yyyy + mm + dd) {
+    if (getStringDate(el.date) === todayStringDate) {
       itemList.push(el);
     }
   });
   sortItem(itemList);
 
+  const cycle = "daily";
+
   res.render("ledger/ledgerDaily", {
     pageTitle: "일별 내역",
     itemList,
+    prevStringDate,
+    todayStringDate,
+    nextStringDate,
+    cycle,
   });
 };
 
