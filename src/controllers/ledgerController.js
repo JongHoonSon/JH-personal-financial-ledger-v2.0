@@ -157,13 +157,57 @@ export const getLedgerWeekly = async (req, res) => {
   });
 };
 
-export const getLedgerMonthly = (req, res) => {
+export const getLedgerMonthly = async (req, res) => {
   const { yyyy, mm } = req.params;
 
-  const thisYear = yyyy;
-  const thisMonth = mm;
+  const prevMonth =
+    mm === "01" ? "12" : (Number(mm) - 1).toString().padStart(2, 0);
+  const prevYear = prevMonth === "12" ? (Number(yyyy) - 1).toString() : yyyy;
+  const prev = prevYear + "-" + prevMonth;
 
-  res.render("ledger/ledgerMonthly", { pageTitle: "월별 내역" });
+  const nextMonth =
+    mm === "12" ? "01" : (Number(mm) + 1).toString().padStart(2, 0);
+  const nextYear = nextMonth === "01" ? (Number(yyyy) + 1).toString() : yyyy;
+  const next = nextYear + "-" + nextMonth;
+
+  const loggedInUser = res.locals.loggedInUser;
+  const user = await User.findById(loggedInUser._id)
+    .populate("incomeList")
+    .populate("expenseList");
+  const { incomeList, expenseList } = user;
+
+  const itemList = new Array();
+  incomeList.forEach((el) => {
+    if (
+      el.date.getFullYear().toString() === yyyy &&
+      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
+    ) {
+      itemList.push(el);
+    }
+  });
+  expenseList.forEach((el) => {
+    if (
+      el.date.getFullYear().toString() === yyyy &&
+      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
+    ) {
+      itemList.push(el);
+    }
+  });
+  sortItem(itemList);
+
+  const cycle = "monthly";
+  const now = yyyy + "-" + mm;
+  const calendarTitle = yyyy + "-" + mm;
+
+  res.render("ledger/ledgerMonthly", {
+    pageTitle: "월별 내역",
+    itemList,
+    prev,
+    now,
+    next,
+    calendarTitle,
+    cycle,
+  });
 };
 
 export const getLedgerYearly = (req, res) => {
