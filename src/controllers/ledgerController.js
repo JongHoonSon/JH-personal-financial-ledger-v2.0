@@ -116,12 +116,18 @@ export const getLedgerWeekly = async (req, res) => {
   console.log("item push");
   incomeList.forEach((el) => {
     console.log(el.date.getWeek());
-    if (el.date.getWeek() === todayWeek) {
+    if (
+      el.date.getFullYear().toString() === yyyy &&
+      el.date.getWeek() === todayWeek
+    ) {
       itemList.push(el);
     }
   });
   expenseList.forEach((el) => {
-    if (el.date.getWeek() === todayWeek) {
+    if (
+      el.date.getFullYear().toString() === yyyy &&
+      el.date.getWeek() === todayWeek
+    ) {
       itemList.push(el);
     }
   });
