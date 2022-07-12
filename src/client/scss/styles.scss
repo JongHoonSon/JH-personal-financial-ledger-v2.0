@@ -61,18 +61,18 @@ a {
   color: black;
 }
 
-#incomeColor {
+.incomeColor {
   color: $income-color;
 }
 
-#expenseColor {
+.expenseColor {
   color: $expense-color;
 }
 
-#incomeBgColor {
+.incomeBgColor {
   background-color: $income-color;
 }
 
-#expenseBgColor {
+.expenseBgColor {
   background-color: $expense-color;
 }
