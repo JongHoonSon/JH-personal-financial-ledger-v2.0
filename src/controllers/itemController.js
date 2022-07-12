@@ -68,8 +68,18 @@ export const postAddIncome = async (req, res) => {
   }
 };
 
-export const getEditItem = (req, res) => {
-  res.render("item/editItem", { pageTitle: "내역 수정" });
+export const getEditItem = async (req, res) => {
+  const { type, itemId } = req.params;
+
+  let item;
+
+  if (type === "i") {
+    item = await Income.findById(itemId);
+  } else {
+    item = await Expense.findById(itemId);
+  }
+
+  res.render("item/editItem", { pageTitle: "내역 수정", item });
 };
 
 export const postEditItem = (req, res) => {};

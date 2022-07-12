@@ -23,3 +23,10 @@ block content
                 li 
                     label 지불 방식
                     span=item.paymentMethod
+    
+    div#item-option 
+        ul
+            li
+                a(href=`/item/edit/${item.type}/${item.id}`) 수정
+            li
+                a(href=`/item/delete/${item.type}/${item.id}`) 삭제

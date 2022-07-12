@@ -18,8 +18,8 @@ const itemRouter = express.Router();
 
 itemRouter.route("/add-expense").get(getAddExpense).post(postAddExpense);
 itemRouter.route("/add-income").get(getAddIncome).post(postAddIncome);
-itemRouter.route("/edit/:itemId").get(getEditItem).post(postEditItem);
-itemRouter.post("/delete/:itemId", postDeleteItem);
+itemRouter.route("/edit/:type/:itemId").get(getEditItem).post(postEditItem);
+itemRouter.post("/delete//:itemId", postDeleteItem);
 itemRouter.post("/delete/:itemIds", postDeleteItems);
 itemRouter.get("/detail/:type/:itemId", getDetailItem);
 itemRouter.get("/pinned", getPinnedItems);
