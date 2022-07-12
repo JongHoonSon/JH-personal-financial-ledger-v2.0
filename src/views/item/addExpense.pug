@@ -5,42 +5,42 @@ block content
         include ../partials/addItem_nav.pug
         
         div#form-wrapper
-                form(method="POST").expenseBgColor
-                    div#input-section
-                        div
-                            label(for="date") 날짜
-                            input(placeholder="YYYY", id="date", name="date", type="date", required)
-                            span 년
-                        div
-                            label(for="amount") 금액
-                            input(placeholder="amount", id="amount", name="amount", type="text", required)
-                            span 원
-                        div 
-                            label(for="category") 분류
-                            select(id="category", name="category", required)
-                                option(value="주거비") 주거비
-                                option(value="통신비") 통신비
-                                option(value="교통비") 교통비
-                                option(value="의료비") 의료비
-                                option(value="생활비") 생활비
-                                option(value="의류비") 의류비
-                                option(value="교육비") 교육비
-                                option(value="주식거래") 주식거래
-                                option(value="주식손해") 주식손해
-                                option(value="기타") 기타
-                        div 
-                            label(for="description") 설명
-                            input(placeholder="description", id="description", name="description", type="text")
-                        div 
-                            label(for="cycle") 주기
-                            select(id="cycle", name="cycle", required)
-                                option(value="정기성") 정기성
-                                option(value="one-일회성") 일회성
-                        div 
-                            label(for="paymentMethod") 지불 방식 
-                            select(id="paymentMethod", name="paymentMethod", required)
-                                option(value="신용카드") 신용카드
-                                option(value="체크카드") 체크카드
-                                option(value="현금") 현금
-                    div#button-section
-                        input(type="submit", value="추가하기")
+            form(method="POST").expenseBgColor
+                div#input-section
+                    div
+                        label(for="date") 날짜
+                        input(placeholder="YYYY", id="date", name="date", type="date", required)
+                        span 년
+                    div
+                        label(for="amount") 금액
+                        input(placeholder="amount", id="amount", name="amount", type="text", required)
+                        span 원
+                    div 
+                        label(for="category") 분류
+                        select(id="category", name="category", required)
+                            option(value="주거비") 주거비
+                            option(value="통신비") 통신비
+                            option(value="교통비") 교통비
+                            option(value="의료비") 의료비
+                            option(value="생활비") 생활비
+                            option(value="의류비") 의류비
+                            option(value="교육비") 교육비
+                            option(value="주식거래") 주식거래
+                            option(value="주식손해") 주식손해
+                            option(value="기타") 기타
+                    div 
+                        label(for="description") 설명
+                        input(placeholder="description", id="description", name="description", type="text")
+                    div 
+                        label(for="cycle") 주기
+                        select(id="cycle", name="cycle", required)
+                            option(value="정기성") 정기성
+                            option(value="one-일회성") 일회성
+                    div 
+                        label(for="paymentMethod") 지불 방식 
+                        select(id="paymentMethod", name="paymentMethod", required)
+                            option(value="신용카드") 신용카드
+                            option(value="체크카드") 체크카드
+                            option(value="현금") 현금
+                div#button-section
+                    input(type="submit", value="추가하기")
