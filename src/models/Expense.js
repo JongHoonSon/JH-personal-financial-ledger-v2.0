@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const expenseSchema = new mongoose.Schema({
+  type: { type: String, required: true, default: "e" },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   date: { type: Date, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
