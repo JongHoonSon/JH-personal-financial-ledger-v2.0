@@ -82,7 +82,59 @@ export const getEditItem = async (req, res) => {
   res.render("item/editItem", { pageTitle: "내역 수정", item });
 };
 
-export const postEditItem = (req, res) => {};
+export const postEditItem = async (req, res) => {
+  const { type, itemId } = req.params;
+  const { date, amount, category, description, cycle } = req.body;
+  let paymentMethod;
+  let item;
+
+  if (type === "i") {
+    paymentMethod = req.body.paymentMethod;
+    item = await Income.findById(itemId).populate("owner");
+  } else {
+    item = await Expense.findById(itemId).populate("owner");
+  }
+
+  if (!item) {
+    req.flash("error", "아이템을 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  const loggedInUser = res.locals.loggedInUser;
+  const user = await User.findById(loggedInUser._id);
+
+  if (String(item.owner._id) !== String(user._id)) {
+    req.flash("error", "권한이 없습니다.");
+    return res.status(403).redirect("/");
+  }
+
+  try {
+    if (item.type === "i") {
+      await Income.findByIdAndUpdate(itemId, {
+        date,
+        amount,
+        category,
+        description,
+        cycle,
+      });
+    } else {
+      await Expense.findByIdAndUpdate(itemId, {
+        date,
+        amount,
+        category,
+        description,
+        cycle,
+        paymentMethod,
+      });
+    }
+    req.flash("success", "수정 완료.");
+    return res.redirect(`/item/edit/${item.type}/${item.id}`);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "아이템을 수정하는 과정에서 오류가 발생했습니다.");
+    return res.status(400).redirect(`/item/edit/${item.type}/${item.id}`);
+  }
+};
 
 export const postDeleteItem = (req, res) => {};
 
