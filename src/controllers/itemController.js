@@ -170,7 +170,7 @@ export const postDeleteItem = async (req, res) => {
       );
       user.save();
     }
-    req.flash("success", "수정 완료.");
+    req.flash("success", "삭제 완료.");
     return res.status(200).redirect("/");
   } catch (error) {
     console.log(error);
