@@ -128,7 +128,7 @@ export const postEditItem = async (req, res) => {
       });
     }
     req.flash("success", "수정 완료.");
-    return res.redirect(`/item/edit/${item.type}/${item.id}`);
+    return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
   } catch (error) {
     console.log(error);
     req.flash("error", "아이템을 수정하는 과정에서 오류가 발생했습니다.");
@@ -136,7 +136,52 @@ export const postEditItem = async (req, res) => {
   }
 };
 
-export const postDeleteItem = (req, res) => {};
+export const postDeleteItem = async (req, res) => {
+  const { type, itemId } = req.params;
+
+  let item;
+
+  if (type === "i") {
+    item = await Income.findById(itemId).populate();
+  } else {
+    item = await Expense.findById(itemId).populate();
+  }
+
+  if (!item) {
+    req.flash("error", "아이템을 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  const loggedInUser = res.locals.loggedInUser;
+  const user = await User.findById(loggedInUser._id);
+
+  if (String(item.owner._id) !== String(user._id)) {
+    req.flash("error", "권한이 없습니다.");
+    return res.status(403).redirect("/");
+  }
+
+  try {
+    if (item.type === "i") {
+      await Income.findByIdAndDelete(itemId);
+      user.incomeList = user.incomeList.filter(
+        (income) => String(income._id) !== String(itemId)
+      );
+      user.save();
+    } else {
+      await Expense.findByIdAndDelete(itemId);
+      user.expenseList = user.expenseList.filter(
+        (expense) => String(expense._id) !== String(itemId)
+      );
+      user.save();
+    }
+    req.flash("success", "수정 완료.");
+    return res.status(200).redirect("/");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "아이템을 삭제하는 과정에서 오류가 발생했습니다.");
+    return res.status(400).redirect(`/item/detail/${item.type}/${item.id}`);
+  }
+};
 
 export const postDeleteItems = (req, res) => {};
 

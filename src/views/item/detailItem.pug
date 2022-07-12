@@ -29,4 +29,5 @@ block content
             li
                 a(href=`/item/edit/${item.type}/${item.id}`) 수정
             li
-                a(href=`/item/delete/${item.type}/${item.id}`) 삭제
+                form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
+                    input(type="submit", value="삭제")
