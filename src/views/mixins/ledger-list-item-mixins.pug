@@ -1,15 +1,6 @@
 mixin list(item)
-    if item.type === 'e'
-        li#expenseBgColor 
-            a(href=`/item/detail/${item.id}`).ledger-list-item-mixins
-                ul
-                    li(display: inline-block;) #{'날짜 : ' + item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}
-                    li #{'금액 : ' + item.amount + '원'}
-                    li #{'분류 : ' + item.category}
-
-    if item.type === 'i'
-        li#incomeBgColor
-            a(href=`/item/detail/${item.id}`).ledger-list-item-mixins
+        li(id=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`) 
+            a(href=`/item/detail/${item.type}/${item.id}`).ledger-list-item-mixins
                 ul
                     li(display: inline-block;) #{'날짜 : ' + item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}
                     li #{'금액 : ' + item.amount + '원'}
