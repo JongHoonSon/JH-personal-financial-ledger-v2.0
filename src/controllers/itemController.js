@@ -78,8 +78,18 @@ export const postDeleteItem = (req, res) => {};
 
 export const postDeleteItems = (req, res) => {};
 
-export const getDetailItem = (req, res) => {
-  res.render("item/detailItem", { pageTitle: "상세 내역" });
+export const getDetailItem = async (req, res) => {
+  const { type, itemId } = req.params;
+
+  let item;
+
+  if (type === "i") {
+    item = await Income.findById(itemId);
+  } else {
+    item = await Expense.findById(itemId);
+  }
+
+  res.render("item/detailItem", { pageTitle: "상세 내역", item });
 };
 
 export const getPinnedItems = (req, res) => {
