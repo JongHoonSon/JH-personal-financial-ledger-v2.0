@@ -19,25 +19,25 @@ export const postJoin = async (req, res) => {
       "error",
       "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다."
     );
-    return res.status(400).render("global/join", { pageTitle: "회원가입" });
+    return res.status(400).redirect("/join");
   }
 
   const checkUsername = await User.exists({ username });
   if (checkUsername === true) {
     req.flash("error", "이미 사용 중인 아이디입니다.");
-    return res.status(400).render("global/join", { pageTitle: "회원가입" });
+    return res.status(400).redirect("/join");
   }
 
   const checkEmail = await User.exists({ email });
   if (checkEmail === true) {
     req.flash("error", "이미 사용 중인 이메일입니다.");
-    return res.status(400).render("global/join", { pageTitle: "회원가입" });
+    return res.status(400).redirect("/join");
   }
 
   const checkNickname = await User.exists({ nickname });
   if (checkNickname === true) {
     req.flash("error", "이미 사용 중인 닉네임입니다.");
-    return res.status(400).render("global/join", { pageTitle: "회원가입" });
+    return res.status(400).redirect("/join");
   }
 
   try {
@@ -49,11 +49,11 @@ export const postJoin = async (req, res) => {
       nickname,
     });
     req.flash("success", "회원가입에 완료했습니다.");
-    return res.redirect("/login");
+    return res.status(200).redirect("/login");
   } catch (error) {
     console.log(error);
     req.flash("error", "회원가입을 하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).render("global/join", { pageTitle: "회원가입" });
+    return res.status(400).redirect("/join");
   }
 };
 
@@ -67,20 +67,20 @@ export const postLogin = async (req, res) => {
   const user = await User.findOne({ username, socialOnly: false });
   if (!user) {
     req.flash("error", "입력하신 아이디는 없는 아이디입니다.");
-    return res.status(400).render("global/login", { pageTitle: "로그인" });
+    return res.status(400).redirect("/login");
   }
 
   const passwordCorrect = await bcrypt.compare(password, user.password);
   if (!passwordCorrect) {
     req.flash("error", "비밀번호가 일치하지 않습니다.");
-    return res.status(400).render("global/login", { pageTitle: "로그인" });
+    return res.status(400).redirect("/login");
   }
 
   req.session.loggedIn = true;
   req.session.user = user;
 
   req.flash("success", `안녕하세요, ${user.nickname} 님!`);
-  return res.redirect("/");
+  return res.status(200).redirect("/");
 };
 
 export const logout = (req, res) => {
@@ -90,5 +90,5 @@ export const logout = (req, res) => {
   res.locals.loggedInUser = req.session.user;
 
   req.flash("success", `다음에 또 봬요, ${loggedInUserNickname} 님!`);
-  return res.redirect("/");
+  return res.status(200).redirect("/");
 };
