@@ -32,4 +32,7 @@ block content
                         a(href=`/item/edit/${item.type}/${item.id}`) 수정
                 li
                     form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
-                        input(type="submit", value="삭제")
+                        input(type="submit", value="삭제").deleteBtn
+
+block scripts
+    script(src="/assets/js/detailItem.js") 

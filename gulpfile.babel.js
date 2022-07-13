@@ -29,7 +29,7 @@ const routes = {
   },
   js: {
     watch: "src/client/js/**/*.js",
-    src: "src/client/js/main.js",
+    src: "src/client/js/*.js",
     dest: "assets/js",
   },
 };
