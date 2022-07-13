@@ -5,6 +5,9 @@ block content
         div#detailItem-option 
             ul
                 li
+                    form(method="POST", action=`/item/add-pin/${item.type}/${item.id}`)
+                        input(type="submit", value="핀 목록에 추가").pinBtn
+                li
                     button
                         a(href=`/item/edit/${item.type}/${item.id}`) 수정
                 li

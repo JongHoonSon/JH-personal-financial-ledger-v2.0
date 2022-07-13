@@ -123,7 +123,7 @@ export const postEditItem = async (req, res) => {
         paymentMethod,
       });
     }
-    req.flash("success", "수정 완료.");
+    req.flash("success", "아이템을 수정했습니다.");
     return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
   } catch (error) {
     console.log(error);
@@ -170,7 +170,7 @@ export const postDeleteItem = async (req, res) => {
       );
       user.save();
     }
-    req.flash("success", "삭제 완료.");
+    req.flash("success", "아이템을 삭제했습니다.");
     return res.status(200).redirect("/");
   } catch (error) {
     console.log(error);
@@ -199,6 +199,43 @@ export const getPinnedItems = (req, res) => {
   res.render("item/pinnedItems", { pageTitle: "핀 목록" });
 };
 
-export const postAddPin = (req, res) => {};
+export const postAddPin = async (req, res) => {
+  const { type, itemId } = req.params;
+
+  const loggedInUser = res.locals.loggedInUser;
+
+  const user = await User.findById(loggedInUser._id);
+
+  let item;
+
+  try {
+    if (type === "i") {
+      item = await Income.findById(itemId);
+    } else {
+      item = await Expense.findById(itemId);
+    }
+
+    if (item.pinned === false) {
+      item.pinned = true;
+      await item.save();
+
+      req.flash("success", "핀 목록에 추가하였습니다.");
+      return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
+    } else {
+      item.pinned = false;
+      await item.save();
+
+      req.flash("success", "핀 목록에서 삭제하였습니다.");
+      return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
+    }
+  } catch (error) {
+    console.log(error);
+    req.flash(
+      "error",
+      "아이템을 핀 목록에 추가하는 과정에서 오류가 발생했습니다."
+    );
+    return res.status(400).redirect(`/item/detail/${item.type}/${item.id}`);
+  }
+};
 
 export const postRemovePin = (req, res) => {};
