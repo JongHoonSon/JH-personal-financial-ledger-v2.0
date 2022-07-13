@@ -120,7 +120,7 @@ export const getLedgerWeekly = async (req, res) => {
   sortItem(itemList);
 
   let gap = sumIncomeAmount - sumExpenseAmount;
-  let stringAbsGap = getStringAmount(gap);
+  let stringAbsGap = getStringAmount(Math.abs(gap));
   let stringSumIncomeAmount = getStringAmount(sumIncomeAmount);
   let stringSumExpenseAmount = getStringAmount(sumExpenseAmount);
 
@@ -188,7 +188,7 @@ export const getLedgerMonthly = async (req, res) => {
   sortItem(itemList);
 
   let gap = sumIncomeAmount - sumExpenseAmount;
-  let stringAbsGap = getStringAmount(gap);
+  let stringAbsGap = getStringAmount(Math.abs(gap));
   let stringSumIncomeAmount = getStringAmount(sumIncomeAmount);
   let stringSumExpenseAmount = getStringAmount(sumExpenseAmount);
 
@@ -242,7 +242,7 @@ export const getLedgerYearly = async (req, res) => {
   sortItem(itemList);
 
   let gap = sumIncomeAmount - sumExpenseAmount;
-  let stringAbsGap = getStringAmount(gap);
+  let stringAbsGap = getStringAmount(Math.abs(gap));
   let stringSumIncomeAmount = getStringAmount(sumIncomeAmount);
   let stringSumExpenseAmount = getStringAmount(sumExpenseAmount);
 
