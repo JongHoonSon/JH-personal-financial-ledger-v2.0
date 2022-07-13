@@ -6,6 +6,15 @@
   justify-content: center;
   align-items: center;
 
+  #detailItem-option {
+    margin-bottom: 20px;
+    ul {
+      li {
+        display: inline-block;
+      }
+    }
+  }
+
   #detailItem {
     width: 50%;
     height: 80%;
@@ -41,15 +50,6 @@
           align-items: center;
           border: 1px solid black;
         }
-      }
-    }
-  }
-
-  #detailItem-option {
-    margin-top: 20px;
-    ul {
-      li {
-        display: inline-block;
       }
     }
   }

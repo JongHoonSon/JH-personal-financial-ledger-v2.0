@@ -2,6 +2,15 @@ extends ../base.pug
 
 block content
     div#detailItem-wrapper
+        div#detailItem-option 
+            ul
+                li
+                    button
+                        a(href=`/item/edit/${item.type}/${item.id}`) 수정
+                li
+                    form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
+                        input(type="submit", value="삭제").deleteBtn
+
         div#detailItem
             ul 
                 li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
@@ -24,15 +33,6 @@ block content
                     li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                         label 지불 방식
                         span=item.paymentMethod
-        
-        div#detailItem-option 
-            ul
-                li
-                    button
-                        a(href=`/item/edit/${item.type}/${item.id}`) 수정
-                li
-                    form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
-                        input(type="submit", value="삭제").deleteBtn
 
 block scripts
     script(src="/assets/js/detailItem.js") 
