@@ -1,6 +1,7 @@
 import Income from "../models/Income";
 import Expense from "../models/Expense";
 import User from "../models/User";
+import { sortItem } from "../utils";
 
 export const getAddExpense = (req, res) => {
   res.render("item/addExpense", { pageTitle: "지출 내역 추가" });
@@ -195,8 +196,34 @@ export const getDetailItem = async (req, res) => {
   res.render("item/detailItem", { pageTitle: "상세 내역", item });
 };
 
-export const getPinnedItems = (req, res) => {
-  res.render("item/pinnedItems", { pageTitle: "핀 목록" });
+export const getPinnedItems = async (req, res) => {
+  const loggedInUser = res.locals.loggedInUser;
+
+  const user = await User.findById(loggedInUser._id)
+    .populate("incomeList")
+    .populate("expenseList");
+
+  const itemList = new Array();
+
+  const { incomeList, expenseList } = user;
+
+  incomeList.forEach((el) => {
+    console.log(el);
+    if (el.pinned === true) {
+      itemList.push(el);
+    }
+  });
+
+  expenseList.forEach((el) => {
+    console.log(el);
+    if (el.pinned === true) {
+      itemList.push(el);
+    }
+  });
+
+  sortItem(itemList);
+
+  res.render("item/pinnedItems", { pageTitle: "핀 목록", itemList });
 };
 
 export const postAddPin = async (req, res) => {

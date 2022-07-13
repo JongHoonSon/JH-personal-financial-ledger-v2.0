@@ -1,4 +1,8 @@
 extends ../base.pug
+include ../mixins/ledger-list-item-mixins.pug
 
 block content 
-    h1 Hello I'm pinnedItems
+    div#pinnedItem-list
+        ul
+            each item in itemList
+                +list(item)
