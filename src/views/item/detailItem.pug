@@ -1,33 +1,35 @@
 extends ../base.pug
 
 block content
-    div(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#item-detail
-        ul 
-            li 
-                label 날짜
-                span #{item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}
-            li 
-                label 금액
-                span #{item.amount + ' 원'}
-            li 
-                label 설명
-                span=item.description
-            li 
-                label 분류
-                span=item.category
-            li 
-                label 주기
-                span=item.cycle
-
-            if item.type === "e"
+    div#item-detail-wrapper
+        div(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#item-detail
+            ul 
                 li 
-                    label 지불 방식
-                    span=item.paymentMethod
-    
-    div#item-option 
-        ul
-            li
-                a(href=`/item/edit/${item.type}/${item.id}`) 수정
-            li
-                form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
-                    input(type="submit", value="삭제")
+                    label 날짜
+                    span #{item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}
+                li 
+                    label 금액
+                    span #{item.amount + ' 원'}
+                li 
+                    label 설명
+                    span=item.description
+                li 
+                    label 분류
+                    span=item.category
+                li 
+                    label 주기
+                    span=item.cycle
+
+                if item.type === "e"
+                    li 
+                        label 지불 방식
+                        span=item.paymentMethod
+        
+        div#item-detail-option 
+            ul
+                li
+                    button
+                        a(href=`/item/edit/${item.type}/${item.id}`) 수정
+                li
+                    form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
+                        input(type="submit", value="삭제")
