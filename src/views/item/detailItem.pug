@@ -6,7 +6,10 @@ block content
             ul
                 li
                     form(method="POST", action=`/item/add-pin/${item.type}/${item.id}`)
-                        input(type="submit", value="핀 목록에 추가").pinBtn
+                        if item.pinned === true 
+                            input(type="submit", value="핀 목록에서 삭제").pinBtn
+                        if item.pinned === false
+                            input(type="submit", value="핀 목록에 추가").pinBtn
                 li
                     button
                         a(href=`/item/edit/${item.type}/${item.id}`) 수정
