@@ -86,7 +86,7 @@ export const getLedgerDaily = async (req, res) => {
   const now = todayStringDate;
   const calendarTitle = todayStringDate;
 
-  res.render("ledger/ledgerDaily", {
+  res.render("ledger/ledger", {
     pageTitle: "일별 내역",
     itemList,
     prev,
@@ -152,7 +152,7 @@ export const getLedgerWeekly = async (req, res) => {
 
   const calendarTitle = weekStart + " ~ " + weekEnd;
 
-  res.render("ledger/ledgerWeekly", {
+  res.render("ledger/ledger", {
     pageTitle: "주별 내역",
     itemList,
     prev,
@@ -205,7 +205,7 @@ export const getLedgerMonthly = async (req, res) => {
   const now = yyyy + "-" + mm;
   const calendarTitle = yyyy + "-" + mm;
 
-  res.render("ledger/ledgerMonthly", {
+  res.render("ledger/ledger", {
     pageTitle: "월별 내역",
     itemList,
     prev,
@@ -245,7 +245,7 @@ export const getLedgerYearly = async (req, res) => {
   const now = yyyy;
   const calendarTitle = yyyy;
 
-  res.render("ledger/ledgerYearly", {
+  res.render("ledger/ledger", {
     pageTitle: "연도별 내역",
     itemList,
     prev,
