@@ -8,6 +8,15 @@ block content
         include ../partials/ledger_calendar.pug
 
         div#ledger-content
+            div#ledger-total
+                ul
+                    li  
+                        span.incomeColor #{'총 수입액 : ' + stringSumIncomeAmount + '원'} 
+                    li  
+                        span.expenseColor #{'총 지출액 : ' + stringSumExpenseAmount + '원'}
+                    li  
+                        span(class=`${gap !== 0 ? gap > 0 ? 'incomeColor' : 'expenseColor' : ''}`)  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
+
             div#ledger-list
                 ul
                     each item in itemList

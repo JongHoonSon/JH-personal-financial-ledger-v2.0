@@ -21,6 +21,16 @@ function getStringDate(date) {
   );
 }
 
+function getStringAmount(amount) {
+  const stringAmount = amount.toString();
+  const arrAmount = stringAmount.split("");
+  for (let i = arrAmount.length - 3; i >= 0; i = i - 3) {
+    arrAmount[i] = "," + arrAmount[i];
+  }
+
+  return arrAmount.join("");
+}
+
 Date.prototype.getWeek = function (dowOffset) {
   dowOffset = typeof dowOffset == "number" ? dowOffset : 0;
   var newYear = new Date(this.getFullYear(), 0, 1);
@@ -69,18 +79,28 @@ export const getLedgerDaily = async (req, res) => {
     .populate("expenseList");
   const { incomeList, expenseList } = user;
 
+  let sumIncomeAmount = 0;
+  let sumExpenseAmount = 0;
+
   const itemList = new Array();
   incomeList.forEach((el) => {
     if (getStringDate(el.date) === todayStringDate) {
       itemList.push(el);
+      sumIncomeAmount += el.amount;
     }
   });
   expenseList.forEach((el) => {
     if (getStringDate(el.date) === todayStringDate) {
       itemList.push(el);
+      sumExpenseAmount += el.amount;
     }
   });
   sortItem(itemList);
+
+  let gap = sumIncomeAmount - sumExpenseAmount;
+  let stringAbsGap = getStringAmount(Math.abs(gap));
+  let stringSumIncomeAmount = getStringAmount(sumIncomeAmount);
+  let stringSumExpenseAmount = getStringAmount(sumExpenseAmount);
 
   const cycle = "daily";
   const now = todayStringDate;
@@ -94,6 +114,10 @@ export const getLedgerDaily = async (req, res) => {
     next,
     calendarTitle,
     cycle,
+    gap,
+    stringAbsGap,
+    stringSumIncomeAmount,
+    stringSumExpenseAmount,
   });
 };
 
@@ -128,6 +152,9 @@ export const getLedgerWeekly = async (req, res) => {
     .populate("expenseList");
   const { incomeList, expenseList } = user;
 
+  let sumIncomeAmount = 0;
+  let sumExpenseAmount = 0;
+
   const itemList = new Array();
   incomeList.forEach((el) => {
     if (
@@ -135,6 +162,7 @@ export const getLedgerWeekly = async (req, res) => {
       getStringDate(el.date) <= weekEnd
     ) {
       itemList.push(el);
+      sumIncomeAmount += el.amount;
     }
   });
   expenseList.forEach((el) => {
@@ -143,9 +171,15 @@ export const getLedgerWeekly = async (req, res) => {
       getStringDate(el.date) <= weekEnd
     ) {
       itemList.push(el);
+      sumExpenseAmount += el.amount;
     }
   });
   sortItem(itemList);
+
+  let gap = sumIncomeAmount - sumExpenseAmount;
+  let stringAbsGap = getStringAmount(gap);
+  let stringSumIncomeAmount = getStringAmount(sumIncomeAmount);
+  let stringSumExpenseAmount = getStringAmount(sumExpenseAmount);
 
   const cycle = "weekly";
   const now = todayStringDate;
@@ -160,6 +194,10 @@ export const getLedgerWeekly = async (req, res) => {
     next,
     calendarTitle,
     cycle,
+    gap,
+    stringAbsGap,
+    stringSumIncomeAmount,
+    stringSumExpenseAmount,
   });
 };
 
@@ -182,6 +220,9 @@ export const getLedgerMonthly = async (req, res) => {
     .populate("expenseList");
   const { incomeList, expenseList } = user;
 
+  let sumIncomeAmount = 0;
+  let sumExpenseAmount = 0;
+
   const itemList = new Array();
   incomeList.forEach((el) => {
     if (
@@ -189,6 +230,7 @@ export const getLedgerMonthly = async (req, res) => {
       (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
     ) {
       itemList.push(el);
+      sumIncomeAmount += el.amount;
     }
   });
   expenseList.forEach((el) => {
@@ -197,9 +239,15 @@ export const getLedgerMonthly = async (req, res) => {
       (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
     ) {
       itemList.push(el);
+      sumExpenseAmount += el.amount;
     }
   });
   sortItem(itemList);
+
+  let gap = sumIncomeAmount - sumExpenseAmount;
+  let stringAbsGap = getStringAmount(gap);
+  let stringSumIncomeAmount = getStringAmount(sumIncomeAmount);
+  let stringSumExpenseAmount = getStringAmount(sumExpenseAmount);
 
   const cycle = "monthly";
   const now = yyyy + "-" + mm;
@@ -213,6 +261,10 @@ export const getLedgerMonthly = async (req, res) => {
     next,
     calendarTitle,
     cycle,
+    gap,
+    stringAbsGap,
+    stringSumIncomeAmount,
+    stringSumExpenseAmount,
   });
 };
 
@@ -228,18 +280,28 @@ export const getLedgerYearly = async (req, res) => {
     .populate("expenseList");
   const { incomeList, expenseList } = user;
 
+  let sumIncomeAmount = 0;
+  let sumExpenseAmount = 0;
+
   const itemList = new Array();
   incomeList.forEach((el) => {
     if (el.date.getFullYear().toString() === yyyy) {
       itemList.push(el);
+      sumIncomeAmount += el.amount;
     }
   });
   expenseList.forEach((el) => {
     if (el.date.getFullYear().toString() === yyyy) {
       itemList.push(el);
+      sumExpenseAmount += el.amount;
     }
   });
   sortItem(itemList);
+
+  let gap = sumIncomeAmount - sumExpenseAmount;
+  let stringAbsGap = getStringAmount(gap);
+  let stringSumIncomeAmount = getStringAmount(sumIncomeAmount);
+  let stringSumExpenseAmount = getStringAmount(sumExpenseAmount);
 
   const cycle = "yearly";
   const now = yyyy;
@@ -253,5 +315,9 @@ export const getLedgerYearly = async (req, res) => {
     next,
     calendarTitle,
     cycle,
+    gap,
+    stringAbsGap,
+    stringSumIncomeAmount,
+    stringSumExpenseAmount,
   });
 };
