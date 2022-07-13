@@ -10,6 +10,7 @@ const expenseSchema = new mongoose.Schema({
   category: { type: String, required: true },
   cycle: { type: String, required: true },
   paymentMethod: { type: String, required: true },
+  pinned: { type: Boolean, required: true, default: false },
 });
 
 const Expense = mongoose.model("Expense", expenseSchema);
