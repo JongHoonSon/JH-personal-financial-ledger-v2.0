@@ -2,26 +2,26 @@ extends ../base.pug
 
 block content
     div#detailItem-wrapper
-        div(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#detailItem
+        div#detailItem
             ul 
-                li 
+                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                     label 날짜
                     span #{item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}
-                li 
+                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                     label 금액
                     span #{item.amount + ' 원'}
-                li 
+                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                     label 설명
                     span=item.description
-                li 
+                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                     label 분류
                     span=item.category
-                li 
+                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                     label 주기
                     span=item.cycle
 
                 if item.type === "e"
-                    li 
+                    li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                         label 지불 방식
                         span=item.paymentMethod
         
