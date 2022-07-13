@@ -1,9 +1,17 @@
 .ledger-list-item-mixins {
   display: block;
   border: 1px solid black;
-  ul li {
-    display: inline-block;
-    margin: 20px;
-    color: white;
+  ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    li {
+      padding: 20px;
+      margin-left: 30px;
+      width: 100%;
+      color: white;
+    }
   }
 }
