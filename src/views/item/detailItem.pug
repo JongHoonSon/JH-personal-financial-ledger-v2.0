@@ -1,8 +1,8 @@
 extends ../base.pug
 
 block content
-    div#item-detail-wrapper
-        div(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#item-detail
+    div#detailItem-wrapper
+        div(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#detailItem
             ul 
                 li 
                     label 날짜
@@ -25,7 +25,7 @@ block content
                         label 지불 방식
                         span=item.paymentMethod
         
-        div#item-detail-option 
+        div#detailItem-option 
             ul
                 li
                     button
