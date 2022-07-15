@@ -7,7 +7,10 @@ import {
 
 const userRouter = express.Router();
 
-userRouter.get("/profile", getProfile);
-userRouter.route("/edit-profile").get(getEditProfile).post(postEditProfile);
+userRouter.get("/profile/:userId", getProfile);
+userRouter
+  .route("/edit-profile/:userId")
+  .get(getEditProfile)
+  .post(postEditProfile);
 
 export default userRouter;
