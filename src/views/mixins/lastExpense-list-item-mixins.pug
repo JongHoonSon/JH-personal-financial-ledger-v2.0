@@ -1,0 +1,16 @@
+mixin list(item)
+    li.expenseBgColor 
+        a(href=`${item.content !== null ? `/item/detail/${item.content.type}/${item.content.id}` : ``}`).lastExpense-list-item-mixins
+            ul
+                li #{'분류 : ' + item.category}
+
+                if item.content === null
+                    li 해당 분류에 대한 지출 기록이 없습니다.
+                    li
+
+                else
+                    li
+                        div
+                            div #{'날짜 : ' + item.content.date.getFullYear() + '-' + (item.content.date.getMonth()+1).toString().padStart(2,0) + '-' + item.content.date.getDate().toString().padStart(2,0)}
+                            div #{item.daysDiff} 일 전
+                    li #{'금액 : ' + item.content.amount + '원'}
