@@ -55,3 +55,12 @@ export const getStringAmount = (amount) => {
 
   return arrAmount.join("");
 };
+
+export const getStringDateDiff = (stringDate1, stringDate2) => {
+  const date1 = new Date(stringDate1);
+  const date2 = new Date(stringDate2);
+
+  const diffTime = date1.getTime() - date2.getTime();
+
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+};
