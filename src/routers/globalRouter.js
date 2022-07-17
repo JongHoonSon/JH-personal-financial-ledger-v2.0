@@ -7,13 +7,21 @@ import {
   postJoin,
   postLogin,
 } from "../controllers/globalController";
-import { userOnlyMiddleware } from "../middlewares";
+import { userOnlyMiddleware, publicOnlyMiddleware } from "../middlewares";
 
 const globalRouter = express.Router();
 
 globalRouter.route("/").get(getHome);
-globalRouter.route("/join").get(getJoin).post(postJoin);
-globalRouter.route("/login").get(getLogin).post(postLogin);
-globalRouter.route("/logout").all(userOnlyMiddleware).get(logout);
+globalRouter
+  .route("/join")
+  .all(publicOnlyMiddleware)
+  .get(getJoin)
+  .post(postJoin);
+globalRouter
+  .route("/login")
+  .all(publicOnlyMiddleware)
+  .get(getLogin)
+  .post(postLogin);
+globalRouter.get("/logout", userOnlyMiddleware, logout);
 
 export default globalRouter;
