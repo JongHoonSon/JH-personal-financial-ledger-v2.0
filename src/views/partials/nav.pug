@@ -14,17 +14,17 @@ nav
             li#profile 
                 a(href="/user/profile") #{loggedInUser.nickname}의 프로필
 
-        li#addItem
-            a(href="/item/add-income") 수입/지출 내역 추가
+            li#addItem
+                a(href="/item/add-income") 수입/지출 내역 추가
 
-        li#ledger 
-            a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`) 가계부
+            li#ledger 
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`) 가계부
 
-        li#pinned 
-            a(href="/item/pinned-items") 핀 목록
+            li#pinned 
+                a(href="/item/pinned-items") 핀 목록
 
-        li#report 
-            a(href="/etc/chart") 소비 리포트
+            li#report 
+                a(href="/etc/chart") 소비 리포트
 
-        li#last_expense 
-            a(href="/etc/last-expense") 마지막 지출일
+            li#last_expense 
+                a(href="/etc/last-expense") 마지막 지출일
