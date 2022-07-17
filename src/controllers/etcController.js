@@ -44,13 +44,14 @@ export const getLastExpense = async (req, res) => {
       });
     } else {
       sortItem(expenseListByCategories);
+      const lastestItemStringDate = getStringDate(
+        expenseListByCategories[0].date
+      );
       lastExpenseList.push({
         category: categories[i],
         content: expenseListByCategories[0],
-        daysDiff: getStringDateDiff(
-          nowStringDate,
-          getStringDate(expenseListByCategories[0].date)
-        ),
+        daysDiff: getStringDateDiff(nowStringDate, lastestItemStringDate),
+        lastestItemStringDate: lastestItemStringDate,
       });
     }
   }

@@ -7,7 +7,7 @@ block content
                 div#input-section
                     div
                         label(for="date") 날짜
-                        input(placeholder="YYYY", id="date", name="date", type="date", value=`${item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}` required)
+                        input(placeholder="YYYY", id="date", name="date", type="date", value=`${itemStringDate}` required)
                         span 년
                     div
                         label(for="amount") 금액

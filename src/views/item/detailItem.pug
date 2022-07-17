@@ -21,7 +21,7 @@ block content
             ul 
                 li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                     label 날짜
-                    span #{item.date.getFullYear() + '-' + (item.date.getMonth()+1).toString().padStart(2,0) + '-' + item.date.getDate().toString().padStart(2,0)}
+                    span #{itemStringDate}
                 li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                     label 금액
                     span #{item.amount + ' 원'}

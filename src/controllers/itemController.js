@@ -1,7 +1,7 @@
 import Income from "../models/Income";
 import Expense from "../models/Expense";
 import User from "../models/User";
-import { sortItem } from "../utils";
+import { getStringDate, sortItem } from "../utils";
 
 export const getAddExpense = (req, res) => {
   res.render("item/addExpense", { pageTitle: "지출 내역 추가" });
@@ -76,7 +76,9 @@ export const getEditItem = async (req, res) => {
     item = await Expense.findById(itemId);
   }
 
-  res.render("item/editItem", { pageTitle: "내역 수정", item });
+  const itemStringDate = getStringDate(item.date);
+
+  res.render("item/editItem", { pageTitle: "내역 수정", item, itemStringDate });
 };
 
 export const postEditItem = async (req, res) => {
@@ -193,7 +195,13 @@ export const getDetailItem = async (req, res) => {
     item = await Expense.findById(itemId);
   }
 
-  res.render("item/detailItem", { pageTitle: "상세 내역", item });
+  const itemStringDate = getStringDate(item.date);
+
+  res.render("item/detailItem", {
+    pageTitle: "상세 내역",
+    item,
+    itemStringDate,
+  });
 };
 
 export const getPinnedItems = async (req, res) => {
