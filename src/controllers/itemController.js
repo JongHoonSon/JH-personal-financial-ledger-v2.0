@@ -232,7 +232,7 @@ export const getPinnedItems = async (req, res) => {
   res.render("item/pinnedItems", { pageTitle: "핀 목록", itemList });
 };
 
-export const postAddPin = async (req, res) => {
+export const postPinning = async (req, res) => {
   const { type, itemId } = req.params;
 
   const checkResult = await checkItemOwnerIsLoggedInUser(
@@ -271,8 +271,6 @@ export const postAddPin = async (req, res) => {
     return res.status(400).redirect(`/item/detail/${item.type}/${item.id}`);
   }
 };
-
-export const postRemovePin = (req, res) => {};
 
 const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
   let item;

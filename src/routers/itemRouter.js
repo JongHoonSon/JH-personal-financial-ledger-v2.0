@@ -7,11 +7,10 @@ import {
   getPinnedItems,
   postAddExpense,
   postAddIncome,
-  postAddPin,
+  postPinning,
   postDeleteItem,
   postDeleteItems,
   postEditItem,
-  postRemovePin,
 } from "../controllers/itemController";
 import { loggedInUserOnly } from "../middlewares";
 
@@ -36,7 +35,6 @@ itemRouter.post("/delete/:type/:itemId", loggedInUserOnly, postDeleteItem);
 itemRouter.post("/delete/:itemIds", loggedInUserOnly, postDeleteItems);
 itemRouter.get("/detail/:type/:itemId", loggedInUserOnly, getDetailItem);
 itemRouter.get("/pinned-items", loggedInUserOnly, getPinnedItems);
-itemRouter.post("/add-pin/:type/:itemId", loggedInUserOnly, postAddPin);
-itemRouter.post("/remove-pin/:itemId", loggedInUserOnly, postRemovePin);
+itemRouter.post("/pinning/:type/:itemId", loggedInUserOnly, postPinning);
 
 export default itemRouter;

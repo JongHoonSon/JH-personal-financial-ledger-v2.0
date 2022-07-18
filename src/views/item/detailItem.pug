@@ -5,7 +5,7 @@ block content
         div#detailItem-option 
             ul
                 li
-                    form(method="POST", action=`/item/add-pin/${item.type}/${item.id}`)
+                    form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
                         if item.pinned === true 
                             input(type="submit", value="핀 목록에서 삭제").pinBtn
                         if item.pinned === false
