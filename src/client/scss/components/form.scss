@@ -1,4 +1,4 @@
-#form-wrapper {
+.form-wrapper {
   width: 60%;
   height: 80%;
   border: 1px solid black;
@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
 
-    div#input-section {
+    div.form-input-section {
       width: 80%;
       height: 60%;
       margin-top: 20px;
@@ -46,7 +46,7 @@
         }
       }
     }
-    div#button-section {
+    div.form-button-section {
       width: 100%;
       height: 20%;
       margin-top: 20px;

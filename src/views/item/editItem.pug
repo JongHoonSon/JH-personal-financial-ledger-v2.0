@@ -2,9 +2,9 @@ extends ../base.pug
 
 block content 
     div#editItem-wrapper
-        div#form-wrapper
+        div.form-wrapper
             form(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`, method="POST")
-                div#input-section
+                div.form-input-section
                     div
                         label(for="date") 날짜
                         input(placeholder="YYYY", id="date", name="date", type="date", value=`${itemStringDate}` required)
@@ -50,5 +50,5 @@ block content
                                 option(value="신용카드") 신용카드
                                 option(value="체크카드") 체크카드
                                 option(value="현금") 현금
-                div#button-section
+                div.form-button-section
                     input(type="submit", value="수정하기")

@@ -4,9 +4,9 @@ block content
     div#addItem-wrapper
         include ../partials/addItem_nav.pug
 
-        div#form-wrapper
+        div.form-wrapper
             form(method="POST").incomeBgColor
-                div#input-section
+                div.form-input-section
                     div
                         label(for="date") 날짜
                         input(placeholder="YYYY", id="date", name="date", type="date", required)
@@ -32,5 +32,5 @@ block content
                         select(id="cycle", name="cycle", required)
                             option(value="정기성") 정기성
                             option(value="일회성") 일회성
-                div#button-section
+                div.form-button-section
                     input(type="submit", value="추가하기")

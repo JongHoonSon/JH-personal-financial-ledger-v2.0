@@ -2,9 +2,9 @@ extends ../base.pug
 
 block content 
     div#editProfile-wrapper
-        div#form-wrapper
+        div.form-wrapper
                 form(method="POST")
-                    div#input-section
+                    div.form-input-section
                         div
                             label(for="username") 아이디 
                             input(id="username", name="username", type="text", value=`${user.username}` required)
@@ -18,5 +18,5 @@ block content
                             label(for="email") 이메일
                             input(id="email", name="email", type="email", value=`${user.email}` required)
 
-                    div#button-section
+                    div.form-button-section
                         input(type="submit", value="수정하기")

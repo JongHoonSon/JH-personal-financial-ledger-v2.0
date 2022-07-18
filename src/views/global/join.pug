@@ -1,9 +1,9 @@
 extends ../base.pug
 
 block content 
-    div#form-wrapper
+    div.form-wrapper
             form(method="POST")
-                div#input-section
+                div.form-input-section
                     div
                         label(for="username") 아이디
                         input(placeholder="ID", id="username", name="username", type="text", required)
@@ -22,5 +22,5 @@ block content
                     div 
                         label(for="nickname") 닉네임
                         input(placeholder="Nickname", id="nickname", name="nickname", type="text", required)
-                div#button-section
+                div.form-button-section
                     input(type="submit", value="가입하기")
