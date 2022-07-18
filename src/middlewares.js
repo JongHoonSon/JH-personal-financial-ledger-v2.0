@@ -27,3 +27,8 @@ export const publicOnly = (req, res, next) => {
     return res.redirect("/");
   }
 };
+
+export const unauthorizedAccess = (req, res, next) => {
+  req.flash("error", "권한이 없습니다.");
+  return res.status(403).redirect("/");
+};

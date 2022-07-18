@@ -2,6 +2,33 @@ import Income from "../models/Income";
 import Expense from "../models/Expense";
 import User from "../models/User";
 import { getStringDate, sortItem } from "../utils";
+import { unauthorizedAccess } from "../middlewares";
+
+const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
+  let item;
+
+  if (type === "i") {
+    item = await Income.findById(itemId).populate("owner");
+  } else {
+    item = await Expense.findById(itemId).populate("owner");
+  }
+
+  if (!item) {
+    req.flash("error", "아이템을 찾을 수 없습니다.");
+    return { pass: false, return: res.status(404).redirect("/") };
+  }
+
+  const loggedInUser = req.session.user;
+  const user = await User.findById(loggedInUser._id);
+
+  console.log(String(item.owner._id) !== String(user._id));
+
+  if (String(item.owner._id) !== String(user._id)) {
+    return { pass: false, return: unauthorizedAccess(req, res) };
+  }
+
+  return { pass: true, item: item };
+};
 
 export const getAddExpense = (req, res) => {
   res.render("item/addExpense", { pageTitle: "지출 내역 추가" });
@@ -68,13 +95,18 @@ export const postAddIncome = async (req, res) => {
 export const getEditItem = async (req, res) => {
   const { type, itemId } = req.params;
 
-  let item;
+  const checkResult = await checkItemOwnerIsLoggedInUser(
+    req,
+    res,
+    type,
+    itemId
+  );
 
-  if (type === "i") {
-    item = await Income.findById(itemId);
-  } else {
-    item = await Expense.findById(itemId);
+  if (checkResult.pass === false) {
+    return checkResult.return;
   }
+
+  const item = checkResult.item;
 
   const itemStringDate = getStringDate(item.date);
 
@@ -85,27 +117,19 @@ export const postEditItem = async (req, res) => {
   const { type, itemId } = req.params;
   const { date, amount, category, description, cycle } = req.body;
   let paymentMethod;
-  let item;
 
-  if (type === "i") {
-    paymentMethod = req.body.paymentMethod;
-    item = await Income.findById(itemId).populate("owner");
-  } else {
-    item = await Expense.findById(itemId).populate("owner");
+  const checkResult = await checkItemOwnerIsLoggedInUser(
+    req,
+    res,
+    type,
+    itemId
+  );
+
+  if (checkResult.pass === false) {
+    return checkResult.return;
   }
 
-  if (!item) {
-    req.flash("error", "아이템을 찾을 수 없습니다.");
-    return res.status(404).redirect("/");
-  }
-
-  const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id);
-
-  if (String(item.owner._id) !== String(user._id)) {
-    req.flash("error", "권한이 없습니다.");
-    return res.status(403).redirect("/");
-  }
+  const item = checkResult.item;
 
   try {
     if (item.type === "i") {
@@ -138,26 +162,21 @@ export const postEditItem = async (req, res) => {
 export const postDeleteItem = async (req, res) => {
   const { type, itemId } = req.params;
 
-  let item;
+  const checkResult = await checkItemOwnerIsLoggedInUser(
+    req,
+    res,
+    type,
+    itemId
+  );
 
-  if (type === "i") {
-    item = await Income.findById(itemId).populate();
-  } else {
-    item = await Expense.findById(itemId).populate();
+  if (checkResult.pass === false) {
+    return checkResult.return;
   }
 
-  if (!item) {
-    req.flash("error", "아이템을 찾을 수 없습니다.");
-    return res.status(404).redirect("/");
-  }
+  const item = checkResult.item;
 
   const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id);
-
-  if (String(item.owner._id) !== String(user._id)) {
-    req.flash("error", "권한이 없습니다.");
-    return res.status(403).redirect("/");
-  }
 
   try {
     if (item.type === "i") {
@@ -187,13 +206,18 @@ export const postDeleteItems = (req, res) => {};
 export const getDetailItem = async (req, res) => {
   const { type, itemId } = req.params;
 
-  let item;
+  const checkResult = await checkItemOwnerIsLoggedInUser(
+    req,
+    res,
+    type,
+    itemId
+  );
 
-  if (type === "i") {
-    item = await Income.findById(itemId);
-  } else {
-    item = await Expense.findById(itemId);
+  if (checkResult.pass === false) {
+    return checkResult.return;
   }
+
+  const item = checkResult.item;
 
   const itemStringDate = getStringDate(item.date);
 
@@ -237,19 +261,20 @@ export const getPinnedItems = async (req, res) => {
 export const postAddPin = async (req, res) => {
   const { type, itemId } = req.params;
 
-  const loggedInUser = req.session.user;
+  const checkResult = await checkItemOwnerIsLoggedInUser(
+    req,
+    res,
+    type,
+    itemId
+  );
 
-  const user = await User.findById(loggedInUser._id);
+  if (checkResult.pass === false) {
+    return checkResult.return;
+  }
 
-  let item;
+  const item = checkResult.item;
 
   try {
-    if (type === "i") {
-      item = await Income.findById(itemId);
-    } else {
-      item = await Expense.findById(itemId);
-    }
-
     if (item.pinned === false) {
       item.pinned = true;
       await item.save();

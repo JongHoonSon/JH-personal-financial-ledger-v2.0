@@ -43,8 +43,7 @@ export const postEditProfile = async (req, res) => {
   }
 
   if (String(loggedInUser._id) !== String(user._id)) {
-    req.flash("error", "권한이 없습니다.");
-    return res.status(403).redirect("/");
+    return unauthorizedAccess(req, res);
   }
 
   const existedUsername = await User.exists({ username });
