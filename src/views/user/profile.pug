@@ -1,4 +1,19 @@
 extends ../base.pug
 
 block content 
-    h1 Hello I'm profile
+    div#profile-wrapper 
+        div#profile-username 
+            h3 아이디
+            textarea(readonly) #{user.username}
+        div#profile-name 
+            h3 이름
+            textarea(readonly) #{user.name}
+        div#profile-nickname 
+            h3 닉네임
+            textarea(readonly) #{user.nickname}
+        div#profile-email 
+            h3 이메일
+            textarea(readonly) #{user.email}
+        div#profile-socialAccount 
+            h3 소셜 계정 여부
+            textarea(readonly) #{user.socialAccount === true ? "Y" : "N"}
