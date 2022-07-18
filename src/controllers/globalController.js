@@ -22,20 +22,21 @@ export const postJoin = async (req, res) => {
     return res.status(400).redirect("/join");
   }
 
-  const checkUsername = await User.exists({ username });
-  if (checkUsername === true) {
+  const existedUsername = await User.exists({ username });
+
+  if (existedUsername) {
     req.flash("error", "이미 사용 중인 아이디입니다.");
     return res.status(400).redirect("/join");
   }
 
-  const checkEmail = await User.exists({ email });
-  if (checkEmail === true) {
+  const existedEmail = await User.exists({ email });
+  if (existedEmail) {
     req.flash("error", "이미 사용 중인 이메일입니다.");
     return res.status(400).redirect("/join");
   }
 
-  const checkNickname = await User.exists({ nickname });
-  if (checkNickname === true) {
+  const existedNickname = await User.exists({ nickname });
+  if (existedNickname) {
     req.flash("error", "이미 사용 중인 닉네임입니다.");
     return res.status(400).redirect("/join");
   }
