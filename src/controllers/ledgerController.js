@@ -16,7 +16,7 @@ export const getLedgerDaily = async (req, res) => {
   nextDate.setDate(todayDate.getDate() + 1);
   const next = getStringDate(nextDate);
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id)
     .populate("incomeList")
     .populate("expenseList");
@@ -89,7 +89,7 @@ export const getLedgerWeekly = async (req, res) => {
   weekEndDate.setDate(todayDate.getDate() - todayDay + 6);
   const weekEnd = getStringDate(weekEndDate);
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id)
     .populate("incomeList")
     .populate("expenseList");
@@ -157,7 +157,7 @@ export const getLedgerMonthly = async (req, res) => {
   const nextYear = nextMonth === "01" ? (Number(yyyy) + 1).toString() : yyyy;
   const next = nextYear + "-" + nextMonth;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id)
     .populate("incomeList")
     .populate("expenseList");
@@ -217,7 +217,7 @@ export const getLedgerYearly = async (req, res) => {
   const prev = (Number(yyyy) - 1).toString();
   const next = (Number(yyyy) + 1).toString();
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id)
     .populate("incomeList")
     .populate("expenseList");

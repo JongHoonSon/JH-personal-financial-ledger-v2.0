@@ -5,7 +5,7 @@ export const getProfile = async (req, res) => {
 
   const user = await User.findById(userId);
 
-  const isMyProfile = res.locals.loggedInUser._id === userId ? true : false;
+  const isMyProfile = req.session.user._id === userId ? true : false;
 
   res.render("user/profile", { pageTitle: "프로필", user, isMyProfile });
 };
@@ -13,7 +13,7 @@ export const getProfile = async (req, res) => {
 export const getEditProfile = async (req, res) => {
   const { userId } = req.params;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
 
   const user = await User.findById(userId);
 
@@ -32,7 +32,7 @@ export const postEditProfile = async (req, res) => {
   const { userId } = req.params;
   const { username, name, nickname, email } = req.body;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
 
   const user = await User.findById(userId);
 

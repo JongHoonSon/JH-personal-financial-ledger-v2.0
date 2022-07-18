@@ -11,7 +11,7 @@ export const postAddExpense = async (req, res) => {
   const { date, amount, category, description, cycle, paymentMethod } =
     req.body;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
 
   try {
     const user = await User.findById(loggedInUser._id);
@@ -42,7 +42,7 @@ export const getAddIncome = (req, res) => {
 export const postAddIncome = async (req, res) => {
   const { date, amount, category, description, cycle } = req.body;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
 
   try {
     const user = await User.findById(loggedInUser._id);
@@ -99,7 +99,7 @@ export const postEditItem = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id);
 
   if (String(item.owner._id) !== String(user._id)) {
@@ -151,7 +151,7 @@ export const postDeleteItem = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id);
 
   if (String(item.owner._id) !== String(user._id)) {
@@ -205,7 +205,7 @@ export const getDetailItem = async (req, res) => {
 };
 
 export const getPinnedItems = async (req, res) => {
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
 
   const user = await User.findById(loggedInUser._id)
     .populate("incomeList")
@@ -237,7 +237,7 @@ export const getPinnedItems = async (req, res) => {
 export const postAddPin = async (req, res) => {
   const { type, itemId } = req.params;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
 
   const user = await User.findById(loggedInUser._id);
 

@@ -6,7 +6,7 @@ export const getChart = (req, res) => {
 };
 
 export const getLastExpense = async (req, res) => {
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
 
   const user = await User.findById(loggedInUser._id).populate("expenseList");
 
