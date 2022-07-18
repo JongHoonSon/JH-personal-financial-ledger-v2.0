@@ -4,32 +4,6 @@ import User from "../models/User";
 import { getStringDate, sortItem } from "../utils";
 import { unauthorizedAccess } from "../middlewares";
 
-const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
-  let item;
-
-  if (type === "i") {
-    item = await Income.findById(itemId).populate("owner");
-  } else {
-    item = await Expense.findById(itemId).populate("owner");
-  }
-
-  if (!item) {
-    req.flash("error", "아이템을 찾을 수 없습니다.");
-    return { pass: false, return: res.status(404).redirect("/") };
-  }
-
-  const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id);
-
-  console.log(String(item.owner._id) !== String(user._id));
-
-  if (String(item.owner._id) !== String(user._id)) {
-    return { pass: false, return: unauthorizedAccess(req, res) };
-  }
-
-  return { pass: true, item: item };
-};
-
 export const getAddExpense = (req, res) => {
   res.render("item/addExpense", { pageTitle: "지출 내역 추가" });
 };
@@ -299,3 +273,29 @@ export const postAddPin = async (req, res) => {
 };
 
 export const postRemovePin = (req, res) => {};
+
+const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
+  let item;
+
+  if (type === "i") {
+    item = await Income.findById(itemId).populate("owner");
+  } else {
+    item = await Expense.findById(itemId).populate("owner");
+  }
+
+  if (!item) {
+    req.flash("error", "아이템을 찾을 수 없습니다.");
+    return { pass: false, return: res.status(404).redirect("/") };
+  }
+
+  const loggedInUser = req.session.user;
+  const user = await User.findById(loggedInUser._id);
+
+  console.log(String(item.owner._id) !== String(user._id));
+
+  if (String(item.owner._id) !== String(user._id)) {
+    return { pass: false, return: unauthorizedAccess(req, res) };
+  }
+
+  return { pass: true, item: item };
+};
