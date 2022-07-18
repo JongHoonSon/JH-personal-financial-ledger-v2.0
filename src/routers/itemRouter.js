@@ -13,30 +13,30 @@ import {
   postEditItem,
   postRemovePin,
 } from "../controllers/itemController";
-import { userOnlyMiddleware } from "../middlewares";
+import { loggedInUserOnly } from "../middlewares";
 
 const itemRouter = express.Router();
 
 itemRouter
   .route("/add-expense")
-  .all(userOnlyMiddleware)
+  .all(loggedInUserOnly)
   .get(getAddExpense)
   .post(postAddExpense);
 itemRouter
   .route("/add-income")
-  .all(userOnlyMiddleware)
+  .all(loggedInUserOnly)
   .get(getAddIncome)
   .post(postAddIncome);
 itemRouter
   .route("/edit/:type/:itemId")
-  .all(userOnlyMiddleware)
+  .all(loggedInUserOnly)
   .get(getEditItem)
   .post(postEditItem);
-itemRouter.post("/delete/:type/:itemId", userOnlyMiddleware, postDeleteItem);
-itemRouter.post("/delete/:itemIds", userOnlyMiddleware, postDeleteItems);
-itemRouter.get("/detail/:type/:itemId", userOnlyMiddleware, getDetailItem);
-itemRouter.get("/pinned-items", userOnlyMiddleware, getPinnedItems);
-itemRouter.post("/add-pin/:type/:itemId", userOnlyMiddleware, postAddPin);
-itemRouter.post("/remove-pin/:itemId", userOnlyMiddleware, postRemovePin);
+itemRouter.post("/delete/:type/:itemId", loggedInUserOnly, postDeleteItem);
+itemRouter.post("/delete/:itemIds", loggedInUserOnly, postDeleteItems);
+itemRouter.get("/detail/:type/:itemId", loggedInUserOnly, getDetailItem);
+itemRouter.get("/pinned-items", loggedInUserOnly, getPinnedItems);
+itemRouter.post("/add-pin/:type/:itemId", loggedInUserOnly, postAddPin);
+itemRouter.post("/remove-pin/:itemId", loggedInUserOnly, postRemovePin);
 
 export default itemRouter;

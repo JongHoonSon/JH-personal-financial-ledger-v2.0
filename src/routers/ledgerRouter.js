@@ -5,29 +5,25 @@ import {
   getLedgerMonthly,
   getLedgerYearly,
 } from "../controllers/ledgerController";
-import { userOnlyMiddleware } from "../middlewares";
+import { loggedInUserOnly } from "../middlewares";
 
 const ledgerRouter = express.Router();
 
 ledgerRouter.get(
   "/:yyyy([0-9]{4})-:mm([0-9]{2})-:dd([0-9]{2})/daily",
-  userOnlyMiddleware,
+  loggedInUserOnly,
   getLedgerDaily
 );
 ledgerRouter.get(
   "/:yyyy([0-9]{4})-:mm([0-9]{2})-:dd([0-9]{2})/weekly",
-  userOnlyMiddleware,
+  loggedInUserOnly,
   getLedgerWeekly
 );
 ledgerRouter.get(
   "/:yyyy([0-9]{4})-:mm([0-9]{2})/monthly",
-  userOnlyMiddleware,
+  loggedInUserOnly,
   getLedgerMonthly
 );
-ledgerRouter.get(
-  "/:yyyy([0-9]{4})/yearly",
-  userOnlyMiddleware,
-  getLedgerYearly
-);
+ledgerRouter.get("/:yyyy([0-9]{4})/yearly", loggedInUserOnly, getLedgerYearly);
 
 export default ledgerRouter;
