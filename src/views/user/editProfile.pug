@@ -1,4 +1,22 @@
 extends ../base.pug
 
 block content 
-    h1 Hello I'm editProfile
+    div#editProfile-wrapper
+        div#form-wrapper
+                form(method="POST")
+                    div#input-section
+                        div
+                            label(for="username") 아이디 
+                            input(id="username", name="username", type="text", value=`${user.username}` required)
+                        div
+                            label(for="name") 이름
+                            input(id="name", name="name", type="text", value=`${user.name}` required)
+                        div
+                            label(for="nickname") 닉네임 
+                            input(id="nickname", name="nickname", type="text", value=`${user.nickname}` required)
+                        div
+                            label(for="email") 이메일
+                            input(id="email", name="email", type="email", value=`${user.email}` required)
+
+                    div#button-section
+                        input(type="submit", value="수정하기")
