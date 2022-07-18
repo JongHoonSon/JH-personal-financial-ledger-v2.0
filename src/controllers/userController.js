@@ -5,10 +5,9 @@ export const getProfile = async (req, res) => {
 
   const user = await User.findById(userId);
 
-  console.log("user");
-  console.log(user);
+  const isMyProfile = res.locals.loggedInUser._id === userId ? true : false;
 
-  res.render("user/profile", { pageTitle: "프로필", user });
+  res.render("user/profile", { pageTitle: "프로필", user, isMyProfile });
 };
 
 export const getEditProfile = (req, res) => {
