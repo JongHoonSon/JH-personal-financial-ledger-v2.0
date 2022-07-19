@@ -23,7 +23,7 @@ itemRouter
   .route("/edit/:type/:itemId")
   .all(loggedInUserOnly)
   .get(getEditItem)
-  .post(postEditItem);
+  .post(uploadFiles.single("image"), postEditItem);
 itemRouter.post("/delete/:type/:itemId", loggedInUserOnly, postDeleteItem);
 itemRouter.post("/delete/:itemIds", loggedInUserOnly, postDeleteItems);
 itemRouter.get("/detail/:type/:itemId", loggedInUserOnly, getDetailItem);

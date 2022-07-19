@@ -2,8 +2,8 @@ extends ../base.pug
 
 block content 
     div#editItem-wrapper
-        div.form-wrapper
-            form(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`, method="POST")
+        div(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`).form-wrapper
+            form(method="POST", enctype="multipart/form-data")
                 div.form-input-section
                     div
                         label(for="date") 날짜
@@ -50,5 +50,11 @@ block content
                                 option(value="신용카드") 신용카드
                                 option(value="체크카드") 체크카드
                                 option(value="현금") 현금
+                    div
+                        if item.imageUrl !== ""
+                            img(src='/' + item.imageUrl).item-image
+                    div 
+                        label(for="image") 사진
+                        input(type="file", id="image", name="image", accept="image/*")
                 div.form-button-section
                     input(type="submit", value="수정하기")

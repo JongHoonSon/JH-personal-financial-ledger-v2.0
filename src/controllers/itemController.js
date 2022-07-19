@@ -124,6 +124,7 @@ export const postEditItem = async (req, res) => {
         category,
         description,
         cycle,
+        imageUrl: file ? file.path : item.imageUrl,
       });
     } else {
       const { paymentMethod } = req.body;
@@ -134,6 +135,7 @@ export const postEditItem = async (req, res) => {
         description,
         cycle,
         paymentMethod,
+        imageUrl: file ? file.path : item.imageUrl,
       });
     }
     req.flash("success", "아이템을 수정했습니다.");
