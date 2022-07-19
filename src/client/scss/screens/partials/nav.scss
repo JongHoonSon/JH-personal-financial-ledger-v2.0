@@ -19,6 +19,11 @@ nav {
       margin: 50px 10px;
       border: 1px solid black;
       background-color: #7ed6df;
+      a {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
     }
   }
 }
