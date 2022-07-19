@@ -31,7 +31,28 @@ export const postAddItem = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
-  if (itemType === "e") {
+  if (itemType === "i") {
+    try {
+      const user = await User.findById(loggedInUser._id);
+      const newIncome = await Income.create({
+        owner: user,
+        date,
+        amount,
+        category,
+        description,
+        cycle,
+        imageUrl: file ? file.path : "",
+      });
+      user.incomeList.push(newIncome);
+      user.save();
+      req.flash("success", "수입 내역이 추가되었습니다.");
+      return res.status(200).redirect("/item/add-income");
+    } catch (error) {
+      console.log(error);
+      req.flash("error", "수입 내역을 추가하는 과정에서 오류가 발생했습니다.");
+      return res.status(400).redirect("/item/add-income");
+    }
+  } else {
     const { paymentMethod } = req.body;
     try {
       const newExpense = await Expense.create({
@@ -52,27 +73,6 @@ export const postAddItem = async (req, res) => {
       console.log(error);
       req.flash("error", "지출 내역을 추가하는 과정에서 오류가 발생했습니다.");
       return res.status(400).redirect("item/add-expense");
-    }
-  } else {
-    try {
-      const user = await User.findById(loggedInUser._id);
-      const newIncome = await Income.create({
-        owner: user,
-        date,
-        amount,
-        category,
-        description,
-        cycle,
-        imageUrl: file ? file.path : "",
-      });
-      user.incomeList.push(newIncome);
-      user.save();
-      req.flash("success", "수입 내역이 추가되었습니다.");
-      return res.status(200).redirect("/item/add-income");
-    } catch (error) {
-      console.log(error);
-      req.flash("error", "수입 내역을 추가하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("/item/add-income");
     }
   }
 };
@@ -101,7 +101,7 @@ export const getEditItem = async (req, res) => {
 export const postEditItem = async (req, res) => {
   const { type, itemId } = req.params;
   const { date, amount, category, description, cycle } = req.body;
-  let paymentMethod;
+  const { file } = req;
 
   const checkResult = await checkItemOwnerIsLoggedInUser(
     req,
@@ -126,6 +126,7 @@ export const postEditItem = async (req, res) => {
         cycle,
       });
     } else {
+      const { paymentMethod } = req.body;
       await Expense.findByIdAndUpdate(itemId, {
         date,
         amount,
