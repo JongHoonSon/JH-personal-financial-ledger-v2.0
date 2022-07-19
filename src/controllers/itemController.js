@@ -12,6 +12,8 @@ export const postAddExpense = async (req, res) => {
   const { date, amount, category, description, cycle, paymentMethod } =
     req.body;
 
+  const { file } = req;
+
   const loggedInUser = req.session.user;
 
   try {
@@ -24,6 +26,7 @@ export const postAddExpense = async (req, res) => {
       description,
       cycle,
       paymentMethod,
+      imageUrl: file ? file.path : "",
     });
     user.expenseList.push(newExpense);
     user.save();

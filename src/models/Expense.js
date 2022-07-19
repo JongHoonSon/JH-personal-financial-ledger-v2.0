@@ -11,6 +11,7 @@ const expenseSchema = new mongoose.Schema({
   cycle: { type: String, required: true },
   paymentMethod: { type: String, required: true },
   pinned: { type: Boolean, required: true, default: false },
+  imageUrl: { type: String },
 });
 
 const Expense = mongoose.model("Expense", expenseSchema);

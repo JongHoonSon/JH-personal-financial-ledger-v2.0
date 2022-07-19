@@ -12,7 +12,7 @@ import {
   postDeleteItems,
   postEditItem,
 } from "../controllers/itemController";
-import { loggedInUserOnly } from "../middlewares";
+import { loggedInUserOnly, uploadFiles } from "../middlewares";
 
 const itemRouter = express.Router();
 
@@ -20,7 +20,7 @@ itemRouter
   .route("/add-expense")
   .all(loggedInUserOnly)
   .get(getAddExpense)
-  .post(postAddExpense);
+  .post(uploadFiles.single("image"), postAddExpense);
 itemRouter
   .route("/add-income")
   .all(loggedInUserOnly)
