@@ -1,31 +1,24 @@
 import express from "express";
 import {
-  getAddExpense,
-  getAddIncome,
   getDetailItem,
   getEditItem,
   getPinnedItems,
-  postAddExpense,
-  postAddIncome,
   postPinning,
   postDeleteItem,
   postDeleteItems,
   postEditItem,
+  postAddItem,
+  getAddItem,
 } from "../controllers/itemController";
 import { loggedInUserOnly, uploadFiles } from "../middlewares";
 
 const itemRouter = express.Router();
 
 itemRouter
-  .route("/add-expense")
+  .route("/add-item/:itemType")
   .all(loggedInUserOnly)
-  .get(getAddExpense)
-  .post(uploadFiles.single("image"), postAddExpense);
-itemRouter
-  .route("/add-income")
-  .all(loggedInUserOnly)
-  .get(getAddIncome)
-  .post(uploadFiles.single("image"), postAddIncome);
+  .get(getAddItem)
+  .post(uploadFiles.single("image"), postAddItem);
 itemRouter
   .route("/edit/:type/:itemId")
   .all(loggedInUserOnly)
