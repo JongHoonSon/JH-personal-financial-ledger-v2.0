@@ -18,7 +18,14 @@ block content
                     div 
                         label(for="category") 분류
                         select(id="category", name="category", required)
-                            if itemType === "e"
+                            if itemType === "i"
+                                option(value="월급") 월급
+                                option(value="주급") 주급
+                                option(value="용돈") 용돈
+                                option(value="은행이자") 은행이자
+                                option(value="주식이윤") 주식이윤
+                                option(value="기타") 기타
+                            else 
                                 option(value="식비") 식비
                                 option(value="주거비") 주거비
                                 option(value="통신비") 통신비
@@ -29,14 +36,6 @@ block content
                                 option(value="교육비") 교육비
                                 option(value="주식거래") 주식거래
                                 option(value="주식손해") 주식손해
-                                option(value="기타") 기타
-
-                            else 
-                                option(value="월급") 월급
-                                option(value="주급") 주급
-                                option(value="용돈") 용돈
-                                option(value="은행이자") 은행이자
-                                option(value="주식이윤") 주식이윤
                                 option(value="기타") 기타
                     div 
                         label(for="description") 설명
