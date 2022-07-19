@@ -31,7 +31,7 @@ export const getEditProfile = async (req, res) => {
 
 export const postEditProfile = async (req, res) => {
   const { userId } = req.params;
-  const { username, name, nickname, email } = req.body;
+  const { name, nickname, email } = req.body;
 
   const checkResult = await checkUserIsLoggedInUser(req, res, userId);
 
@@ -39,30 +39,28 @@ export const postEditProfile = async (req, res) => {
     return checkResult.return;
   }
 
-  const existedUsername = await User.exists({ username });
+  const user = checkResult.user;
 
-  if (existedUsername) {
-    req.flash("error", "이미 사용 중인 아이디입니다.");
-    return res.status(400).redirect("/join");
+  if (user.nickname !== nickname) {
+    const existedNickname = await User.exists({ nickname });
+    if (existedNickname) {
+      req.flash("error", "이미 사용 중인 닉네임입니다.");
+      return res.status(400).redirect("/join");
+    }
   }
 
-  const existedEmail = await User.exists({ email });
-  if (existedEmail) {
-    req.flash("error", "이미 사용 중인 이메일입니다.");
-    return res.status(400).redirect("/join");
-  }
-
-  const existedNickname = await User.exists({ nickname });
-  if (existedNickname) {
-    req.flash("error", "이미 사용 중인 닉네임입니다.");
-    return res.status(400).redirect("/join");
+  if (user.email !== email) {
+    const existedEmail = await User.exists({ email });
+    if (existedEmail) {
+      req.flash("error", "이미 사용 중인 이메일입니다.");
+      return res.status(400).redirect("/join");
+    }
   }
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
-        username,
         name,
         nickname,
         email,
