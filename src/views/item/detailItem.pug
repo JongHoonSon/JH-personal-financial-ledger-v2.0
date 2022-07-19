@@ -40,5 +40,10 @@ block content
                         label 지불 방식
                         span=item.paymentMethod
 
+                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                    label 사진
+                    span
+                        if item.imageUrl !== ""
+                            img(src='/' + item.imageUrl).item-image
 block scripts
     script(src="/assets/js/detailItem.js") 
