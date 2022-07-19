@@ -18,29 +18,29 @@ block content
                         input(type="submit", value="삭제").deleteBtn
 
         div#detailItem
-            ul 
-                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+            ul(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                li
                     label 날짜
                     span #{itemStringDate}
-                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                li
                     label 금액
                     span #{item.amount + ' 원'}
-                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                li
                     label 설명
                     span=item.description
-                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                li
                     label 분류
                     span=item.category
-                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                li
                     label 주기
                     span=item.cycle
 
                 if item.type === "e"
-                    li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                    li
                         label 지불 방식
                         span=item.paymentMethod
 
-                li(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
+                li
                     label 사진
                     span
                         if item.imageUrl !== ""
