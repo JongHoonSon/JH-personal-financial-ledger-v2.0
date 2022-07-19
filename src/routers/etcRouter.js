@@ -4,7 +4,7 @@ import { loggedInUserOnly } from "../middlewares";
 
 const etcRouter = express.Router();
 
-etcRouter.get("/chart", loggedInUserOnly, getChart);
+etcRouter.get("/chart/:days", loggedInUserOnly, getChart);
 etcRouter.get("/last-expense", loggedInUserOnly, getLastExpense);
 
 export default etcRouter;

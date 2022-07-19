@@ -1,4 +1,11 @@
 extends ../base.pug
+include ../mixins/chart-list-item-mixins.pug
 
 block content 
-    h1 Hello I'm chart
+    div#chart-wrapper 
+        include ../partials/chart_nav.pug
+
+        div#chart-list
+            ul 
+                each category of categories
+                    +list(category)
