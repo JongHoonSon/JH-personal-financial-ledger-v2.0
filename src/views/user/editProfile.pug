@@ -7,7 +7,7 @@ block content
                     div.form-input-section
                         div
                             label(for="username") 아이디 
-                            input(id="username", name="username", type="text", value=`${user.username}` required)
+                            input(id="username", name="username", type="text", value=`${user.username}` required disabled)
                         div
                             label(for="name") 이름
                             input(id="name", name="name", type="text", value=`${user.name}` required)
@@ -17,6 +17,9 @@ block content
                         div
                             label(for="email") 이메일
                             input(id="email", name="email", type="email", value=`${user.email}` required)
+                        div
+                            label(for="socialAccount") 소셜 계정 여부
+                            input(id="socialAccount", name="socialAccount", type="text", value=`${user.socialAccount ? "Y" : "N"}` required disabled)
 
                     div.form-button-section
                         input(type="submit", value="수정하기")
