@@ -148,9 +148,7 @@ export const postDeleteItem = async (req, res) => {
   }
 
   const item = checkResult.item;
-
-  const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id);
+  const user = checkResult.user;
 
   try {
     if (item.type === "i") {
@@ -295,5 +293,5 @@ const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
     return { pass: false, return: unauthorizedAccess(req, res) };
   }
 
-  return { pass: true, item: item };
+  return { pass: true, item: item, user: user };
 };
