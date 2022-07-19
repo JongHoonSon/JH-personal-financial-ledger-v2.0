@@ -15,14 +15,13 @@ export const getProfile = async (req, res) => {
 export const getEditProfile = async (req, res) => {
   const { userId } = req.params;
 
-  const loggedInUser = req.session.user;
+  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
 
-  const user = await User.findById(userId);
-
-  if (String(loggedInUser._id) !== String(user._id)) {
-    req.flash("error", "권한이 없습니다.");
-    return res.status(403).redirect("/");
+  if (checkResult.pass === false) {
+    return checkResult.return;
   }
+
+  const user = checkResult.user;
 
   res.render("user/editProfile", {
     pageTitle: "프로필 수정",
@@ -34,17 +33,10 @@ export const postEditProfile = async (req, res) => {
   const { userId } = req.params;
   const { username, name, nickname, email } = req.body;
 
-  const loggedInUser = req.session.user;
+  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
 
-  const user = await User.findById(userId);
-
-  if (!user) {
-    req.flash("error", "유저를 찾을 수 없습니다.");
-    return res.status(404).redirect("/");
-  }
-
-  if (String(loggedInUser._id) !== String(user._id)) {
-    return unauthorizedAccess(req, res);
+  if (checkResult.pass === false) {
+    return checkResult.return;
   }
 
   const existedUsername = await User.exists({ username });
@@ -87,7 +79,15 @@ export const postEditProfile = async (req, res) => {
   }
 };
 
-export const getEditPassword = (req, res) => {
+export const getEditPassword = async (req, res) => {
+  const { userId } = req.params;
+
+  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
+
+  if (checkResult.pass === false) {
+    return checkResult.return;
+  }
+
   res.render("user/editPassword", { pageTitle: "비밀번호 변경" });
 };
 
@@ -95,18 +95,13 @@ export const postEditPassword = async (req, res) => {
   const { userId } = req.params;
   const { password, new_password, new_password_confirm } = req.body;
 
-  const loggedInUser = req.session.user;
+  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
 
-  const user = await User.findById(userId);
-
-  if (!user) {
-    req.flash("error", "유저를 찾을 수 없습니다.");
-    return res.status(404).redirect("/");
+  if (checkResult.pass === false) {
+    return checkResult.return;
   }
 
-  if (String(loggedInUser._id) !== String(user._id)) {
-    return unauthorizedAccess(req, res);
-  }
+  const user = checkResult.user;
 
   const passwordCorrect = await bcrypt.compare(password, user.password);
   if (!passwordCorrect) {
@@ -133,4 +128,21 @@ export const postEditPassword = async (req, res) => {
     req.flash("error", "비밀번호를 변경하는 과정에서 오류가 발생했습니다.");
     return res.status(400).redirect(`/user/edit-password/${userId}`);
   }
+};
+
+const checkUserIsLoggedInUser = async (req, res, userId) => {
+  const loggedInUser = req.session.user;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return { pass: false, return: res.status(404).redirect("/") };
+  }
+
+  if (String(loggedInUser._id) !== String(user._id)) {
+    return { pass: false, return: unauthorizedAccess(req, res) };
+  }
+
+  return { pass: true, user: user };
 };
