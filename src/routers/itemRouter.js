@@ -25,7 +25,7 @@ itemRouter
   .route("/add-income")
   .all(loggedInUserOnly)
   .get(getAddIncome)
-  .post(postAddIncome);
+  .post(uploadFiles.single("image"), postAddIncome);
 itemRouter
   .route("/edit/:type/:itemId")
   .all(loggedInUserOnly)

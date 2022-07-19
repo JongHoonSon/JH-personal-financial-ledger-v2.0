@@ -46,6 +46,8 @@ export const getAddIncome = (req, res) => {
 export const postAddIncome = async (req, res) => {
   const { date, amount, category, description, cycle } = req.body;
 
+  const { file } = req;
+
   const loggedInUser = req.session.user;
 
   try {
@@ -57,6 +59,7 @@ export const postAddIncome = async (req, res) => {
       category,
       description,
       cycle,
+      imageUrl: file ? file.path : "",
     });
     user.incomeList.push(newIncome);
     user.save();

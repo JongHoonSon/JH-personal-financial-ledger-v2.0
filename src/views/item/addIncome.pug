@@ -5,7 +5,7 @@ block content
         include ../partials/addItem_nav.pug
 
         div.form-wrapper
-            form(method="POST").incomeBgColor
+            form(method="POST", enctype="multipart/form-data").incomeBgColor
                 div.form-input-section
                     div
                         label(for="date") 날짜
@@ -32,5 +32,8 @@ block content
                         select(id="cycle", name="cycle", required)
                             option(value="정기성") 정기성
                             option(value="일회성") 일회성
+                    div 
+                        label(for="image") 사진
+                        input(type="file", id="image", name="image", accept="image/*")
                 div.form-button-section
                     input(type="submit", value="추가하기")

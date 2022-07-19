@@ -10,6 +10,7 @@ const incomeSchema = new mongoose.Schema({
   category: { type: String, required: true },
   cycle: { type: String, required: true },
   pinned: { type: Boolean, required: true, default: false },
+  imageUrl: { type: String },
 });
 
 const Income = mongoose.model("Income", incomeSchema);
