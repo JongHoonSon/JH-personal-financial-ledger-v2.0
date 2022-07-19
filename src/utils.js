@@ -49,7 +49,7 @@ export const getStringDate = (date) => {
 export const getStringAmount = (amount) => {
   const stringAmount = amount.toString();
   const arrAmount = stringAmount.split("");
-  for (let i = arrAmount.length - 3; i >= 0; i = i - 3) {
+  for (let i = arrAmount.length - 3; i >= 1; i = i - 3) {
     arrAmount[i] = "," + arrAmount[i];
   }
 
