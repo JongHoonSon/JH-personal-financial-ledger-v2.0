@@ -1,5 +1,6 @@
 import { unauthorizedAccess } from "../middlewares";
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const getProfile = async (req, res) => {
   const { userId } = req.params;
@@ -76,12 +77,60 @@ export const postEditProfile = async (req, res) => {
       },
       { new: true }
     );
-    req.flash("success", "프로필을 수정했습니다.");
     req.session.user = updatedUser;
+    req.flash("success", "프로필을 수정했습니다.");
     return res.status(200).redirect(`/user/profile/${userId}`);
   } catch (error) {
     console.log(error);
     req.flash("error", "프로필을 수정하는 과정에서 오류가 발생했습니다.");
     return res.status(400).redirect(`/user/profile/${userId}`);
+  }
+};
+
+export const getEditPassword = (req, res) => {
+  res.render("user/editPassword", { pageTitle: "비밀번호 변경" });
+};
+
+export const postEditPassword = async (req, res) => {
+  const { userId } = req.params;
+  const { password, new_password, new_password_confirm } = req.body;
+
+  const loggedInUser = req.session.user;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  if (String(loggedInUser._id) !== String(user._id)) {
+    return unauthorizedAccess(req, res);
+  }
+
+  const passwordCorrect = await bcrypt.compare(password, user.password);
+  if (!passwordCorrect) {
+    req.flash("error", "비밀번호가 일치하지 않습니다.");
+    return res.status(400).redirect(`/user/edit-password/${userId}`);
+  }
+
+  if (new_password !== new_password_confirm) {
+    req.flash(
+      "error",
+      "입력하신 새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다."
+    );
+    return res.status(400).redirect(`/user/edit-password/${userId}`);
+  }
+
+  try {
+    user.password = new_password;
+    await user.save();
+    req.session.user = user;
+    req.flash("success", "비밀번호를 변경했습니다.");
+    return res.status(200).redirect(`/user/profile/${userId}`);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "비밀번호를 변경하는 과정에서 오류가 발생했습니다.");
+    return res.status(400).redirect(`/user/edit-password/${userId}`);
   }
 };

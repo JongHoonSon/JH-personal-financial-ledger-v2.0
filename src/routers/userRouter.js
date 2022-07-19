@@ -1,7 +1,9 @@
 import express from "express";
 import {
+  getEditPassword,
   getEditProfile,
   getProfile,
+  postEditPassword,
   postEditProfile,
 } from "../controllers/userController";
 import { loggedInUserOnly } from "../middlewares";
@@ -14,5 +16,10 @@ userRouter
   .all(loggedInUserOnly)
   .get(getEditProfile)
   .post(postEditProfile);
+userRouter
+  .route("/edit-password/:userId")
+  .all(loggedInUserOnly)
+  .get(getEditPassword)
+  .post(postEditPassword);
 
 export default userRouter;
