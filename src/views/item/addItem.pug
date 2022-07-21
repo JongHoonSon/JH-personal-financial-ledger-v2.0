@@ -52,8 +52,14 @@ block content
                                 option(value="신용카드") 신용카드
                                 option(value="체크카드") 체크카드
                                 option(value="현금") 현금
+                    div
+                        label 사진
+                        img(src='/').item-image.image-preview
                     div 
                         label(for="image") 사진
-                        input(type="file", id="image", name="image", accept="image/*")
+                        input(type="file", id="image", name="image", accept="image/*"  data-id="").image-upload
                 div.form-button-section
                     input(type="submit", value="추가하기")
+
+block scripts
+    script(src="/assets/js/imagePreview.js") 

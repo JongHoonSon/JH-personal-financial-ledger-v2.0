@@ -53,8 +53,11 @@ block content
                     div
                         label 사진
                         if item.imageUrl !== ""
-                            img(src='/' + item.imageUrl).item-image
+                            img(src='/' + item.imageUrl).item-image.image-preview
                     div 
-                        input(type="file", id="image", name="image", accept="image/*")
+                        input(type="file", id="image", name="image", accept="image/*" data-id=item.imageUrl).image-upload
                 div.form-button-section
                     input(type="submit", value="수정하기")
+
+block scripts
+    script(src="/assets/js/imagePreview.js") 
