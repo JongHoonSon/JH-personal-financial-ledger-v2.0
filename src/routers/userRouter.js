@@ -6,7 +6,7 @@ import {
   postEditPassword,
   postEditProfile,
 } from "../controllers/userController";
-import { loggedInUserOnly } from "../middlewares";
+import { loggedInUserOnly, uploadFiles } from "../middlewares";
 
 const userRouter = express.Router();
 
@@ -15,7 +15,7 @@ userRouter
   .route("/edit-profile/:userId")
   .all(loggedInUserOnly)
   .get(getEditProfile)
-  .post(postEditProfile);
+  .post(uploadFiles.single("image"), postEditProfile);
 userRouter
   .route("/edit-password/:userId")
   .all(loggedInUserOnly)

@@ -3,7 +3,7 @@ extends ../base.pug
 block content 
     div#editProfile-wrapper
         div.form-wrapper
-                form(method="POST")
+                form(method="POST", enctype="multipart/form-data")
                     div.form-input-section
                         div
                             label(for="username") 아이디 
@@ -20,6 +20,14 @@ block content
                         div
                             label(for="socialAccount") 소셜 계정 여부
                             input(id="socialAccount", name="socialAccount", type="text", value=`${user.socialAccount ? "Y" : "N"}` required disabled)
+                        div
+                            label(for="image") 프로필 사진
+                            img(src='/' + user.avatarUrl).user-avatar.image-preview
+                        div 
+                            input(type="file", id="image", name="image", accept="image/*" data-id=user.avatarUrl).image-upload
 
                     div.form-button-section
                         input(type="submit", value="수정하기")
+
+block scripts
+    script(src="/assets/js/imagePreview.js") 

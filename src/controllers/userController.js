@@ -32,6 +32,7 @@ export const getEditProfile = async (req, res) => {
 export const postEditProfile = async (req, res) => {
   const { userId } = req.params;
   const { name, nickname, email } = req.body;
+  const { file } = req;
 
   const checkResult = await checkUserIsLoggedInUser(req, res, userId);
 
@@ -57,6 +58,9 @@ export const postEditProfile = async (req, res) => {
     }
   }
 
+  console.log("file");
+  console.log(file);
+
   try {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
@@ -64,6 +68,7 @@ export const postEditProfile = async (req, res) => {
         name,
         nickname,
         email,
+        avatarUrl: file ? file.path : user.avatarUrl,
       },
       { new: true }
     );
