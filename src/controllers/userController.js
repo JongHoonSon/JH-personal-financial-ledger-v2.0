@@ -58,9 +58,6 @@ export const postEditProfile = async (req, res) => {
     }
   }
 
-  console.log("file");
-  console.log(file);
-
   try {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
