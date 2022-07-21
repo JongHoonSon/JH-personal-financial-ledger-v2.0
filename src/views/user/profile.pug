@@ -18,6 +18,9 @@ block content
             div#profile-socialAccount 
                 h3 소셜 계정 여부
                 textarea(readonly) #{user.socialAccount === true ? "Y" : "N"}
+            div#profile-image
+                h3 프로필 사진
+                img(src="/" + user.avatarUrl).user-image
 
         if isMyProfile 
             div#profile-options

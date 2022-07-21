@@ -32,6 +32,7 @@ app.use(
 app.use(flash());
 app.use(logger);
 app.use(localMiddleware);
+app.use("/defaults", express.static("defaults"));
 app.use("/uploads", express.static("uploads"));
 app.use("/", globalRouter);
 app.use("/user", userRouter);

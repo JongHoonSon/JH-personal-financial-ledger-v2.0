@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
       ref: "Expense",
     },
   ],
+  avatarUrl: { type: String, default: "defaults\\default_avatar.png" },
 });
 
 userSchema.pre("save", async function () {
