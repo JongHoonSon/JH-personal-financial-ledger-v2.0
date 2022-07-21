@@ -46,11 +46,11 @@ export const postAddItem = async (req, res) => {
       user.incomeList.push(newIncome);
       user.save();
       req.flash("success", "수입 내역이 추가되었습니다.");
-      return res.status(200).redirect("/item/add-income");
+      return res.status(200).redirect("/item/add-item/i");
     } catch (error) {
       console.log(error);
       req.flash("error", "수입 내역을 추가하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("/item/add-income");
+      return res.status(400).redirect("/item/add-item/i");
     }
   } else {
     const { paymentMethod } = req.body;
@@ -68,11 +68,11 @@ export const postAddItem = async (req, res) => {
       user.expenseList.push(newExpense);
       user.save();
       req.flash("success", "지출 내역이 추가되었습니다.");
-      return res.status(200).redirect("/item/add-expense");
+      return res.status(200).redirect("/item/add-item/e");
     } catch (error) {
       console.log(error);
       req.flash("error", "지출 내역을 추가하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("item/add-expense");
+      return res.status(400).redirect("item/add-item/e");
     }
   }
 };
@@ -115,6 +115,9 @@ export const postEditItem = async (req, res) => {
   }
 
   const item = checkResult.item;
+
+  console.log("file.path");
+  console.log(file.path);
 
   try {
     if (item.type === "i") {
