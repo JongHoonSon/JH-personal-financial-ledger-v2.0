@@ -41,7 +41,7 @@ export const postAddItem = async (req, res) => {
         category,
         description,
         cycle,
-        imageUrl: file ? file.path : "",
+        imageUrl: file ? file.path : "defaults/empty_image.png",
       });
       user.incomeList.push(newIncome);
       user.save();
