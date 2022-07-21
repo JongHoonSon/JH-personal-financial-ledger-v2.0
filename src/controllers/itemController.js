@@ -116,9 +116,6 @@ export const postEditItem = async (req, res) => {
 
   const item = checkResult.item;
 
-  console.log("file.path");
-  console.log(file.path);
-
   try {
     if (item.type === "i") {
       await Income.findByIdAndUpdate(itemId, {
