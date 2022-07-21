@@ -20,7 +20,7 @@ block content
                 textarea(readonly) #{user.socialAccount === true ? "Y" : "N"}
             div#profile-image
                 h3 프로필 사진
-                img(src="/" + user.avatarUrl).user-image
+                img(src="/" + user.avatarUrl).user-avatar
 
         if isMyProfile 
             div#profile-options
