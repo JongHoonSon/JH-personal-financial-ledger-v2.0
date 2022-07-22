@@ -80,3 +80,7 @@ a {
 .expenseBgColor {
   background-color: $expense-color;
 }
+
+textarea {
+  resize: none;
+}
