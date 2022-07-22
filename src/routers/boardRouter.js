@@ -1,10 +1,18 @@
 import express from "express";
-import { getAddPost, getBoard } from "../controllers/boardController";
+import {
+  getAddPost,
+  getBoard,
+  postAddPost,
+} from "../controllers/boardController";
 import { loggedInUserOnly } from "../middlewares";
 
 const boardRouter = express.Router();
 
 boardRouter.get("/", loggedInUserOnly, getBoard);
-boardRouter.get("/add-post", loggedInUserOnly, getAddPost);
+boardRouter
+  .route("/add-post")
+  .all(loggedInUserOnly)
+  .get(getAddPost)
+  .post(postAddPost);
 
 export default boardRouter;

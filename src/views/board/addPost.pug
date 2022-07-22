@@ -1,4 +1,19 @@
 extends ../base.pug
 
 block content
-    span add post
+    div.form-wrapper
+            form(method="POST")
+                div.form-input-section
+                    div
+                        label(for="title") 제목
+                        input(placeholder="제목", id="title", name="title", type="text", required)
+                    div
+                        label(for="category") 카테고리
+                        select(id="category", name="category", required)
+                            option(value="질문") 질문
+                            option(value="꿀팁") 꿀팁
+                    div 
+                        label(for="content") 내용
+                        textarea(placeholder="내용", id="content", name="content", type="text", required)
+                div.form-button-section
+                    input(type="submit", value="작성하기")
