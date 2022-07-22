@@ -34,6 +34,4 @@ export const postAddPost = async (req, res) => {
     req.flash("error", "글을 작성하는 과정에서 오류가 발생했습니다.");
     return res.status(400).redirect("/board/add-post");
   }
-
-  res.status(200).render("board/addPost", { pageTitle: "글 작성" });
 };
