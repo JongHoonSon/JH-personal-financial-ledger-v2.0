@@ -35,3 +35,11 @@ export const postAddPost = async (req, res) => {
     return res.status(400).redirect("/board/add-post");
   }
 };
+
+export const getEditPost = (req, res) => {
+  res.status(200).render("board/editPost", { pageTitle: "글 수정" });
+};
+
+export const postEditPost = async (req, res) => {};
+
+export const postDeletePost = async (req, res) => {};

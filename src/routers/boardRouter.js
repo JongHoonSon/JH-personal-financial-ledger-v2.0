@@ -2,7 +2,10 @@ import express from "express";
 import {
   getAddPost,
   getBoard,
+  getEditPost,
   postAddPost,
+  postDeletePost,
+  postEditPost,
 } from "../controllers/boardController";
 import { loggedInUserOnly } from "../middlewares";
 
@@ -14,5 +17,11 @@ boardRouter
   .all(loggedInUserOnly)
   .get(getAddPost)
   .post(postAddPost);
+boardRouter
+  .route("/edit-post")
+  .all(loggedInUserOnly)
+  .get(getEditPost)
+  .post(postEditPost);
+boardRouter.post("/delete-post", loggedInUserOnly, postDeletePost);
 
 export default boardRouter;
