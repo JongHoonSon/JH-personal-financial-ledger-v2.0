@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   nickname: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   socialAccount: { type: Boolean, required: true, default: false },
+  avatarUrl: { type: String },
   incomeList: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,7 +23,12 @@ const userSchema = new mongoose.Schema({
       ref: "Expense",
     },
   ],
-  avatarUrl: { type: String },
+  postList: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Post" },
+  ],
+  commentList: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
+  ],
 });
 
 userSchema.pre("save", async function () {
