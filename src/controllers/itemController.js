@@ -72,7 +72,7 @@ export const postAddItem = async (req, res) => {
     } catch (error) {
       console.log(error);
       req.flash("error", "지출 내역을 추가하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("item/add-item/e");
+      return res.status(400).redirect("/item/add-item/e");
     }
   }
 };
