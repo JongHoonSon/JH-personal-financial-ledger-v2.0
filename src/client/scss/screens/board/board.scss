@@ -1,0 +1,30 @@
+#board-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  #board-header {
+    width: 100%;
+    height: 10%;
+    background-color: skyblue;
+  }
+  #board-main {
+    width: 100%;
+    height: 70%;
+    background-color: yellow;
+  }
+
+  #board-pages {
+    width: 100%;
+    height: 10%;
+    background-color: pink;
+  }
+
+  #board-options {
+    width: 100%;
+    height: 10%;
+    background-color: purple;
+  }
+}
