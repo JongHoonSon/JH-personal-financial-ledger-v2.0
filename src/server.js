@@ -4,6 +4,7 @@ import itemRouter from "./routers/itemRouter";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import etcRouter from "./routers/etcRouter";
+import boardRouter from "./routers/boardRouter";
 import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -38,6 +39,7 @@ app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
 app.use("/ledger", ledgerRouter);
+app.use("/board", boardRouter);
 app.use("/etc", etcRouter);
 
 export default app;
