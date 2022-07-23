@@ -1,11 +1,16 @@
 extends ../base.pug
+include ../mixins/board-list-post-mixins.pug
 
 block content
     div#board-wrapper
         div#board-header
-            span test0
+            div 번호
+            div 제목
+            div 조회 수
         div#board-main 
-            span test1
+            ul
+                each post in postList
+                    +list(post)
         div#board-pages
             span test2
         div#board-options

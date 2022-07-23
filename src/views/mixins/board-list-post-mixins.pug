@@ -1,0 +1,6 @@
+mixin list(post)
+    div.post-mixins
+        div #{post.seq}
+        div
+            a(href=`/post/${post.seq}`) #{post.title}
+        div #{post.views}
