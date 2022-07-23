@@ -11,7 +11,6 @@ import { loggedInUserOnly } from "../middlewares";
 
 const boardRouter = express.Router();
 
-boardRouter.get("/", loggedInUserOnly, getBoard);
 boardRouter
   .route("/add-post")
   .all(loggedInUserOnly)
@@ -23,5 +22,6 @@ boardRouter
   .get(getEditPost)
   .post(postEditPost);
 boardRouter.post("/delete-post", loggedInUserOnly, postDeletePost);
+boardRouter.get("/:category", loggedInUserOnly, getBoard);
 
 export default boardRouter;

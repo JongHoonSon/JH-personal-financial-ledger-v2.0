@@ -1,8 +1,15 @@
 import User from "../models/User";
 import Post from "../models/Post";
 
-export const getBoard = (req, res) => {
-  res.status(200).render("board/board", { pageTitle: "게시판" });
+export const getBoard = async (req, res) => {
+  const { category } = req.params;
+
+  const postList = await Post.find({ category });
+
+  console.log("postList");
+  console.log(postList);
+
+  res.status(200).render("board/board", { pageTitle: "게시판", postList });
 };
 
 export const getAddPost = (req, res) => {
