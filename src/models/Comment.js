@@ -7,7 +7,7 @@ const commentSchema = new mongoose.Schema({
     ref: "User",
   },
   createdAt: { type: Date, required: true, default: Date.now },
-  conetent: { type: String, required: true },
+  content: { type: String, required: true },
   likes: { type: Number, required: true, defualt: 0 },
   post: {
     type: mongoose.Schema.Types.ObjectId,
