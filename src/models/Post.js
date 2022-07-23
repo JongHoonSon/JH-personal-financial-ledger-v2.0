@@ -6,6 +6,7 @@ const postSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   createdAt: { type: Date, required: true, default: Date.now },
   content: { type: String, required: true },
+  views: { type: Number, required: true, default: 0 },
   likes: { type: Number, required: true, default: 0 },
   commentList: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
