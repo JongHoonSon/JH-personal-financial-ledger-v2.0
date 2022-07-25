@@ -10,6 +10,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import flash from "express-flash";
 import { localMiddleware } from "./middlewares";
+import postRouter from "./routers/postRouter";
 
 const app = express();
 const logger = morgan("dev");
@@ -40,6 +41,7 @@ app.use("/user", userRouter);
 app.use("/item", itemRouter);
 app.use("/ledger", ledgerRouter);
 app.use("/board", boardRouter);
+app.use("/post", postRouter);
 app.use("/etc", etcRouter);
 
 export default app;
