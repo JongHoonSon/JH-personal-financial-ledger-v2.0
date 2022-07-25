@@ -4,6 +4,6 @@ import { loggedInUserOnly } from "../middlewares";
 
 const boardRouter = express.Router();
 
-boardRouter.get("/:boardName", loggedInUserOnly, getBoard);
+boardRouter.get("/:boardName/:pageNum", loggedInUserOnly, getBoard);
 
 export default boardRouter;

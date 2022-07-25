@@ -10,11 +10,45 @@ block content
             div 조회수
             div 작성일
         div#board-main 
-            ul
-                each post in postList
-                    +list(post)
-        div#board-pages
-            span test2
+            if emptyFlag === true
+                div.empty
+                    span 아직 '#{boardName}' 탭에 작성된 글이 없습니다.
+            else 
+                ul
+                    each post in postList
+                        +list(post)
+        div#board-pages(data-thispagenum=thisPageNum, data-lastpagenum=lastPageNum)
+            div
+                a(href=`/board/${boardName}/${thisPageNum-1}`).prevPageBtn <
+
+            if thisPageNum-firstPageNum > 4  
+                div 
+                    a(href=`/board/${boardName}/${firstPageNum}`) #{firstPageNum}
+                div #{`...`}
+
+            -for (var i = 3; i > 0; i--)
+                if thisPageNum-i > 0
+                    div 
+                        a(href=`/board/${boardName}/${thisPageNum-i}`) #{thisPageNum-i}
+
+            div.thisPage
+                a(href=`/board/${boardName}/${thisPageNum}`) #{thisPageNum}
+
+            -for (var j = 1; j < 4; j++)
+                if thisPageNum+j < lastPageNum+1
+                    div 
+                        a(href=`/board/${boardName}/${thisPageNum+j}`) #{thisPageNum+j}
+
+            if lastPageNum-thisPageNum > 4  
+                div #{`...`}
+                div 
+                    a(href=`/board/${boardName}/${lastPageNum}`) #{lastPageNum}
+
+            div
+                a(href=`/board/${boardName}/${thisPageNum+1}`).nextPageBtn >
         div#board-options
             button
                 a(href="/post/add") 글 쓰기
+
+block scripts 
+    script(src="/assets/js/pager.js") 
