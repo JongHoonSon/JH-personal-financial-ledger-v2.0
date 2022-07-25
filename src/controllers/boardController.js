@@ -1,5 +1,10 @@
+import Board from "../models/Board";
+
 export const getBoard = async (req, res) => {
-  const { category } = req.params;
+  const { boardName } = req.params;
+
+  const board = await Board.findOne({ name: boardName }).populate("postList");
+  const postList = board.postList;
 
   res.status(200).render("board/board", { pageTitle: "게시판", postList });
 };
