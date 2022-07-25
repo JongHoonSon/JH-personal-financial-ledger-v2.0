@@ -1,6 +1,8 @@
 mixin list(post)
     div.post-mixins
         div #{post.seq}
+        div #{post.board.name}
         div
             a(href=`/post/${post.seq}`) #{post.title}
         div #{post.views}
+        div #{post.stringDate}
