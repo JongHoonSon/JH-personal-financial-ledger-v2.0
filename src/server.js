@@ -9,7 +9,7 @@ import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import flash from "express-flash";
-import { localMiddleware } from "./middlewares";
+import { localMiddleware, createObjectMiddleware } from "./middlewares";
 import postRouter from "./routers/postRouter";
 
 const app = express();
@@ -33,6 +33,7 @@ app.use(
 
 app.use(flash());
 app.use(logger);
+app.use(createObjectMiddleware);
 app.use(localMiddleware);
 app.use("/defaults", express.static("defaults"));
 app.use("/uploads", express.static("uploads"));

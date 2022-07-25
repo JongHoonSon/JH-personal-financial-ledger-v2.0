@@ -1,6 +1,22 @@
 import multer from "multer";
+import Board from "./models/Board";
 
 export const uploadFiles = multer({ dest: "uploads/" });
+
+export const createObjectMiddleware = async (req, res, next) => {
+  const boardList = ["전체 게시판", "질문", "꿀팁 공유", "핫딜", "기타"];
+
+  for (let i = 0; i < boardList.length; i++) {
+    const board = await Board.exists({ name: boardList[i] });
+
+    if (!board) {
+      await Board.create({ name: boardList[i] });
+      console.log(`${boardList[i]} created!`);
+    }
+  }
+
+  next();
+};
 
 export const localMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
