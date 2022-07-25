@@ -1,12 +1,5 @@
 import express from "express";
-import {
-  getAddPost,
-  getBoard,
-  getEditPost,
-  postAddPost,
-  postDeletePost,
-  postEditPost,
-} from "../controllers/boardController";
+import { getBoard } from "../controllers/boardController";
 import { loggedInUserOnly } from "../middlewares";
 
 const boardRouter = express.Router();

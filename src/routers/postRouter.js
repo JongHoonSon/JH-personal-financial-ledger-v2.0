@@ -1,12 +1,11 @@
 import express from "express";
 import {
   getAddPost,
-  getBoard,
   getEditPost,
   postAddPost,
   postDeletePost,
   postEditPost,
-} from "../controllers/boardController";
+} from "../controllers/postController";
 import { loggedInUserOnly } from "../middlewares";
 
 const postRouter = express.Router();
