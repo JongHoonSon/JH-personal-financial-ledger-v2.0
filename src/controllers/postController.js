@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Board from "../models/Board";
 import Post from "../models/Post";
 
 export const getAddPost = (req, res) => {
@@ -6,23 +7,30 @@ export const getAddPost = (req, res) => {
 };
 
 export const postAddPost = async (req, res) => {
-  const { title, category, content } = req.body;
+  const { title, boardName, content } = req.body;
 
-  console.log("title, category, content");
-  console.log(title, category, content);
+  console.log("title, boardName, content");
+  console.log(title, boardName, content);
 
   const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id);
 
+  const totalBoard = await Board.findOne({ name: "전체게시판" });
+  const board = await Board.findOne({ name: boardName });
+
   try {
     const newPost = await Post.create({
       title,
-      category,
+      board,
       owner: user,
       content,
     });
     user.postList.push(newPost);
-    user.save();
+    totalBoard.postList.push(newPost);
+    board.postList.push(newPost);
+    await user.save();
+    await totalBoard.save();
+    await board.save();
     req.flash("success", "글을 작성하였습니다.");
     return res.status(200).redirect("/post/add");
   } catch (error) {

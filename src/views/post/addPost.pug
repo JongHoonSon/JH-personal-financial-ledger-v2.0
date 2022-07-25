@@ -8,10 +8,10 @@ block content
                         label(for="title") 제목
                         input(placeholder="제목", id="title", name="title", type="text", required)
                     div
-                        label(for="category") 카테고리
-                        select(id="category", name="category", required)
-                            each boardName in boardList
-                                option(value=`${boardName}`)=boardName
+                        label(for="boardName") 게시판
+                        select(id="boardName", name="boardName", required)
+                            each board_name in boardList
+                                option(value=`${board_name}`)=board_name
                     div 
                         label(for="content") 내용
                         textarea(placeholder="내용", id="content", name="content", type="text", required)
