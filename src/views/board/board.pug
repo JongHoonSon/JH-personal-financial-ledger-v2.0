@@ -3,6 +3,13 @@ include ../mixins/board-list-post-mixins.pug
 
 block content
     div#board-wrapper
+        div#board-nav
+            div 
+                a(href=`/board/전체게시판/1`) 전체게시판
+            each board_name in boardList 
+                div
+                    a(href=`/board/${board_name}/1`) #{board_name}
+
         div#board-header
             div 번호
             div 게시판
