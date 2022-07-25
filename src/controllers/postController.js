@@ -39,3 +39,7 @@ export const getEditPost = (req, res) => {
 export const postEditPost = async (req, res) => {};
 
 export const postDeletePost = async (req, res) => {};
+
+export const getDetailPost = (req, res) => {
+  res.status(200).render("post/detailPost", { pageTitle: "글 상세보기" });
+};
