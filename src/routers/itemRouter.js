@@ -15,7 +15,7 @@ import { loggedInUserOnly, uploadFiles } from "../middlewares";
 const itemRouter = express.Router();
 
 itemRouter
-  .route("/add-item/:itemType")
+  .route("/add/:itemType")
   .all(loggedInUserOnly)
   .get(getAddItem)
   .post(uploadFiles.single("image"), postAddItem);
@@ -27,7 +27,7 @@ itemRouter
 itemRouter.post("/delete/:type/:itemId", loggedInUserOnly, postDeleteItem);
 itemRouter.post("/delete/:itemIds", loggedInUserOnly, postDeleteItems);
 itemRouter.get("/detail/:type/:itemId", loggedInUserOnly, getDetailItem);
-itemRouter.get("/pinned-items", loggedInUserOnly, getPinnedItems);
+itemRouter.get("/pinned", loggedInUserOnly, getPinnedItems);
 itemRouter.post("/pinning/:type/:itemId", loggedInUserOnly, postPinning);
 
 export default itemRouter;

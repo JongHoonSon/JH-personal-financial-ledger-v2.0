@@ -15,13 +15,13 @@ nav
                 a(href=`/user/profile/${loggedInUser._id}`) 내 정보
 
             li#addItem
-                a(href="/item/add-item/i") 수입/지출 내역 추가
+                a(href="/item/add/i") 수입/지출 내역 추가
 
             li#ledger 
                 a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`) 가계부
 
             li#pinned 
-                a(href="/item/pinned-items") 핀 목록
+                a(href="/item/pinned") 핀 목록
 
             li#last_expense 
                 a(href="/etc/last-expense") 마지막 지출일
@@ -30,5 +30,5 @@ nav
                 a(href="/etc/chart/7") 소비 리포트
                 
             li#board 
-                a(href="/board") 게시판
+                a(href="/board/전체게시판") 게시판
 
