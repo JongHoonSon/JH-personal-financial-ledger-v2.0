@@ -4,18 +4,21 @@ import Board from "./models/Board";
 export const uploadFiles = multer({ dest: "uploads/" });
 
 export const createObjectMiddleware = async (req, res, next) => {
-  const boardList = ["전체게시판", "질문", "꿀팁공유", "핫딜", "기타"];
+  const boardList = ["수다", "질문", "꿀팁공유", "핫딜", "기타"];
+  res.locals.boardList = boardList;
 
-  for (let i = 0; i < boardList.length; i++) {
-    const board = await Board.exists({ name: boardList[i] });
+  const totalBoard = await Board.exists({ name: "전체게시판" });
 
-    if (!board) {
+  if (!totalBoard) {
+    await Board.create({ name: "전체게시판" });
+    console.log(`전체게시판 created!`);
+
+    for (let i = 0; i < boardList.length; i++) {
       await Board.create({ name: boardList[i] });
       console.log(`${boardList[i]} created!`);
     }
   }
 
-  res.locals.boardList = boardList;
   next();
 };
 
