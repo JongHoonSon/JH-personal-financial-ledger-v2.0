@@ -7,10 +7,7 @@
 @import "./config/_variables.scss";
 
 // Screens
-@import "./screens/board/addPost.scss";
 @import "./screens/board/board.scss";
-@import "./screens/board/detailPost.scss";
-@import "./screens/board/editPost.scss";
 
 @import "./screens/etc/chart.scss";
 @import "./screens/etc/lastExpense.scss";
@@ -39,6 +36,10 @@
 @import "./screens/partials/ledger_nav.scss";
 @import "./screens/partials/main.scss";
 @import "./screens/partials/nav.scss";
+
+@import "./screens/board/addPost.scss";
+@import "./screens/board/detailPost.scss";
+@import "./screens/board/editPost.scss";
 
 @import "./screens/user/editPassword.scss";
 @import "./screens/user/editProfile.scss";
