@@ -10,8 +10,8 @@ block content
                     div
                         label(for="category") 카테고리
                         select(id="category", name="category", required)
-                            option(value="질문") 질문
-                            option(value="꿀팁") 꿀팁
+                            each boardName in boardList
+                                option(value=`${boardName}`)=boardName
                     div 
                         label(for="content") 내용
                         textarea(placeholder="내용", id="content", name="content", type="text", required)

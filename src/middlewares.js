@@ -15,6 +15,7 @@ export const createObjectMiddleware = async (req, res, next) => {
     }
   }
 
+  res.locals.boardList = boardList;
   next();
 };
 
