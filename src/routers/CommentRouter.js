@@ -4,6 +4,6 @@ import { postAddComment } from "../controllers/commentController";
 
 const commentRouter = express.Router();
 
-commentRouter.post("/add").all(loggedInUserOnly, postAddComment);
+commentRouter.post("/add/:postId", loggedInUserOnly, postAddComment);
 
 export default commentRouter;
