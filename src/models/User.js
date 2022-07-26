@@ -29,6 +29,12 @@ const userSchema = new mongoose.Schema({
   commentList: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
   ],
+  likesPostList: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Post" },
+  ],
+  clipPostList: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Post" },
+  ],
 });
 
 userSchema.pre("save", async function () {

@@ -9,9 +9,6 @@ export const getAddPost = (req, res) => {
 export const postAddPost = async (req, res) => {
   const { title, boardName, content } = req.body;
 
-  console.log("title, boardName, content");
-  console.log(title, boardName, content);
-
   const loggedInUser = req.session.user;
   const user = await User.findById(loggedInUser._id);
 
@@ -51,9 +48,6 @@ export const postDeletePost = async (req, res) => {};
 export const getDetailPost = async (req, res) => {
   const { postId } = req.params;
 
-  console.log("postId");
-  console.log(postId);
-
   try {
     const post = await Post.findById(postId)
       .populate("board")
@@ -62,9 +56,6 @@ export const getDetailPost = async (req, res) => {
         path: "commentList",
         populate: { path: "owner" },
       });
-
-    console.log("post");
-    console.log(post);
 
     return res
       .status(200)
@@ -83,7 +74,46 @@ export const postIncreaseViewsPost = async (req, res) => {
     const post = await Post.findById(postId);
     post.views += 1;
     await post.save();
-    return sendStatus(200);
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postIncreaseLikesPost = async (req, res) => {
+  const { postId } = req.params;
+
+  const loggedInUser = res.locals.loggedInUser;
+  const user = await User.findById(loggedInUser._id);
+
+  try {
+    const post = await Post.findById(postId).populate("likesUserList");
+
+    // console.log("post.likesUserList");
+    // console.log(post.likesUserList);
+
+    let alreadyIn = false;
+
+    for (let i = 0; i < post.likesUserList.length; i++) {
+      if (String(post.likesUserList[i]._id) === String(user._id)) {
+        alreadyIn = true;
+        break;
+      }
+    }
+
+    if (alreadyIn) {
+      req.flash("error", "이미 이 게시글의 좋아요를 눌렀습니다.");
+      return res.status(400).redirect(`/post/detail/${postId}`);
+    } else {
+      post.likesUserList.push(user);
+      await post.save();
+
+      user.likesPostList.push(post);
+      await user.save();
+
+      req.flash("success", "좋아요 완료");
+      return res.status(200).redirect(`/post/detail/${postId}`);
+    }
   } catch (error) {
     console.log(error);
   }

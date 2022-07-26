@@ -6,6 +6,7 @@ import {
   postAddPost,
   postDeletePost,
   postEditPost,
+  postIncreaseLikesPost,
   postIncreaseViewsPost,
 } from "../controllers/postController";
 import { loggedInUserOnly } from "../middlewares";
@@ -25,5 +26,6 @@ postRouter
 postRouter.post("/delete", loggedInUserOnly, postDeletePost);
 postRouter.get("/detail/:postId", loggedInUserOnly, getDetailPost);
 postRouter.post("/increase-views/:postId", postIncreaseViewsPost);
+postRouter.post("/increase-likes/:postId", postIncreaseLikesPost);
 
 export default postRouter;

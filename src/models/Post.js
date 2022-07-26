@@ -31,7 +31,20 @@ const postSchema = new mongoose.Schema(
     },
     content: { type: String, required: true },
     views: { type: Number, required: true, default: 0 },
-    likes: { type: Number, required: true, default: 0 },
+    likesUserList: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User",
+      },
+    ],
+    clipUserList: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User",
+      },
+    ],
     commentList: [
       { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
     ],
