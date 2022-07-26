@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { getStringDate } from "../utils";
+import { getStringDate, getStringFullDate } from "../utils";
 
 const commentSchema = new mongoose.Schema({
   owner: {
@@ -12,6 +12,11 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
     default: getStringDate(new Date()),
+  },
+  stringFullDate: {
+    type: String,
+    required: true,
+    default: getStringFullDate(new Date()),
   },
   content: { type: String, required: true },
   likes: { type: Number, required: true, default: 0 },

@@ -46,6 +46,22 @@ export const getStringDate = (date) => {
   );
 };
 
+export const getStringFullDate = (date) => {
+  return (
+    date.getFullYear().toString() +
+    "-" +
+    (date.getMonth() + 1).toString().padStart(2, 0) +
+    "-" +
+    date.getDate().toString().padStart(2, 0) +
+    " " +
+    date.getHours().toString().padStart(2, 0) +
+    ":" +
+    date.getMinutes().toString().padStart(2, 0) +
+    ":" +
+    date.getSeconds().toString().padStart(2, 0)
+  );
+};
+
 export const getStringAmount = (amount) => {
   const stringAmount = amount.toString();
   const arrAmount = stringAmount.split("");
