@@ -12,6 +12,8 @@
 
 @import "./screens/comment/comment.scss";
 
+@import "./screens/etc/chart_nav.scss";
+@import "./screens/etc/chart-list-item-mixins.scss";
 @import "./screens/etc/chart.scss";
 @import "./screens/etc/lastExpense.scss";
 
@@ -29,11 +31,9 @@
 @import "./screens/ledger/ledger-list-item-mixins.scss";
 @import "./screens/ledger/ledger.scss";
 
-@import "./screens/mixins/chart-list-item-mixins.scss";
 @import "./screens/mixins/lastExpense-list-item-mixins.scss";
 
 @import "./screens/partials/addItem_nav.scss";
-@import "./screens/partials/chart_nav.scss";
 @import "./screens/partials/footer.scss";
 @import "./screens/partials/header.scss";
 
