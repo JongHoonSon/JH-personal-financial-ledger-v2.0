@@ -7,4 +7,4 @@ mixin list(post)
         div.post-owner-name 
             a(href=`/user/profile/${post.owner._id}`) #{post.owner.name}
         div.post-views #{post.views}
-        div.post-stringDate #{post.stringDate}
+        div.post-stringDate #{post.dateGap}

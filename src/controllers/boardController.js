@@ -1,4 +1,5 @@
 import Board from "../models/Board";
+import { getTimeDiff } from "../utils";
 
 export const getBoard = async (req, res) => {
   const { boardName, pageNum } = req.params;
@@ -40,6 +41,10 @@ export const getBoard = async (req, res) => {
     req.flash("error", "잘못된 접근입니다.");
     return res.status(404).redirect(`/board/${boardName}/1`);
   }
+
+  postList.forEach((el) => {
+    el.dateGap = getTimeDiff(el.createdAt);
+  });
 
   return res.status(200).render("board/board", {
     pageTitle: "게시판",

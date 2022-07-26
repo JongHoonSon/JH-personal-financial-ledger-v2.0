@@ -1,3 +1,5 @@
+import { now } from "mongoose";
+
 Date.prototype.getWeek = function (dowOffset) {
   dowOffset = typeof dowOffset == "number" ? dowOffset : 0;
   var newYear = new Date(this.getFullYear(), 0, 1);
@@ -79,4 +81,22 @@ export const getStringDateDiff = (stringDate1, stringDate2) => {
   const diffTime = date1.getTime() - date2.getTime();
 
   return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+};
+
+export const getTimeDiff = (comparedDate) => {
+  const nowDate = new Date();
+
+  if (
+    nowDate.getFullYear() === comparedDate.getFullYear() &&
+    nowDate.getMonth() === comparedDate.getMonth() &&
+    nowDate.getDate() === comparedDate.getDate()
+  ) {
+    return (
+      comparedDate.getHours().toString().padStart(2, 0) +
+      ":" +
+      comparedDate.getMinutes().toString().padStart(2, 0)
+    );
+  } else {
+    return getStringDate(comparedDate);
+  }
 };
