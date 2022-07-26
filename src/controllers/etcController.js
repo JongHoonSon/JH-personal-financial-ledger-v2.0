@@ -19,19 +19,14 @@ export const getChart = async (req, res) => {
   const { days } = req.params;
 
   const loggedInUser = req.session.user;
-
   const user = await User.findById(loggedInUser._id).populate("expenseList");
 
-  const expenseList = user.expenseList;
-
+  let totalSum = 0;
   const sumAmountByCategory = {};
-
   categories.forEach((el) => (sumAmountByCategory[el] = 0));
 
   const nowStringDate = getStringDate(res.locals.date);
-
-  let totalSum = 0;
-
+  const expenseList = user.expenseList;
   expenseList.forEach((el) => {
     if (getStringDateDiff(nowStringDate, getStringDate(el.date)) <= days) {
       sumAmountByCategory[el.category] += el.amount;

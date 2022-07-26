@@ -26,7 +26,7 @@ block content
                         a(href=`/user/profile/${post.owner._id}`) #{post.owner.name}
                 li
                     label 작성일
-                    span #{post.stringDate}
+                    span #{post.stringFullDate}
                 li
                     label 내용
                     textarea(readonly) #{post.content}

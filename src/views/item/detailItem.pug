@@ -21,7 +21,7 @@ block content
             ul(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
                 li
                     label 날짜
-                    span #{itemStringDate}
+                    span #{item.stringDate}
                 li
                     label 금액
                     span #{item.amount + ' 원'}

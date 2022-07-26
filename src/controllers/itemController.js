@@ -1,7 +1,7 @@
 import Income from "../models/Income";
 import Expense from "../models/Expense";
 import User from "../models/User";
-import { getStringDate, sortItem } from "../utils";
+import { sortItem } from "../utils";
 import { unauthorizedAccess } from "../middlewares";
 
 export const getAddItem = (req, res) => {
@@ -93,9 +93,7 @@ export const getEditItem = async (req, res) => {
 
   const item = checkResult.item;
 
-  const itemStringDate = getStringDate(item.date);
-
-  res.render("item/editItem", { pageTitle: "내역 수정", item, itemStringDate });
+  res.render("item/editItem", { pageTitle: "내역 수정", item });
 };
 
 export const postEditItem = async (req, res) => {
@@ -205,12 +203,9 @@ export const getDetailItem = async (req, res) => {
 
   const item = checkResult.item;
 
-  const itemStringDate = getStringDate(item.date);
-
   res.render("item/detailItem", {
     pageTitle: "상세 내역",
     item,
-    itemStringDate,
   });
 };
 
