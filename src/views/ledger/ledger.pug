@@ -1,11 +1,11 @@
 extends ../base.pug
-include ../mixins/ledger-list-item-mixins.pug
+include ledger-list-item-mixins.pug
 
 block content 
     div#ledger-wrapper
-        include ../partials/ledger_nav.pug
+        include ledger_nav.pug
 
-        include ../partials/ledger_calendar.pug
+        include ledger_calendar.pug
 
         div#ledger-content
             div#ledger-total
