@@ -1,0 +1,11 @@
+mixin list(comment)
+    div#comment 
+        div#comment-main
+            span #{comment.owner.name}
+            span #{comment.content}
+            span #{comment.stringDate}
+            span #{comment.likes}
+        div#comment-options
+            span edit
+            span delete
+            span likes

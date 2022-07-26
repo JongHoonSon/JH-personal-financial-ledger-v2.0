@@ -1,3 +1,17 @@
-div#detailPost-comments
-    label 댓글
-    span #{post.commentList}
+include comment-list-comment-mixins.pug
+
+div#comment-wrapper
+    h1 댓글
+    div#add-comment
+        form(method="POST", action=`/comment/add/${post._id}`)
+            div#add-comment-input
+                div
+                    input(placeholder="댓글 내용...", id="content", name="content", type="text", required)
+            div#addcomment-button
+                input(type="submit", value="작성하기")
+
+
+    div#comment-list
+        ul
+            each comment in post.commentList 
+                +list(comment)
