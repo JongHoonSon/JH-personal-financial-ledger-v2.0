@@ -2,7 +2,7 @@ extends ../base.pug
 
 block content
     div#detailPost-wrapper 
-        div#detailPost
+        div(data-id=post._id)#detailPost
             ul
                 li
                     label 글 번호
@@ -35,3 +35,5 @@ block content
 
         include ../comment/comment.pug
 
+block scripts
+    script(src="/assets/js/post.js") 

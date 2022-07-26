@@ -75,3 +75,16 @@ export const getDetailPost = async (req, res) => {
     return res.status(400).redirect("/board/전체게시판/1");
   }
 };
+
+export const postIncreaseViewsPost = async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await Post.findById(postId);
+    post.views += 1;
+    await post.save();
+    return sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
+};
