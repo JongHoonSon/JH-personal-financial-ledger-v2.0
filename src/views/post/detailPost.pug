@@ -1,0 +1,38 @@
+extends ../base.pug
+
+block content
+    div#detailPost-wrapper 
+        div#detailPost
+            ul
+                li
+                    label 글 번호
+                    span #{post.seq}
+                li
+                    label 게시판
+                    span
+                        a(href=`/board/${post.board.name}/1`) #{post.board.name}
+                li
+                    label 조회수
+                    span #{post.views}
+                li
+                    label 좋아요
+                    span #{post.likes}
+                li
+                    label 제목
+                    span #{post.title}
+                li
+                    label 글쓴이
+                    span 
+                        a(href=`/user/profile/${post.owner._id}`) #{post.owner.name}
+                li
+                    label 작성일
+                    span #{post.stringDate}
+                li
+                    label 내용
+                    textarea(readonly) #{post.content}
+
+            div#detailPost-comments
+                label 댓글
+                span #{post.commentList}
+
+        div#detailPost-option

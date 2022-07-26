@@ -48,6 +48,30 @@ export const postEditPost = async (req, res) => {};
 
 export const postDeletePost = async (req, res) => {};
 
-export const getDetailPost = (req, res) => {
-  res.status(200).render("post/detailPost", { pageTitle: "글 상세보기" });
+export const getDetailPost = async (req, res) => {
+  const { postId } = req.params;
+
+  console.log("postId");
+  console.log(postId);
+
+  try {
+    const post = await Post.findById(postId)
+      .populate("board")
+      .populate("owner")
+      .populate({
+        path: "commentList",
+        populate: { path: "owner" },
+      });
+
+    console.log("post");
+    console.log(post);
+
+    return res
+      .status(200)
+      .render("post/detailPost", { pageTitle: "글 상세보기", post });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "글을 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(400).redirect("/board/전체게시판/1");
+  }
 };
