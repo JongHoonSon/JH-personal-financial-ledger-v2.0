@@ -28,9 +28,6 @@ export const getBoard = async (req, res) => {
 
     totalPostList.reverse();
 
-    console.log("totalPostList");
-    console.log(totalPostList);
-
     for (let i = 0; i <= 9; i++) {
       if (totalPostList.length === (thisPageNum - 1) * 10 + i) {
         break;
