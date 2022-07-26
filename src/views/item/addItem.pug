@@ -2,7 +2,7 @@ extends ../base.pug
 
 block content 
     div#addItem-wrapper
-        include ../partials/addItem_nav.pug
+        include addItem_nav.pug
 
         div(class=`${itemType === "i" ? 'incomeBgColor' : 'expenseBgColor'}`).form-wrapper
             form(method="POST", enctype="multipart/form-data")

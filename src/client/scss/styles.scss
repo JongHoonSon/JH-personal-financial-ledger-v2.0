@@ -21,6 +21,7 @@
 @import "./screens/global/join.scss";
 @import "./screens/global/login.scss";
 
+@import "./screens/item/addItem_nav.scss";
 @import "./screens/item/addItem.scss";
 @import "./screens/item/detailItem.scss";
 @import "./screens/item/editItem.scss";
@@ -33,7 +34,6 @@
 
 @import "./screens/mixins/lastExpense-list-item-mixins.scss";
 
-@import "./screens/partials/addItem_nav.scss";
 @import "./screens/partials/footer.scss";
 @import "./screens/partials/header.scss";
 
