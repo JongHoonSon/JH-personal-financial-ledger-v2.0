@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
-import { getStringDate } from "../utils";
+import { getStringDate, getStringFullDate } from "../utils";
 
 autoIncrement.initialize(mongoose.connection);
 
@@ -23,6 +23,11 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
       default: getStringDate(new Date()),
+    },
+    stringFullDate: {
+      type: String,
+      required: true,
+      default: getStringFullDate(new Date()),
     },
     content: { type: String, required: true },
     views: { type: Number, required: true, default: 0 },
