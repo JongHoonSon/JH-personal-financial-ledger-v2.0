@@ -31,8 +31,7 @@ block content
                     label 내용
                     textarea(readonly) #{post.content}
 
-            div#detailPost-comments
-                label 댓글
-                span #{post.commentList}
-
         div#detailPost-option
+
+        include ../comment/comment.pug
+
