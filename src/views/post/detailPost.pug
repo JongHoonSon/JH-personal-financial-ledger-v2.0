@@ -3,33 +3,25 @@ extends ../base.pug
 block content
     div#detailPost-wrapper 
         div(data-id=post._id)#detailPost
-            ul
-                li
-                    label 글 번호
-                    span #{post.seq}
-                li
-                    label 게시판
-                    span
-                        a(href=`/board/${post.board.name}/1`) #{post.board.name}
-                li
-                    label 조회수
-                    span #{post.views}
-                li
-                    label 좋아요
-                    span #{post.likesUserList.length}
-                li
-                    label 제목
-                    span #{post.title}
-                li
-                    label 글쓴이
+            div#post-board-name
+                span
+                    a(href=`/board/${post.board.name}/1`) #{post.board.name}
+            div#post-title
+                span #{post.title}
+            div#post-meta
+                div#post-owner
                     span 
                         a(href=`/user/profile/${post.owner._id}`) #{post.owner.name}
-                li
-                    label 작성일
+                div#post-views
+                    label 조회수
+                    span #{post.views}
+                div#post-likes
+                    label 좋아요
+                    span #{post.likesUserList.length}
+                div#post-stringFullDate
                     span #{post.stringFullDate}
-                li
-                    label 내용
-                    textarea(readonly) #{post.content}
+            div#post-content
+                textarea(readonly) #{post.content}
 
         div#detailPost-option
             div

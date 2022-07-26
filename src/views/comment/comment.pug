@@ -1,7 +1,6 @@
 include comment-list-comment-mixins.pug
 
 div#comment-wrapper
-    h1 댓글
     div#add-comment
         form(method="POST", action=`/comment/add/${post._id}`)
             div#add-comment-input
@@ -12,6 +11,5 @@ div#comment-wrapper
 
 
     div#comment-list
-        ul
-            each comment in post.commentList 
-                +list(comment)
+        each comment in post.commentList 
+            +list(comment)

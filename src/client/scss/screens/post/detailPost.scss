@@ -1,17 +1,60 @@
-#detailPost {
+#detailPost-wrapper {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
 
-  ul {
-    li {
-      margin: 30px;
-      label {
-        margin: 30px;
+  #detailPost > div {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #detailPost {
+    width: 100%;
+    height: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: yellow;
+
+    #post-board-name {
+      height: 5%;
+    }
+
+    #post-title {
+      height: 10%;
+    }
+
+    #post-meta {
+      height: 5%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      div {
+        margin: 0px 10px;
       }
     }
+
+    #post-content {
+      height: 80%;
+      textarea {
+        width: 700px;
+        height: 200px;
+      }
+    }
+  }
+
+  #detailPost-option {
+    width: 100%;
+    height: 10%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
