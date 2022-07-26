@@ -11,11 +11,12 @@ block content
                     a(href=`/board/${board_name}/1`) #{board_name}
 
         div#board-header
-            div 번호
-            div 게시판
-            div 제목
-            div 조회수
-            div 작성일
+            div.post-seq 번호
+            div.post-board-name 게시판
+            div.post-title 제목
+            div.post-owner-name 글쓴이
+            div.post-views 조회수
+            div.post-stringDate 작성일
         div#board-main 
             if emptyFlag === true
                 div.empty

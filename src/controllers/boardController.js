@@ -5,7 +5,7 @@ export const getBoard = async (req, res) => {
 
   const board = await Board.findOne({ name: boardName }).populate({
     path: "postList",
-    populate: { path: "board" },
+    populate: [{ path: "board" }, { path: "owner" }],
   });
   const totalPostList = board.postList;
 
