@@ -4,17 +4,44 @@ import Post from "../models/Post";
 import { unauthorizedAccess } from "../middlewares";
 
 export const getAddPost = (req, res) => {
-  res.status(200).render("post/addPost", { pageTitle: "글 작성" });
+  return res.status(200).render("post/addPost", { pageTitle: "글 작성" });
 };
 
 export const postAddPost = async (req, res) => {
   const { title, boardName, content } = req.body;
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id);
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
 
-  const totalBoard = await Board.findOne({ name: "전체게시판" });
-  const board = await Board.findOne({ name: boardName });
+  let totalBoard;
+  let board;
+  try {
+    totalBoard = await Board.findOne({ name: "전체게시판" });
+    board = await Board.findOne({ name: boardName });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!totalBoard) {
+    req.flash("error", "전체게시판을 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+  if (!board) {
+    req.flash("error", `${boardName} 게시판을 찾을 수 없습니다.`);
+    return res.status(404).redirect("/");
+  }
 
   try {
     const newPost = await Post.create({
@@ -49,7 +76,9 @@ export const getEditPost = async (req, res) => {
 
   const post = checkResult.post;
 
-  res.status(200).render("post/editPost", { pageTitle: "게시글 수정", post });
+  return res
+    .status(200)
+    .render("post/editPost", { pageTitle: "게시글 수정", post });
 };
 
 export const postEditPost = async (req, res) => {
@@ -95,23 +124,27 @@ export const postDeletePost = async (req, res) => {};
 export const getDetailPost = async (req, res) => {
   const { postId } = req.params;
 
+  let post;
   try {
-    const post = await Post.findById(postId)
+    post = await Post.findById(postId)
       .populate("board")
       .populate("owner")
       .populate({
         path: "commentList",
         populate: { path: "owner" },
       });
-
-    return res
-      .status(200)
-      .render("post/detailPost", { pageTitle: "글 상세보기", post });
   } catch (error) {
     console.log(error);
-    req.flash("error", "글을 불러오는 과정에서 오류가 발생했습니다.");
+    req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(400).redirect("/board/전체게시판/1");
   }
+  if (!post) {
+    req.flash("error", "게시글을 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+  return res
+    .status(200)
+    .render("post/detailPost", { pageTitle: "글 상세보기", post });
 };
 
 export const postIncreaseViewsPost = async (req, res) => {
@@ -124,6 +157,11 @@ export const postIncreaseViewsPost = async (req, res) => {
     return res.sendStatus(200);
   } catch (error) {
     console.log(error);
+    req.flash(
+      "error",
+      "게시글의 조회수를 증가시키는 과정에서 오류가 발생했습니다."
+    );
+    return res.status(400).redirect("/board/전체게시판/1");
   }
 };
 
@@ -131,56 +169,98 @@ export const postIncreaseLikesPost = async (req, res) => {
   const { postId } = req.params;
 
   const loggedInUser = res.locals.loggedInUser;
-  const user = await User.findById(loggedInUser._id);
-
+  let user;
   try {
-    const post = await Post.findById(postId).populate("likesUserList");
-
-    // console.log("post.likesUserList");
-    // console.log(post.likesUserList);
-
-    let alreadyIn = false;
-
-    for (let i = 0; i < post.likesUserList.length; i++) {
-      if (String(post.likesUserList[i]._id) === String(user._id)) {
-        alreadyIn = true;
-        break;
-      }
-    }
-
-    if (alreadyIn) {
-      req.flash("error", "이미 이 게시글의 좋아요를 눌렀습니다.");
-      return res.status(400).redirect(`/post/detail/${postId}`);
-    } else {
-      post.likesUserList.push(user);
-      await post.save();
-
-      user.likesPostList.push(post);
-      await user.save();
-
-      req.flash("success", "좋아요 완료");
-      return res.status(200).redirect(`/post/detail/${postId}`);
-    }
+    user = await User.findById(loggedInUser._id);
   } catch (error) {
     console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  let post;
+  try {
+    post = await Post.findById(postId).populate("likesUserList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(400).redirect("/board/전체게시판/1");
+  }
+  if (!post) {
+    req.flash("error", "게시글을 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  let alreadyIn = false;
+
+  for (let i = 0; i < post.likesUserList.length; i++) {
+    if (String(post.likesUserList[i]._id) === String(user._id)) {
+      alreadyIn = true;
+      break;
+    }
+  }
+
+  if (alreadyIn) {
+    req.flash("error", "이미 이 게시글의 좋아요를 눌렀습니다.");
+    return res.status(400).redirect(`/post/detail/${postId}`);
+  } else {
+    try {
+      post.likesUserList.push(user);
+      await post.save();
+    } catch (error) {
+      console.log(error);
+      req.flash("error", "게시글을 저장하는 과정에서 오류가 발생했습니다.");
+      return res.status(400).redirect("/board/전체게시판/1");
+    }
+
+    try {
+      user.likesPostList.push(post);
+      await user.save();
+    } catch (error) {
+      console.log(error);
+      req.flash("error", "유저 정보를 저장하는 과정에서 오류가 발생했습니다.");
+      return res.status(400).redirect("/board/전체게시판/1");
+    }
+
+    req.flash("success", "좋아요 완료");
+    return res.status(200).redirect(`/post/detail/${postId}`);
   }
 };
 
 const checkPostOwnerIsLoggedInUser = async (req, res, postId) => {
-  const post = await Post.findById(postId).populate({
-    path: "board",
-    populate: "postList",
-  });
-
+  let post;
+  try {
+    post = await Post.findById(postId).populate({
+      path: "board",
+      populate: "postList",
+    });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(400).redirect("/board/전체게시판/1");
+  }
   if (!post) {
     req.flash("error", "게시글을 찾을 수 없습니다.");
     return { pass: false, return: res.status(404).redirect("/") };
   }
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id);
-
-  console.log(String(post.owner._id) !== String(user._id));
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return { pass: false, return: res.status(404).redirect("/") };
+  }
 
   if (String(post.owner._id) !== String(user._id)) {
     return { pass: false, return: unauthorizedAccess(req, res) };

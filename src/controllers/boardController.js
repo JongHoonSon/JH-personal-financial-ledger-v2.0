@@ -4,10 +4,22 @@ import { getTimeDiff } from "../utils";
 export const getBoard = async (req, res) => {
   const { boardName, pageNum } = req.params;
 
-  const board = await Board.findOne({ name: boardName }).populate({
-    path: "postList",
-    populate: [{ path: "board" }, { path: "owner" }],
-  });
+  let board;
+  try {
+    board = await Board.findOne({ name: boardName }).populate({
+      path: "postList",
+      populate: [{ path: "board" }, { path: "owner" }],
+    });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "게시글을 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!board) {
+    req.flash("error", "게시판을 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
   const totalPostList = board.postList;
 
   let emptyFlag;

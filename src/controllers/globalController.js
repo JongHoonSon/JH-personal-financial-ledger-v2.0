@@ -2,12 +2,11 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 
 export const getHome = (req, res) => {
-  // console.log(req.session);
-  res.render("global/home", { pageTitle: "홈" });
+  return res.render("global/home", { pageTitle: "홈" });
 };
 
 export const getJoin = (req, res) => {
-  res.render("global/join", { pageTitle: "회원가입" });
+  return res.render("global/join", { pageTitle: "회원가입" });
 };
 
 export const postJoin = async (req, res) => {
@@ -54,25 +53,39 @@ export const postJoin = async (req, res) => {
     return res.status(200).redirect("/login");
   } catch (error) {
     console.log(error);
-    req.flash("error", "회원가입을 하는 과정에서 오류가 발생했습니다.");
+    req.flash("error", "유저를 생성하는 과정에서 오류가 발생했습니다.");
     return res.status(400).redirect("/join");
   }
 };
 
 export const getLogin = (req, res) => {
-  res.render("global/login", { pageTitle: "로그인" });
+  return res.render("global/login", { pageTitle: "로그인" });
 };
 
 export const postLogin = async (req, res) => {
   const { username, password } = req.body;
 
-  const user = await User.findOne({ username, socialOnly: false });
+  let user;
+  try {
+    user = await User.findOne({ username, socialOnly: false });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (!user) {
     req.flash("error", "입력하신 아이디는 없는 아이디입니다.");
     return res.status(400).redirect("/login");
   }
 
-  const passwordCorrect = await bcrypt.compare(password, user.password);
+  let passwordCorrect;
+  try {
+    passwordCorrect = await bcrypt.compare(password, user.password);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "비밀번호를 검증하는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (!passwordCorrect) {
     req.flash("error", "비밀번호가 일치하지 않습니다.");
     return res.status(400).redirect("/login");

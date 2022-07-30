@@ -6,16 +6,32 @@ export const postAddComment = async (req, res) => {
   const { postId } = req.params;
   const { content } = req.body;
 
-  console.log("postId");
-  console.log(postId);
+  const loggedInUser = req.session.user;
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id).populate("commentList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
 
-  console.log("content");
-  console.log(content);
-
-  const loggedInUser = res.locals.loggedInUser;
-  const user = await User.findById(loggedInUser._id).populate("commentList");
-
-  const post = await Post.findById(postId).populate("commentList");
+  let post;
+  try {
+    post = await Post.findById(postId).populate("commentList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "게시글을 찾을 수 없습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!post) {
+    req.flash("error", "게시글을 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
 
   try {
     const comment = await Comment.create({ owner: user, content, post });

@@ -19,7 +19,18 @@ export const getChart = async (req, res) => {
   const { days } = req.params;
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id).populate("expenseList");
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id).populate("expenseList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
 
   let totalSum = 0;
   const sumAmountByCategory = {};
@@ -41,7 +52,7 @@ export const getChart = async (req, res) => {
       (sumAmountByCategory[category] / totalSum).toFixed(2) * 100;
   }
 
-  res.render("etc/chart", {
+  return res.render("etc/chart", {
     pageTitle: "소비 리포트",
     categories,
     sumAmountByCategory,
@@ -52,13 +63,21 @@ export const getChart = async (req, res) => {
 
 export const getLastExpense = async (req, res) => {
   const loggedInUser = req.session.user;
-
-  const user = await User.findById(loggedInUser._id).populate("expenseList");
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id).populate("expenseList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
 
   const expenseList = user.expenseList;
-
   const lastExpenseList = [];
-
   const nowStringDate = getStringDate(res.locals.date);
 
   for (let i = 0; i < categories.length; i++) {
@@ -88,10 +107,7 @@ export const getLastExpense = async (req, res) => {
     }
   }
 
-  console.log("------");
-  console.log(lastExpenseList);
-
-  res.render("etc/lastExpense", {
+  return res.render("etc/lastExpense", {
     pageTitle: "마지막 지출일",
     lastExpenseList,
   });

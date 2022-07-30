@@ -23,7 +23,7 @@ export const getEditProfile = async (req, res) => {
 
   const user = checkResult.user;
 
-  res.render("user/editProfile", {
+  return res.render("user/editProfile", {
     pageTitle: "프로필 수정",
     user,
   });
@@ -43,7 +43,14 @@ export const postEditProfile = async (req, res) => {
   const user = checkResult.user;
 
   if (user.nickname !== nickname) {
-    const existedNickname = await User.exists({ nickname });
+    let existedNickname;
+    try {
+      existedNickname = await User.exists({ nickname });
+    } catch (error) {
+      console.log(error);
+      req.flash("error", "유저 정보를 불러오는 과정에서 오류가 발생했습니다.");
+      return res.status(500).redirect("/");
+    }
     if (existedNickname) {
       req.flash("error", "이미 사용 중인 닉네임입니다.");
       return res.status(400).redirect("/join");
@@ -51,7 +58,14 @@ export const postEditProfile = async (req, res) => {
   }
 
   if (user.email !== email) {
-    const existedEmail = await User.exists({ email });
+    let existedEmail;
+    try {
+      existedEmail = await User.exists({ email });
+    } catch (error) {
+      console.log(error);
+      req.flash("error", "유저 정보를 불러오는 과정에서 오류가 발생했습니다.");
+      return res.status(500).redirect("/");
+    }
     if (existedEmail) {
       req.flash("error", "이미 사용 중인 이메일입니다.");
       return res.status(400).redirect("/join");
@@ -88,7 +102,7 @@ export const getEditPassword = async (req, res) => {
     return checkResult.return;
   }
 
-  res.render("user/editPassword", { pageTitle: "비밀번호 변경" });
+  return res.render("user/editPassword", { pageTitle: "비밀번호 변경" });
 };
 
 export const postEditPassword = async (req, res) => {
@@ -103,7 +117,14 @@ export const postEditPassword = async (req, res) => {
 
   const user = checkResult.user;
 
-  const passwordCorrect = await bcrypt.compare(password, user.password);
+  let passwordCorrect;
+  try {
+    passwordCorrect = await bcrypt.compare(password, user.password);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "비밀번호를 검증하는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (!passwordCorrect) {
     req.flash("error", "비밀번호가 일치하지 않습니다.");
     return res.status(400).redirect(`/user/edit-password/${userId}`);
@@ -132,9 +153,14 @@ export const postEditPassword = async (req, res) => {
 
 const checkUserIsLoggedInUser = async (req, res, userId) => {
   const loggedInUser = req.session.user;
-
-  const user = await User.findById(userId);
-
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (!user) {
     req.flash("error", "유저를 찾을 수 없습니다.");
     return { pass: false, return: res.status(404).redirect("/") };

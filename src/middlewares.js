@@ -7,17 +7,35 @@ export const createObjectMiddleware = async (req, res, next) => {
   const boardList = ["수다", "질문", "꿀팁공유", "핫딜", "기타"];
   res.locals.boardList = boardList;
 
-  const totalBoard = await Board.exists({ name: "전체게시판" });
-
-  if (!totalBoard) {
-    await Board.create({ name: "전체게시판" });
-    console.log(`전체게시판 created!`);
+  let totalBoardExists;
+  try {
+    totalBoardExists = await Board.exists({ name: "전체게시판" });
+  } catch (error) {
+    console.log(error);
+    req.flash(
+      "error",
+      "전체게시판을 존재하는지 확인 과정에서 에러가 발생했습니다."
+    );
+  }
+  if (!totalBoardExists) {
+    try {
+      await Board.create({ name: "전체게시판" });
+    } catch (error) {
+      console.log(error);
+      req.flash("error", "전체게시판을 생성하는 과정에서 에러가 발생했습니다.");
+    }
 
     for (let i = 0; i < boardList.length; i++) {
-      await Board.create({ name: boardList[i] });
-      console.log(`${boardList[i]} created!`);
+      try {
+        await Board.create({ name: boardList[i] });
+      } catch (error) {
+        console.log(error);
+        req.flash("error", "게시판을 생성하는 과정에서 에러가 발생했습니다.");
+      }
     }
   }
+
+  console.log("게시판이 정상적으로 생성되었습니다.");
 
   next();
 };
@@ -25,12 +43,14 @@ export const createObjectMiddleware = async (req, res, next) => {
 export const localMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.loggedInUser = req.session.user || {};
+  console.log("res.locals.loggedInUser의 정보가 변경되었습니다.");
+
   const date = new Date();
   res.locals.date = date;
   res.locals.thisYear = date.getFullYear().toString();
   res.locals.thisMonth = (date.getMonth() + 1).toString().padStart(2, 0);
   res.locals.thisDay = date.getDate().toString().padStart(2, 0);
-  // console.log(res.locals);
+
   next();
 };
 

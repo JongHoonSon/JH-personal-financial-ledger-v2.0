@@ -17,9 +17,21 @@ export const getLedgerDaily = async (req, res) => {
   const next = getStringDate(nextDate);
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id)
-    .populate("incomeList")
-    .populate("expenseList");
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id)
+      .populate("incomeList")
+      .populate("expenseList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
   const { incomeList, expenseList } = user;
 
   let sumIncomeAmount = 0;
@@ -49,7 +61,7 @@ export const getLedgerDaily = async (req, res) => {
   const now = todayStringDate;
   const calendarTitle = todayStringDate;
 
-  res.render("ledger/ledger", {
+  return res.render("ledger/ledger", {
     pageTitle: "일별 내역",
     itemList,
     prev,
@@ -90,9 +102,21 @@ export const getLedgerWeekly = async (req, res) => {
   const weekEnd = getStringDate(weekEndDate);
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id)
-    .populate("incomeList")
-    .populate("expenseList");
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id)
+      .populate("incomeList")
+      .populate("expenseList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
   const { incomeList, expenseList } = user;
 
   let sumIncomeAmount = 0;
@@ -129,7 +153,7 @@ export const getLedgerWeekly = async (req, res) => {
 
   const calendarTitle = weekStart + " ~ " + weekEnd;
 
-  res.render("ledger/ledger", {
+  return res.render("ledger/ledger", {
     pageTitle: "주별 내역",
     itemList,
     prev,
@@ -158,9 +182,21 @@ export const getLedgerMonthly = async (req, res) => {
   const next = nextYear + "-" + nextMonth;
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id)
-    .populate("incomeList")
-    .populate("expenseList");
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id)
+      .populate("incomeList")
+      .populate("expenseList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
   const { incomeList, expenseList } = user;
 
   let sumIncomeAmount = 0;
@@ -196,7 +232,7 @@ export const getLedgerMonthly = async (req, res) => {
   const now = yyyy + "-" + mm;
   const calendarTitle = yyyy + "-" + mm;
 
-  res.render("ledger/ledger", {
+  return res.render("ledger/ledger", {
     pageTitle: "월별 내역",
     itemList,
     prev,
@@ -218,9 +254,21 @@ export const getLedgerYearly = async (req, res) => {
   const next = (Number(yyyy) + 1).toString();
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id)
-    .populate("incomeList")
-    .populate("expenseList");
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id)
+      .populate("incomeList")
+      .populate("expenseList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
   const { incomeList, expenseList } = user;
 
   let sumIncomeAmount = 0;
@@ -250,7 +298,7 @@ export const getLedgerYearly = async (req, res) => {
   const now = yyyy;
   const calendarTitle = yyyy;
 
-  res.render("ledger/ledger", {
+  return res.render("ledger/ledger", {
     pageTitle: "연도별 내역",
     itemList,
     prev,

@@ -15,7 +15,7 @@ export const getAddItem = (req, res) => {
     pageTitle = "수입 내역 추가";
   }
 
-  res.render("item/addItem", { pageTitle, itemType });
+  return res.render("item/addItem", { pageTitle, itemType });
 };
 
 export const postAddItem = async (req, res) => {
@@ -24,8 +24,14 @@ export const postAddItem = async (req, res) => {
   const { file } = req;
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id);
-
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (!user) {
     req.flash("error", "유저를 찾을 수 없습니다.");
     return res.status(404).redirect("/");
@@ -44,7 +50,7 @@ export const postAddItem = async (req, res) => {
         imageUrl: file ? file.path : "defaults/empty_image.png",
       });
       user.incomeList.push(newIncome);
-      user.save();
+      await user.save();
       req.flash("success", "수입 내역이 추가되었습니다.");
       return res.status(200).redirect("/item/add/i");
     } catch (error) {
@@ -66,7 +72,7 @@ export const postAddItem = async (req, res) => {
         imageUrl: file ? file.path : "",
       });
       user.expenseList.push(newExpense);
-      user.save();
+      await user.save();
       req.flash("success", "지출 내역이 추가되었습니다.");
       return res.status(200).redirect("/item/add/e");
     } catch (error) {
@@ -93,7 +99,7 @@ export const getEditItem = async (req, res) => {
 
   const item = checkResult.item;
 
-  res.render("item/editItem", { pageTitle: "내역 수정", item });
+  return res.render("item/editItem", { pageTitle: "내역 수정", item });
 };
 
 export const postEditItem = async (req, res) => {
@@ -158,13 +164,13 @@ export const postDeleteItem = async (req, res) => {
       user.incomeList = user.incomeList.filter(
         (income) => String(income._id) !== String(itemId)
       );
-      user.save();
+      await user.save();
     } else {
       await Expense.findByIdAndDelete(itemId);
       user.expenseList = user.expenseList.filter(
         (expense) => String(expense._id) !== String(itemId)
       );
-      user.save();
+      await user.save();
     }
     req.flash("success", "아이템을 삭제했습니다.");
     return res.status(200).redirect("/");
@@ -193,7 +199,7 @@ export const getDetailItem = async (req, res) => {
 
   const item = checkResult.item;
 
-  res.render("item/detailItem", {
+  return res.render("item/detailItem", {
     pageTitle: "상세 내역",
     item,
   });
@@ -201,24 +207,32 @@ export const getDetailItem = async (req, res) => {
 
 export const getPinnedItems = async (req, res) => {
   const loggedInUser = req.session.user;
-
-  const user = await User.findById(loggedInUser._id)
-    .populate("incomeList")
-    .populate("expenseList");
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id)
+      .populate("incomeList")
+      .populate("expenseList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
 
   const itemList = new Array();
 
   const { incomeList, expenseList } = user;
 
   incomeList.forEach((el) => {
-    console.log(el);
     if (el.pinned === true) {
       itemList.push(el);
     }
   });
 
   expenseList.forEach((el) => {
-    console.log(el);
     if (el.pinned === true) {
       itemList.push(el);
     }
@@ -226,7 +240,7 @@ export const getPinnedItems = async (req, res) => {
 
   sortItem(itemList);
 
-  res.render("item/pinnedItems", { pageTitle: "핀 목록", itemList });
+  return res.render("item/pinnedItems", { pageTitle: "핀 목록", itemList });
 };
 
 export const postPinning = async (req, res) => {
@@ -249,13 +263,11 @@ export const postPinning = async (req, res) => {
     if (item.pinned === false) {
       item.pinned = true;
       await item.save();
-
       req.flash("success", "핀 목록에 추가하였습니다.");
       return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
     } else {
       item.pinned = false;
       await item.save();
-
       req.flash("success", "핀 목록에서 삭제하였습니다.");
       return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
     }
@@ -271,22 +283,35 @@ export const postPinning = async (req, res) => {
 
 const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
   let item;
-
-  if (type === "i") {
-    item = await Income.findById(itemId).populate("owner");
-  } else {
-    item = await Expense.findById(itemId).populate("owner");
+  try {
+    if (type === "i") {
+      item = await Income.findById(itemId).populate("owner");
+    } else {
+      item = await Expense.findById(itemId).populate("owner");
+    }
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "아이템으 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
   }
-
   if (!item) {
     req.flash("error", "아이템을 찾을 수 없습니다.");
     return { pass: false, return: res.status(404).redirect("/") };
   }
 
   const loggedInUser = req.session.user;
-  const user = await User.findById(loggedInUser._id);
-
-  console.log(String(item.owner._id) !== String(user._id));
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return { pass: false, return: res.status(404).redirect("/") };
+  }
 
   if (String(item.owner._id) !== String(user._id)) {
     return { pass: false, return: unauthorizedAccess(req, res) };

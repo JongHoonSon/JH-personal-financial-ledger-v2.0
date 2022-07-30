@@ -1,17 +1,5 @@
 const imageUpload = document.querySelector(".image-upload");
 
-console.log("imageUpload");
-console.log(imageUpload);
-
-console.log("imageUpload.files");
-console.log(imageUpload.files);
-
-console.log("imageUpload.files[0]");
-console.log(imageUpload.files[0]);
-
-console.log("imageUpload.dataset");
-console.log(imageUpload.dataset);
-
 function handleImagePreview() {
   if (imageUpload.files && imageUpload.files[0]) {
     const reader = new FileReader();
