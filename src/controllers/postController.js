@@ -168,7 +168,7 @@ export const postIncreaseViewsPost = async (req, res) => {
 export const postIncreaseLikesPost = async (req, res) => {
   const { postId } = req.params;
 
-  const loggedInUser = res.locals.loggedInUser;
+  const loggedInUser = req.session.user;
   let user;
   try {
     user = await User.findById(loggedInUser._id);
