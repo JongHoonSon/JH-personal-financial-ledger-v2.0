@@ -35,8 +35,6 @@ export const createObjectMiddleware = async (req, res, next) => {
     }
   }
 
-  console.log("게시판이 정상적으로 생성되었습니다.");
-
   next();
 };
 
