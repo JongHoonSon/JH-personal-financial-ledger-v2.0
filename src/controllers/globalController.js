@@ -2,7 +2,7 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 
 export const getHome = (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
   res.render("global/home", { pageTitle: "홈" });
 };
 
