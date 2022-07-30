@@ -21,20 +21,40 @@ export const postJoin = async (req, res) => {
     return res.status(400).redirect("/join");
   }
 
-  const existedUsername = await User.exists({ username });
-
+  let existedUsername;
+  try {
+    existedUsername = await User.exists({ username });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (existedUsername) {
     req.flash("error", "이미 사용 중인 아이디입니다.");
     return res.status(400).redirect("/join");
   }
 
-  const existedEmail = await User.exists({ email });
+  let existedEmail;
+  try {
+    existedEmail = await User.exists({ email });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (existedEmail) {
     req.flash("error", "이미 사용 중인 이메일입니다.");
     return res.status(400).redirect("/join");
   }
 
-  const existedNickname = await User.exists({ nickname });
+  let existedNickname;
+  try {
+    existedNickname = await User.exists({ nickname });
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
   if (existedNickname) {
     req.flash("error", "이미 사용 중인 닉네임입니다.");
     return res.status(400).redirect("/join");
@@ -70,7 +90,7 @@ export const postLogin = async (req, res) => {
     user = await User.findOne({ username, socialOnly: false });
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -83,7 +103,7 @@ export const postLogin = async (req, res) => {
     passwordCorrect = await bcrypt.compare(password, user.password);
   } catch (error) {
     console.log(error);
-    req.flash("error", "비밀번호를 검증하는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "비밀번호를 검증하는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!passwordCorrect) {

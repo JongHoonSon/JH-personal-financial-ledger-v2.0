@@ -12,7 +12,7 @@ export const getBoard = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    req.flash("error", "게시글을 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!board) {

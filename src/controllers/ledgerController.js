@@ -24,7 +24,7 @@ export const getLedgerDaily = async (req, res) => {
       .populate("expenseList");
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -109,7 +109,7 @@ export const getLedgerWeekly = async (req, res) => {
       .populate("expenseList");
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -189,7 +189,7 @@ export const getLedgerMonthly = async (req, res) => {
       .populate("expenseList");
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -261,7 +261,7 @@ export const getLedgerYearly = async (req, res) => {
       .populate("expenseList");
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {

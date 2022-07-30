@@ -29,7 +29,7 @@ export const postAddItem = async (req, res) => {
     user = await User.findById(loggedInUser._id);
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -56,7 +56,7 @@ export const postAddItem = async (req, res) => {
     } catch (error) {
       console.log(error);
       req.flash("error", "수입 내역을 추가하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("/item/add/i");
+      return res.status(500).redirect("/item/add/i");
     }
   } else {
     const { paymentMethod } = req.body;
@@ -78,7 +78,7 @@ export const postAddItem = async (req, res) => {
     } catch (error) {
       console.log(error);
       req.flash("error", "지출 내역을 추가하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("/item/add/e");
+      return res.status(500).redirect("/item/add/e");
     }
   }
 };
@@ -137,7 +137,7 @@ export const postEditItem = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "아이템을 수정하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect(`/item/edit/${item.type}/${item.id}`);
+    return res.status(500).redirect(`/item/edit/${item.type}/${item.id}`);
   }
 };
 
@@ -177,7 +177,7 @@ export const postDeleteItem = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "아이템을 삭제하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect(`/item/detail/${item.type}/${item.id}`);
+    return res.status(500).redirect(`/item/detail/${item.type}/${item.id}`);
   }
 };
 
@@ -214,7 +214,7 @@ export const getPinnedItems = async (req, res) => {
       .populate("expenseList");
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -277,7 +277,7 @@ export const postPinning = async (req, res) => {
       "error",
       "아이템을 핀 목록에 추가하는 과정에서 오류가 발생했습니다."
     );
-    return res.status(400).redirect(`/item/detail/${item.type}/${item.id}`);
+    return res.status(500).redirect(`/item/detail/${item.type}/${item.id}`);
   }
 };
 
@@ -291,7 +291,7 @@ const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
     }
   } catch (error) {
     console.log(error);
-    req.flash("error", "아이템으 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!item) {
@@ -305,7 +305,7 @@ const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
     user = await User.findById(loggedInUser._id);
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {

@@ -12,7 +12,7 @@ export const postAddComment = async (req, res) => {
     user = await User.findById(loggedInUser._id).populate("commentList");
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -25,7 +25,7 @@ export const postAddComment = async (req, res) => {
     post = await Post.findById(postId).populate("commentList");
   } catch (error) {
     console.log(error);
-    req.flash("error", "게시글을 찾을 수 없습니다.");
+    req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!post) {
@@ -47,6 +47,6 @@ export const postAddComment = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "댓글을 생성하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect(`/post/detail/${postId}`);
+    return res.status(500).redirect(`/post/detail/${postId}`);
   }
 };

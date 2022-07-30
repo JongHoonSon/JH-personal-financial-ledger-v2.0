@@ -16,7 +16,7 @@ export const postAddPost = async (req, res) => {
     user = await User.findById(loggedInUser._id);
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -31,7 +31,7 @@ export const postAddPost = async (req, res) => {
     board = await Board.findOne({ name: boardName });
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!totalBoard) {
@@ -56,12 +56,12 @@ export const postAddPost = async (req, res) => {
     await user.save();
     await totalBoard.save();
     await board.save();
-    req.flash("success", "글을 작성하였습니다.");
+    req.flash("success", "게시글을 작성하였습니다.");
     return res.status(200).redirect("/post/add");
   } catch (error) {
     console.log(error);
-    req.flash("error", "글을 작성하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect("/post/add");
+    req.flash("error", "게시글을 작성하는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/post/add");
   }
 };
 
@@ -115,7 +115,7 @@ export const postEditPost = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "게시글을 수정하는 과정에서 오류가 발생했습니다.");
-    return res.redirect(`/post/edit/${postId}`);
+    return res.status(500).redirect(`/post/edit/${postId}`);
   }
 };
 
@@ -136,7 +136,7 @@ export const getDetailPost = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect("/board/전체게시판/1");
+    return res.status(500).redirect("/board/전체게시판/1");
   }
   if (!post) {
     req.flash("error", "게시글을 찾을 수 없습니다.");
@@ -161,7 +161,7 @@ export const postIncreaseViewsPost = async (req, res) => {
       "error",
       "게시글의 조회수를 증가시키는 과정에서 오류가 발생했습니다."
     );
-    return res.status(400).redirect("/board/전체게시판/1");
+    return res.status(500).redirect("/board/전체게시판/1");
   }
 };
 
@@ -174,7 +174,7 @@ export const postIncreaseLikesPost = async (req, res) => {
     user = await User.findById(loggedInUser._id);
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
@@ -188,7 +188,7 @@ export const postIncreaseLikesPost = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect("/board/전체게시판/1");
+    return res.status(500).redirect("/board/전체게시판/1");
   }
   if (!post) {
     req.flash("error", "게시글을 찾을 수 없습니다.");
@@ -206,15 +206,18 @@ export const postIncreaseLikesPost = async (req, res) => {
 
   if (alreadyIn) {
     req.flash("error", "이미 이 게시글의 좋아요를 눌렀습니다.");
-    return res.status(400).redirect(`/post/detail/${postId}`);
+    return res.status(200).redirect(`/post/detail/${postId}`);
   } else {
     try {
       post.likesUserList.push(user);
       await post.save();
     } catch (error) {
       console.log(error);
-      req.flash("error", "게시글을 저장하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("/board/전체게시판/1");
+      req.flash(
+        "error",
+        "게시글 정보를 갱신하는 과정에서 오류가 발생했습니다."
+      );
+      return res.status(500).redirect("/board/전체게시판/1");
     }
 
     try {
@@ -222,8 +225,8 @@ export const postIncreaseLikesPost = async (req, res) => {
       await user.save();
     } catch (error) {
       console.log(error);
-      req.flash("error", "유저 정보를 저장하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("/board/전체게시판/1");
+      req.flash("error", "유저 정보를 갱신하는 과정에서 오류가 발생했습니다.");
+      return res.status(500).redirect("/board/전체게시판/1");
     }
 
     req.flash("success", "좋아요 완료");
@@ -241,7 +244,7 @@ const checkPostOwnerIsLoggedInUser = async (req, res, postId) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect("/board/전체게시판/1");
+    return res.status(500).redirect("/board/전체게시판/1");
   }
   if (!post) {
     req.flash("error", "게시글을 찾을 수 없습니다.");
@@ -254,7 +257,7 @@ const checkPostOwnerIsLoggedInUser = async (req, res, postId) => {
     user = await User.findById(loggedInUser._id);
   } catch (error) {
     console.log(error);
-    req.flash("error", "유저를 불러오는 과정에서 에러가 발생했습니다.");
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
     return res.status(500).redirect("/");
   }
   if (!user) {
