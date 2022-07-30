@@ -24,13 +24,16 @@ block content
                 textarea(readonly) #{post.content}
 
         div#detailPost-option
-            div
-                form(method="POST", action=`/post/increase-likes/${post._id}`)
-                    input(type="submit", value="좋아요")
-            div
-                a(href=`/post/edit/${post._id}`) 수정
-            div
-                a(href=`/post/delete/${post._id}`) 삭제
+            if String(post.owner._id) === String(loggedInUser._id)
+                div
+                    a(href=`/post/edit/${post._id}`) 수정
+                div
+                    form(method="POST", action=`/post/delete/${post._id}`)
+                        input(type="submit", value="삭제")
+            else
+                div
+                    form(method="POST", action=`/post/increase-likes/${post._id}`)
+                        input(type="submit", value="좋아요")
 
 
         include ../comment/comment.pug

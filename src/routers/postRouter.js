@@ -19,11 +19,11 @@ postRouter
   .get(getAddPost)
   .post(postAddPost);
 postRouter
-  .route("/edit")
+  .route("/edit/:postId")
   .all(loggedInUserOnly)
   .get(getEditPost)
   .post(postEditPost);
-postRouter.post("/delete", loggedInUserOnly, postDeletePost);
+postRouter.post("/delete/:postId", loggedInUserOnly, postDeletePost);
 postRouter.get("/detail/:postId", loggedInUserOnly, getDetailPost);
 postRouter.post("/increase-views/:postId", postIncreaseViewsPost);
 postRouter.post("/increase-likes/:postId", postIncreaseLikesPost);
