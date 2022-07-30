@@ -119,7 +119,57 @@ export const postEditPost = async (req, res) => {
   }
 };
 
-export const postDeletePost = async (req, res) => {};
+export const postDeletePost = async (req, res) => {
+  const { postId } = req.params;
+
+  const checkResult = await checkPostOwnerIsLoggedInUser(req, res, postId);
+
+  if (checkResult.pass === false) {
+    return checkResult.return;
+  }
+
+  const post = checkResult.post;
+
+  const user = checkResult.user;
+
+  try {
+    user.postList = user.postList.filter((el) => {
+      if (String(el._id) !== String(post.id)) {
+        return true;
+      }
+    });
+    await user.save();
+
+    const totalBoard = await Board.findOne({ name: "전체게시판" });
+    if (!totalBoard) {
+      req.flash("error", "전체게시판을 찾을 수 없습니다.");
+      return res.status(404).redirect("/");
+    }
+
+    totalBoard.postList = totalBoard.postList.filter((el) => {
+      if (String(el._id) !== String(post.id)) {
+        return true;
+      }
+    });
+    await totalBoard.save();
+
+    post.board.postList = post.board.postList.filter((el) => {
+      if (String(el._id) !== String(post.id)) {
+        return true;
+      }
+    });
+    await post.board.save();
+
+    await Post.findByIdAndDelete(postId);
+
+    req.flash("success", "게시글을 삭제했습니다.");
+    return res.status(200).redirect("/board/전체게시판/1");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "게시글을 삭제하는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect(`/post/detail/${postId}`);
+  }
+};
 
 export const getDetailPost = async (req, res) => {
   const { postId } = req.params;
