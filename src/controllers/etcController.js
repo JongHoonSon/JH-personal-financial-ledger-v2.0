@@ -34,7 +34,9 @@ export const getChart = async (req, res) => {
 
   let totalSum = 0;
   const sumAmountByCategory = {};
-  categories.forEach((el) => (sumAmountByCategory[el] = 0));
+  for (let category of categories) {
+    sumAmountByCategory[category] = 0;
+  }
 
   const nowStringDate = getStringDate(res.locals.date);
   const expenseList = user.expenseList;
@@ -47,9 +49,13 @@ export const getChart = async (req, res) => {
 
   const percentageByCategory = {};
 
-  for (let category in sumAmountByCategory) {
-    percentageByCategory[category] =
-      (sumAmountByCategory[category] / totalSum).toFixed(2) * 100;
+  for (let category of categories) {
+    if (totalSum === 0) {
+      percentageByCategory[category] = 0;
+    } else {
+      percentageByCategory[category] =
+        (sumAmountByCategory[category] / totalSum).toFixed(2) * 100;
+    }
   }
 
   return res.render("etc/chart", {
