@@ -2,18 +2,18 @@ extends ../base.pug
 
 block content
     div.form-wrapper
-            form(method="POST")
-                div.form-input-section
-                    div
-                        label(for="title") 제목
-                        input(placeholder="제목", id="title", name="title", type="text", required)
-                    div
-                        label(for="boardName") 게시판
-                        select(id="boardName", name="boardName", required)
-                            each board_name in boardList
-                                option(value=`${board_name}`)=board_name
-                    div 
-                        label(for="content") 내용
-                        textarea(placeholder="내용", id="content", name="content", type="text", required)
-                div.form-button-section
-                    input(type="submit", value="작성하기")
+        form(method="POST")
+            div.form-input-section
+                div
+                    label(for="title") 제목
+                    input(placeholder="제목", id="title", name="title", type="text", required)
+                div
+                    label(for="boardName") 게시판
+                    select(id="boardName", name="boardName", required)
+                        each board_name in boardList
+                            option(value=`${board_name}`)=board_name
+                div 
+                    label(for="content") 내용
+                    textarea(placeholder="내용", id="content", name="content", type="text", required)
+            div.form-button-section
+                input(type="submit", value="작성하기")
