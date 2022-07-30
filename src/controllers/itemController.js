@@ -115,27 +115,17 @@ export const postEditItem = async (req, res) => {
   const item = checkResult.item;
 
   try {
-    if (item.type === "i") {
-      await Income.findByIdAndUpdate(itemId, {
-        date,
-        amount,
-        category,
-        description,
-        cycle,
-        imageUrl: file ? file.path : item.imageUrl,
-      });
-    } else {
+    if (item.type === "e") {
       const { paymentMethod } = req.body;
-      await Expense.findByIdAndUpdate(itemId, {
-        date,
-        amount,
-        category,
-        description,
-        cycle,
-        paymentMethod,
-        imageUrl: file ? file.path : item.imageUrl,
-      });
+      item.paymentMethod = paymentMethod;
     }
+    item.date = date;
+    item.amount = amount;
+    item.category = category;
+    item.description = description;
+    item.cycle = cycle;
+    item.imageUrl = file ? file.path : item.imageUrl;
+    await item.save();
     req.flash("success", "아이템을 수정했습니다.");
     return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
   } catch (error) {
