@@ -32,6 +32,9 @@ const userSchema = new mongoose.Schema({
   likesPostList: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Post" },
   ],
+  likesCommentList: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
+  ],
   clipPostList: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Post" },
   ],
