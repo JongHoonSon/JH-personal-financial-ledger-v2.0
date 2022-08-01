@@ -6,6 +6,15 @@ mixin list(comment)
             span #{comment.stringFullDate}
             span #{comment.likes}
         div#comment-options
-            span edit
-            span delete
-            span likes
+            if String(comment.owner._id) === String(loggedInUser._id)
+                div
+                    form(method="POST", action=`/comment/edit/${comment._id}`)
+                        input(type="submit", value="수정")
+                div
+                    form(method="POST", action=`/comment/delete/${comment._id}`)
+                        input(type="submit", value="삭제")
+            else
+                div
+                    form(method="POST", action=`/comment/increase-likes/${comment._id}`)
+                        input(type="submit", value="좋아요")
+                
