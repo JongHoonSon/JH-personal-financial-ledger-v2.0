@@ -25,6 +25,13 @@ const commentSchema = new mongoose.Schema({
     require: true,
     ref: "Post",
   },
+  likesUserList: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+  ],
 });
 
 const Comment = mongoose.model("Comment", commentSchema);
