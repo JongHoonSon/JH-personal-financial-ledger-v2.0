@@ -8,13 +8,16 @@ mixin list(comment)
         div#comment-options
             if String(comment.owner._id) === String(loggedInUser._id)
                 div
-                    form(method="POST", action=`/comment/edit/${comment._id}`)
+                    form(method="POST", action=`/comment/edit/${comment.post._id}/${comment._id}`)
                         input(type="submit", value="수정")
                 div
-                    form(method="POST", action=`/comment/delete/${comment._id}`)
+                    form(method="POST", action=`/comment/delete/${comment.post._id}/${comment._id}`)
                         input(type="submit", value="삭제")
             else
                 div
-                    form(method="POST", action=`/comment/increase-likes/${comment._id}`)
+                    form(method="POST", action=`/comment/increase-likes/${comment.post._id}/${comment._id}`)
                         input(type="submit", value="좋아요")
-                
+            
+            div#post-likes
+                label 좋아요
+                span #{comment.likesUserList.length}
