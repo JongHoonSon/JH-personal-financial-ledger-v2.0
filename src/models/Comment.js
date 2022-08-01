@@ -19,7 +19,6 @@ const commentSchema = new mongoose.Schema({
     default: getStringFullDate(new Date()),
   },
   content: { type: String, required: true },
-  likes: { type: Number, required: true, default: 0 },
   post: {
     type: mongoose.Schema.Types.ObjectId,
     require: true,
