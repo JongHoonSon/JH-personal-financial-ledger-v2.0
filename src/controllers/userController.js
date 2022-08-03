@@ -2,17 +2,17 @@ import { unauthorizedAccess } from "../middlewares";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 
-export const getProfile = async (req, res) => {
+export const getUserProfile = async (req, res) => {
   const { userId } = req.params;
 
   const user = await User.findById(userId);
 
   const isMyProfile = req.session.user._id === userId ? true : false;
 
-  res.render("user/profile", { pageTitle: "프로필", user, isMyProfile });
+  res.render("user/userProfile", { pageTitle: "프로필", user, isMyProfile });
 };
 
-export const getEditProfile = async (req, res) => {
+export const getEditUserProfile = async (req, res) => {
   const { userId } = req.params;
 
   const checkResult = await checkUserIsLoggedInUser(req, res, userId);
@@ -23,13 +23,13 @@ export const getEditProfile = async (req, res) => {
 
   const user = checkResult.user;
 
-  return res.render("user/editProfile", {
+  return res.render("user/editUserProfile", {
     pageTitle: "프로필 수정",
     user,
   });
 };
 
-export const postEditProfile = async (req, res) => {
+export const postEditUserProfile = async (req, res) => {
   const { userId } = req.params;
   const { name, nickname, email } = req.body;
   const { file } = req;
@@ -93,7 +93,7 @@ export const postEditProfile = async (req, res) => {
   }
 };
 
-export const getEditPassword = async (req, res) => {
+export const getEditUserPassword = async (req, res) => {
   const { userId } = req.params;
 
   const checkResult = await checkUserIsLoggedInUser(req, res, userId);
@@ -102,10 +102,10 @@ export const getEditPassword = async (req, res) => {
     return checkResult.return;
   }
 
-  return res.render("user/editPassword", { pageTitle: "비밀번호 변경" });
+  return res.render("user/editUserPassword", { pageTitle: "비밀번호 변경" });
 };
 
-export const postEditPassword = async (req, res) => {
+export const postEditUserPassword = async (req, res) => {
   const { userId } = req.params;
   const { password, new_password, new_password_confirm } = req.body;
 

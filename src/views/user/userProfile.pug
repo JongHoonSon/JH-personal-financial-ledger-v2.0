@@ -1,28 +1,28 @@
 extends ../base.pug
 
-block content 
-    div#profile-wrapper 
-        div#profile
-            div#profile-username 
+block content
+    div#userProfile-wrapper 
+        div#userProfile
+            div#userProfile-username 
                 h3 아이디
                 textarea(readonly) #{user.username}
-            div#profile-name 
+            div#userProfile-name 
                 h3 이름
                 textarea(readonly) #{user.name}
-            div#profile-nickname 
+            div#userProfile-nickname 
                 h3 닉네임
                 textarea(readonly) #{user.nickname}
-            div#profile-email 
+            div#userProfile-email 
                 h3 이메일
                 textarea(readonly) #{user.email}
-            div#profile-socialAccount 
+            div#userProfile-socialAccount 
                 h3 소셜 계정 여부
                 textarea(readonly) #{user.socialAccount === true ? "Y" : "N"}
-            div#profile-image
+            div#userProfile-image
                 h3 프로필 사진
                 img(src="/" + user.avatarUrl).user-avatar
 
         if isMyProfile 
-            div#profile-options
+            div#userProfile-options
                 a(href=`/user/edit-profile/${user._id}`) 프로필 수정하기
                 a(href=`/user/edit-password/${user._id}`) 비밀번호 변경하기
