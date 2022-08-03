@@ -9,7 +9,9 @@ mixin list(comment)
         div#comment-options
             if String(comment.owner._id) === String(loggedInUser._id)
                 button.comment-edit-btn 수정
-                button.comment-delete-btn 삭제 
+                button.comment-delete-btn
+                    form(method="POST", action=`/comment/delete/${comment.post._id}/${comment._id}`)
+                        input(type="submit", value="삭제")
                 button.comment-edit-confirm-btn.hidden 확정
                 button.comment-edit-cancel-btn.hidden 취소
             else
