@@ -13,6 +13,8 @@ mixin list(comment)
                 button.comment-edit-confirm-btn.hidden 확정
                 button.comment-edit-cancel-btn.hidden 취소
             else
-                button.comment-likes-btn 좋아요
+                button.comment-likes-btn
+                    form(method="POST", action=`/comment/increase-likes/${comment.post._id}/${comment._id}`)
+                        input(type="submit", value="좋아요")
 
             span 좋아요 #{comment.likesUserList.length}
