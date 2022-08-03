@@ -2,7 +2,7 @@ extends ../base.pug
 
 block content
     div#detailPost-wrapper 
-        div(data-id=post._id)#detailPost
+        div(data-post_id=post._id)#detailPost
             div#post-board-name
                 span
                     a(href=`/board/${post.board.name}/1`) #{post.board.name}
