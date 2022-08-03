@@ -1,5 +1,5 @@
 mixin list(comment)
-    div#comment
+    div#comment(data-comment_id=comment._id)
         div#comment-main
             span #{comment.owner.name}
             span #{comment.content}

@@ -22,6 +22,7 @@ app.set("views", __dirname + "/views");
 app.use("/assets", express.static("assets"));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(
   session({

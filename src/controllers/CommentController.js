@@ -54,7 +54,7 @@ export const postAddComment = async (req, res) => {
 
 export const postEditComment = async (req, res) => {
   const { postId, commentId } = req.params;
-  const { content } = req.body;
+  const { newContent } = req.body;
 
   const checkResult = await checkCommentOwnerIsLoggedInUser(
     req,
@@ -69,7 +69,7 @@ export const postEditComment = async (req, res) => {
   const comment = checkResult.comment;
 
   try {
-    comment.content = content;
+    comment.content = newContent;
     await comment.save();
 
     req.flash("success", "댓글을 수정했습니다.");

@@ -1,14 +1,9 @@
+const { post_id } = document.getElementById("detailPost").dataset;
+
 const commentEditBtns = document.querySelectorAll(".comment-edit-btn");
 const commentDeleteBtns = document.querySelectorAll(".comment-delete-btn");
 
-console.log("commentEditBtns");
-console.log(commentEditBtns);
-console.log("commentDeleteBtns");
-console.log(commentDeleteBtns);
-
 const handleEditComment = (event) => {
-  console.log("수정 버튼 클릭");
-
   // 수정 버튼
   const commentEditBtn = event.target;
 
@@ -24,36 +19,20 @@ const handleEditComment = (event) => {
   // 수정 취소 버튼
   const commentEditCancelBtn = commentOptions.childNodes[3];
 
-  // 전체 댓글
+  // 댓글
   const comment = commentOptions.parentElement;
 
-  // 댓글 정보가 모인 div
+  // 댓글 id
+  const { comment_id } = comment.dataset;
+
+  // 댓글의 정보가 모인 div
   const commentMain = comment.childNodes[0];
 
-  // 기존 댓글 내용
+  // 댓글 내용
   const commentContent = commentMain.childNodes[1];
 
-  // 댓글 수정 창
+  // 댓글 수정 입력 창
   const commentContentEditTextarea = commentMain.childNodes[2];
-
-  //   console.log("commentEditBtn");
-  //   console.log(commentEditBtn);
-  //   console.log("commentOptions");
-  //   console.log(commentOptions);
-  //   console.log("commentDeleteBtn");
-  //   console.log(commentDeleteBtn);
-  //   console.log("commentEditConfirmBtn");
-  //   console.log(commentEditConfirmBtn);
-  console.log("commentEditCancelBtn");
-  console.log(commentEditCancelBtn);
-  //   console.log("comment");
-  //   console.log(comment);
-  //   console.log("commentMain");
-  //   console.log(commentMain);
-  //   console.log("commentContent");
-  //   console.log(commentContent);
-  //   console.log("commentContentEditTextarea");
-  //   console.log(commentContentEditTextarea);
 
   commentEditBtn.classList.add("hidden");
   commentDeleteBtn.classList.add("hidden");
@@ -62,6 +41,22 @@ const handleEditComment = (event) => {
   commentEditConfirmBtn.classList.remove("hidden");
   commentEditCancelBtn.classList.remove("hidden");
   commentContentEditTextarea.classList.remove("hidden");
+
+  commentEditConfirmBtn.onclick = async () => {
+    const newContent = commentContentEditTextarea.value;
+
+    const response = await fetch(`/comment/edit/${post_id}/${comment_id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newContent }),
+    });
+
+    if (response.status === 200) {
+      window.location.reload();
+    }
+  };
 
   commentEditCancelBtn.onclick = () => {
     commentContentEditTextarea.value = commentContent.innerText;
@@ -76,12 +71,6 @@ const handleEditComment = (event) => {
   };
 };
 
-const handleCancelEditComment = (event) => {};
-
 commentEditBtns.forEach((btn) => {
   btn.addEventListener("click", handleEditComment);
 });
-
-// commentEditCancelBtns.forEach((btn) => {
-//   btn.addEventListener("click", handleCancelEditComment);
-// });
