@@ -50,6 +50,11 @@
 
 @import "./screens/user/editUserPassword.scss";
 @import "./screens/user/editUserProfile.scss";
+@import "./screens/user/user_nav.scss";
+@import "./screens/user/user-list-comment-mixins.scss";
+@import "./screens/user/user-list-post-mixins.scss";
+@import "./screens/user/userOwnComments.scss";
+@import "./screens/user/userOwnPosts.scss";
 @import "./screens/user/userProfile.scss";
 
 body {

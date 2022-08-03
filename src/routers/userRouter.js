@@ -2,6 +2,8 @@ import express from "express";
 import {
   getEditUserPassword,
   getEditUserProfile,
+  getUserOwnComments,
+  getUserOwnPosts,
   getUserProfile,
   postEditUserPassword,
   postEditUserProfile,
@@ -21,5 +23,7 @@ userRouter
   .all(loggedInUserOnly)
   .get(getEditUserPassword)
   .post(postEditUserPassword);
+userRouter.get("/own-posts/:userId", getUserOwnPosts);
+userRouter.get("/own-comments/:userId", getUserOwnComments);
 
 export default userRouter;

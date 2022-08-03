@@ -1,0 +1,7 @@
+mixin list(comment)
+    li.user-comment
+        a(href=`/post/detail/${comment.post._id}`)
+            ul.user-comment-contents
+                li #{'날짜 : ' + comment.stringDate}
+                li #{'내용 : ' + comment.content}
+                li #{'좋아요 수 : ' + comment.likesUserList.length}

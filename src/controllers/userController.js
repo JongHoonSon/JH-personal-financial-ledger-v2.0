@@ -172,3 +172,19 @@ const checkUserIsLoggedInUser = async (req, res, userId) => {
 
   return { pass: true, user: user };
 };
+
+export const getUserOwnPosts = async (req, res) => {
+  const { userId } = req.params;
+
+  const user = await User.findById(userId).populate("postList");
+
+  res.render("user/userOwnPosts", { pageTitle: "프로필", user });
+};
+
+export const getUserOwnComments = async (req, res) => {
+  const { userId } = req.params;
+
+  const user = await User.findById(userId).populate("commentList");
+
+  res.render("user/userOwnComments", { pageTitle: "프로필", user });
+};

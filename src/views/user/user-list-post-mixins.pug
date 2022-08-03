@@ -1,0 +1,8 @@
+mixin list(post)
+    li.user-post
+        a(href=`/post/detail/${post._id}`)
+            ul.user-post-contents
+                li #{'날짜 : ' + post.stringDate}
+                li #{'제목 : ' + post.title}
+                li #{'조회수 : ' + post.views}
+                li #{'좋아요 수 : ' + post.likesUserList.length}
