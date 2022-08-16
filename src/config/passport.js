@@ -1,4 +1,5 @@
 import passport from "passport";
+import User from "../models/User";
 var GoogleStrategy = require("passport-google-oauth2").Strategy;
 
 passport.serializeUser(function (user, done) {
@@ -16,9 +17,28 @@ passport.use(
       callbackURL: "http://localhost:4001/auth/google/callback",
       passReqToCallback: true,
     },
-    function (request, accessToken, refreshToken, profile, done) {
+    async function (req, accessToken, refreshToken, profile, done) {
       console.log("profile: ", profile);
-      var user = profile;
+      const exists = await User.exists({ email: profile.email });
+
+      let user;
+      if (exists) {
+        user = await User.findOne({ email: profile.email });
+      } else {
+        try {
+          user = await User.create({
+            username: profile.id,
+            password: "",
+            name: profile.given_name + profile.family_name,
+            email: profile.email,
+            nickname: profile.id,
+            socialAccount: true,
+            avatarUrl: "defaults/default_avatar.png",
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
       done(null, user);
     }

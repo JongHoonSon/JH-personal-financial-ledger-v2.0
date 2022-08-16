@@ -19,16 +19,14 @@ globalRouter.route("/join").all(publicOnly).get(getJoin).post(postJoin);
 globalRouter.route("/login").all(publicOnly).get(getLogin).post(postLogin);
 globalRouter.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 globalRouter.get(
   "/auth/google/callback",
   passport.authenticate("google"),
-  authSuccess
+  finishGoogleLogin
 );
-function authSuccess(req, res) {
-  res.redirect("/");
-}
+
 globalRouter.get("/logout", loggedInUserOnly, logout);
 
 export default globalRouter;
