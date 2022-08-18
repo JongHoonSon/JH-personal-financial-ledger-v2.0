@@ -127,3 +127,7 @@ export const logout = (req, res) => {
   req.flash("success", `다음에 또 봬요, ${loggedInUserNickname} 님!`);
   return res.status(200).redirect("/");
 };
+
+export const finishGoogleLogin = (req, res) => {
+  return res.redirect("/");
+};

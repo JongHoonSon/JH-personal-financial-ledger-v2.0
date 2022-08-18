@@ -7,7 +7,6 @@ import {
   logout,
   postJoin,
   postLogin,
-  startGoogleLogin,
 } from "../controllers/globalController";
 import { loggedInUserOnly, publicOnly } from "../middlewares";
 import passport from "../config/passport";
