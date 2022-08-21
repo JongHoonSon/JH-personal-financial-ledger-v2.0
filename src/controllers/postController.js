@@ -57,7 +57,7 @@ export const postAddPost = async (req, res) => {
     await totalBoard.save();
     await board.save();
     req.flash("success", "게시글을 작성하였습니다.");
-    return res.status(200).redirect("/post/add");
+    return res.status(200).redirect(`/post/detail/${newPost._id}`);
   } catch (error) {
     console.log(error);
     req.flash("error", "게시글을 작성하는 과정에서 오류가 발생했습니다.");
