@@ -129,5 +129,8 @@ export const logout = (req, res) => {
 };
 
 export const finishGoogleLogin = (req, res) => {
+  req.session.loggedIn = true;
+  req.session.user = req.user;
+
   return res.redirect("/");
 };

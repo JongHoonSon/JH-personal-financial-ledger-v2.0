@@ -9,7 +9,7 @@ import {
   postLogin,
 } from "../controllers/globalController";
 import { loggedInUserOnly, publicOnly } from "../middlewares";
-import passport from "../config/passport";
+import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
 

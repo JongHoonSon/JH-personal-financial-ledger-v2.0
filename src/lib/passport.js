@@ -3,9 +3,11 @@ import User from "../models/User";
 var GoogleStrategy = require("passport-google-oauth2").Strategy;
 
 passport.serializeUser(function (user, done) {
-  done(null, user);
+  done(null, user.id);
 });
-passport.deserializeUser(function (user, done) {
+
+passport.deserializeUser(async function (userId, done) {
+  const user = await User.findById(userId);
   done(null, user);
 });
 
@@ -17,8 +19,7 @@ passport.use(
       callbackURL: "http://localhost:4001/auth/google/callback",
       passReqToCallback: true,
     },
-    async function (req, accessToken, refreshToken, profile, done) {
-      console.log("profile: ", profile);
+    async function (request, accessToken, refreshToken, profile, done) {
       const exists = await User.exists({ email: profile.email });
 
       let user;
