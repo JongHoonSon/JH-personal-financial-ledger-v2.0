@@ -2,14 +2,21 @@ extends ../base.pug
 include chart-list-item-mixins.pug
 
 block content 
-    div#chart-wrapper 
+    div#chart-wrapper(data-chartdataarr=`${JSON.stringify(chartDataArr)}`)
         include chart_nav.pug
 
-        div#chart-list
-            ul 
-                div#chart-list-title
-                    div 분류
-                    div 합계
-                    div 비율
-                each category of categories
-                    +list(category)
+        div#chart-contents
+            div#chart-canvas
+                canvas(id="chart")
+            div#chart-list
+                ul 
+                    div#chart-list-title
+                        div 분류
+                        div 합계
+                        div 비율
+                    each chartData of chartDataArr
+                        +list(chartData)
+
+block scripts 
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+    script(src="/assets/js/chart.js")

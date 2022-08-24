@@ -53,16 +53,27 @@ export const getChart = async (req, res) => {
     if (totalSum === 0) {
       percentageByCategory[category] = 0;
     } else {
-      percentageByCategory[category] =
-        (sumAmountByCategory[category] / totalSum).toFixed(2) * 100;
+      percentageByCategory[category] = (
+        (sumAmountByCategory[category] / totalSum) *
+        100
+      ).toFixed(2);
     }
+  }
+
+  const chartDataArr = [];
+
+  for (let category of categories) {
+    const chartData = {
+      category: category,
+      sumAmount: sumAmountByCategory[category],
+      percentage: percentageByCategory[category],
+    };
+    chartDataArr.push(chartData);
   }
 
   return res.render("etc/chart", {
     pageTitle: "소비 리포트",
-    categories,
-    sumAmountByCategory,
-    percentageByCategory,
+    chartDataArr,
     days,
   });
 };

@@ -1,5 +1,5 @@
-mixin list(category)
+mixin list(chartData)
     div
-        div #{category}
-        div #{sumAmountByCategory[category]}
-        div #{`${percentageByCategory[category]} %`}
+        div #{chartData.category}
+        div #{chartData.sumAmount}
+        div #{`${chartData.percentage} %`}
