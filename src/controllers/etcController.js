@@ -1,5 +1,10 @@
 import User from "../models/User";
-import { getStringDate, sortItem, getStringDateDiff } from "../utils";
+import {
+  getStringDate,
+  sortItem,
+  getStringDateDiff,
+  getStringAmount,
+} from "../utils";
 
 const income_categories = [
   "월급",
@@ -92,6 +97,7 @@ export const getChart = async (req, res) => {
     const chartData = {
       category: category,
       sumAmount: sumAmountByCategory[category],
+      string_sumAmount: getStringAmount(sumAmountByCategory[category]),
       percentage: percentageByCategory[category],
     };
     chartDataArr.push(chartData);
