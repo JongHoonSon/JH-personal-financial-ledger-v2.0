@@ -6,29 +6,6 @@ import {
   getStringAmount,
 } from "../utils";
 
-const income_categories = [
-  "월급",
-  "주급",
-  "용돈",
-  "은행이자",
-  "주식이윤",
-  "기타",
-];
-
-const expense_categories = [
-  "식비",
-  "주거비",
-  "통신비",
-  "교통비",
-  "의료비",
-  "생활비",
-  "의류비",
-  "교육비",
-  "주식거래",
-  "주식손해",
-  "기타",
-];
-
 export const getChart = async (req, res) => {
   const { type, days } = req.params;
 
@@ -36,8 +13,10 @@ export const getChart = async (req, res) => {
   let user;
   try {
     user = await User.findById(loggedInUser._id)
-      .populate("expenseList")
-      .populate("incomeList");
+      .populate("incomeCategories")
+      .populate("expenseCategories")
+      .populate("incomeList")
+      .populate("expenseList");
   } catch (error) {
     console.log(error);
     req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -52,9 +31,9 @@ export const getChart = async (req, res) => {
   const sumAmountByCategory = {};
   let categories;
   if (type === "income") {
-    categories = income_categories;
+    categories = user.incomeCategories;
   } else if (type === "expense") {
-    categories = expense_categories;
+    categories = user.expenseCategories;
   }
   for (let category of categories) {
     sumAmountByCategory[category] = 0;
@@ -115,7 +94,9 @@ export const getLastExpense = async (req, res) => {
   const loggedInUser = req.session.user;
   let user;
   try {
-    user = await User.findById(loggedInUser._id).populate("expenseList");
+    user = await User.findById(loggedInUser._id)
+      .populate("expenseCategories")
+      .populate("expenseList");
   } catch (error) {
     console.log(error);
     req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -130,7 +111,7 @@ export const getLastExpense = async (req, res) => {
   const lastExpenseList = [];
   const nowStringDate = getStringDate(res.locals.date);
 
-  const categories = expense_categories;
+  const categories = user.expenseCategories;
 
   for (let i = 0; i < categories.length; i++) {
     const expenseListByCategories = [];

@@ -4,7 +4,7 @@ import User from "../models/User";
 import { sortItem } from "../utils";
 import { unauthorizedAccess } from "../middlewares";
 
-export const getAddItem = (req, res) => {
+export const getAddItem = async (req, res) => {
   const { itemType } = req.params;
 
   let pageTitle;
@@ -15,11 +15,34 @@ export const getAddItem = (req, res) => {
     pageTitle = "수입 내역 추가";
   }
 
-  return res.render("item/addItem", { pageTitle, itemType });
+  const loggedInUser = req.session.user;
+  let user;
+  try {
+    user = await User.findById(loggedInUser._id)
+      .populate("incomeCategories")
+      .populate("expenseCategories");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  const { incomeCategories, expenseCategories } = user;
+
+  return res.render("item/addItem", {
+    pageTitle,
+    itemType,
+    incomeCategories,
+    expenseCategories,
+  });
 };
 
 export const postAddItem = async (req, res) => {
-  const { itemType } = req.params;
+  const { itemitemType } = req.params;
   const { date, amount, category, description, cycle } = req.body;
   const { file } = req;
 
@@ -37,7 +60,7 @@ export const postAddItem = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
-  if (itemType === "i") {
+  if (itemitemType === "i") {
     try {
       const user = await User.findById(loggedInUser._id);
       const newIncome = await Income.create({
@@ -84,12 +107,12 @@ export const postAddItem = async (req, res) => {
 };
 
 export const getEditItem = async (req, res) => {
-  const { type, itemId } = req.params;
+  const { itemType, itemId } = req.params;
 
   const checkResult = await checkItemOwnerIsLoggedInUser(
     req,
     res,
-    type,
+    itemType,
     itemId
   );
 
@@ -98,19 +121,28 @@ export const getEditItem = async (req, res) => {
   }
 
   const item = checkResult.item;
+  const user = checkResult.user;
 
-  return res.render("item/editItem", { pageTitle: "내역 수정", item });
+  const { incomeCategories, expenseCategories } = user;
+
+  return res.render("item/editItem", {
+    pageTitle: "내역 수정",
+    item,
+    itemType,
+    incomeCategories,
+    expenseCategories,
+  });
 };
 
 export const postEditItem = async (req, res) => {
-  const { type, itemId } = req.params;
+  const { itemType, itemId } = req.params;
   const { date, amount, category, description, cycle } = req.body;
   const { file } = req;
 
   const checkResult = await checkItemOwnerIsLoggedInUser(
     req,
     res,
-    type,
+    itemType,
     itemId
   );
 
@@ -121,7 +153,7 @@ export const postEditItem = async (req, res) => {
   const item = checkResult.item;
 
   try {
-    if (item.type === "e") {
+    if (item.itemType === "e") {
       const { paymentMethod } = req.body;
       item.paymentMethod = paymentMethod;
     }
@@ -133,21 +165,21 @@ export const postEditItem = async (req, res) => {
     item.imageUrl = file ? file.path : item.imageUrl;
     await item.save();
     req.flash("success", "아이템을 수정했습니다.");
-    return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
+    return res.status(200).redirect(`/item/detail/${item.itemType}/${item.id}`);
   } catch (error) {
     console.log(error);
     req.flash("error", "아이템을 수정하는 과정에서 오류가 발생했습니다.");
-    return res.status(500).redirect(`/item/edit/${item.type}/${item.id}`);
+    return res.status(500).redirect(`/item/edit/${item.itemType}/${item.id}`);
   }
 };
 
 export const postDeleteItem = async (req, res) => {
-  const { type, itemId } = req.params;
+  const { itemType, itemId } = req.params;
 
   const checkResult = await checkItemOwnerIsLoggedInUser(
     req,
     res,
-    type,
+    itemType,
     itemId
   );
 
@@ -159,7 +191,7 @@ export const postDeleteItem = async (req, res) => {
   const user = checkResult.user;
 
   try {
-    if (item.type === "i") {
+    if (item.itemType === "i") {
       await Income.findByIdAndDelete(itemId);
       user.incomeList = user.incomeList.filter(
         (income) => String(income._id) !== String(itemId)
@@ -177,19 +209,19 @@ export const postDeleteItem = async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "아이템을 삭제하는 과정에서 오류가 발생했습니다.");
-    return res.status(500).redirect(`/item/detail/${item.type}/${item.id}`);
+    return res.status(500).redirect(`/item/detail/${item.itemType}/${item.id}`);
   }
 };
 
 export const postDeleteItems = (req, res) => {};
 
 export const getDetailItem = async (req, res) => {
-  const { type, itemId } = req.params;
+  const { itemType, itemId } = req.params;
 
   const checkResult = await checkItemOwnerIsLoggedInUser(
     req,
     res,
-    type,
+    itemType,
     itemId
   );
 
@@ -244,12 +276,12 @@ export const getPinnedItems = async (req, res) => {
 };
 
 export const postPinning = async (req, res) => {
-  const { type, itemId } = req.params;
+  const { itemType, itemId } = req.params;
 
   const checkResult = await checkItemOwnerIsLoggedInUser(
     req,
     res,
-    type,
+    itemType,
     itemId
   );
 
@@ -264,12 +296,16 @@ export const postPinning = async (req, res) => {
       item.pinned = true;
       await item.save();
       req.flash("success", "핀 목록에 추가하였습니다.");
-      return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
+      return res
+        .status(200)
+        .redirect(`/item/detail/${item.itemType}/${item.id}`);
     } else {
       item.pinned = false;
       await item.save();
       req.flash("success", "핀 목록에서 삭제하였습니다.");
-      return res.status(200).redirect(`/item/detail/${item.type}/${item.id}`);
+      return res
+        .status(200)
+        .redirect(`/item/detail/${item.itemType}/${item.id}`);
     }
   } catch (error) {
     console.log(error);
@@ -277,14 +313,14 @@ export const postPinning = async (req, res) => {
       "error",
       "아이템을 핀 목록에 추가하는 과정에서 오류가 발생했습니다."
     );
-    return res.status(500).redirect(`/item/detail/${item.type}/${item.id}`);
+    return res.status(500).redirect(`/item/detail/${item.itemType}/${item.id}`);
   }
 };
 
-const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
+const checkItemOwnerIsLoggedInUser = async (req, res, itemType, itemId) => {
   let item;
   try {
-    if (type === "i") {
+    if (itemType === "i") {
       item = await Income.findById(itemId).populate("owner");
     } else {
       item = await Expense.findById(itemId).populate("owner");
@@ -302,7 +338,9 @@ const checkItemOwnerIsLoggedInUser = async (req, res, type, itemId) => {
   const loggedInUser = req.session.user;
   let user;
   try {
-    user = await User.findById(loggedInUser._id);
+    user = await User.findById(loggedInUser._id)
+      .populate("incomeCategories")
+      .populate("expenseCategories");
   } catch (error) {
     console.log(error);
     req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");

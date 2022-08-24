@@ -20,14 +20,14 @@ itemRouter
   .get(getAddItem)
   .post(uploadFiles.single("image"), postAddItem);
 itemRouter
-  .route("/edit/:type/:itemId")
+  .route("/edit/:itemType/:itemId")
   .all(loggedInUserOnly)
   .get(getEditItem)
   .post(uploadFiles.single("image"), postEditItem);
-itemRouter.post("/delete/:type/:itemId", loggedInUserOnly, postDeleteItem);
+itemRouter.post("/delete/:itemType/:itemId", loggedInUserOnly, postDeleteItem);
 itemRouter.post("/delete/:itemIds", loggedInUserOnly, postDeleteItems);
-itemRouter.get("/detail/:type/:itemId", loggedInUserOnly, getDetailItem);
+itemRouter.get("/detail/:itemType/:itemId", loggedInUserOnly, getDetailItem);
 itemRouter.get("/pinned", loggedInUserOnly, getPinnedItems);
-itemRouter.post("/pinning/:type/:itemId", loggedInUserOnly, postPinning);
+itemRouter.post("/pinning/:itemType/:itemId", loggedInUserOnly, postPinning);
 
 export default itemRouter;

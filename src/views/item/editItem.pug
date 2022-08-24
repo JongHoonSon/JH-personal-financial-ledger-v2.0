@@ -16,24 +16,12 @@ block content
                     div 
                         label(for="category") 분류
                         select(id="category", name="category", value=`${item.category}` required)
-                            if item.type === "i"
-                                option(value="월급") 월급
-                                option(value="주급") 주급
-                                option(value="용돈") 용돈
-                                option(value="은행이자") 은행이자
-                                option(value="주식이윤") 주식이윤
-                                option(value="기타") 기타
-                            if item.type === "e"
-                                option(value="주거비") 주거비
-                                option(value="통신비") 통신비
-                                option(value="교통비") 교통비
-                                option(value="의료비") 의료비
-                                option(value="생활비") 생활비
-                                option(value="의류비") 의류비
-                                option(value="교육비") 교육비
-                                option(value="주식거래") 주식거래
-                                option(value="주식손해") 주식손해
-                                option(value="기타") 기타
+                            if itemType === "i"
+                                each category of incomeCategories
+                                    option(value=`${category}`) #{category}
+                            else 
+                                each category of expenseCategories
+                                    option(value=`${category}`) #{category}
                     div 
                         label(for="description") 설명
                         input(placeholder="description", id="description", name="description", value=`${item.description}` type="text")

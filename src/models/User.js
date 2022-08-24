@@ -9,6 +9,18 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   socialAccount: { type: Boolean, required: true, default: false },
   avatarUrl: { type: String },
+  incomeCategories: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  expenseCategories: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
   incomeList: [
     {
       type: mongoose.Schema.Types.ObjectId,

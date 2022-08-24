@@ -61,6 +61,29 @@ export const postJoin = async (req, res) => {
   }
 
   try {
+    const income_categories = [
+      "월급",
+      "주급",
+      "용돈",
+      "은행이자",
+      "주식이윤",
+      "기타",
+    ];
+
+    const expense_categories = [
+      "식비",
+      "주거비",
+      "통신비",
+      "교통비",
+      "의료비",
+      "생활비",
+      "의류비",
+      "교육비",
+      "주식거래",
+      "주식손해",
+      "기타",
+    ];
+
     await User.create({
       username,
       password,
@@ -68,6 +91,8 @@ export const postJoin = async (req, res) => {
       email,
       nickname,
       avatarUrl: "defaults/default_avatar.png",
+      incomeCategories: income_categories,
+      expenseCategories: expense_categories,
     });
     req.flash("success", "회원가입에 완료했습니다.");
     return res.status(200).redirect("/login");
