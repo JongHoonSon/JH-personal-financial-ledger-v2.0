@@ -6,11 +6,20 @@ block content
             div#login-input-section
                 div
                     label(for="username") 아이디
-                    input(placeholder="ID", id="username", name="username", type="text", required)
+                    input(placeholder="ID", id="username", name="username", type="text", value=saved_username, required)
                 div
                     label(for="password") 비밀번호
                     input(placeholder="PW", id="password", name="password", type="password", required)
+                div
+                    label(for="save_username") 아이디 저장
+                    if save_username
+                        input(id="save_username", name="save_username", type="checkbox" checked)
+                    else 
+                        input(id="save_username", name="save_username", type="checkbox")
             div#login-button-section
                 input(type="submit", value="로그인")
             div#google-login 
                 a(href="/auth/google") 구글 로그인
+
+block scripts 
+    script(src="/assets/js/login.js") 

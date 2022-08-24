@@ -9,6 +9,7 @@ import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import flash from "express-flash";
+import cookieParser from "cookie-parser";
 import passport from "passport";
 import { localMiddleware, createObjectMiddleware } from "./middlewares";
 import postRouter from "./routers/postRouter";
@@ -33,6 +34,8 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })
 );
+
+app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());

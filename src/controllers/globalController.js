@@ -79,11 +79,25 @@ export const postJoin = async (req, res) => {
 };
 
 export const getLogin = (req, res) => {
-  return res.render("global/login", { pageTitle: "로그인" });
+  let save_username = false;
+  let saved_username = "";
+
+  if (req.cookies.save_username) {
+    if (req.cookies.save_username === "true") {
+      save_username = true;
+      saved_username = req.cookies.saved_username;
+    }
+  }
+
+  return res.render("global/login", {
+    pageTitle: "로그인",
+    save_username,
+    saved_username,
+  });
 };
 
 export const postLogin = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, save_username } = req.body;
 
   let user;
   try {
@@ -109,6 +123,17 @@ export const postLogin = async (req, res) => {
   if (!passwordCorrect) {
     req.flash("error", "비밀번호가 일치하지 않습니다.");
     return res.status(400).redirect("/login");
+  }
+
+  if (save_username) {
+    res.cookie("save_username", "true", { path: "/login", httpOnly: true });
+    res.cookie("saved_username", `${username}`, {
+      path: "/login",
+      httpOnly: true,
+    });
+  } else {
+    res.cookie("save_username", "false", { path: "/login", httpOnly: true });
+    res.cookie("saved_username", "", { path: "/login", httpOnly: true });
   }
 
   req.session.loggedIn = true;
