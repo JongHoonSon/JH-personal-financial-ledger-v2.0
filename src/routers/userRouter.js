@@ -3,7 +3,7 @@ import {
   getAddUserCategory,
   getEditUserPassword,
   getEditUserProfile,
-  getUserCategories,
+  getUserOwnCategories,
   getUserOwnComments,
   getUserOwnPosts,
   getUserProfile,
@@ -28,9 +28,9 @@ userRouter
   .get(getEditUserPassword)
   .post(postEditUserPassword);
 userRouter.get(
-  "/categories/:categoryType",
+  "/own-categories/:categoryType",
   loggedInUserOnly,
-  getUserCategories
+  getUserOwnCategories
 );
 userRouter
   .route("/add/category/:categoryType")
