@@ -5,7 +5,13 @@ import bcrypt from "bcrypt";
 export const getUserProfile = async (req, res) => {
   const { userId } = req.params;
 
-  const user = await User.findById(userId);
+  const checkResult = await checkUserExist(req, res, userId);
+
+  if (checkResult.pass === false) {
+    return checkResult.return;
+  }
+
+  const user = checkResult.user;
 
   const isMyProfile = req.session.user._id === userId ? true : false;
 
@@ -13,9 +19,9 @@ export const getUserProfile = async (req, res) => {
 };
 
 export const getEditUserProfile = async (req, res) => {
-  const { userId } = req.params;
+  const loggedInUserId = req.session.user._id;
 
-  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
+  const checkResult = await checkUserExist(req, res, loggedInUserId);
 
   if (checkResult.pass === false) {
     return checkResult.return;
@@ -30,11 +36,11 @@ export const getEditUserProfile = async (req, res) => {
 };
 
 export const postEditUserProfile = async (req, res) => {
-  const { userId } = req.params;
+  const loggedInUserId = req.session.user._id;
   const { name, nickname, email } = req.body;
   const { file } = req;
 
-  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
+  const checkResult = await checkUserExist(req, res, loggedInUserId);
 
   if (checkResult.pass === false) {
     return checkResult.return;
@@ -74,7 +80,7 @@ export const postEditUserProfile = async (req, res) => {
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      userId,
+      user._id,
       {
         name,
         nickname,
@@ -85,18 +91,18 @@ export const postEditUserProfile = async (req, res) => {
     );
     req.session.user = updatedUser;
     req.flash("success", "프로필을 수정했습니다.");
-    return res.status(200).redirect(`/user/profile/${userId}`);
+    return res.status(200).redirect(`/user/profile/${user._id}`);
   } catch (error) {
     console.log(error);
     req.flash("error", "프로필을 수정하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect(`/user/profile/${userId}`);
+    return res.status(400).redirect(`/user/profile/${user._id}`);
   }
 };
 
 export const getEditUserPassword = async (req, res) => {
-  const { userId } = req.params;
+  const loggedInUserId = req.session.user._id;
 
-  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
+  const checkResult = await checkUserExist(req, res, loggedInUserId);
 
   if (checkResult.pass === false) {
     return checkResult.return;
@@ -106,10 +112,10 @@ export const getEditUserPassword = async (req, res) => {
 };
 
 export const postEditUserPassword = async (req, res) => {
-  const { userId } = req.params;
+  const loggedInUserId = req.session.user._id;
   const { password, new_password, new_password_confirm } = req.body;
 
-  const checkResult = await checkUserIsLoggedInUser(req, res, userId);
+  const checkResult = await checkUserExist(req, res, loggedInUserId);
 
   if (checkResult.pass === false) {
     return checkResult.return;
@@ -127,7 +133,7 @@ export const postEditUserPassword = async (req, res) => {
   }
   if (!passwordCorrect) {
     req.flash("error", "비밀번호가 일치하지 않습니다.");
-    return res.status(400).redirect(`/user/edit-password/${userId}`);
+    return res.status(400).redirect(`/user/edit-password`);
   }
 
   if (new_password !== new_password_confirm) {
@@ -135,7 +141,7 @@ export const postEditUserPassword = async (req, res) => {
       "error",
       "입력하신 새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다."
     );
-    return res.status(400).redirect(`/user/edit-password/${userId}`);
+    return res.status(400).redirect(`/user/edit-password`);
   }
 
   try {
@@ -143,19 +149,64 @@ export const postEditUserPassword = async (req, res) => {
     await user.save();
     req.session.user = user;
     req.flash("success", "비밀번호를 변경했습니다.");
-    return res.status(200).redirect(`/user/profile/${userId}`);
+    return res.status(200).redirect(`/user/profile/${user._id}`);
   } catch (error) {
     console.log(error);
     req.flash("error", "비밀번호를 변경하는 과정에서 오류가 발생했습니다.");
-    return res.status(400).redirect(`/user/edit-password/${userId}`);
+    return res.status(400).redirect(`/user/edit-password`);
   }
 };
 
-const checkUserIsLoggedInUser = async (req, res, userId) => {
-  const loggedInUser = req.session.user;
+export const getUserOwnPosts = async (req, res) => {
+  const { userId } = req.params;
+
   let user;
   try {
-    user = await User.findById(loggedInUser._id);
+    user = await User.findById(userId).populate("postList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  res.render("user/userOwnPosts", {
+    pageTitle: `${user.nickname} 님의 작성글`,
+    user,
+  });
+};
+
+export const getUserOwnComments = async (req, res) => {
+  const { userId } = req.params;
+
+  let user;
+  try {
+    user = await User.findById(userId).populate("commentList");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  res.render("user/userOwnComments", {
+    pageTitle: `${user.nickname} 님의 작성 댓글`,
+    user,
+  });
+};
+
+const checkUserExist = async (req, res, userId) => {
+  let user;
+  try {
+    user = await User.findById(userId);
   } catch (error) {
     console.log(error);
     req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -166,25 +217,5 @@ const checkUserIsLoggedInUser = async (req, res, userId) => {
     return { pass: false, return: res.status(404).redirect("/") };
   }
 
-  if (String(loggedInUser._id) !== String(user._id)) {
-    return { pass: false, return: unauthorizedAccess(req, res) };
-  }
-
   return { pass: true, user: user };
-};
-
-export const getUserOwnPosts = async (req, res) => {
-  const { userId } = req.params;
-
-  const user = await User.findById(userId).populate("postList");
-
-  res.render("user/userOwnPosts", { pageTitle: "프로필", user });
-};
-
-export const getUserOwnComments = async (req, res) => {
-  const { userId } = req.params;
-
-  const user = await User.findById(userId).populate("commentList");
-
-  res.render("user/userOwnComments", { pageTitle: "프로필", user });
 };

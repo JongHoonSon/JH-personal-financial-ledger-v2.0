@@ -22,9 +22,9 @@ block content
                 textarea(readonly) #{user.socialAccount === true ? "Y" : "N"}
             div#userProfile-image
                 h3 프로필 사진
-                img(src="/" + user.avatarUrl).user-avatar
+                img(src="/" + user.avatarUrl).user-avatar 
 
         if isMyProfile 
             div#userProfile-options
-                a(href=`/user/edit-profile/${user._id}`) 프로필 수정하기
-                a(href=`/user/edit-password/${user._id}`) 비밀번호 변경하기
+                a(href=`/user/edit-profile`) 프로필 수정하기
+                a(href=`/user/edit-password`) 비밀번호 변경하기

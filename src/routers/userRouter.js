@@ -14,12 +14,12 @@ const userRouter = express.Router();
 
 userRouter.get("/profile/:userId", getUserProfile);
 userRouter
-  .route("/edit-profile/:userId")
+  .route("/edit-profile")
   .all(loggedInUserOnly)
   .get(getEditUserProfile)
   .post(uploadFiles.single("image"), postEditUserProfile);
 userRouter
-  .route("/edit-password/:userId")
+  .route("/edit-password")
   .all(loggedInUserOnly)
   .get(getEditUserPassword)
   .post(postEditUserPassword);
