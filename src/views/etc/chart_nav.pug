@@ -1,10 +1,18 @@
 div#chart-nav
-    ul
-        li
-            a(href='/etc/chart/7') 최근 7일
-        li
-            a(href='/etc/chart/30') 최근 30일
-        li
-            a(href='/etc/chart/90') 최근 90일
-        li
-            a(href='/etc/chart/365') 최근 365일
+    div#chart-nav-type
+        ul
+            li
+                a(href=`/etc/chart/income/${days}`) 수입
+            li
+                a(href=`/etc/chart/expense/${days}`) 지출
+
+    div#chart-nav-days
+        ul
+            li
+                a(href=`/etc/chart/${type}/7`) 최근 7일
+            li
+                a(href=`/etc/chart/${type}/30`) 최근 30일
+            li
+                a(href=`/etc/chart/${type}/90`) 최근 90일
+            li
+                a(href=`/etc/chart/${type}/365`) 최근 365일

@@ -3,6 +3,8 @@ import { Chart } from "chart.js";
 const chartWrapper = document.getElementById("chart-wrapper");
 const chartDataArr = JSON.parse(chartWrapper.dataset.chartdataarr);
 
+console.log(chartDataArr);
+
 const chartData_Labels = [];
 const chartData_datasets_data = [];
 
