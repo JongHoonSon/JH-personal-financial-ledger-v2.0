@@ -157,6 +157,14 @@ export const postEditUserPassword = async (req, res) => {
   }
 };
 
+export const getUserCategories = async (req, res) => {};
+
+export const getAddUserCategory = async (req, res) => {};
+
+export const postAddUserCategory = async (req, res) => {};
+
+export const postDeleteUserCategories = async (req, res) => {};
+
 export const getUserOwnPosts = async (req, res) => {
   const { userId } = req.params;
 

@@ -24,6 +24,9 @@ block content
                             else 
                                 each category of expenseCategories
                                     option(value=`${category}`) #{category}
+                        a(href="/user/add/category") 추가
+
+
                     div 
                         label(for="description") 설명
                         input(placeholder="description", id="description", name="description", type="text")
