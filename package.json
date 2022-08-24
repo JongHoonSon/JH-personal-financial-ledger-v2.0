@@ -27,6 +27,7 @@
     "@babel/register": "^7.17.7",
     "babelify": "^10.0.0",
     "bcrypt": "^5.0.1",
+    "chart.js": "^3.9.1",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "del": "^6.1.1",
