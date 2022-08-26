@@ -50,8 +50,11 @@
 
 @import "./screens/user/editUserPassword.scss";
 @import "./screens/user/editUserProfile.scss";
+@import "./screens/user/user-list-category-mixins.scss";
 @import "./screens/user/user-list-comment-mixins.scss";
 @import "./screens/user/user-list-post-mixins.scss";
+@import "./screens/user/userOwnCategories.scss";
+@import "./screens/user/userOwnCategories_nav.scss";
 @import "./screens/user/userOwnComments.scss";
 @import "./screens/user/userOwnPosts.scss";
 @import "./screens/user/userProfile_nav.scss";

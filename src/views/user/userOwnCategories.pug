@@ -1,0 +1,18 @@
+extends ../base.pug
+include user-list-category-mixins.pug
+
+block content
+    div#userCategories-wrapper
+        include userOwnCategories_nav.pug
+
+        div#userOwnCategories
+            ul.user-category-list
+                each category in userCategories
+                    +list(category)
+        div#userAddCategory
+            form(action=`/user/add/category/${categoryType}` method="POST")
+                input(type="text" id="new_category")
+                input(type="submit" value="추가하기")
+
+block scripts 
+    script(src="/assets/js/category.js") 

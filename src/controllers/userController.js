@@ -157,9 +157,45 @@ export const postEditUserPassword = async (req, res) => {
   }
 };
 
-export const getUserOwnCategories = async (req, res) => {};
+export const getUserOwnCategories = async (req, res) => {
+  const loggedInUserId = req.session.user._id;
+  const { categoryType } = req.params;
 
-export const getAddUserCategory = async (req, res) => {};
+  let user;
+  let userCategories;
+  try {
+    if (categoryType === "i") {
+      user = await User.findById(loggedInUserId).populate("incomeCategories");
+      userCategories = user.incomeCategories;
+    } else if (categoryType === "e") {
+      user = await User.findById(loggedInUserId).populate("expenseCategories");
+      userCategories = user.expenseCategories;
+    }
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  let pageTitle;
+
+  if (categoryType === "i") {
+    pageTitle = `${user.nickname} 님의 수입 카테고리`;
+  } else {
+    pageTitle = `${user.nickname} 님의 지출 카테고리`;
+  }
+
+  res.render("user/userOwnCategories", {
+    pageTitle,
+    userCategories,
+    categoryType,
+  });
+};
 
 export const postAddUserCategory = async (req, res) => {};
 

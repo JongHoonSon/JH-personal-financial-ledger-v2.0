@@ -1,6 +1,5 @@
 import express from "express";
 import {
-  getAddUserCategory,
   getEditUserPassword,
   getEditUserProfile,
   getUserOwnCategories,
@@ -32,11 +31,11 @@ userRouter.get(
   loggedInUserOnly,
   getUserOwnCategories
 );
-userRouter
-  .route("/add/category/:categoryType")
-  .all(loggedInUserOnly)
-  .get(getAddUserCategory)
-  .post(postAddUserCategory);
+userRouter.post(
+  "/add/category/:categoryType",
+  loggedInUserOnly,
+  postAddUserCategory
+);
 userRouter.post(
   "/delete/categories/:categoryType",
   loggedInUserOnly,
