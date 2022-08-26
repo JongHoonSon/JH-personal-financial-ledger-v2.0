@@ -7,7 +7,7 @@ import {
   getUserOwnPosts,
   getUserProfile,
   postAddUserCategory,
-  postDeleteUserCategories,
+  postDeleteUserCategory,
   postEditUserPassword,
   postEditUserProfile,
 } from "../controllers/userController";
@@ -36,10 +36,10 @@ userRouter.post(
   loggedInUserOnly,
   postAddUserCategory
 );
-userRouter.post(
-  "/delete/categories/:categoryType",
+userRouter.delete(
+  "/delete/category/:categoryType",
   loggedInUserOnly,
-  postDeleteUserCategories
+  postDeleteUserCategory
 );
 userRouter.get("/own-posts/:userId", getUserOwnPosts);
 userRouter.get("/own-comments/:userId", getUserOwnComments);

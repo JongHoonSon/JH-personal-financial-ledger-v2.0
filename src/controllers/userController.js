@@ -226,7 +226,38 @@ export const postAddUserCategory = async (req, res) => {
   res.redirect(`/user/own-categories/${categoryType}`);
 };
 
-export const postDeleteUserCategories = async (req, res) => {};
+export const postDeleteUserCategory = async (req, res) => {
+  const loggedInUserId = req.session.user._id;
+  const { categoryType } = req.params;
+  const { categoryName } = req.body;
+
+  let user;
+  try {
+    if (categoryType === "i") {
+      user = await User.findById(loggedInUserId).populate("incomeCategories");
+      user.incomeCategories = user.incomeCategories.filter(
+        (el) => el !== categoryName
+      );
+    } else if (categoryType === "e") {
+      user = await User.findById(loggedInUserId).populate("expenseCategories");
+      user.expenseCategories = user.expenseCategories.filter(
+        (el) => el !== categoryName
+      );
+    }
+    await user.save();
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+
+  if (!user) {
+    req.flash("error", "유저를 찾을 수 없습니다.");
+    return res.status(404).redirect("/");
+  }
+
+  return res.sendStatus(200);
+};
 
 export const getUserOwnPosts = async (req, res) => {
   const { userId } = req.params;
