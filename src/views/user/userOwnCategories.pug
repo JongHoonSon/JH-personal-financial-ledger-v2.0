@@ -11,7 +11,7 @@ block content
                     +list(category)
         div#userAddCategory
             form(action=`/user/add/category/${categoryType}` method="POST")
-                input(type="text" id="new_category")
+                input(type="text" id="new_category" name="new_category")
                 input(type="submit" value="추가하기")
 
 block scripts 
