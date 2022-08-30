@@ -42,7 +42,7 @@ export const getAddItem = async (req, res) => {
 };
 
 export const postAddItem = async (req, res) => {
-  const { itemitemType } = req.params;
+  const { itemType } = req.params;
   const { date, amount, category, description, cycle } = req.body;
   const { file } = req;
 
@@ -60,7 +60,7 @@ export const postAddItem = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
-  if (itemitemType === "i") {
+  if (itemType === "i") {
     try {
       const user = await User.findById(loggedInUser._id);
       const newIncome = await Income.create({
