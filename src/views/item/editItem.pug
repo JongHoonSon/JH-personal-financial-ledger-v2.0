@@ -15,13 +15,19 @@ block content
                         span 원
                     div 
                         label(for="category") 분류
-                        select(id="category", name="category", value=`${item.category}` required)
+                        select(id="category", name="category", required)
                             if itemType === "i"
                                 each category of incomeCategories
-                                    option(value=`${category}`) #{category}
+                                    if item.category === category
+                                        option(selected="selected" value=`${category}`) #{category}
+                                    else
+                                        option(value=`${category}`) #{category}
                             else 
                                 each category of expenseCategories
-                                    option(value=`${category}`) #{category}
+                                    if item.category === category
+                                        option(selected="selected" value=`${category}`) #{category}
+                                    else
+                                        option(value=`${category}`) #{category}
                     div 
                         label(for="description") 설명
                         input(placeholder="description", id="description", name="description", value=`${item.description}` type="text")
