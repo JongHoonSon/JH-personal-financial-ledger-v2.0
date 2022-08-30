@@ -153,7 +153,7 @@ export const postEditItem = async (req, res) => {
   const item = checkResult.item;
 
   try {
-    if (item.itemType === "e") {
+    if (itemType === "e") {
       const { paymentMethod } = req.body;
       item.paymentMethod = paymentMethod;
     }
@@ -165,11 +165,11 @@ export const postEditItem = async (req, res) => {
     item.imageUrl = file ? file.path : item.imageUrl;
     await item.save();
     req.flash("success", "아이템을 수정했습니다.");
-    return res.status(200).redirect(`/item/detail/${item.itemType}/${item.id}`);
+    return res.status(200).redirect(`/item/detail/${itemType}/${item.id}`);
   } catch (error) {
     console.log(error);
     req.flash("error", "아이템을 수정하는 과정에서 오류가 발생했습니다.");
-    return res.status(500).redirect(`/item/edit/${item.itemType}/${item.id}`);
+    return res.status(500).redirect(`/item/edit/${itemType}/${item.id}`);
   }
 };
 
