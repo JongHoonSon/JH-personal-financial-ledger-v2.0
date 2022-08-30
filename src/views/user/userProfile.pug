@@ -5,6 +5,9 @@ block content
         include userProfile_nav.pug
 
         div#userProfile
+            div#userProfile-image
+                h3 프로필 사진
+                img(src="/" + user.avatarUrl).user-avatar 
             div#userProfile-username 
                 h3 아이디
                 textarea(readonly) #{user.username}
@@ -20,9 +23,18 @@ block content
             div#userProfile-socialAccount 
                 h3 소셜 계정 여부
                 textarea(readonly) #{user.socialAccount === true ? "Y" : "N"}
-            div#userProfile-image
-                h3 프로필 사진
-                img(src="/" + user.avatarUrl).user-avatar 
+            div#userProfile-incomes 
+                h3 가계부에 등록한 수입 내역 수
+                textarea(readonly) #{user.incomeList.length}
+            div#userProfile-expenses
+                h3 가계부에 등록한 지출 내역 수
+                textarea(readonly) #{user.expenseList.length}
+            div#userProfile-posts
+                h3 작성한 글 수
+                textarea(readonly) #{user.postList.length}
+            div#userProfile- 
+                h3 작성한 댓글 수
+                textarea(readonly) #{user.commentList.length}
 
         if isMyProfile 
             div#userProfile-options
