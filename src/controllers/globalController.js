@@ -161,6 +161,15 @@ export const postLogin = async (req, res) => {
     res.cookie("saved_username", "", { path: "/login", httpOnly: true });
   }
 
+  try {
+    user.lastLoggedInDate = Date.now();
+    await user.save();
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
+    return res.status(500).redirect("/");
+  }
+
   req.session.loggedIn = true;
   req.session.user = user;
 

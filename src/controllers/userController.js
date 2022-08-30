@@ -1,4 +1,5 @@
 import { unauthorizedAccess } from "../middlewares";
+import { getStringFullDate } from "../utils";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 
@@ -15,7 +16,14 @@ export const getUserProfile = async (req, res) => {
 
   const isMyProfile = req.session.user._id === userId ? true : false;
 
-  res.render("user/userProfile", { pageTitle: "프로필", user, isMyProfile });
+  const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
+
+  res.render("user/userProfile", {
+    pageTitle: "프로필",
+    user,
+    isMyProfile,
+    lastLoggedInDate,
+  });
 };
 
 export const getEditUserProfile = async (req, res) => {

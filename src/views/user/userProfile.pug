@@ -35,6 +35,9 @@ block content
             div#userProfile- 
                 h3 작성한 댓글 수
                 textarea(readonly) #{user.commentList.length}
+            div#userProfile- 
+                h3 마지막 접속 기록
+                textarea(readonly) #{lastLoggedInDate}
 
         if isMyProfile 
             div#userProfile-options

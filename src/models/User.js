@@ -50,6 +50,7 @@ const userSchema = new mongoose.Schema({
   clipPostList: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Post" },
   ],
+  lastLoggedInDate: { type: Date, required: true, default: Date.now },
 });
 
 userSchema.pre("save", async function () {
