@@ -1,43 +1,28 @@
-include ../mixins/message.pug
+extends ../base.pug
 
-doctype html
-html(lang="ko")
-    head 
-        title #{pageTitle} | PFL
-        link(rel="stylesheet", href="/assets/css/styles.css")
-        // gulp-webserver에서 실행하는 index.html 기준 css 경로
-        link(rel="stylesheet", href="/css/styles.css")
-    body 
-        if messages
-            if messages.info
-                +message("info", messages.info)
-            if messages.success
-                +message("success", messages.success)
-            if messages.error                     
-                +message("error", messages.error)
-        div.container
-            div#loginContainer
-                div.login-title__wrap
-                    h2.login-title 로그인
-                div.login-form__wrap
-                    form(method="POST").login-form
-                        div.login-form__input-section
-                            div.login-input__wrap
-                                input(placeholder="아이디", id="username", name="username", type="text", value=saved_username, required).login-input
-                            div.login-input__wrap
-                                input(placeholder="비밀번호", id="password", name="password", type="password", required).login-input
-                        div.login-button__wrap
-                            button(type="submit").login-button 로그인
-                        div.login-utils
-                            div.login-checkbox
-                                if save_username
-                                    input(id="save_username", name="save_username", type="checkbox" checked)
-                                else 
-                                    input(id="save_username", name="save_username", type="checkbox")
-                                label(for="save_username").login-checkbox__label 아이디 저장
-                            div.login-join
-                                a(href="/join") 회원가입
-                div.login-social__wrap
-                    div.login-social-button 
-                        a(href="/auth/google") 구글 로그인
-    script(src="/assets/js/main.js") 
+block components
+    div.container
+        div#loginContainer
+            div.login-title__wrap
+                h2.login-title 로그인
+            div.login-form__wrap
+                form(method="POST").login-form
+                    div.login-form__input-section
+                        div.login-input__wrap
+                            input(placeholder="아이디", id="username", name="username", type="text", value=saved_username, required).login-input
+                        div.login-input__wrap
+                            input(placeholder="비밀번호", id="password", name="password", type="password", required).login-input
+                    div.login-button__wrap
+                        button(type="submit").login-button 로그인
+                    div.login-utils
+                        div.login-checkbox
+                            if save_username
+                                input(id="save_username", name="save_username", type="checkbox" checked)
+                            else 
+                                input(id="save_username", name="save_username", type="checkbox")
+                            label(for="save_username").login-checkbox__label 아이디 저장
+                        div.login-join
+                            a(href="/join") 회원가입
+            div.login-social__wrap
+                div.login-social-button 
+                    a(href="/auth/google") 구글 로그인
