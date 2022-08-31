@@ -1,10 +1,11 @@
-// Components
-@import "./components/image.scss";
-@import "./components/form.scss";
-
 // Config
 @import "./config/_reset.scss";
 @import "./config/_variables.scss";
+
+// Components
+@import "./components/container.scss";
+@import "./components/form.scss";
+@import "./components/image.scss";
 
 // Screens
 @import "./screens/board/board-list-post-mixins.scss";
