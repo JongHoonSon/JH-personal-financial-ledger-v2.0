@@ -1,12 +1,5 @@
 nav.nav_menu
     ul 
-        if !loggedIn
-            li.nav_option
-                a(href="/login") 로그인
-
-            li.nav_option
-                a(href="/join") 회원가입
-        
         if loggedIn 
             li.nav_option 
                 a(href="/logout") 로그아웃
