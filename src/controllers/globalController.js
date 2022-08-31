@@ -2,6 +2,10 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 
 export const getHome = (req, res) => {
+  if (!req.session.loggedIn) {
+    return res.redirect("/login");
+  }
+
   return res.render("global/home", { pageTitle: "홈" });
 };
 
