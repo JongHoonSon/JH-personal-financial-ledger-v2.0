@@ -11,9 +11,15 @@ block components
                         div.login-input
                             div.login-input__wrap
                                 input(placeholder="아이디", id="username", name="username", type="text", value=saved_username, required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
                         div.login-input
                             div.login-input__wrap
                                 input(placeholder="비밀번호", id="password", name="password", type="password", required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
+                                button(type="button").login-input__button-show
+                                    i.fa-solid.fa-eye
                     div.login-button
                         button(type="submit").login-button__item 로그인
                     div.login-utils

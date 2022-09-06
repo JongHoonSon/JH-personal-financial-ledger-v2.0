@@ -12,25 +12,41 @@ block components
                             label(for="username").login-input__label 아이디
                             div.login-input__wrap
                                 input(placeholder="영문, 숫자 5-11자", id="username", name="username", type="text", required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
                         div.login-input
                             label(for="password").login-input__label 비밀번호
                             div.login-input__wrap
                                 input(placeholder="숫자, 영문, 특수문자 조합 최소 8자", id="password", name="password", type="password", required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
+                                button(type="button").login-input__button-show
+                                    i.fa-solid.fa-eye
                         div.login-input
                             div.login-input__wrap
                                 input(placeholder="비밀번호 재입력", id="password_confirm", name="password_confirm", type="password", required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
+                                button(type="button").login-input__button-show
+                                    i.fa-solid.fa-eye
                         div.login-input
                             label(for="name").login-input__label 이름
                             div.login-input__wrap
                                 input(id="name", name="name", type="text", required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
                         div.login-input
                             label(for="email").login-input__label 이메일
                             div.login-input__wrap
                                 input(id="email", name="email", type="email", required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
                         div.login-input
                             label(for="nickname").login-input__label 닉네임
                             div.login-input__wrap
                                 input(id="nickname", name="nickname", type="text", required).login-input__input
+                                button(type="button").login-input__button-clear.hidden
+                                    i.fa-solid.fa-circle-xmark
                     div.login-button.join-button
                         button(type="submit").login-button__item 가입하기
                         
