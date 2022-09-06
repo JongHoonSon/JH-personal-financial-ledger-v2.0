@@ -136,3 +136,9 @@ button {
 input {
   border: none;
 }
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
