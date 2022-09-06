@@ -2,6 +2,9 @@ nav.nav_menu
     ul 
         if loggedIn 
             li.nav_option
+                a(href="/logout") 로그아웃
+                    
+            li.nav_option
                 if pageTitle === "프로필" || pageTitle.endsWith("작성글") || pageTitle.endsWith("작성 댓글")
                     a(href=`/user/profile/${loggedInUser._id}`).clicked 내 정보
                 else

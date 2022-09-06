@@ -1,26 +1,29 @@
 extends ../base.pug
 
-block content 
-    div.form-wrapper
-            form(method="POST")
-                div.form-input-section
-                    div
-                        label(for="username") 아이디
-                        input(placeholder="ID", id="username", name="username", type="text", required)
-                    div
-                        label(for="password") 비밀번호
-                        input(placeholder="Password", id="password", name="password", type="password", required)
-                    div 
-                        label(for="password_confirm") 비밀번호 확인
-                        input(placeholder="Confirm Password", id="password_confirm", name="password_confirm", type="password", required)
-                    div 
-                        label(for="name") 이름
-                        input(placeholder="Name", id="name", name="name", type="text", required)
-                    div 
-                        label(for="email") 이메일
-                        input(placeholder="Email", id="email", name="email", type="email", required)
-                    div 
-                        label(for="nickname") 닉네임
-                        input(placeholder="Nickname", id="nickname", name="nickname", type="text", required)
-                div.form-button-section
-                    input(type="submit", value="가입하기")
+block components
+    div.container
+        div#loginContainer
+            div.login-title__wrap
+                h2.join-title PFL 
+            div.login-form__wrap 
+                form(method="POST").login-form
+                    div.login-form__input-section
+                        div.login-input__wrap
+                            label(for="username").login-label 아이디
+                            input(placeholder="영문, 숫자 5-11자", id="username", name="username", type="text", required).login-input
+                        div.login-input__wrap
+                            label(for="password").login-label 비밀번호
+                            input(placeholder="숫자, 영문, 특수문자 조합 최소 8자", id="password", name="password", type="password", required).login-input
+                        div.login-input__wrap
+                            input(placeholder="비밀번호 재입력", id="password_confirm", name="password_confirm", type="password", required).login-input
+                        div.login-input__wrap
+                            label(for="name").login-label 이름
+                            input(id="name", name="name", type="text", required).login-input
+                        div.login-input__wrap
+                            label(for="email").login-label 이메일
+                            input(id="email", name="email", type="email", required).login-input
+                        div.login-input__wrap
+                            label(for="nickname").login-label 닉네임
+                            input(id="nickname", name="nickname", type="text", required).login-input
+                    div.login-button__wrap.join-button__wrap
+                        button(type="submit").login-button 가입하기
