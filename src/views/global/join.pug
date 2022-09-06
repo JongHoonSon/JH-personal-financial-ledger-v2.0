@@ -8,22 +8,31 @@ block components
             div.login-form__wrap 
                 form(method="POST").login-form
                     div.login-form__input-section
-                        div.login-input__wrap
-                            label(for="username").login-label 아이디
-                            input(placeholder="영문, 숫자 5-11자", id="username", name="username", type="text", required).login-input
-                        div.login-input__wrap
-                            label(for="password").login-label 비밀번호
-                            input(placeholder="숫자, 영문, 특수문자 조합 최소 8자", id="password", name="password", type="password", required).login-input
-                        div.login-input__wrap
-                            input(placeholder="비밀번호 재입력", id="password_confirm", name="password_confirm", type="password", required).login-input
-                        div.login-input__wrap
-                            label(for="name").login-label 이름
-                            input(id="name", name="name", type="text", required).login-input
-                        div.login-input__wrap
-                            label(for="email").login-label 이메일
-                            input(id="email", name="email", type="email", required).login-input
-                        div.login-input__wrap
-                            label(for="nickname").login-label 닉네임
-                            input(id="nickname", name="nickname", type="text", required).login-input
-                    div.login-button__wrap.join-button__wrap
-                        button(type="submit").login-button 가입하기
+                        div.login-input
+                            label(for="username").login-input__label 아이디
+                            div.login-input__wrap
+                                input(placeholder="영문, 숫자 5-11자", id="username", name="username", type="text", required).login-input__input
+                        div.login-input
+                            label(for="password").login-input__label 비밀번호
+                            div.login-input__wrap
+                                input(placeholder="숫자, 영문, 특수문자 조합 최소 8자", id="password", name="password", type="password", required).login-input__input
+                        div.login-input
+                            div.login-input__wrap
+                                input(placeholder="비밀번호 재입력", id="password_confirm", name="password_confirm", type="password", required).login-input__input
+                        div.login-input
+                            label(for="name").login-input__label 이름
+                            div.login-input__wrap
+                                input(id="name", name="name", type="text", required).login-input__input
+                        div.login-input
+                            label(for="email").login-input__label 이메일
+                            div.login-input__wrap
+                                input(id="email", name="email", type="email", required).login-input__input
+                        div.login-input
+                            label(for="nickname").login-input__label 닉네임
+                            div.login-input__wrap
+                                input(id="nickname", name="nickname", type="text", required).login-input__input
+                    div.login-button.join-button
+                        button(type="submit").login-button__item 가입하기
+                        
+block scripts
+    script(src="/assets/js/login.js")

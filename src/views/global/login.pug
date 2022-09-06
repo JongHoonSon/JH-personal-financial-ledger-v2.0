@@ -8,12 +8,14 @@ block components
             div.login-form__wrap
                 form(method="POST").login-form
                     div.login-form__input-section
-                        div.login-input__wrap
-                            input(placeholder="아이디", id="username", name="username", type="text", value=saved_username, required).login-input
-                        div.login-input__wrap
-                            input(placeholder="비밀번호", id="password", name="password", type="password", required).login-input
-                    div.login-button__wrap
-                        button(type="submit").login-button 로그인
+                        div.login-input
+                            div.login-input__wrap
+                                input(placeholder="아이디", id="username", name="username", type="text", value=saved_username, required).login-input__input
+                        div.login-input
+                            div.login-input__wrap
+                                input(placeholder="비밀번호", id="password", name="password", type="password", required).login-input__input
+                    div.login-button
+                        button(type="submit").login-button__item 로그인
                     div.login-utils
                         div.login-checkbox
                             if save_username
@@ -26,3 +28,6 @@ block components
             div.login-social__wrap
                 div.login-social-button 
                     a(href="/auth/google") 구글 로그인
+
+block scripts
+    script(src="/assets/js/login.js")
