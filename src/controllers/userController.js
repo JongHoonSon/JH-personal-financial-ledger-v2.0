@@ -16,10 +16,12 @@ export const getUserProfile = async (req, res) => {
 
   const isMyProfile = req.session.user._id === userId ? true : false;
 
+  let pageTitle = isMyProfile ? "마이페이지" : `${user.nickname}님의 프로필`;
+
   const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
   res.render("user/userProfile", {
-    pageTitle: "프로필",
+    pageTitle,
     user,
     isMyProfile,
     lastLoggedInDate,

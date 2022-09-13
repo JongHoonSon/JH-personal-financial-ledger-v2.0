@@ -1,2 +1,18 @@
 header
-    a(href="/") 홈
+    div#headerContainer
+        div.header-home__wrap
+            a(href="/") Personal Financial Ledger
+        div.header-nav__wrap 
+            ul
+                if loggedIn 
+                    li.header-nav-option
+                        span #{loggedInUser.nickname} 님 반갑습니다.
+
+                    li.header-nav-option
+                        if pageTitle === "마이페이지" || pageTitle.endsWith("작성글") || pageTitle.endsWith("작성 댓글")
+                            a(href=`/user/profile/${loggedInUser._id}`).clicked 마이페이지
+                        else
+                            a(href=`/user/profile/${loggedInUser._id}`) 마이페이지
+
+                    li.header-nav-option
+                        a(href="/logout") 로그아웃
