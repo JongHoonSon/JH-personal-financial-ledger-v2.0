@@ -1,7 +1,10 @@
 header {
   width: 100%;
-  height: 5%;
+  height: 10%;
   background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   #headerContainer {
     width: 100%;
     height: 100%;
@@ -14,10 +17,10 @@ header {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-left: 10px;
+      margin-left: 20px;
       a {
-        font-size: 24px;
-        font-weight: 700;
+        font-size: 28px;
+        font-weight: 600;
         color: whitesmoke;
       }
     }
@@ -29,6 +32,9 @@ header {
         span,
         a {
           color: whitesmoke;
+        }
+        a:hover {
+          text-decoration: underline;
         }
       }
     }
