@@ -1,37 +1,37 @@
-nav.nav_menu
+nav.nav-menu
     ul 
         if loggedIn 
-            li.nav_option
+            li.nav-option
                 if pageTitle === "수입 내역 추가" || pageTitle === "지출 내역 추가"
                     a(href="/item/add/i").clicked 수입/지출 내역 추가
                 else
                     a(href="/item/add/i") 수입/지출 내역 추가
 
-            li.nav_option 
+            li.nav-option 
                 if pageTitle === "일별 내역" || pageTitle === "주별 내역" || pageTitle === "월별 내역" || pageTitle === "연도별 내역"
                     a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).clicked 가계부
                 else
                     a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`) 가계부
 
-            li.nav_option
+            li.nav-option
                 if pageTitle === "핀 목록"
                     a(href="/item/pinned").clicked 핀 목록
                 else
                     a(href="/item/pinned") 핀 목록
 
-            li.nav_option
+            li.nav-option
                 if pageTitle === "마지막 지출일"
                     a(href="/etc/last-expense").clicked 마지막 지출일
                 else
                     a(href="/etc/last-expense") 마지막 지출일
                 
-            li.nav_option
+            li.nav-option
                 if pageTitle === "소비 리포트"
                     a(href="/etc/chart/expense/7").clicked 소비 리포트
                 else
                     a(href="/etc/chart/expense/7") 소비 리포트
                 
-            li.nav_option
+            li.nav-option
                 if pageTitle === "게시판"
                     a(href="/board/전체게시판/1").clicked 게시판
                 else
