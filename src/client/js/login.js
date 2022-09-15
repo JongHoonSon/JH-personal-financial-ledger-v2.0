@@ -68,6 +68,36 @@ loginInputs.forEach((el) =>
   el.addEventListener("input", handleLoginInputInput)
 );
 
+const handleLoginInputFocus = (event) => {
+  // 사용자가 로그인 정보를 입력하는 input 태그 (login-input__input)
+  const loginInput = event.target;
+
+  // login-input을 감싸는 div 태그 (login-input__wrap)
+  const loginInputWrap = loginInput.parentElement;
+
+  loginInputWrap.classList.add("highlights");
+  loginInputWrap.classList.remove("none-highlights");
+};
+
+loginInputs.forEach((el) =>
+  el.addEventListener("focus", handleLoginInputFocus)
+);
+
+const handleLoginInputFocusout = (event) => {
+  // 사용자가 로그인 정보를 입력하는 input 태그 (login-input__input)
+  const loginInput = event.target;
+
+  // login-input을 감싸는 div 태그 (login-input__wrap)
+  const loginInputWrap = loginInput.parentElement;
+
+  loginInputWrap.classList.add("none-highlights");
+  loginInputWrap.classList.remove("highlights");
+};
+
+loginInputs.forEach((el) =>
+  el.addEventListener("focusout", handleLoginInputFocusout)
+);
+
 // 눈(보기) 버튼을 가져옴 (패스워드 관련 input 태그의 wrapper인 div 태그에만 포함되어 있음)
 const loginIuputButtonShows = document.querySelectorAll(
   ".login-input__button-show"

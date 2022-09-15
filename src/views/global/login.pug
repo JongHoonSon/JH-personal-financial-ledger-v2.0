@@ -9,12 +9,12 @@ block components
                 form(method="POST").login-form
                     div.login-form__input-section
                         div.login-input
-                            div.login-input__wrap
+                            div.login-input__wrap.none-highlights
                                 input(placeholder="아이디", id="username", name="username", type="text", value=saved_username, required).login-input__input
                                 button(type="button").login-input__button-clear.hidden
                                     i.fa-solid.fa-circle-xmark
                         div.login-input
-                            div.login-input__wrap
+                            div.login-input__wrap.none-highlights
                                 input(placeholder="비밀번호", id="password", name="password", type="password", required).login-input__input
                                 button(type="button").login-input__button-clear.hidden
                                     i.fa-solid.fa-circle-xmark
