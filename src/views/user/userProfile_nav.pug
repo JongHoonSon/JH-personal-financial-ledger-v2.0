@@ -1,10 +1,10 @@
-div#userProfile-nav 
-    div 
-        a(href=`/user/profile/${user._id}`) 프로필
+div#user-profile-nav 
+    div.user-profile-nav__option
+        a(href=`/user/profile/${user._id}`).user-profile-nav__option__link 프로필
 
-    div
-        a(href=`/user/own-posts/${user._id}`) 작성한 글 
+    div.user-profile-nav__option
+        a(href=`/user/own-posts/${user._id}`).user-profile-nav__option__link 작성한 글 
 
-    div
-        a(href=`/user/own-comments/${user._id}`) 작성한 댓글
+    div.user-profile-nav__option
+        a(href=`/user/own-comments/${user._id}`).user-profile-nav__option__link 작성한 댓글
 

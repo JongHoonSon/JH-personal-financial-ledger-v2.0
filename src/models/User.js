@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   nickname: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   socialAccount: { type: Boolean, required: true, default: false },
+  joinDate: { type: Date, required: true, default: Date.now },
   avatarUrl: { type: String },
   incomeCategories: [
     {

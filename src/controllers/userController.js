@@ -1,5 +1,5 @@
 import { unauthorizedAccess } from "../middlewares";
-import { getStringFullDate } from "../utils";
+import { getStringDate, getStringFullDate } from "../utils";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 
@@ -18,12 +18,14 @@ export const getUserProfile = async (req, res) => {
 
   let pageTitle = isMyProfile ? "마이페이지" : `${user.nickname}님의 프로필`;
 
+  const joinDate = getStringDate(user.joinDate);
   const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
   res.render("user/userProfile", {
     pageTitle,
     user,
     isMyProfile,
+    joinDate,
     lastLoggedInDate,
   });
 };

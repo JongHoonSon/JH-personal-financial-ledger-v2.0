@@ -1,45 +1,42 @@
 extends ../base.pug
 
 block content
-    div#userProfile-wrapper 
+    div#user-profile__wrap
         include userProfile_nav.pug
 
-        div#userProfile
-            div#userProfile-image
-                h3 프로필 사진
-                img(src="/" + user.avatarUrl).user-avatar 
-            div#userProfile-username 
-                h3 아이디
-                textarea(readonly) #{user.username}
-            div#userProfile-name 
-                h3 이름
-                textarea(readonly) #{user.name}
-            div#userProfile-nickname 
-                h3 닉네임
-                textarea(readonly) #{user.nickname}
-            div#userProfile-email 
-                h3 이메일
-                textarea(readonly) #{user.email}
-            div#userProfile-socialAccount 
-                h3 소셜 계정 여부
-                textarea(readonly) #{user.socialAccount === true ? "Y" : "N"}
-            div#userProfile-incomes 
-                h3 가계부에 등록한 수입 내역 수
-                textarea(readonly) #{user.incomeList.length}
-            div#userProfile-expenses
-                h3 가계부에 등록한 지출 내역 수
-                textarea(readonly) #{user.expenseList.length}
-            div#userProfile-posts
-                h3 작성한 글 수
-                textarea(readonly) #{user.postList.length}
-            div#userProfile- 
-                h3 작성한 댓글 수
-                textarea(readonly) #{user.commentList.length}
-            div#userProfile- 
-                h3 마지막 로그인 기록
-                textarea(readonly) #{lastLoggedInDate}
+        div#user-profile
+            div#user-profile__left__wrap
+                div#user-profile__image__wrap
+                    img(src="/" + user.avatarUrl)#user-profile__image
+                div#user-profile__info
+                    div#user-profile__nickname__wrap.user-profile__info__wrap
+                        span#user-profile__nickname #{user.nickname}
+                        if isMyProfile 
+                            div#user-profile__options
+                                div.user-profile__options__option
+                                    a(href=`/user/edit-profile`).user-profile__options__option__link
+                                        i.fa-solid.fa-user-pen
+                                        span.user-profile__options__option__link__text 프로필 수정하기
+                                div.user-profile__options__option
+                                    a(href=`/user/edit-password`).user-profile__options__option__link
+                                        i.fa-solid.fa-pen-to-square
+                                        span.user-profile__options__option__link__text 비밀번호 변경하기
+                    div.user-profile__info__wrap
+                        span.user-profile__info 가입일 : #{joinDate}
+                    div.user-profile__info__wrap
+                        span.user-profile__info 마지막 로그인 기록 : #{lastLoggedInDate}
+            div#user-profile__right__wrap
+                div#user-profile__content__wrap
+                    div#user-profile__incomes__wrap
+                        h3.user-profile__content__label 가계부에 등록한 수입 내역 수
+                        span#user-profile__incomes.user-profile__content__data #{user.incomeList.length}
+                    div#user-profile__expenses__wrap
+                        h3.user-profile__content__label 가계부에 등록한 지출 내역 수
+                        span#user-profile__expenses.user-profile__content__data #{user.expenseList.length}
+                    div#user-profile__posts__wrap
+                        h3.user-profile__content__label 작성한 글 수
+                        span#user-profile__posts.user-profile__content__data #{user.postList.length}
+                    div#user-profile__comments__wrap
+                        h3.user-profile__content__label 작성한 댓글 수
+                        span#user-profile__comments.user-profile__content__data #{user.commentList.length}
 
-        if isMyProfile 
-            div#userProfile-options
-                a(href=`/user/edit-profile`) 프로필 수정하기
-                a(href=`/user/edit-password`) 비밀번호 변경하기
