@@ -112,12 +112,3 @@ textarea {
 .hidden {
   display: none;
 }
-
-.none-highlights {
-  border: 1px solid $grey-border;
-}
-
-.highlights {
-  border: 1px solid $red;
-  transition: border 0.5s;
-}
