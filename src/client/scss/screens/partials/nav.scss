@@ -1,39 +1,38 @@
-.nav-menu {
+.main-nav__menu {
   width: 10%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  ul {
+  .main-nav__list {
     width: 100%;
     height: 100%;
-    background-color: $white;
-
-    .nav-option {
+    background-color: $black;
+    .main-nav__option {
       width: 100%;
-      height: 50px;
+      height: 70px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-top: 1px solid $grey-border;
-      a {
+      border-bottom: 1px solid $grey-border;
+      box-sizing: border-box;
+      .main-nav__option__link {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         width: 100%;
         height: 100%;
-        padding: 0px 10px;
+        padding: 0px 20px;
         font-size: 16px;
         font-weight: 600;
-        color: gray;
-      }
-      a:hover {
-        color: black;
-      }
-      .clicked {
         color: $white;
-        background-color: $black;
+      }
+      .main-nav__option__link:hover {
+        color: grey;
+      }
+      .selected {
+        color: $black;
+        background-color: $white;
       }
     }
   }
