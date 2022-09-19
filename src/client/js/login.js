@@ -1,4 +1,7 @@
+// input 태그들
 const loginInputs = document.querySelectorAll(".login-input__input");
+
+// Show 버튼 태그들
 const loginIuputButtonShows = document.querySelectorAll(
   ".login-input__button-show"
 );
@@ -32,7 +35,7 @@ const handleLoginInputFocus = (event) => {
     loginInputButtonClear.classList.remove("hidden");
 
     // Clear button 클릭 시 input 내용을 삭제하는 이벤트 리스너 등록
-    loginInputButtonClearIcon.addEventListener("click", function () {
+    loginInputButtonClearIcon.addEventListener("mousedown", function () {
       loginInput.value = "";
       loginInputButtonClear.classList.add("hidden");
     });
@@ -92,7 +95,7 @@ const handleLoginInputInput = (event) => {
     loginInputButtonClear.classList.remove("hidden");
 
     // Clear button 클릭 시 input 내용을 삭제하는 이벤트 리스너 등록
-    loginInputButtonClearIcon.addEventListener("click", function () {
+    loginInputButtonClearIcon.addEventListener("mousedown", function () {
       loginInput.value = "";
       loginInputButtonClear.classList.add("hidden");
     });
