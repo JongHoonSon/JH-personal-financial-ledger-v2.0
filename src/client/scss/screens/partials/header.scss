@@ -12,30 +12,30 @@ header {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    .header-home__wrap {
-      width: 50%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin-left: 20px;
+  }
+  .header-home__wrap {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+    a {
+      font-size: 28px;
+      font-weight: 600;
+      color: whitesmoke;
+    }
+  }
+  ul {
+    display: flex;
+    margin-right: 30px;
+    li {
+      margin-right: 30px;
+      span,
       a {
-        font-size: 28px;
-        font-weight: 600;
         color: whitesmoke;
       }
-    }
-    ul {
-      display: flex;
-      margin-right: 30px;
-      li {
-        margin-right: 30px;
-        span,
-        a {
-          color: whitesmoke;
-        }
-        a:hover {
-          text-decoration: underline;
-        }
+      a:hover {
+        text-decoration: underline;
       }
     }
   }
