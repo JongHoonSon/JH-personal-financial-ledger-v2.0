@@ -3,16 +3,13 @@ header
         div.header-home__wrap
             a(href="/").header-home__link Personal Financial Ledger
         div.header-nav__wrap 
-            ul
+            ul.header-nav__list
                 if loggedIn 
-                    li.header-nav-option
-                        span #{loggedInUser.nickname} 님 반갑습니다.
+                    li.header-nav__option
+                        span.header-nav__welcome #{loggedInUser.nickname} 님 반갑습니다.
 
-                    li.header-nav-option
-                        if pageTitle === "마이페이지" || pageTitle.endsWith("작성글") || pageTitle.endsWith("작성 댓글")
-                            a(href=`/user/profile/${loggedInUser._id}`).clicked 마이페이지
-                        else
-                            a(href=`/user/profile/${loggedInUser._id}`) 마이페이지
+                    li.header-nav__option
+                        a(href=`/user/profile/${loggedInUser._id}`).header-nav__option__link 마이페이지
 
-                    li.header-nav-option
-                        a(href="/logout") 로그아웃
+                    li.header-nav__option
+                        a(href="/logout").header-nav__option__link 로그아웃
