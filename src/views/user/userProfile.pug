@@ -2,41 +2,57 @@ extends ../base.pug
 
 block content
     div#user-profile__wrap
-        include userProfile_nav.pug
-
-        div#user-profile
-            div#user-profile__left__wrap
-                div#user-profile__image__wrap
-                    img(src="/" + user.avatarUrl)#user-profile__image
-                div#user-profile__info
-                    div#user-profile__nickname__wrap.user-profile__info__wrap
-                        span#user-profile__nickname #{user.nickname}
+        div#user-profile__top
+            div#user-profile__top__left__wrap
+                div#user-profile__user-image__wrap
+                    img(src="/" + user.avatarUrl)#user-profile__user-image
+                div#user-profile__user-infos
+                    div.user-profile__user-info__wrap#user-profile__user-nickname__wrap
+                        span.user-profile__user-info#user-profile__user-nickname #{user.nickname}
                         if isMyProfile 
-                            div#user-profile__options
-                                div.user-profile__options__option
-                                    a(href=`/user/edit-profile`).user-profile__options__option__link
+                            div#user-profile__user-options
+                                div.user-profile__user-options__option__wrap
+                                    a(href=`/user/edit-profile`).user-profile__user-options__option__link
                                         i.fa-solid.fa-user-pen
-                                        span.user-profile__options__option__link__text 프로필 수정하기
-                                div.user-profile__options__option
-                                    a(href=`/user/edit-password`).user-profile__options__option__link
+                                        span.user-profile__user-options__option__link__text 프로필 수정하기
+                                div.user-profile__user-options__option__wrap
+                                    a(href=`/user/edit-password`).user-profile__user-options__option__link
                                         i.fa-solid.fa-pen-to-square
-                                        span.user-profile__options__option__link__text 비밀번호 변경하기
-                    div.user-profile__info__wrap
-                        span.user-profile__info 가입일 : #{joinDate}
-                    div.user-profile__info__wrap
-                        span.user-profile__info 마지막 로그인 기록 : #{lastLoggedInDate}
-            div#user-profile__right__wrap
-                div#user-profile__content__wrap
-                    div#user-profile__incomes__wrap
-                        h3.user-profile__content__label 가계부에 등록한 수입 내역 수
-                        span#user-profile__incomes.user-profile__content__data #{user.incomeList.length}
-                    div#user-profile__expenses__wrap
-                        h3.user-profile__content__label 가계부에 등록한 지출 내역 수
-                        span#user-profile__expenses.user-profile__content__data #{user.expenseList.length}
-                    div#user-profile__posts__wrap
-                        h3.user-profile__content__label 작성한 글 수
-                        span#user-profile__posts.user-profile__content__data #{user.postList.length}
-                    div#user-profile__comments__wrap
-                        h3.user-profile__content__label 작성한 댓글 수
-                        span#user-profile__comments.user-profile__content__data #{user.commentList.length}
+                                        span.user-profile__user-options__option__link__text 비밀번호 변경하기
+                    div.user-profile__user-info__wrap
+                        span.user-profile__user-info 가입일 : #{joinDate}
+                    div.user-profile__user-info__wrap
+                        span.user-profile__user-info 마지막 로그인 기록 : #{lastLoggedInDate}
 
+            div#user-profile__top__right__wrap
+                div#user-profile__user-contents
+                    div.user-profile__user-content__wrap
+                        a(href="#").user-profile__user-content__link
+                            h3.user-profile__user-content__label 등록한 수입 내역
+                            span.user-profile__user-content__data #{user.incomeList.length}
+                    div.user-profile__user-content__wrap
+                        a(href="#").user-profile__user-content__link
+                            h3.user-profile__user-content__label 등록한 지출 내역
+                            span.user-profile__user-content__data #{user.expenseList.length}
+                    div.user-profile__user-content__wrap
+                        a(href=`/user/own-posts/${user._id}`).user-profile__user-content__link
+                            h3.user-profile__user-content__label 작성 글
+                            span.user-profile__user-content__data #{user.postList.length}
+                    div.user-profile__user-content__wrap
+                        a(href=`/user/own-comments/${user._id}`).user-profile__user-content__link
+                            h3.user-profile__user-content__label 작성 댓글
+                            span.user-profile__user-content__data #{user.commentList.length}
+
+        div#user-profile__bottom
+            if pageTitle.includes('작성 글')
+                div.user-profile__user-posts
+                    block user-posts
+            else 
+                div.user-profile__user-posts.hidden
+
+
+            if pageTitle.includes('작성 댓글')
+                div.user-profile__user-comments
+                    block user-comments
+            else
+                div.user-profile__user-comments.hidden
