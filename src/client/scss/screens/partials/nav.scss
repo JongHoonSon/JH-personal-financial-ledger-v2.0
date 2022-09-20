@@ -14,7 +14,7 @@ nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1px solid $grey-border;
+      border-bottom: 1px solid $grey-bright;
       box-sizing: border-box;
       .main-nav__option__link {
         display: flex;
@@ -28,7 +28,7 @@ nav {
         color: $white;
       }
       .main-nav__option__link:hover {
-        color: grey;
+        color: $grey;
       }
       .selected {
         color: $black;
