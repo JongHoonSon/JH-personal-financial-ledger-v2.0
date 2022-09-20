@@ -1,9 +1,19 @@
-extends ../base.pug
+extends userProfile.pug
 include user-list-post-mixins.pug
 
-block content
-    div#userOwnPosts-wrapper
-        div#userOwnPosts
-            ul.user-post-list
-                each post in user.postList.reverse()
-                    +list(post)
+block user-posts
+    div#user-own-posts__wrap
+        div#user-own-posts__header__wrap
+            h2#user-own-posts__header #{user.nickname} 님의 작성 글 목록
+        div#user-own-posts__posts-header__wrap
+            h2.user-own-posts__posts-header#user-own-posts__posts-header__date 작성일
+            h2.user-own-posts__posts-header#user-own-posts__posts-header__title 제목
+            h2.user-own-posts__posts-header#user-own-posts__posts-header__views 조회수
+            h2.user-own-posts__posts-header#user-own-posts__posts-header__likes 좋아요
+        div#user-own-posts__posts__wrap
+            if user.postList.length > 0
+                ul#user-own-post__posts
+                    each post in user.postList.reverse()
+                        +list(post)
+            else
+                span 작성 글이 존재하지 않습니다.

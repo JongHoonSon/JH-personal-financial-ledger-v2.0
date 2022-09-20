@@ -288,9 +288,14 @@ export const getUserOwnPosts = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
+  const joinDate = getStringDate(user.joinDate);
+  const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
+
   res.render("user/userOwnPosts", {
-    pageTitle: `${user.nickname} 님의 작성글`,
+    pageTitle: `${user.nickname} 님의 작성 글`,
     user,
+    joinDate,
+    lastLoggedInDate,
   });
 };
 
@@ -311,9 +316,14 @@ export const getUserOwnComments = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
+  const joinDate = getStringDate(user.joinDate);
+  const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
+
   res.render("user/userOwnComments", {
     pageTitle: `${user.nickname} 님의 작성 댓글`,
     user,
+    joinDate,
+    lastLoggedInDate,
   });
 };
 

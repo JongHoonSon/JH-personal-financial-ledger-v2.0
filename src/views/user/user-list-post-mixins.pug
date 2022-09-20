@@ -1,8 +1,8 @@
 mixin list(post)
-    li.user-post
-        a(href=`/post/detail/${post._id}`)
-            ul.user-post-contents
-                li #{'날짜 : ' + post.stringDate}
-                li #{'제목 : ' + post.title}
-                li #{'조회수 : ' + post.views}
-                li #{'좋아요 수 : ' + post.likesUserList.length}
+    li.user-own-post__posts__item__wrap
+        a(href=`/post/detail/${post._id}`).user-own-post__posts__item__link
+            ul.user-own-post__posts__item
+                li.user-own-post__posts__item__text.user-own-post__posts__item__date #{post.stringDate}
+                li.user-own-post__posts__item__text.user-own-post__posts__item__title #{post.title}
+                li.user-own-post__posts__item__text.user-own-post__posts__item__views #{post.views}
+                li.user-own-post__posts__item__text.user-own-post__posts__item__likes #{post.likesUserList.length}

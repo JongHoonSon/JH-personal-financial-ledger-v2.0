@@ -1,16 +1,43 @@
-.user-post {
+.user-own-post__posts__item__wrap {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  a {
+  border-bottom: 1px solid $grey-light;
+  .user-own-post__posts__item__link {
+    display: block;
     width: 100%;
-    .user-post-contents {
+    height: 100%;
+    padding: 15px 0;
+    .user-own-post__posts__item {
       width: 100%;
+      height: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+    .user-own-post__posts__item__text {
+      text-align: center;
+    }
+
+    .user-own-post__posts__item__date {
+      width: 20%;
+    }
+
+    .user-own-post__posts__item__title {
+      width: 50%;
+    }
+
+    .user-own-post__posts__item__views {
+      width: 15%;
+    }
+
+    .user-own-post__posts__item__likes {
+      width: 15%;
+    }
   }
+}
+
+.user-own-post__posts__item__wrap:hover {
+  background-color: $grey-blur;
 }

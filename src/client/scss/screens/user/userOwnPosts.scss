@@ -1,20 +1,78 @@
-#userOwnPosts-wrapper {
+#user-own-posts__wrap {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#user-own-posts__header__wrap {
+  width: 80%;
+  height: 20%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 3px solid $black;
+}
+
+#user-own-posts__header {
+  padding: 0 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#user-own-posts__posts-header__wrap {
+  width: 80%;
+  height: 10%;
+  display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid $black;
+}
 
-  #userOwnPosts {
-    width: 80%;
-    height: 80%;
-    .user-post-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+.user-own-posts__posts-header {
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#user-own-posts__posts-header__date {
+  width: 20%;
+}
+
+#user-own-posts__posts-header__title {
+  width: 50%;
+}
+
+#user-own-posts__posts-header__views {
+  width: 15%;
+}
+
+#user-own-posts__posts-header__likes {
+  width: 15%;
+}
+
+#user-own-posts__posts__wrap {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-own-post__posts {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+
+#user-own-post__posts::-webkit-scrollbar {
+  display: none;
 }
