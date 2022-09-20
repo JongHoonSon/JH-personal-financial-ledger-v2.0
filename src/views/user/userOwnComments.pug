@@ -3,8 +3,6 @@ include user-list-comment-mixins.pug
 
 block content
     div#userOwnComments-wrapper
-        include userProfile_nav.pug
-
         div#userOwnComments
             ul.user-comment-list
                 each comment in user.commentList.reverse()
