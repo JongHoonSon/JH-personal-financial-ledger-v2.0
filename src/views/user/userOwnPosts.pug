@@ -5,15 +5,22 @@ block user-posts
     div#user-own-posts__wrap
         div#user-own-posts__header__wrap
             h2#user-own-posts__header #{user.nickname} 님의 작성 글 목록
-        div#user-own-posts__posts-header__wrap
-            h2.user-own-posts__posts-header#user-own-posts__posts-header__date 작성일
-            h2.user-own-posts__posts-header#user-own-posts__posts-header__title 제목
-            h2.user-own-posts__posts-header#user-own-posts__posts-header__views 조회수
-            h2.user-own-posts__posts-header#user-own-posts__posts-header__likes 좋아요
-        div#user-own-posts__posts__wrap
-            if user.postList.length > 0
-                ul#user-own-post__posts
-                    each post in user.postList.reverse()
-                        +list(post)
-            else
-                span 작성 글이 존재하지 않습니다.
+        div#user-own-posts__table__wrap
+            table#user-own-posts__post-table
+                colgroup#user-own-posts__post-table__colgroup
+                    col#user-own-posts__post-table__colgroup__col__date
+                    col#user-own-posts__post-table__colgroup__col__title
+                    col#user-own-posts__post-table__colgroup__col__views
+                    col#user-own-posts__post-table__colgroup__col__likes
+                thead#user-own-posts__post-table__thead
+                    tr#user-own-posts__post-table__thead__tr
+                        th(scope="col").user-own-posts__post-table__thead__th 날짜
+                        th(scope="col").user-own-posts__post-table__thead__th 제목
+                        th(scope="col").user-own-posts__post-table__thead__th 조회수
+                        th(scope="col").user-own-posts__post-table__thead__th 좋아요
+                tbody#user-own-posts__post-table__tbody
+                    if user.postList.length > 0
+                        each post in user.postList.reverse()
+                            +list(post)
+                    else
+                        span 작성 글이 존재하지 않습니다.

@@ -1,8 +1,6 @@
 mixin list(post)
-    li.user-own-post__posts__item__wrap
-        a(href=`/post/detail/${post._id}`).user-own-post__posts__item__link
-            ul.user-own-post__posts__item
-                li.user-own-post__posts__item__text.user-own-post__posts__item__date #{post.stringDate}
-                li.user-own-post__posts__item__text.user-own-post__posts__item__title #{post.title}
-                li.user-own-post__posts__item__text.user-own-post__posts__item__views #{post.views}
-                li.user-own-post__posts__item__text.user-own-post__posts__item__likes #{post.likesUserList.length}
+    tr(onclick=`location.href='/post/detail/${post._id}'` style="cursor:pointer").user-own-posts__post-table__tbody__tr
+        td.user-own-posts__post-table__tbody__tr__td #{post.stringDate}
+        td.user-own-posts__post-table__tbody__tr__td #{post.title}
+        td.user-own-posts__post-table__tbody__tr__td #{post.views}
+        td.user-own-posts__post-table__tbody__tr__td #{post.likesUserList.length}
