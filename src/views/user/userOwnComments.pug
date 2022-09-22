@@ -1,9 +1,26 @@
-extends ../base.pug
+extends userProfile.pug
 include user-list-comment-mixins.pug
 
-block content
-    div#userOwnComments-wrapper
-        div#userOwnComments
-            ul.user-comment-list
-                each comment in user.commentList.reverse()
-                    +list(comment)
+block user-comments
+    div#user-own-comments__wrap
+        div#user-own-comments__header__wrap
+            h2#user-own-comments__header #{user.nickname} 님의 작성 댓글 목록
+        div#user-own-comments__table__wrap
+            table#user-own-comments__comment-table
+                colgroup#user-own-comments__comment-table__colgroup
+                    col#user-own-comments__comment-table__colgroup__col__date
+                    col#user-own-comments__comment-table__colgroup__col__post-title
+                    col#user-own-comments__comment-table__colgroup__col__content
+                    col#user-own-comments__comment-table__colgroup__col__likes
+                thead#user-own-comments__comment-table__thead
+                    tr#user-own-comments__comment-table__thead__tr
+                        th(scope="col").user-own-comments__comment-table__thead__th 날짜
+                        th(scope="col").user-own-comments__comment-table__thead__th 게시글
+                        th(scope="col").user-own-comments__comment-table__thead__th 댓글 내용
+                        th(scope="col").user-own-comments__comment-table__thead__th 좋아요
+                tbody#user-own-comments__comment-table__tbody
+                    if user.commentList.length > 0
+                        each comment in user.commentList.reverse()
+                            +list(comment)
+                    else
+                        span 작성 댓글이 존재하지 않습니다.

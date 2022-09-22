@@ -1,7 +1,6 @@
 mixin list(comment)
-    li.user-comment
-        a(href=`/post/detail/${comment.post._id}`)
-            ul.user-comment-contents
-                li #{'날짜 : ' + comment.stringDate}
-                li #{'내용 : ' + comment.content}
-                li #{'좋아요 수 : ' + comment.likesUserList.length}
+    tr(onclick=`location.href='/post/detail/${comment.post._id}'` style="cursor:pointer").user-own-comments__comment-table__tbody__tr
+        td.user-own-comments__comment-table__tbody__tr__td #{comment.stringDate}
+        td.user-own-comments__comment-table__tbody__tr__td #{comment.post.title}
+        td.user-own-comments__comment-table__tbody__tr__td #{comment.content}
+        td.user-own-comments__comment-table__tbody__tr__td #{comment.likesUserList.length}
