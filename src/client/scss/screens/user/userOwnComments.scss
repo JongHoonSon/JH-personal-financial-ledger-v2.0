@@ -1,20 +1,15 @@
-#userOwnComments-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+#user-own-comments__comment-table__colgroup__col__date {
+  width: 15%;
+}
 
-  #userOwnComments {
-    width: 80%;
-    height: 80%;
-    .user-comment-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+#user-own-comments__comment-table__colgroup__col__post-title {
+  width: 25%;
+}
+
+#user-own-comments__comment-table__colgroup__col__content {
+  width: 40%;
+}
+
+#user-own-comments__comment-table__colgroup__col__likes {
+  width: 20%;
 }
