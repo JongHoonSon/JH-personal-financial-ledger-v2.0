@@ -1,16 +1,47 @@
-#addItem-nav {
+#add-item-nav {
   width: 100%;
   height: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  background-color: #6c5ce7;
+}
 
-  ul li {
-    display: inline-block;
-    margin: 20px;
-    border: 1px solid black;
-    background-color: #a29bfe;
-  }
+#add-item-nav__list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-item-nav__option {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.add-item-nav__option__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  color: $grey-light;
+  background-color: $grey;
+  box-sizing: border-box;
+}
+
+#add-item-nav__option__income {
+  border-radius: 10px 0 0 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+#add-item-nav__option__expense {
+  border-radius: 0 10px 0 0;
+  border-left: none;
+  border-bottom: 0px;
+}
+
+.add-item-nav__option__selected {
+  color: $white;
 }

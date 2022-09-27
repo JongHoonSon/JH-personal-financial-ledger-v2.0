@@ -1,6 +1,12 @@
-div#addItem-nav
-    ul
-        li
-            a.incomeColor(href="/item/add/i") 수입
-        li 
-            a.expenseColor(href="/item/add/e") 지출
+nav#add-item-nav
+    ul#add-item-nav__list
+        if itemType === "i"
+            li.add-item-nav__option
+                a(href="/item/add/i").add-item-nav__option__link.income-bgcolor.income-bordercolor-light.add-item-nav__option__selected#add-item-nav__option__income 수입
+            li.add-item-nav__option
+                a(href="/item/add/e").add-item-nav__option__link#add-item-nav__option__expense 지출
+        else
+            li.add-item-nav__option
+                a(href="/item/add/i").add-item-nav__option__link#add-item-nav__option__income 수입
+            li.add-item-nav__option
+                a(href="/item/add/e").add-item-nav__option__link.expense-bgcolor.expense-bordercolor-light.add-item-nav__option__selected#add-item-nav__option__expense 지출
