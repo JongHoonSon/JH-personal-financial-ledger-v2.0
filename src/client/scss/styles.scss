@@ -90,20 +90,109 @@ button {
   cursor: pointer;
 }
 
-.incomeColor {
+.income-color {
   color: $blue;
 }
 
-.expenseColor {
-  color: $red;
+.income-color-light {
+  color: $blue-light;
 }
 
-.incomeBgColor {
+.income-color-deep {
+  color: $blue-deep;
+}
+
+.income-bgcolor {
   background-color: $blue;
 }
+.income-bgcolor-light {
+  background-color: $blue-light;
+}
 
-.expenseBgColor {
-  background-color: $red;
+.income-bgcolor-deep {
+  background-color: $blue-deep;
+}
+
+.income-bordercolor {
+  border: 2px solid $blue;
+}
+.income-bordercolor-light {
+  border: 2px solid $blue-light;
+}
+
+.income-bordercolor-deep {
+  border: 2px solid $blue-deep;
+}
+
+.income-bgimage-gradient {
+  background-image: linear-gradient(
+    to left bottom,
+    #b3e5fc,
+    #aae2fb,
+    #a1dffb,
+    #98dbfa,
+    #8ed8fa,
+    #86d5fa,
+    #7ed3f9,
+    #76d0f9,
+    #6dcdf8,
+    #64caf8,
+    #5ac6f7,
+    #4fc3f7
+  );
+}
+
+.expense-color {
+  color: $orange;
+}
+
+.expense-color-light {
+  color: $orange-light;
+}
+
+.expense-color-deep {
+  color: $orange-deep;
+}
+
+.expense-bgcolor {
+  background-color: $orange;
+}
+
+.expense-bgcolor-light {
+  background-color: $orange-light;
+}
+
+.expense-bgcolor-deep {
+  background-color: $orange-deep;
+}
+
+.expense-bgimage-gradient {
+  background-image: linear-gradient(
+    to left bottom,
+    #ffccbc,
+    #ffc6b4,
+    #ffc0ac,
+    #ffb9a4,
+    #ffb39c,
+    #ffae95,
+    #ffa88d,
+    #ffa386,
+    #ff9d7e,
+    #ff9775,
+    #ff906d,
+    #ff8a65
+  );
+}
+
+.expense-bordercolor {
+  border: 2px solid $orange;
+}
+.expense-bordercolor-light {
+  border: 2px solid $orange-light;
+}
+
+.expense-bordercolor-deep {
+  border: 2px solid $orange-deep;
 }
 
 textarea {
