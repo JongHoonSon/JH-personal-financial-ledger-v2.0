@@ -44,6 +44,7 @@
 #user-own-posts__post-table,
 #user-own-comments__comment-table {
   width: 100%;
+  table-layout: fixed;
 }
 
 #user-own-posts__post-table__colgroup__col__date {
@@ -64,7 +65,10 @@
 
 #user-own-posts__post-table__thead,
 #user-own-comments__comment-table__thead {
+  position: sticky;
+  top: 0px;
   border-bottom: 1px solid $black;
+  background-color: $white;
 }
 
 .user-own-posts__post-table__thead__th,
