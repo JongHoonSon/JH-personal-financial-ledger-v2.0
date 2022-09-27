@@ -29,19 +29,19 @@ block content
                     div.user-profile__user-content__wrap
                         a(href="#").user-profile__user-content__link
                             h3.user-profile__user-content__label 등록한 수입 내역
-                            span.user-profile__user-content__data #{user.incomeList.length}
+                            span.user-profile__user-content__data #{user.incomeList.length}개
                     div.user-profile__user-content__wrap
                         a(href="#").user-profile__user-content__link
                             h3.user-profile__user-content__label 등록한 지출 내역
-                            span.user-profile__user-content__data #{user.expenseList.length}
+                            span.user-profile__user-content__data #{user.expenseList.length}개
                     div.user-profile__user-content__wrap
                         a(href=`/user/own-posts/${user._id}`).user-profile__user-content__link
                             h3.user-profile__user-content__label 작성 글
-                            span.user-profile__user-content__data #{user.postList.length}
+                            span.user-profile__user-content__data #{user.postList.length}개
                     div.user-profile__user-content__wrap
                         a(href=`/user/own-comments/${user._id}`).user-profile__user-content__link
                             h3.user-profile__user-content__label 작성 댓글
-                            span.user-profile__user-content__data #{user.commentList.length}
+                            span.user-profile__user-content__data #{user.commentList.length}개
 
         div#user-profile__bottom
             if pageTitle.includes('작성 글')
