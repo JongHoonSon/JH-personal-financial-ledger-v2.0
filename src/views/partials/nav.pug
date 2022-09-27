@@ -3,37 +3,37 @@ nav
         if loggedIn 
             li.main-nav__option
                 if pageTitle === "수입 내역 추가" || pageTitle === "지출 내역 추가"
-                    a(href="/item/add/i").main-nav__option__link.selected 수입/지출 내역 추가
+                    a(href="/item/add/i").main-nav__option__link.main-nav__selected 수입/지출 내역 추가
                 else
                     a(href="/item/add/i").main-nav__option__link 수입/지출 내역 추가
 
             li.main-nav__option 
                 if pageTitle === "일별 내역" || pageTitle === "주별 내역" || pageTitle === "월별 내역" || pageTitle === "연도별 내역"
-                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).main-nav__option__link.selected 가계부
+                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).main-nav__option__link.main-nav__selected 가계부
                 else
                     a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).main-nav__option__link 가계부
 
             li.main-nav__option
                 if pageTitle === "핀 목록"
-                    a(href="/item/pinned").main-nav__option__link.selected 핀 목록
+                    a(href="/item/pinned").main-nav__option__link.main-nav__selected 핀 목록
                 else
                     a(href="/item/pinned").main-nav__option__link 핀 목록
 
             li.main-nav__option
                 if pageTitle === "마지막 지출일"
-                    a(href="/etc/last-expense").main-nav__option__link.selected 마지막 지출일
+                    a(href="/etc/last-expense").main-nav__option__link.main-nav__selected 마지막 지출일
                 else
                     a(href="/etc/last-expense").main-nav__option__link 마지막 지출일
                 
             li.main-nav__option
                 if pageTitle === "소비 리포트"
-                    a(href="/etc/chart/expense/7").main-nav__option__link.selected 소비 리포트
+                    a(href="/etc/chart/expense/7").main-nav__option__link.main-nav__selected 소비 리포트
                 else
                     a(href="/etc/chart/expense/7").main-nav__option__link 소비 리포트
                 
             li.main-nav__option
                 if pageTitle === "게시판"
-                    a(href="/board/전체게시판/1").main-nav__option__link.selected 게시판
+                    a(href="/board/전체게시판/1").main-nav__option__link.main-nav__selected 게시판
                 else
                     a(href="/board/전체게시판/1").main-nav__option__link 게시판
 
