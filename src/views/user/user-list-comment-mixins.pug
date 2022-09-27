@@ -1,6 +1,6 @@
 mixin list(comment)
     tr(onclick=`location.href='/post/detail/${comment.post._id}'` style="cursor:pointer").user-own-comments__comment-table__tbody__tr
         td.user-own-comments__comment-table__tbody__tr__td #{comment.stringDate}
-        td.user-own-comments__comment-table__tbody__tr__td #{comment.post.title}
-        td.user-own-comments__comment-table__tbody__tr__td #{comment.content}
+        td.user-own-comments__comment-table__tbody__tr__td#user-own-comments__comment-table__tbody__tr__td__title #{comment.post.title}
+        td.user-own-comments__comment-table__tbody__tr__td#user-own-comments__comment-table__tbody__tr__td__content #{comment.content}
         td.user-own-comments__comment-table__tbody__tr__td #{comment.likesUserList.length}
