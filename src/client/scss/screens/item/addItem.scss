@@ -101,8 +101,40 @@
   padding: 5px;
 }
 
-#add-item-input__image-upload {
+#add-item-input__image-upload-box__wrap {
+  display: flex;
+  width: 100%;
   margin-top: 5px;
+}
+
+#add-item-input__image-name {
+  width: 70%;
+  height: 30px;
+  padding: 0px 10px;
+  border: 1px solid #dddddd;
+  color: #999999;
+}
+
+#add-item-input__image-upload-label {
+  width: 30%;
+  height: 30px;
+  margin-left: 10px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #999999;
+  cursor: pointer;
+}
+
+#add-item-input__image-upload {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }
 
 #add-item-input__input-calendar {
