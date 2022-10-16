@@ -17,7 +17,7 @@ block content
                     li.ledger-total__item
                         span(class=`${gap !== 0 ? gap > 0 ? 'plus-color' : 'minus-color' : ''}`).ledger-total__item__span  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
 
-            div#ledger-list
-                ul
+            div#ledger-list__wrap
+                ul#ledger-list
                     each item in itemList
                         +list(item)
