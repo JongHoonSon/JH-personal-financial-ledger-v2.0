@@ -114,14 +114,14 @@ button {
 }
 
 .income-bordercolor {
-  border: 2px solid $blue;
+  border-bottom: 2px solid $blue;
 }
 .income-bordercolor-light {
-  border: 2px solid $blue-light;
+  border-bottom: 2px solid $blue-light;
 }
 
 .income-bordercolor-deep {
-  border: 2px solid $blue-deep;
+  border-bottom: 2px solid $blue-deep;
 }
 
 .income-bgimage-gradient {
@@ -185,14 +185,14 @@ button {
 }
 
 .expense-bordercolor {
-  border: 2px solid $orange;
+  border-bottom: 2px solid $orange;
 }
 .expense-bordercolor-light {
-  border: 2px solid $orange-light;
+  border-bottom: 2px solid $orange-light;
 }
 
 .expense-bordercolor-deep {
-  border: 2px solid $orange-deep;
+  border-bottom: 2px solid $orange-deep;
 }
 
 .plus-color {
