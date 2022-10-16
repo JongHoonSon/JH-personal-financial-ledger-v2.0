@@ -1,10 +1,22 @@
 div#ledger-nav
-    ul
-        li
-            a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`) 일별
-        li
-            a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/weekly`) 주별
-        li
-            a(href=`/ledger/${thisYear}-${thisMonth}/monthly`) 월별
-        li
-            a(href=`/ledger/${thisYear}/yearly`) 연도별
+    ul#ledger-nav__item-list
+        li.legder-nav__item
+            if pageTitle.includes("일별")
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).legder-nav__item__link.legder-nav__item__clicked 일별
+            else
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).legder-nav__item__link 일별
+        li.legder-nav__item
+            if pageTitle.includes("주별")
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/weekly`).legder-nav__item__link.legder-nav__item__clicked 주별
+            else 
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/weekly`).legder-nav__item__link 주별
+        li.legder-nav__item
+            if pageTitle.includes("월별")
+                a(href=`/ledger/${thisYear}-${thisMonth}/monthly`).legder-nav__item__link.legder-nav__item__clicked 월별
+            else
+                a(href=`/ledger/${thisYear}-${thisMonth}/monthly`).legder-nav__item__link 월별
+        li.legder-nav__item
+            if pageTitle.includes("연도별")
+                a(href=`/ledger/${thisYear}/yearly`).legder-nav__item__link.legder-nav__item__clicked 연도별
+            else 
+                a(href=`/ledger/${thisYear}/yearly`).legder-nav__item__link 연도별
