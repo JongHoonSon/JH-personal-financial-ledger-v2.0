@@ -9,13 +9,13 @@ block content
 
         div#ledger-content
             div#ledger-total
-                ul
-                    li  
-                        span.incomeColor #{'총 수입액 : ' + stringSumIncomeAmount + '원'} 
-                    li  
-                        span.expenseColor #{'총 지출액 : ' + stringSumExpenseAmount + '원'}
-                    li  
-                        span(class=`${gap !== 0 ? gap > 0 ? 'incomeColor' : 'expenseColor' : ''}`)  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
+                ul#ledger-total__item-list
+                    li.ledger-total__item
+                        span.ledger-total__item__span.income-color-deep #{'총 수입액 : ' + stringSumIncomeAmount + '원'} 
+                    li.ledger-total__item
+                        span.ledger-total__item__span.expense-color-deep #{'총 지출액 : ' + stringSumExpenseAmount + '원'}
+                    li.ledger-total__item
+                        span(class=`${gap !== 0 ? gap > 0 ? 'plus-color' : 'minus-color' : ''}`).ledger-total__item__span  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
 
             div#ledger-list
                 ul
