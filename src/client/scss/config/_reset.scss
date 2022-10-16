@@ -142,3 +142,9 @@ textarea:focus,
 button:focus {
   outline: none;
 }
+
+input:disabled {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+}
