@@ -10,11 +10,11 @@ block content
                     div.add-item-input
                         label(for="add-item-input__image-upload").add-item-input__label 사진
                         div.add-item-input__wrap#add-item-input__image
-                            img(src="/defaults/empty_image.png")#add-item-input__image-preview
+                            img(src="/defaults/empty_image.png")#add-item-input__image-preview.image-preview
                             div#add-item-input__image-upload-box__wrap
-                                input(value="첨부파일" readonly="readonly")#add-item-input__image-name
+                                input(value="첨부파일" readonly="readonly")#add-item-input__image-name.image-name
                                 label(for="add-item-input__image-upload")#add-item-input__image-upload-label 파일찾기
-                                input(type="file", name="image", accept="image/*" data-id="defaults/empty_image.png")#add-item-input__image-upload
+                                input(type="file", name="image", accept="image/*" data-id="defaults/empty_image.png")#add-item-input__image-upload.image-upload
                     div.add-item-input
                         label(for="date").add-item-input__label 날짜
                         div.add-item-input__wrap
