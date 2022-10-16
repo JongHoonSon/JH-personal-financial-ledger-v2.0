@@ -109,6 +109,10 @@
   border: 5px solid $grey;
 }
 
+.user-profile__user-content__wrap__clicked {
+  background-color: $grey-light;
+}
+
 .user-profile__user-content__wrap:hover {
   background-color: $grey-light;
 }
