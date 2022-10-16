@@ -1,33 +1,42 @@
 extends ../base.pug
 
 block content 
-    div#editUserProfile-wrapper
-        div.form-wrapper
-                form(method="POST", enctype="multipart/form-data")
-                    div.form-input-section
-                        div
-                            label(for="username") 아이디 
-                            input(id="username", name="username", type="text", value=`${user.username}` required disabled)
-                        div
-                            label(for="name") 이름
-                            input(id="name", name="name", type="text", value=`${user.name}` required)
-                        div
-                            label(for="nickname") 닉네임 
-                            input(id="nickname", name="nickname", type="text", value=`${user.nickname}` required)
-                        div
-                            label(for="email") 이메일
-                            input(id="email", name="email", type="email", value=`${user.email}` required)
-                        div
-                            label(for="socialAccount") 소셜 계정 여부
-                            input(id="socialAccount", name="socialAccount", type="text", value=`${user.socialAccount ? "Y" : "N"}` required disabled)
-                        div
-                            label(for="image") 프로필 사진
-                            img(src='/' + user.avatarUrl).user-avatar.image-preview
-                        div 
-                            input(type="file", id="image", name="image", accept="image/*" data-id=user.avatarUrl).image-upload
+    div#edit-user-profile__wrap
+        div.form__wrap
+            form(method="POST", enctype="multipart/form-data").form
+                div#form__input-section__wrap
+                    div.input
+                        label(for="image-upload__uploader__image-input").input__label 프로필 사진
+                        div#image-upload__wrap
+                            img(src="/defaults/empty_image.png")#image-upload__preview
+                            div#image-upload__uploader__wrap
+                                input(value="첨부파일" readonly="readonly")#image-upload__uploader__image-name
+                                label(for="image-upload__uploader__image-input")#image-upload__uploader__upload-button 파일찾기
+                                input(type="file", name="image", accept="image/*" data-id="defaults/empty_image.png")#image-upload__uploader__image-input
+                    div.input
+                        label(for="username").input__label 아이디 
+                        div.input__input__wrap.disabled-input
+                            input(id="username", name="username", type="text", value=`${user.username}` required disabled).input__input
+                    div.input
+                        label(for="name").input__label 이름
+                        div.input__input__wrap
+                            input(id="name", name="name", type="text", value=`${user.name}` required).input__input
+                    div.input
+                        label(for="nickname").input__label 닉네임 
+                        div.input__input__wrap
+                            input(id="nickname", name="nickname", type="text", value=`${user.nickname}` required).input__input
+                    div.input
+                        label(for="email").input__label 이메일
+                        div.input__input__wrap
+                            input(id="email", name="email", type="email", value=`${user.email}` required).input__input
+                    div.input
+                        label(for="socialAccount").input__label 소셜 계정 여부
+                        div.input__input__wrap.disabled-input
+                            input(id="socialAccount", name="socialAccount", type="text", value=`${user.socialAccount ? "Y" : "N"}` required disabled).input__input
 
-                    div.form-button-section
-                        input(type="submit", value="수정하기")
+                div#form__sumbit-section__wrap
+                    div#form__submit
+                        button(type="submit", value="수정하기")#submit__item 수정하기
 
 block scripts
     script(src="/assets/js/imagePreview.js") 

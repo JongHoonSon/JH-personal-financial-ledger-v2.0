@@ -1,10 +1,12 @@
-#editUserProfile-wrapper {
-  width: 100%;
+#edit-user-profile__wrap {
+  width: 800px;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  .form-wrapper {
-    background-color: #fad390;
-  }
+  padding: 10px 10px;
+  border-left: 1px solid $grey-bright;
+  border-right: 1px solid $grey-bright;
+  box-sizing: border-box;
 }
