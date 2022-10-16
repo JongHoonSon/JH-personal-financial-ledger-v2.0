@@ -46,12 +46,12 @@
 #ledger-list__wrap {
   width: 100%;
   height: 95%;
-  overflow-y: scroll;
 }
 
 #ledger-list {
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 #ledger-list::-webkit-scrollbar {
