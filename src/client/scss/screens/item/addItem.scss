@@ -1,24 +1,12 @@
-#add-item__wrap {
-  width: 800px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 10px;
-  border-left: 1px solid $grey-bright;
-  border-right: 1px solid $grey-bright;
-  box-sizing: border-box;
-}
-
 #add-item-form__wrap {
-  width: 100%;
+  width: 40%;
   height: 95%;
-  padding: 10px 0;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  background-color: $white;
 }
 
 #add-item-form {

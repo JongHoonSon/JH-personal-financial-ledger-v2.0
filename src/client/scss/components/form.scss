@@ -1,11 +1,12 @@
 .form__wrap {
-  width: 100%;
-  height: 95%;
-  padding: 10px 0;
+  width: 40%;
+  height: 100%;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  background-color: $white;
   .form {
     width: 80%;
     height: 100%;
@@ -22,6 +23,7 @@
       .input__label {
         width: 20%;
         font-size: 14px;
+        margin-right: 10px;
         color: $black;
       }
       .input__input__wrap {
