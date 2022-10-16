@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: center;
   background-color: $grey-deep;
+  border-bottom: 1px solid $white;
+  box-sizing: border-box;
 }
 
 .legder-nav__item {

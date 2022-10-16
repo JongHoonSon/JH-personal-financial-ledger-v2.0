@@ -11,9 +11,9 @@ block content
             div#ledger-total
                 ul#ledger-total__item-list
                     li.ledger-total__item
-                        span.ledger-total__item__span.income-color-deep #{'총 수입액 : ' + stringSumIncomeAmount + '원'} 
+                        span.ledger-total__item__span.income-color-deep #{'총 수입액 : +' + stringSumIncomeAmount + '원'} 
                     li.ledger-total__item
-                        span.ledger-total__item__span.expense-color-deep #{'총 지출액 : ' + stringSumExpenseAmount + '원'}
+                        span.ledger-total__item__span.expense-color-deep #{'총 지출액 : -' + stringSumExpenseAmount + '원'}
                     li.ledger-total__item
                         span(class=`${gap !== 0 ? gap > 0 ? 'plus-color' : 'minus-color' : ''}`).ledger-total__item__span  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
 
