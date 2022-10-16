@@ -1,0 +1,54 @@
+#image-upload__wrap {
+  width: 70%;
+  height: 250px;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+#image-upload__preview {
+  width: 100%;
+  height: 80%;
+  border: 2px solid $grey;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+#image-upload__uploader__wrap {
+  display: flex;
+  width: 100%;
+  margin-top: 5px;
+}
+
+#image-upload__uploader__image-name {
+  width: 70%;
+  height: 30px;
+  padding: 0px 10px;
+  border: 1px solid #dddddd;
+  color: #999999;
+}
+
+#image-upload__uploader__upload-button {
+  width: 30%;
+  height: 30px;
+  margin-left: 10px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #999999;
+  cursor: pointer;
+}
+
+#image-upload__uploader__image-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}

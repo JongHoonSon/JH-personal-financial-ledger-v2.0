@@ -8,13 +8,13 @@ block content
             form(method="POST", enctype="multipart/form-data")#add-item-form
                 div#add-item-form__input-section__wrap
                     div.add-item-input
-                        label(for="add-item-input__image-upload").add-item-input__label 사진
-                        div.add-item-input__wrap#add-item-input__image
-                            img(src="/defaults/empty_image.png")#add-item-input__image-preview.image-preview
-                            div#add-item-input__image-upload-box__wrap
-                                input(value="첨부파일" readonly="readonly")#add-item-input__image-name.image-name
-                                label(for="add-item-input__image-upload")#add-item-input__image-upload-label 파일찾기
-                                input(type="file", name="image", accept="image/*" data-id="defaults/empty_image.png")#add-item-input__image-upload.image-upload
+                        label(for="image-upload__uploader__image-input").add-item-input__label 사진
+                        div.add-item-input__wrap#image-upload__wrap
+                            img(src="/defaults/empty_image.png")#image-upload__preview
+                            div#image-upload__uploader__wrap
+                                input(value="첨부파일" readonly="readonly")#image-upload__uploader__image-name
+                                label(for="image-upload__uploader__image-input")#image-upload__uploader__upload-button 파일찾기
+                                input(type="file", name="image", accept="image/*" data-id="defaults/empty_image.png")#image-upload__uploader__image-input
                     div.add-item-input
                         label(for="date").add-item-input__label 날짜
                         div.add-item-input__wrap
