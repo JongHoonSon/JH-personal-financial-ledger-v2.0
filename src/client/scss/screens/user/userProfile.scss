@@ -57,6 +57,11 @@
 }
 
 #user-profile__user-nickname {
+  width: 500px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 58px;
   font-weight: bold;
   color: $white;
