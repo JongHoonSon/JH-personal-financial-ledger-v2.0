@@ -1,49 +1,56 @@
 extends ../base.pug
 
 block content
-    div#detailItem-wrapper
-        div#detailItem-option 
-            ul
-                li
-                    form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
-                        if item.pinned === true 
-                            input(type="submit", value="핀 목록에서 삭제").pinBtn
-                        if item.pinned === false
-                            input(type="submit", value="핀 목록에 추가").pinBtn
-                li
-                    button
-                        a(href=`/item/edit/${item.type}/${item.id}`) 수정
-                li
-                    form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
-                        input(type="submit", value="삭제").deleteBtn
+    div.container
+        div#detail-item__wrap
+            div#detail-item__options__wrap 
+                ul#detail-item__options
+                    li.detail-item__options__option
+                        form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
+                            if item.pinned === true 
+                                button(type="submit", value="핀 목록에서 삭제")
+                                    i.fa-solid.fa-star#pinned
+                            if item.pinned === false
+                                button(type="submit", value="핀 목록에 추가")
+                                    i.fa-regular.fa-star
 
-        div#detailItem
-            ul(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)
-                li
-                    label 날짜
-                    span #{item.stringDate}
-                li
-                    label 금액
-                    span #{item.amount + ' 원'}
-                li
-                    label 설명
-                    span=item.description
-                li
-                    label 분류
-                    span=item.category
-                li
-                    label 주기
-                    span=item.cycle
+                    li.detail-item__options__option
+                        button
+                            a(href=`/item/edit/${item.type}/${item.id}`)
+                                i.fa-solid.fa-pen-to-square
 
-                if item.type === "e"
-                    li
-                        label 지불 방식
-                        span=item.paymentMethod
+                    li.detail-item__options__option
+                        form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
+                            button(type="submit", value="삭제")
+                                i.fa-solid.fa-trash-can.delete-icon
 
-                li
-                    label 사진
-                    span
-                        if item.imageUrl !== ""
-                            img(src='/' + item.imageUrl).item-image
+            div#detail-item__contents__wrap
+                ul(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#detail-item__contents
+                    li.detail-item__contents__item
+                        label.detail-item__contents__item__label 날짜
+                        span.detail-item__contents__item__span #{item.stringDate}
+                    li.detail-item__contents__item
+                        label.detail-item__contents__item__label 금액
+                        span.detail-item__contents__item__span #{item.amount + ' 원'}
+                    li.detail-item__contents__item#detail-item__contents__item__description
+                        label.detail-item__contents__item__label 설명
+                        span.detail-item__contents__item__span=item.description
+                    li.detail-item__contents__item
+                        label.detail-item__contents__item__label 분류
+                        span.detail-item__contents__item__span=item.category
+                    li.detail-item__contents__item
+                        label.detail-item__contents__item__label 주기
+                        span.detail-item__contents__item__span=item.cycle
+
+                    if item.type === "e"
+                        li.detail-item__contents__item
+                            label.detail-item__contents__item__label 지불 방식
+                            span.detail-item__contents__item__span=item.paymentMethod
+
+                    li.detail-item__contents__item#detail-item__contents__item__image
+                        label.detail-item__contents__item__label 사진
+                        span.detail-item__contents__item__span
+                            if item.imageUrl !== ""
+                                img(src='/' + item.imageUrl)#detail-item__contents__item__image__image
 block scripts
     script(src="/assets/js/detailItem.js") 
