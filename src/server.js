@@ -11,7 +11,11 @@ import MongoStore from "connect-mongo";
 import flash from "express-flash";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import { localMiddleware, createObjectMiddleware } from "./middlewares";
+import {
+  localMiddleware,
+  createObjectMiddleware,
+  logHistory,
+} from "./middlewares";
 import postRouter from "./routers/postRouter";
 import commentRouter from "./routers/CommentRouter";
 
@@ -44,6 +48,7 @@ app.use(flash());
 app.use(logger);
 app.use(createObjectMiddleware);
 app.use(localMiddleware);
+app.use(logHistory);
 app.use("/defaults", express.static("defaults"));
 app.use("/uploads", express.static("uploads"));
 app.use("/", globalRouter);
