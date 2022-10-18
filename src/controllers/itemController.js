@@ -191,7 +191,7 @@ export const postDeleteItem = async (req, res) => {
   const user = checkResult.user;
 
   try {
-    if (item.itemType === "i") {
+    if (itemType === "i") {
       await Income.findByIdAndDelete(itemId);
       user.incomeList = user.incomeList.filter(
         (income) => String(income._id) !== String(itemId)
@@ -205,11 +205,14 @@ export const postDeleteItem = async (req, res) => {
       await user.save();
     }
     req.flash("success", "아이템을 삭제했습니다.");
+    if (req.session.logHistory.prev2) {
+      return res.status(200).redirect(req.session.logHistory.prev2);
+    }
     return res.status(200).redirect("/");
   } catch (error) {
     console.log(error);
     req.flash("error", "아이템을 삭제하는 과정에서 오류가 발생했습니다.");
-    return res.status(500).redirect(`/item/detail/${item.itemType}/${item.id}`);
+    return res.status(500).redirect(`/item/detail/${itemType}/${item.id}`);
   }
 };
 
@@ -296,16 +299,12 @@ export const postPinning = async (req, res) => {
       item.pinned = true;
       await item.save();
       req.flash("success", "핀 목록에 추가하였습니다.");
-      return res
-        .status(200)
-        .redirect(`/item/detail/${item.itemType}/${item.id}`);
+      return res.status(200).redirect(`/item/detail/${itemType}/${item.id}`);
     } else {
       item.pinned = false;
       await item.save();
       req.flash("success", "핀 목록에서 삭제하였습니다.");
-      return res
-        .status(200)
-        .redirect(`/item/detail/${item.itemType}/${item.id}`);
+      return res.status(200).redirect(`/item/detail/${itemType}/${item.id}`);
     }
   } catch (error) {
     console.log(error);
@@ -313,7 +312,7 @@ export const postPinning = async (req, res) => {
       "error",
       "아이템을 핀 목록에 추가하는 과정에서 오류가 발생했습니다."
     );
-    return res.status(500).redirect(`/item/detail/${item.itemType}/${item.id}`);
+    return res.status(500).redirect(`/item/detail/${itemType}/${item.id}`);
   }
 };
 
