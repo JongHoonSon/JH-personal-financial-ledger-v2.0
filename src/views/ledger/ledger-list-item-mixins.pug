@@ -1,12 +1,12 @@
 mixin list(item)
-    li(class=`${item.type === "i" ? 'income-bgcolor-deep income-bordercolor-light' : 'expense-bgcolor-deep expense-bordercolor-light'}`).ledger-list__item
+    li(class=`${item.type === "i" ? 'income-bgcolor-deep income-bordercolor-light ledger-list__item__income' : 'expense-bgcolor-deep expense-bordercolor-light ledger-list__item__expense'}`).ledger-list__item
         a(href=`/item/detail/${item.type}/${item.id}`).ledger-list__item__link
             ul.ledger-list__item-contents
-                li.ledger-list__item-contents-content.ledger-list__item-contents-content-date #{item.stringDate}
+                li.ledger-list__item-contents-content.ledger-list__item-contents-content-date #{item.stringFullDate}
                 if item.type === "i"
                     li.ledger-list__item-contents-content.ledger-list__item-contents-content-amount #{"+" + item.amount.toLocaleString() + '원'}
                 else
                     li.ledger-list__item-contents-content.ledger-list__item-contents-content-amount #{"-" + item.amount.toLocaleString() + '원'}
-                li.ledger-list__item-contents-content.ledger-list__item-contents-content-description #{item.description}
                 li.ledger-list__item-contents-content.ledger-list__item-contents-content-category #{item.category}
+                li.ledger-list__item-contents-content.ledger-list__item-contents-content-description #{item.description}
                 li.ledger-list__item-contents-content.ledger-list__item-contents-content-cycle #{item.cycle}

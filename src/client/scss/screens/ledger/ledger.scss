@@ -51,11 +51,76 @@
 #ledger-list__wrap {
   width: 100%;
   height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#ledger-list__header {
+  width: 100%;
+  height: 9%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $green-deep;
+}
+
+#ledger-list__header__list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid $white;
+  border-bottom: 1px solid $white;
+  box-sizing: border-box;
+}
+
+.ledger-list__header__item {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+  color: $grey-blur;
+  border-left: 1px solid $white;
+  border-right: 1px solid $white;
+  box-sizing: border-box;
+}
+
+.ledger-list__header__item:first-child {
+  border-left: none;
+}
+
+.ledger-list__header__item:last-child {
+  border-right: none;
+}
+
+#ledger-list__header__item__date {
+  width: 25%;
+}
+
+#ledger-list__header__item__amount {
+  width: 25%;
+}
+
+#ledger-list__header__item__category {
+  width: 10%;
+}
+
+#ledger-list__header__item__description {
+  width: 30%;
+}
+
+#ledger-list__header__item__cycle {
+  width: 10%;
 }
 
 #ledger-list {
   width: 100%;
-  height: 100%;
+  height: 91%;
   overflow-y: scroll;
 }
 

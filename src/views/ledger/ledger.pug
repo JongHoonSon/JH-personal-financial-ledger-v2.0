@@ -18,6 +18,13 @@ block content
                         span(class=`${gap !== 0 ? gap > 0 ? 'plus-color' : 'minus-color' : ''}`).ledger-total__item__span  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
 
             div#ledger-list__wrap
+                div#ledger-list__header
+                    div#ledger-list__header__list
+                        span.ledger-list__header__item#ledger-list__header__item__date 날짜
+                        span.ledger-list__header__item#ledger-list__header__item__amount 금액
+                        span.ledger-list__header__item#ledger-list__header__item__category 분류
+                        span.ledger-list__header__item#ledger-list__header__item__description 설명
+                        span.ledger-list__header__item#ledger-list__header__item__cycle 주기
                 ul#ledger-list
                     each item in itemList
                         +list(item)

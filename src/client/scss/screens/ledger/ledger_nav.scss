@@ -15,12 +15,15 @@
 }
 
 .legder-nav__item__link {
-  font-weight: 200;
+  font-weight: 600;
   font-size: 18px;
   color: $grey-light;
 }
 
 .legder-nav__item__clicked {
-  font-weight: 400;
+  color: $grey-bright;
+}
+
+.legder-nav__item__link:hover {
   color: $grey-bright;
 }
