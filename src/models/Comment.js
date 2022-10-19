@@ -8,12 +8,12 @@ const commentSchema = new mongoose.Schema({
     ref: "User",
   },
   createdAt: { type: Date, required: true, default: Date.now },
-  stringDate: {
+  createdAtStringDate: {
     type: String,
     required: true,
     default: getStringDate(new Date()),
   },
-  stringFullDate: {
+  createdAtStringFullDate: {
     type: String,
     required: true,
     default: getStringFullDate(new Date()),

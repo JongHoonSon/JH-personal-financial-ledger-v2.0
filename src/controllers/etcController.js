@@ -50,7 +50,7 @@ export const getChart = async (req, res) => {
 
   if (itemList.length > 0) {
     itemList.forEach((el) => {
-      if (getStringDateDiff(nowStringDate, getStringDate(el.date)) <= days) {
+      if (getStringDateDiff(nowStringDate, el.createdAtStringDate) <= days) {
         sumAmountByCategory[el.category] += el.amount;
         totalSum += el.amount;
       }
@@ -128,9 +128,8 @@ export const getLastExpense = async (req, res) => {
       });
     } else {
       sortItem(expenseListByCategories);
-      const lastestItemStringDate = getStringDate(
-        expenseListByCategories[0].date
-      );
+      const lastestItemStringDate =
+        expenseListByCategories[0].createdAtStringDate;
       lastExpenseList.push({
         category: categories[i],
         content: expenseListByCategories[0],

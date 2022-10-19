@@ -28,7 +28,7 @@ block content
                 ul(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#detail-item__contents
                     li.detail-item__contents__item
                         label.detail-item__contents__item__label 날짜
-                        span.detail-item__contents__item__span #{item.stringDate}
+                        span.detail-item__contents__item__span #{item.createdAtStringDate}
                     li.detail-item__contents__item
                         label.detail-item__contents__item__label 금액
                         span.detail-item__contents__item__span #{item.amount + ' 원'}
