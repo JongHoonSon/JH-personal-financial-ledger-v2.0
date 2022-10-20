@@ -1,5 +1,5 @@
 nav {
-  width: 10%;
+  width: 210px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -14,7 +14,6 @@ nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      // border-bottom: 1px solid $grey-bright;
       box-sizing: border-box;
       .main-nav__option__link {
         display: flex;
