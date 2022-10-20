@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-#add-item-input__select__wrap {
+#add-item-input__category-parent {
   position: relative;
 }
 
@@ -11,28 +11,4 @@
   right: -65px;
   bottom: 15px;
   font-size: 12px;
-}
-
-#add-item-form__submit-section__wrap {
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#add-item-form__submit {
-  width: 85%;
-  height: 50px;
-  background-color: $black;
-  border-radius: 4px;
-  margin-top: 10px;
-}
-
-#add-item-form__submit__item {
-  width: 100%;
-  height: 100%;
-  font-size: 16px;
-  margin: 1px;
-  color: $white;
 }
