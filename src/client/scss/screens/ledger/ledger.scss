@@ -12,7 +12,7 @@
 
 #ledger-content {
   width: 100%;
-  height: 85%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
 
 #ledger-total {
   width: 100%;
-  height: 8%;
+  height: 5%;
   background-color: $grey-bright;
   border-bottom: 1px solid $white;
   box-sizing: border-box;
@@ -50,7 +50,7 @@
 
 #ledger-list__wrap {
   width: 100%;
-  height: 92%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,7 +59,7 @@
 
 #ledger-list__header {
   width: 100%;
-  height: 9%;
+  height: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,16 +78,17 @@
 }
 
 .ledger-list__header__item {
-  height: 80%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: $grey-blur;
   border-left: 1px solid $white;
   border-right: 1px solid $white;
   box-sizing: border-box;
+  color: $grey-deep;
 }
 
 .ledger-list__header__item:first-child {
@@ -120,7 +121,7 @@
 
 #ledger-list {
   width: 100%;
-  height: 91%;
+  height: 95%;
   overflow-y: scroll;
 }
 
