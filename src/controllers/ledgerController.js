@@ -39,13 +39,13 @@ export const getLedgerDaily = async (req, res) => {
 
   const itemList = new Array();
   incomeList.forEach((el) => {
-    if (el.createdAtStringDate === todayStringDate) {
+    if (el.stringDate === todayStringDate) {
       itemList.push(el);
       sumIncomeAmount += el.amount;
     }
   });
   expenseList.forEach((el) => {
-    if (el.createdAtStringDate === todayStringDate) {
+    if (el.stringDate === todayStringDate) {
       itemList.push(el);
       sumExpenseAmount += el.amount;
     }
@@ -124,19 +124,13 @@ export const getLedgerWeekly = async (req, res) => {
 
   const itemList = new Array();
   incomeList.forEach((el) => {
-    if (
-      el.createdAtStringDate >= weekStart &&
-      el.createdAtStringDate <= weekEnd
-    ) {
+    if (el.stringDate >= weekStart && el.stringDate <= weekEnd) {
       itemList.push(el);
       sumIncomeAmount += el.amount;
     }
   });
   expenseList.forEach((el) => {
-    if (
-      el.createdAtStringDate >= weekStart &&
-      el.createdAtStringDate <= weekEnd
-    ) {
+    if (el.stringDate >= weekStart && el.stringDate <= weekEnd) {
       itemList.push(el);
       sumExpenseAmount += el.amount;
     }
