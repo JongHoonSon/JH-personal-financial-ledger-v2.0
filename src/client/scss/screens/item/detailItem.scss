@@ -11,8 +11,8 @@
 
 #detail-item__options__wrap {
   width: 100%;
-  height: 10%;
-  border-bottom: 1px solid $grey-deep;
+  height: 7%;
+  border-bottom: 1px solid $grey-light;
 }
 
 #detail-item__options {
@@ -22,6 +22,8 @@
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
+  background-color: $grey-light;
+  padding-left: 20px;
 }
 
 .detail-item__options__option {
@@ -30,9 +32,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 20px;
+  margin-right: 10px;
   i {
-    font-size: 24px;
+    color: $grey-blur;
+    font-size: 20px;
+  }
+  .pin-icon {
+    color: $yellow;
   }
 }
 
@@ -42,14 +48,15 @@
 
 #detail-item__contents__wrap {
   width: 100%;
-  height: 90%;
+  height: 93%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #detail-item__contents {
-  width: 80%;
+  width: 100%;
+  height: 100%;
 }
 
 .detail-item__contents__item {
@@ -58,8 +65,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-top: 1px solid $grey-light;
+  border-top: 1px solid $grey-bright;
   box-sizing: border-box;
+  color: $grey-blur;
 }
 
 #detail-item__contents__item__description,
@@ -68,16 +76,16 @@
 }
 
 .detail-item__contents__item:last-child {
-  border-bottom: 1px solid $grey-light;
+  border-bottom: 1px solid $grey-bright;
 }
 
 .detail-item__contents__item__label {
-  width: 15%;
+  width: 20%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid $grey-light;
+  border-right: 1px solid $grey-bright;
   box-sizing: border-box;
   font-weight: 600;
   font-size: 18px;

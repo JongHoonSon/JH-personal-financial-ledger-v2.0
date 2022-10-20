@@ -9,10 +9,10 @@ block content
                         form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
                             if item.pinned === true 
                                 button(type="submit", value="핀 목록에서 삭제")
-                                    i.fa-solid.fa-star#pinned
+                                    i.fa-solid.fa-star.pin-icon#pinned
                             if item.pinned === false
                                 button(type="submit", value="핀 목록에 추가")
-                                    i.fa-regular.fa-star
+                                    i.fa-regular.fa-star.pin-icon
 
                     li.detail-item__options__option
                         button
@@ -25,13 +25,13 @@ block content
                                 i.fa-solid.fa-trash-can.delete-icon
 
             div#detail-item__contents__wrap
-                ul(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`)#detail-item__contents
+                ul(class=`${item.type === "i" ? 'income-bgimage-gradient' : 'expense-bgimage-gradient'}`)#detail-item__contents
                     li.detail-item__contents__item
-                        label.detail-item__contents__item__label 날짜
+                        label.detail-item__contents__item__label 수입/지출일
                         span.detail-item__contents__item__span #{item.stringDate}
                     li.detail-item__contents__item
                         label.detail-item__contents__item__label 금액
-                        span.detail-item__contents__item__span #{item.amount + ' 원'}
+                        span.detail-item__contents__item__span #{item.amount.toLocaleString() + ' 원'}
                     li.detail-item__contents__item#detail-item__contents__item__description
                         label.detail-item__contents__item__label 설명
                         span.detail-item__contents__item__span=item.description
