@@ -4,59 +4,59 @@ block content
     div.form-container
         include addItem_nav.pug
 
-        div#add-item-form__wrap
-            form(method="POST", enctype="multipart/form-data")#add-item-form
-                div#add-item-form__input-section__wrap
-                    div.add-item-input
-                        label(for="image-upload__uploader__image-input").add-item-input__label 사진
-                        div.add-item-input__wrap#image-upload__wrap
+        div.form__wrap
+            form(method="POST", enctype="multipart/form-data").form
+                div.form__input-section__wrap
+                    div.input 
+                        label(for="image-upload__uploader__image-input").input__label 사진
+                        div.input__input__wrap#image-upload__wrap
                             img(src="/defaults/empty_image.png")#image-upload__preview
                             div#image-upload__uploader__wrap
                                 input(value="첨부파일" readonly="readonly")#image-upload__uploader__image-name
                                 label(for="image-upload__uploader__image-input")#image-upload__uploader__upload-button 파일찾기
                                 input(type="file", name="image", accept="image/*" data-id="defaults/empty_image.png")#image-upload__uploader__image-input
-                    div.add-item-input
-                        label(for="date").add-item-input__label 날짜
-                        div.add-item-input__wrap
-                            input(placeholder="YYYY", name="date", type="date", required).add-item-input__input#add-item-input__input-calendar
-                    div.add-item-input
-                        label(for="amount").add-item-input__label 금액
-                        div.add-item-input__wrap
-                            input(placeholder="amount", id="amount", name="amount", type="text", required).add-item-input__input
-                            span.add-item-input__unit 원
-                    div.add-item-input#add-item-input__select__wrap
-                        label(for="category").add-item-input__label 분류
-                        div.add-item-input__wrap
-                            select(id="category", name="category", required).add-item-input__select
+                    div.input
+                        label(for="date").input__label 날짜
+                        div.input__input__wrap
+                            input(placeholder="YYYY", name="date", type="date", required).input__input#add-item-input__input-calendar
+                    div.input
+                        label(for="amount").input__label 금액
+                        div.input__input__wrap
+                            input(placeholder="amount", id="amount", name="amount", type="text", required).input__input
+                            span.input__unit 원
+                    div.input#add-item-input__select__wrap
+                        label(for="category").input__label 분류
+                        div.input__input__wrap
+                            select(id="category", name="category", required).input__select
                                 if itemType === "i"
                                     each category of incomeCategories
                                         option(value=`${category}`) #{category}
                                 else 
                                     each category of expenseCategories
                                         option(value=`${category}`) #{category}
-                        a(href="/user/own-categories/i").add-item-input__category 카테고리 관리
+                        a(href="/user/own-categories/i")#add-item-input__category 추가/삭제
 
-                    div.add-item-input
-                        label(for="description").add-item-input__label 설명
-                        div.add-item-input__wrap
-                            input(placeholder="description", id="description", name="description", type="text").add-item-input__input
-                    div.add-item-input
-                        label(for="cycle").add-item-input__label 주기
-                        div.add-item-input__wrap
-                            select(id="cycle", name="cycle", required).add-item-input__select
+                    div.input
+                        label(for="description").input__label 설명
+                        div.input__input__wrap
+                            input(placeholder="description", id="description", name="description", type="text").input__input
+                    div.input
+                        label(for="cycle").input__label 주기
+                        div.input__input__wrap
+                            select(id="cycle", name="cycle", required).input__select
                                 option(value="정기성") 정기성
                                 option(value="일회성") 일회성
                     if itemType === "e"
-                        div.add-item-input
-                            label(for="paymentMethod").add-item-input__label 지불 방식 
-                            div.add-item-input__wrap
-                                select(id="paymentMethod", name="paymentMethod", required).add-item-input__select
+                        div.input
+                            label(for="paymentMethod").input__label 지불 방식 
+                            div.input__input__wrap
+                                select(id="paymentMethod", name="paymentMethod", required).input__select
                                     option(value="신용카드") 신용카드
                                     option(value="체크카드") 체크카드
                                     option(value="현금") 현금
-                div#add-item-form__submit-section__wrap
-                    div#add-item-form__submit
-                        button(type="submit", value="추가하기")#add-item-form__submit__item 추가하기
+                div.form__sumbit-section__wrap
+                    div.form__submit
+                        button(type="submit", value="추가하기").submit__item 추가하기
 
 block scripts
     script(src="/assets/js/imagePreview.js") 
