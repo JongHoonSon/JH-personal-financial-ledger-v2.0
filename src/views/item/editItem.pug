@@ -1,57 +1,80 @@
 extends ../base.pug
 
 block content 
-    div#editItem-wrapper
-        div(class=`${item.type === "i" ? 'incomeBgColor' : 'expenseBgColor'}`).form-wrapper
-            form(method="POST", enctype="multipart/form-data")
-                div.form-input-section
-                    div
-                        label(for="date") 날짜
-                        input(placeholder="YYYY", id="date", name="date", type="date", value=`${item.createdAtStringDate}` required)
-                        span 년
-                    div
-                        label(for="amount") 금액
-                        input(placeholder="amount", id="amount", name="amount", type="text", value=`${item.amount}` required)
-                        span 원
-                    div 
-                        label(for="category") 분류
-                        select(id="category", name="category", required)
-                            if itemType === "i"
-                                each category of incomeCategories
-                                    if item.category === category
-                                        option(selected="selected" value=`${category}`) #{category}
-                                    else
-                                        option(value=`${category}`) #{category}
-                            else 
-                                each category of expenseCategories
-                                    if item.category === category
-                                        option(selected="selected" value=`${category}`) #{category}
-                                    else
-                                        option(value=`${category}`) #{category}
-                    div 
-                        label(for="description") 설명
-                        input(placeholder="description", id="description", name="description", value=`${item.description}` type="text")
-                    div 
-                        label(for="cycle") 주기
-                        select(id="cycle", name="cycle", value=`${item.cycle}` required)
-                            option(value="정기성") 정기성
-                            option(value="일회성") 일회성
+    div.form-container
+        div.form__wrap
+            form(method="POST", enctype="multipart/form-data").form
+                div.form__input-section__wrap
+                    div.input 
+                        label(for="image-upload__uploader__image-input").input__label 사진
+                        div.input__input__wrap#image-upload__wrap
+                            img(src=`/${item.imageUrl}`)#image-upload__preview
+                            div#image-upload__uploader__wrap
+                                input(value="첨부파일" readonly="readonly")#image-upload__uploader__image-name
+                                label(for="image-upload__uploader__image-input")#image-upload__uploader__upload-button 파일찾기
+                                input(type="file", name="image", accept="image/*" data-id="defaults/empty_image.png")#image-upload__uploader__image-input
+                    div.input
+                        label(for="date").input__label 날짜
+                        div.input__input__wrap
+                            input(placeholder="YYYY", name="date", type="date", required, value=item.stringDate).input__input#add-item-input__input-calendar
+                    div.input
+                        label(for="amount").input__label 금액
+                        div.input__input__wrap
+                            input(placeholder="amount", id="amount", name="amount", type="text", required, value=item.amount).input__input
+                            span.input__unit 원
+                    div.input#add-item-input__category-parent
+                        label(for="category").input__label 분류
+                        div.input__input__wrap
+                            select(id="category", name="category", required).input__select
+                                if itemType === "i"
+                                    each category of incomeCategories
+                                        if item.category === category
+                                            option(value=`${category}` selected) #{category}
+                                        else
+                                            option(value=`${category}`) #{category}
+                                else 
+                                    each category of expenseCategories
+                                        if item.category === category
+                                            option(value=`${category}` selected) #{category}
+                                        else
+                                            option(value=`${category}`) #{category}
+                        a(href="/user/own-categories/i")#add-item-input__category 추가/삭제
 
-                    if item.type === "e"
-                        div 
-                            label(for="paymentMethod") 지불 방식
-                            select(id="paymentMethod", name="paymentMethod", value=`${item.paymentMethod}` required)
-                                option(value="신용카드") 신용카드
-                                option(value="체크카드") 체크카드
-                                option(value="현금") 현금
-                    div
-                        label 사진
-                        if item.imageUrl !== ""
-                            img(src='/' + item.imageUrl).item-image.image-preview
-                    div 
-                        input(type="file", id="image", name="image", accept="image/*" data-id=item.imageUrl).image-upload
-                div.form-button-section
-                    input(type="submit", value="수정하기")
+                    div.input
+                        label(for="description").input__label 설명
+                        div.input__textarea__wrap
+                            textarea(placeholder="description", id="description", name="description", type="text").input__textarea=item.description
+                    div.input
+                        label(for="cycle").input__label 주기
+                        div.input__input__wrap
+                            select(id="cycle", name="cycle", required, value=item.cycle).input__select
+                                if item.cycle === "정기성"
+                                    option(value="정기성" selected) 정기성
+                                    option(value="일회성") 일회성
+                                else if item.cycle === "일회성"
+                                    option(value="정기성") 정기성
+                                    option(value="일회성" selected) 일회성
+                                
+                    if itemType === "e"
+                        div.input
+                            label(for="paymentMethod").input__label 지불 방식 
+                            div.input__input__wrap
+                                select(id="paymentMethod", name="paymentMethod", required).input__select
+                                    if item.paymentMethod === "신용카드"
+                                        option(value="신용카드" selected) 신용카드
+                                        option(value="체크카드") 체크카드
+                                        option(value="현금") 현금
+                                    else if item.paymentMethod === "체크카드"
+                                        option(value="신용카드") 신용카드
+                                        option(value="체크카드" selected) 체크카드
+                                        option(value="현금") 현금
+                                    else if item.paymentMethod === "현금"
+                                        option(value="신용카드") 신용카드
+                                        option(value="체크카드") 체크카드
+                                        option(value="현금" selected) 현금
+                div.form__sumbit-section__wrap
+                    div.form__submit
+                        button(type="submit", value="추가하기").submit__item 수정하기
 
 block scripts
     script(src="/assets/js/imagePreview.js") 
