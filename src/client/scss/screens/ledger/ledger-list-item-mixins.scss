@@ -55,12 +55,15 @@
 
 .ledger-list__item-contents-content-description {
   width: 30%;
+  height: 50px;
+  padding: 0px 50px;
+  padding-top: 14px;
+  font-weight: 400;
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  margin: auto;
 }
 
 .ledger-list__item-contents-content-cycle {
