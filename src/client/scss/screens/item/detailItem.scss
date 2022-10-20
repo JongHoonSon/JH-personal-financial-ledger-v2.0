@@ -1,5 +1,5 @@
 #detail-item__wrap {
-  width: 800px;
+  width: 700px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,6 @@
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
-  background-color: $grey-light;
   padding-left: 20px;
 }
 
@@ -34,11 +33,19 @@
   align-items: center;
   margin-right: 10px;
   i {
-    color: $grey-blur;
     font-size: 20px;
+  }
+  i:hover {
+    opacity: 0.6;
   }
   .pin-icon {
     color: $yellow;
+  }
+  .edit-icon {
+    color: $navy;
+  }
+  .delete-icon {
+    color: $forest_blue;
   }
 }
 
@@ -67,7 +74,7 @@
   align-items: center;
   border-top: 1px solid $grey-bright;
   box-sizing: border-box;
-  color: $grey-blur;
+  font-size: 16px;
 }
 
 #detail-item__contents__item__description,
@@ -88,18 +95,26 @@
   border-right: 1px solid $grey-bright;
   box-sizing: border-box;
   font-weight: 600;
-  font-size: 18px;
+  color: $black;
 }
 
 .detail-item__contents__item__span {
-  width: 85%;
+  width: 80%;
   height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: 0 30px;
   box-sizing: border-box;
-  font-size: 16px;
+  color: $white;
+}
+
+.detail-item__contents__item__p {
+  width: 80%;
+  padding: 0 30px;
+  word-break: break-all;
+  color: $white;
+  box-sizing: border-box;
 }
 
 #detail-item__contents__item__image__image {

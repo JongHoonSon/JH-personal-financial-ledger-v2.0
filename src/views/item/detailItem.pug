@@ -3,7 +3,7 @@ extends ../base.pug
 block content
     div.container
         div#detail-item__wrap
-            div#detail-item__options__wrap 
+            div#detail-item__options__wrap(class=`${item.type === "i" ? 'income-bgcolor-deep' : 'expense-bgcolor-deep'}`)
                 ul#detail-item__options
                     li.detail-item__options__option
                         form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
@@ -17,7 +17,7 @@ block content
                     li.detail-item__options__option
                         button
                             a(href=`/item/edit/${item.type}/${item.id}`)
-                                i.fa-solid.fa-pen-to-square
+                                i.fa-solid.fa-pen-to-square.edit-icon
 
                     li.detail-item__options__option
                         form(method="POST", action=`/item/delete/${item.type}/${item.id}`)
@@ -27,14 +27,20 @@ block content
             div#detail-item__contents__wrap
                 ul(class=`${item.type === "i" ? 'income-bgimage-gradient' : 'expense-bgimage-gradient'}`)#detail-item__contents
                     li.detail-item__contents__item
-                        label.detail-item__contents__item__label 수입/지출일
+                        if item.type === "i"
+                            label.detail-item__contents__item__label 수입일
+                        else
+                            label.detail-item__contents__item__label 지출일 
                         span.detail-item__contents__item__span #{item.stringDate}
                     li.detail-item__contents__item
-                        label.detail-item__contents__item__label 금액
+                        if item.type === "i"
+                            label.detail-item__contents__item__label 수입 금액
+                        else
+                            label.detail-item__contents__item__label 지출 금액
                         span.detail-item__contents__item__span #{item.amount.toLocaleString() + ' 원'}
                     li.detail-item__contents__item#detail-item__contents__item__description
                         label.detail-item__contents__item__label 설명
-                        span.detail-item__contents__item__span=item.description
+                        p.detail-item__contents__item__p=item.description
                     li.detail-item__contents__item
                         label.detail-item__contents__item__label 분류
                         span.detail-item__contents__item__span=item.category
