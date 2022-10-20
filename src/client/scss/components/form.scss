@@ -68,7 +68,24 @@
             margin-right: 18px;
           }
         }
-        .input__input__wrap:focus-within {
+        .input__textarea__wrap {
+          width: 85%;
+          height: 84px;
+          padding: 5px;
+          box-sizing: border-box;
+          border: 1px solid $grey-bright;
+          border-radius: 4px;
+          .input__textarea {
+            width: 80%;
+            height: 100%;
+            padding: 5px 16px;
+            box-sizing: border-box;
+            font-size: 14px;
+            border: none;
+          }
+        }
+        .input__input__wrap:focus-within,
+        .input__textarea__wrap:focus-within {
           border-color: $grey;
           transition: border 0.2s ease-in-out;
         }
