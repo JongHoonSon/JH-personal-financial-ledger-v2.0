@@ -7,14 +7,14 @@ nav {
   .main-nav__list {
     width: 100%;
     height: 100%;
-    background-color: $grey;
+    background-color: $grey-deep;
     .main-nav__option {
       width: 100%;
-      height: 70px;
+      height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1px solid $grey-bright;
+      // border-bottom: 1px solid $grey-bright;
       box-sizing: border-box;
       .main-nav__option__link {
         display: flex;
@@ -28,12 +28,14 @@ nav {
         color: $white;
       }
       .main-nav__option__link:hover {
-        color: $grey;
-      }
-      .main-nav__selected {
-        color: $black;
-        background-color: $grey-blur;
+        background-color: $grey-bright;
+        color: $grey-deep;
       }
     }
   }
+}
+
+#main-nav__selected {
+  color: $black;
+  background-color: $grey-blur;
 }
