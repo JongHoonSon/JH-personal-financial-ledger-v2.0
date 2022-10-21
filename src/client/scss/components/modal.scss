@@ -28,7 +28,7 @@
   height: 600px;
   background-color: rgb(255, 255, 255);
   transform: translateX(-50%) translateY(-50%);
-  box-sizing: border-box;
+  box-shadow: 5px 10px 10px 5px rgba(34, 36, 38, 0.15);
 }
 
 .modal__body {
