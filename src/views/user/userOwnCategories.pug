@@ -14,9 +14,10 @@ div.modal__body__wrap
                 ul.user-own-categories__list
                     each category in expenseCategories
                         +list(category)
-        div#user-own-categories__add-category__form__wrap
+        div#user-own-categories__add-category__wrap
             input(type="text" name="new_category")#user-own-categories__add-category__input
-            button(value="추가하기")#user-own-categories__add-category__submit 등록
+            button(value="추가하기")#user-own-categories__add-category__submit
+                i.fa-solid.fa-circle-plus#user-own-categories__add-category__submit__icon
 
 block scripts 
     script(src="/assets/js/modal.js") 

@@ -31,11 +31,11 @@ expenseTab.addEventListener("click", (e) => {
 });
 
 // 새로운 카테고리 추가 버튼
-const sumbitButton = document.getElementById(
-  "user-own-categories__add-category__submit"
+const sumbitButtonIcon = document.getElementById(
+  "user-own-categories__add-category__submit__icon"
 );
 
-sumbitButton.addEventListener("click", async (e) => {
+sumbitButtonIcon.addEventListener("click", async (e) => {
   // 현재 추가하려는 카테고리의 타입이 income 인지 expense 인지를 선택된 Tab의 data 값을 이용해 파악
   const selectedTab = document.querySelector(".selected-tab");
 

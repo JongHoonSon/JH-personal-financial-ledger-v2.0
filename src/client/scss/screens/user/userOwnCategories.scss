@@ -6,8 +6,8 @@
 #user-own-categories__contents {
   width: 100%;
   height: 80%;
-  background-color: aqua;
   position: relative;
+  background-color: $grey-blur;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,13 +26,13 @@
 .user-own-categories__list {
   width: 100%;
   height: 100%;
-  background-color: antiquewhite;
+  overflow-y: scroll;
 }
 
 #user-own-categories__add-category__wrap {
   width: 100%;
   height: 10%;
-  background-color: beige;
+  background-color: $grey-bright;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,17 +47,24 @@
   align-items: center;
   padding: 0px 10px;
   box-sizing: border-box;
+  border-radius: 4px;
 }
 
 #user-own-categories__add-category__submit {
-  width: 15%;
+  width: 5%;
   height: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $white;
-  background-color: $black;
-  border-radius: 4px;
   box-sizing: border-box;
-  font-size: 14px;
+  cursor: default;
+}
+#user-own-categories__add-category__input:focus {
+  border: 1px solid $grey-deep;
+}
+
+#user-own-categories__add-category__submit__icon {
+  cursor: pointer;
+  color: $green;
+  font-size: 32px;
 }
