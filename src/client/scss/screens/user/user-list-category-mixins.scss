@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+.user-own-categories__category__wrap:hover {
+  background-color: $grey-bright;
+}
+
 .user-own-categories__category {
   display: flex;
   justify-content: center;
