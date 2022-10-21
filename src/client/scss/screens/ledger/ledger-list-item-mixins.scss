@@ -39,7 +39,7 @@
 }
 
 .ledger-list__item-contents-content:last-child {
-  border-right: none;
+  border-left: 1px dotted $white;
 }
 
 .ledger-list__item-contents-content-date {
@@ -65,6 +65,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+  border-right: none;
 }
 
 .ledger-list__item-contents-content-cycle {
