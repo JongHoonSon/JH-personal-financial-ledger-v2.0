@@ -1,3 +1,5 @@
 mixin list(category)
-    li.user-category=category
-        button.category-delete-btn(data-category=`${category}`) 삭제하기
+    div.user-own-categories__category__wrap
+        li.user-own-categories__category=category
+        button.user-own-categories__category__del-btn(data-category=`${category}`)
+            i.fa-solid.fa-circle-minus.user-own-categories__category__del-btn__icon

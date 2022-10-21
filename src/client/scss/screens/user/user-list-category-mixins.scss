@@ -1,0 +1,34 @@
+.user-own-categories__category__wrap {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid $grey-bright;
+  box-sizing: border-box;
+}
+
+.user-own-categories__category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  padding-left: 10%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.user-own-categories__category__del-btn {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-own-categories__category__del-btn__icon {
+  color: red;
+  font-size: 18px;
+}
