@@ -34,16 +34,6 @@
   width: 50%;
 }
 
-@media (max-width: 1000px) {
-  #user-profile__top__left__wrap {
-    width: 60%;
-  }
-
-  #user-profile__top__right__wrap {
-    width: 40%;
-  }
-}
-
 #user-profile__user-image__wrap {
   width: 200px;
   height: 100%;
@@ -90,22 +80,6 @@
   font-size: 58px;
   font-weight: bold;
   color: $white;
-}
-
-@media (max-width: 1000px) {
-  #user-profile__user-image__wrap {
-    width: 150px;
-    margin: 0 20px;
-  }
-
-  #user-profile__user-image {
-    width: 150px;
-    height: 150px;
-  }
-
-  #user-profile__user-nickname {
-    font-size: 48px;
-  }
 }
 
 #user-profile__user-options {
@@ -165,29 +139,6 @@
   border: 3px solid $grey-deep;
 }
 
-@media (max-width: 1000px) {
-  #user-profile__user-contents {
-    display: flex;
-    justify-content: space-around;
-    align-items: space-around;
-    flex-wrap: wrap;
-  }
-
-  .user-profile__user-content__wrap {
-    width: 120px;
-    height: 120px;
-  }
-
-  .user-profile__user-content__label {
-    font-size: 12px;
-  }
-
-  .user-profile__user-content__data {
-    margin-top: 10px;
-    font-size: 16px;
-  }
-}
-
 .user-profile__user-content__wrap__clicked {
   background-color: $grey-light;
 }
@@ -236,4 +187,49 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 1000px) {
+  #user-profile__top__left__wrap {
+    width: 60%;
+  }
+
+  #user-profile__top__right__wrap {
+    width: 40%;
+  }
+
+  #user-profile__user-contents {
+    display: flex;
+    justify-content: space-around;
+    align-items: space-around;
+    flex-wrap: wrap;
+  }
+
+  .user-profile__user-content__wrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .user-profile__user-content__label {
+    font-size: 14px;
+  }
+
+  .user-profile__user-content__data {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  #user-profile__user-image__wrap {
+    width: 150px;
+    margin: 0 20px;
+  }
+
+  #user-profile__user-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  #user-profile__user-nickname {
+    font-size: 48px;
+  }
 }
