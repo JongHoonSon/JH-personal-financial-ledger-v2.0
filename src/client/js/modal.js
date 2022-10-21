@@ -1,12 +1,7 @@
 const modalOpenButton = document.querySelector(".modal__open-button");
 
-console.log("modalOpenButton");
-console.log(modalOpenButton);
-
 // 모달창을 띄우는 버튼 클릭시
 const handleModalOpen = (event) => {
-  console.log("handleModalOpen");
-
   // 모달 버튼의 부모(relative)에 position: static 적용하기 (relative가 적용되어 있으면 화면상에 노출됨)
   const modalOpenButtonParent = document.querySelector(
     ".modal__open-button__parent"
@@ -28,12 +23,6 @@ const handleModalOpen = (event) => {
     modalWrap.style.display = "none";
     document.body.style.overflow = "auto";
     window.location.reload();
-  });
-
-  const modalBodyWrap = document.querySelector(".modal__body__wrap");
-
-  modalBodyWrap.addEventListener("click", () => {
-    console.log("modalBodyWrap clicked");
   });
 };
 
