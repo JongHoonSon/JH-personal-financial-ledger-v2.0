@@ -1,22 +1,3 @@
-.user-own-posts__post-table__tbody__tr,
-.user-own-comments__comment-table__tbody__tr {
-  border-bottom: 1px solid $grey-light;
-}
-
-.user-own-posts__post-table__tbody__tr:hover,
-.user-own-comments__comment-table__tbody__tr:hover {
-  background-color: $grey-blur;
-}
-
-.user-own-posts__post-table__tbody__tr__td,
-.user-own-comments__comment-table__tbody__tr__td {
-  text-align: center;
-  padding: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 #user-own-posts__post-table__tbody__tr__td__title {
   text-align: left;
   padding: 10px 50px;

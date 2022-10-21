@@ -2,25 +2,25 @@ extends userProfile.pug
 include user-list-post-mixins.pug
 
 block user-posts
-    div#user-own-posts__wrap
-        div#user-own-posts__header__wrap
-            h2#user-own-posts__header #{user.nickname} 님의 작성 글 목록
-        div#user-own-posts__table__wrap
-            table#user-own-posts__post-table
-                colgroup#user-own-posts__post-table__colgroup
+    div#user-own-contents__wrap
+        div#user-own-contents__header__wrap
+            h2#user-own-contents__header #{user.nickname} 님의 작성 글 목록
+        div#user-own-contents__table__wrap
+            table#user-own-contents__content-table
+                colgroup#user-own-contents__content-table__colgroup
                     col#user-own-posts__post-table__colgroup__col__date
                     col#user-own-posts__post-table__colgroup__col__title
                     col#user-own-posts__post-table__colgroup__col__views
                     col#user-own-posts__post-table__colgroup__col__likes
-                thead#user-own-posts__post-table__thead
-                    tr#user-own-posts__post-table__thead__tr
-                        th(scope="col").user-own-posts__post-table__thead__th 날짜
-                        th(scope="col").user-own-posts__post-table__thead__th 글 제목
-                        th(scope="col").user-own-posts__post-table__thead__th 조회수
-                        th(scope="col").user-own-posts__post-table__thead__th 좋아요
-                tbody#user-own-posts__post-table__tbody
+                thead#user-own-contents__content-table__thead
+                    tr#user-own-contents__content-table__thead__tr
+                        th(scope="col").user-own-contents__content-table__thead__th 작성일
+                        th(scope="col").user-own-contents__content-table__thead__th 글 제목
+                        th(scope="col").user-own-contents__content-table__thead__th 조회수
+                        th(scope="col").user-own-contents__content-table__thead__th 좋아요
+                tbody#user-own-contents__content-table__tbody
                     if user.postList.length > 0
                         each post in user.postList.reverse()
                             +list(post)
                     else
-                        span 작성 글이 존재하지 않습니다.
+                        td#empty-table="작성한 글이 없습니다."

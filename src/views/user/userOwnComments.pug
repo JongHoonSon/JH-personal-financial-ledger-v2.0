@@ -2,25 +2,25 @@ extends userProfile.pug
 include user-list-comment-mixins.pug
 
 block user-comments
-    div#user-own-comments__wrap
-        div#user-own-comments__header__wrap
-            h2#user-own-comments__header #{user.nickname} 님의 작성 댓글 목록
-        div#user-own-comments__table__wrap
-            table#user-own-comments__comment-table
-                colgroup#user-own-comments__comment-table__colgroup
+    div#user-own-contents__wrap
+        div#user-own-contents__header__wrap
+            h2#user-own-contents__header #{user.nickname} 님의 작성 댓글 목록
+        div#user-own-contents__table__wrap
+            table#user-own-contents__content-table
+                colgroup#user-own-contents__content-table__colgroup
                     col#user-own-comments__comment-table__colgroup__col__date
                     col#user-own-comments__comment-table__colgroup__col__post-title
-                    col#user-own-comments__comment-table__colgroup__col__content
+                    col#user-own-comments__comment-table__colgroup__col__comment
                     col#user-own-comments__comment-table__colgroup__col__likes
-                thead#user-own-comments__comment-table__thead
-                    tr#user-own-comments__comment-table__thead__tr
-                        th(scope="col").user-own-comments__comment-table__thead__th 날짜
-                        th(scope="col").user-own-comments__comment-table__thead__th 게시글
-                        th(scope="col").user-own-comments__comment-table__thead__th 댓글 내용
-                        th(scope="col").user-own-comments__comment-table__thead__th 좋아요
-                tbody#user-own-comments__comment-table__tbody
+                thead#user-own-contents__content-table__thead
+                    tr#user-own-contents__content-table__thead__tr
+                        th(scope="col").user-own-contents__content-table__thead__th 작성일
+                        th(scope="col").user-own-contents__content-table__thead__th 게시글
+                        th(scope="col").user-own-contents__content-table__thead__th 댓글 내용
+                        th(scope="col").user-own-contents__content-table__thead__th 좋아요
+                tbody#user-own-contents__content-table__tbody
                     if user.commentList.length > 0
                         each comment in user.commentList.reverse()
                             +list(comment)
                     else
-                        span 작성 댓글이 존재하지 않습니다.
+                        td#empty-table="작성한 댓글이 없습니다."
