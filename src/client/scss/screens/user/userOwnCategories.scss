@@ -1,26 +1,63 @@
-#userCategories-wrapper {
-  border: 1px solid black;
-  width: 30%;
-  height: 60%;
+#user-own-categories {
+  width: 100%;
+  height: 100%;
+}
+
+#user-own-categories__contents {
+  width: 100%;
+  height: 80%;
+  background-color: aqua;
+  position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
 
-  #userOwnCategories {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-  }
+.user-own-categories__list__wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
 
-  #userAddCategory {
-    width: 100%;
-    height: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+#user-own-categories__expense {
+  display: none;
+}
+
+.user-own-categories__list {
+  width: 100%;
+  height: 100%;
+  background-color: antiquewhite;
+}
+
+#user-own-categories__add-category__wrap {
+  width: 100%;
+  height: 10%;
+  background-color: beige;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-own-categories__add-category__input {
+  width: 50%;
+  height: 50%;
+  margin: 0px 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 10px;
+  box-sizing: border-box;
+}
+
+#user-own-categories__add-category__submit {
+  width: 15%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  background-color: $black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
 }

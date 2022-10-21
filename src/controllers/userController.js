@@ -212,16 +212,16 @@ export const getUserOwnCategories = async (req, res) => {
 export const postAddUserCategory = async (req, res) => {
   const loggedInUserId = req.session.user._id;
   const { categoryType } = req.params;
-  const { new_category } = req.body;
+  const { newCategoryName } = req.body;
 
   let user;
   try {
     if (categoryType === "i") {
       user = await User.findById(loggedInUserId).populate("incomeCategories");
-      user.incomeCategories.push(new_category);
+      user.incomeCategories.push(newCategoryName);
     } else if (categoryType === "e") {
       user = await User.findById(loggedInUserId).populate("expenseCategories");
-      user.expenseCategories.push(new_category);
+      user.expenseCategories.push(newCategoryName);
     }
     await user.save();
   } catch (error) {
@@ -235,7 +235,7 @@ export const postAddUserCategory = async (req, res) => {
     return res.status(404).redirect("/");
   }
 
-  res.redirect(`/user/own-categories/${categoryType}`);
+  return res.send(200);
 };
 
 export const postDeleteUserCategory = async (req, res) => {

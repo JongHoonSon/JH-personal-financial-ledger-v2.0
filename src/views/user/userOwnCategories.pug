@@ -1,18 +1,23 @@
-extends ../base.pug
 include user-list-category-mixins.pug
 
-block content
-    div#userCategories-wrapper
+div.modal__background
+div.modal__body__wrap
+    div#user-own-categories.modal__body
         include userOwnCategories_nav.pug
 
-        div#userOwnCategories
-            ul#user-category-list(data-categoryType=`${categoryType}`)
-                each category in userCategories
-                    +list(category)
-        div#userAddCategory
-            form(action=`/user/add/category/${categoryType}` method="POST")
-                input(type="text" id="new_category" name="new_category")
-                input(type="submit" value="추가하기")
+        div#user-own-categories__contents
+            div.user-own-categories__list__wrap#user-own-categories__income
+                ul.user-own-categories__list
+                    each category in incomeCategories
+                        +list(category)
+            div.user-own-categories__list__wrap#user-own-categories__expense
+                ul.user-own-categories__list
+                    each category in expenseCategories
+                        +list(category)
+        div#user-own-categories__add-category__form__wrap
+            input(type="text" name="new_category")#user-own-categories__add-category__input
+            button(value="추가하기")#user-own-categories__add-category__submit 등록
 
 block scripts 
+    script(src="/assets/js/modal.js") 
     script(src="/assets/js/category.js") 
