@@ -23,12 +23,12 @@
       align-items: center;
       .input {
         width: 90%;
-        margin-top: 20px;
+        margin-top: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
         .input__label {
-          width: 15%;
+          width: 20%;
           font-size: 14px;
           margin-right: 20px;
           color: $black;
@@ -40,7 +40,7 @@
           }
         }
         .input__input__wrap {
-          width: 85%;
+          width: 80%;
           height: 42px;
           padding: 5px;
           box-sizing: border-box;
@@ -69,7 +69,7 @@
           }
         }
         .input__textarea__wrap {
-          width: 85%;
+          width: 80%;
           height: 84px;
           padding: 5px;
           box-sizing: border-box;
