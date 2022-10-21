@@ -1,6 +1,8 @@
 extends ../base.pug
 
 block content 
+    div.modal__wrap
+        include ../user/userOwnCategories.pug
     div.form-container
         include addItem_nav.pug
 
@@ -24,7 +26,7 @@ block content
                         div.input__input__wrap
                             input(placeholder="amount", id="amount", name="amount", type="text", required).input__input
                             span.input__unit 원
-                    div.input#add-item-input__category-parent
+                    div.input.modal__open-button__parent
                         label(for="category").input__label 분류
                         div.input__input__wrap
                             select(id="category", name="category", required).input__select
@@ -34,7 +36,7 @@ block content
                                 else 
                                     each category of expenseCategories
                                         option(value=`${category}`) #{category}
-                        a(href="/user/own-categories/i")#add-item-input__category 추가/삭제
+                        button(type="button").modal__open-button#edit__user-categories 추가/삭제
 
                     div.input
                         label(for="description").input__label 설명
@@ -60,3 +62,5 @@ block content
 
 block scripts
     script(src="/assets/js/imagePreview.js") 
+    script(src="/assets/js/category.js") 
+    script(src="/assets/js/modal.js") 
