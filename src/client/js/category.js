@@ -1,5 +1,20 @@
 const { async } = require("regenerator-runtime");
 
+// input 창에 입력 후 Enter 입력 시 버튼이 Click 되게 하는 코드
+
+var addCategoryInput = document.getElementById(
+  "user-own-categories__add-category__input"
+);
+
+addCategoryInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document
+      .getElementById("user-own-categories__add-category__submit__icon")
+      .click();
+  }
+});
+
 // 수입 / 지출 카테고리 탭
 const incomeTab = document.getElementById(
   "user-own-categories__nav__income-tab"
@@ -36,17 +51,22 @@ const sumbitButtonIcon = document.getElementById(
 );
 
 sumbitButtonIcon.addEventListener("click", async (e) => {
-  // 현재 추가하려는 카테고리의 타입이 income 인지 expense 인지를 선택된 Tab의 data 값을 이용해 파악
-  const selectedTab = document.querySelector(".selected-tab");
-
-  const categoryType = selectedTab.dataset.categorytype;
-
   // 새로운 카테고리 이름 가져오기
   const categoryInput = document.getElementById(
     "user-own-categories__add-category__input"
   );
 
   const newCategoryName = categoryInput.value;
+
+  if (newCategoryName === "") {
+    alert("카테고리 이름을 입력해 주세요.");
+    return;
+  }
+
+  // 현재 추가하려는 카테고리의 타입이 income 인지 expense 인지를 선택된 Tab의 data 값을 이용해 파악
+  const selectedTab = document.querySelector(".selected-tab");
+
+  const categoryType = selectedTab.dataset.categorytype;
 
   const response = await fetch(`/user/add/category/${categoryType}`, {
     method: "POST",
@@ -58,6 +78,7 @@ sumbitButtonIcon.addEventListener("click", async (e) => {
 
   if (response.status === 200) {
     console.log("category added success");
+    addNewCategory(categoryType, newCategoryName);
   }
 
   categoryInput.value = "";
@@ -83,6 +104,7 @@ const handleDeleteCategory = async (event) => {
   });
 
   if (response.status === 200) {
+    removeDeletedCategory(event, categoryType, categoryName);
     console.log("delete category success");
   }
 };
@@ -90,3 +112,54 @@ const handleDeleteCategory = async (event) => {
 categoryDeleteBtnIcons.forEach((el) => {
   el.addEventListener("click", handleDeleteCategory);
 });
+
+function addNewCategory(categoryType, newCategoryName) {
+  // 새로 추가한 카테고리를 화면에 추가하기 위해 태그 만들기
+  const divTag = document.createElement("div");
+  divTag.classList.add("user-own-categories__category__wrap");
+
+  const liTag = document.createElement("li");
+  liTag.classList.add("user-own-categories__category");
+  liTag.innerText = newCategoryName;
+
+  const delButtonTag = document.createElement("button");
+  delButtonTag.classList.add("user-own-categories__category__del-btn");
+
+  const delIconTag = document.createElement("i");
+  delIconTag.classList.add(
+    "fa-solid",
+    "fa-circle-minus",
+    "user-own-categories__category__del-btn__icon"
+  );
+  delIconTag.dataset.category = newCategoryName;
+
+  delIconTag.addEventListener("click", handleDeleteCategory);
+
+  // 태그 연결하기
+  let categoryList;
+
+  if (categoryType === "i") {
+    categoryList = document.getElementById("user-own-categories__income-list");
+  } else {
+    categoryList = document.getElementById("user-own-categories__expense-list");
+  }
+
+  categoryList.appendChild(divTag);
+  divTag.appendChild(liTag);
+  divTag.appendChild(delButtonTag);
+  delButtonTag.appendChild(delIconTag);
+}
+
+function removeDeletedCategory(event, categoryType, categoryName) {
+  let categoryList;
+
+  if (categoryType === "i") {
+    categoryList = document.getElementById("user-own-categories__income-list");
+  } else {
+    categoryList = document.getElementById("user-own-categories__expense-list");
+  }
+
+  const deletedCategoryDiv = event.target.parentNode.parentNode;
+
+  categoryList.removeChild(deletedCategoryDiv);
+}

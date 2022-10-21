@@ -7,11 +7,11 @@ div.modal__body__wrap
 
         div#user-own-categories__contents
             div.user-own-categories__list__wrap#user-own-categories__income
-                ul.user-own-categories__list
+                ul.user-own-categories__list#user-own-categories__income-list
                     each category in incomeCategories
                         +list(category)
             div.user-own-categories__list__wrap#user-own-categories__expense
-                ul.user-own-categories__list
+                ul.user-own-categories__list#user-own-categories__expense-list
                     each category in expenseCategories
                         +list(category)
         div#user-own-categories__add-category__wrap
