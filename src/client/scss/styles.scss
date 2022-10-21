@@ -1,5 +1,4 @@
 // Config
-@import "./config/_custom.scss";
 @import "./config/_reset.scss";
 @import "./config/_variables.scss";
 
@@ -64,3 +63,6 @@
 @import "./screens/user/userOwnContents.scss";
 @import "./screens/user/userOwnPosts.scss";
 @import "./screens/user/userProfile.scss";
+
+// Custom
+@import "./custom/_custom.scss";
