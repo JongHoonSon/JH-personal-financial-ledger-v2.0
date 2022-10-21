@@ -50,17 +50,16 @@
   border-radius: 4px;
 }
 
+#user-own-categories__add-category__input:focus {
+  border: 1px solid $grey-deep;
+}
+
 #user-own-categories__add-category__submit {
-  width: 5%;
-  height: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   cursor: default;
-}
-#user-own-categories__add-category__input:focus {
-  border: 1px solid $grey-deep;
 }
 
 #user-own-categories__add-category__submit__icon {
