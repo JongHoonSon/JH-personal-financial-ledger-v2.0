@@ -7,21 +7,20 @@ block content
                 div#user-profile__user-image__wrap
                     img(src="/" + user.avatarUrl)#user-profile__user-image
                 div#user-profile__user-infos
-                    div.user-profile__user-info__wrap#user-profile__user-nickname__wrap
-                        span.user-profile__user-info#user-profile__user-nickname #{user.nickname}
-                        if isMyProfile 
-                            div#user-profile__user-options
-                                div.user-profile__user-options__option__wrap
-                                    a(href=`/user/edit-profile`).user-profile__user-options__option__link
-                                        i.fa-solid.fa-user-pen
-                                        span.user-profile__user-options__option__link__text 프로필 수정하기
-                                div.user-profile__user-options__option__wrap
-                                    a(href=`/user/edit-password`).user-profile__user-options__option__link
-                                        i.fa-solid.fa-pen-to-square
-                                        span.user-profile__user-options__option__link__text 비밀번호 변경하기
+                    div#user-profile__user-nickname__wrap
+                        span#user-profile__user-nickname #{user.nickname}
+                    if isMyProfile 
+                        div#user-profile__user-options
+                            div.user-profile__user-options__option__wrap
+                                a(href=`/user/edit-profile`).user-profile__user-options__option__link
+                                    i.fa-solid.fa-user-pen
+                                    span.user-profile__user-options__option__link__text 프로필 수정하기
+                            div.user-profile__user-options__option__wrap
+                                a(href=`/user/edit-password`).user-profile__user-options__option__link
+                                    i.fa-solid.fa-pen-to-square
+                                    span.user-profile__user-options__option__link__text 비밀번호 변경하기
                     div.user-profile__user-info__wrap
                         span.user-profile__user-info 가입일 : #{joinDate}
-                    div.user-profile__user-info__wrap
                         span.user-profile__user-info 마지막 로그인 기록 : #{lastLoggedInDate}
 
             div#user-profile__top__right__wrap
