@@ -25,7 +25,7 @@ block content
                                 i.fa-solid.fa-trash-can.delete-icon
 
             div#detail-item__contents__wrap
-                ul(class=`${item.type === "i" ? 'income-bgimage-gradient' : 'expense-bgimage-gradient'}`)#detail-item__contents
+                ul(class=`${item.type === "i" ? 'income-bgcolor' : 'expense-bgcolor'}`)#detail-item__contents
                     li.detail-item__contents__item
                         if item.type === "i"
                             label.detail-item__contents__item__label 수입일
