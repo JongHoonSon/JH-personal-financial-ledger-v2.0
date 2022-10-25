@@ -34,7 +34,7 @@ passport.use(
             email: profile.email,
             nickname: profile.id,
             socialAccount: true,
-            avatarUrl: "defaults/default_avatar.png",
+            avatarUrl: "defaults/images/default_avatar.png",
           });
         } catch (error) {
           console.log(error);

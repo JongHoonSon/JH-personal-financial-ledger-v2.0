@@ -94,7 +94,7 @@ export const postJoin = async (req, res) => {
       name,
       email,
       nickname,
-      avatarUrl: "defaults/default_avatar.png",
+      avatarUrl: "defaults/images/default_avatar.png",
       incomeCategories: income_categories,
       expenseCategories: expense_categories,
     });
