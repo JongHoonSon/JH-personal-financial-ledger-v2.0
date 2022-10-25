@@ -131,13 +131,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
-  font-size: 16px;
-  color: $grey-blur;
+  font-size: 14px;
   border-left: 1px solid $white;
   border-right: 1px solid $white;
   box-sizing: border-box;
-  color: $grey-deep;
+  color: $grey-blur;
 }
 
 .ledger-list__header__item:first-child {
@@ -149,15 +147,15 @@
 }
 
 #ledger-list__header__item__date {
-  width: 25%;
+  width: 20%;
 }
 
 #ledger-list__header__item__amount {
-  width: 25%;
+  width: 20%;
 }
 
 #ledger-list__header__item__category {
-  width: 10%;
+  width: 20%;
 }
 
 #ledger-list__header__item__description {
