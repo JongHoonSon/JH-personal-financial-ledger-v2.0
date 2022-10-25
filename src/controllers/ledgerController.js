@@ -3,7 +3,7 @@ import User from "../models/User";
 import { sortItem, getStringDate, getStringAmount } from "../utils";
 
 export const getLedgerDaily = async (req, res) => {
-  const { yyyy, mm, dd } = req.params;
+  const { yyyy, mm, dd, itemType } = req.params;
 
   const todayStringDate = yyyy + "-" + mm + "-" + dd;
   const todayDate = new Date(todayStringDate);
@@ -38,18 +38,22 @@ export const getLedgerDaily = async (req, res) => {
   let sumExpenseAmount = 0;
 
   const itemList = new Array();
-  incomeList.forEach((el) => {
-    if (el.stringDate === todayStringDate) {
-      itemList.push(el);
-      sumIncomeAmount += el.amount;
-    }
-  });
-  expenseList.forEach((el) => {
-    if (el.stringDate === todayStringDate) {
-      itemList.push(el);
-      sumExpenseAmount += el.amount;
-    }
-  });
+  if (itemType === "all" || itemType === "i") {
+    incomeList.forEach((el) => {
+      if (el.stringDate === todayStringDate) {
+        itemList.push(el);
+        sumIncomeAmount += el.amount;
+      }
+    });
+  }
+  if (itemType === "all" || itemType === "e") {
+    expenseList.forEach((el) => {
+      if (el.stringDate === todayStringDate) {
+        itemList.push(el);
+        sumExpenseAmount += el.amount;
+      }
+    });
+  }
   sortItem(itemList);
 
   let gap = sumIncomeAmount - sumExpenseAmount;
@@ -73,11 +77,12 @@ export const getLedgerDaily = async (req, res) => {
     stringAbsGap,
     stringSumIncomeAmount,
     stringSumExpenseAmount,
+    itemType,
   });
 };
 
 export const getLedgerWeekly = async (req, res) => {
-  const { yyyy, mm, dd } = req.params;
+  const { yyyy, mm, dd, itemType } = req.params;
 
   const todayStringDate = yyyy + "-" + mm + "-" + dd;
   const todayDate = new Date(todayStringDate);
@@ -123,18 +128,22 @@ export const getLedgerWeekly = async (req, res) => {
   let sumExpenseAmount = 0;
 
   const itemList = new Array();
-  incomeList.forEach((el) => {
-    if (el.stringDate >= weekStart && el.stringDate <= weekEnd) {
-      itemList.push(el);
-      sumIncomeAmount += el.amount;
-    }
-  });
-  expenseList.forEach((el) => {
-    if (el.stringDate >= weekStart && el.stringDate <= weekEnd) {
-      itemList.push(el);
-      sumExpenseAmount += el.amount;
-    }
-  });
+  if (itemType === "all" || itemType === "i") {
+    incomeList.forEach((el) => {
+      if (el.stringDate >= weekStart && el.stringDate <= weekEnd) {
+        itemList.push(el);
+        sumIncomeAmount += el.amount;
+      }
+    });
+  }
+  if (itemType === "all" || itemType === "e") {
+    expenseList.forEach((el) => {
+      if (el.stringDate >= weekStart && el.stringDate <= weekEnd) {
+        itemList.push(el);
+        sumExpenseAmount += el.amount;
+      }
+    });
+  }
   sortItem(itemList);
 
   let gap = sumIncomeAmount - sumExpenseAmount;
@@ -159,11 +168,12 @@ export const getLedgerWeekly = async (req, res) => {
     stringAbsGap,
     stringSumIncomeAmount,
     stringSumExpenseAmount,
+    itemType,
   });
 };
 
 export const getLedgerMonthly = async (req, res) => {
-  const { yyyy, mm } = req.params;
+  const { yyyy, mm, itemType } = req.params;
 
   const prevMonth =
     mm === "01" ? "12" : (Number(mm) - 1).toString().padStart(2, 0);
@@ -197,24 +207,28 @@ export const getLedgerMonthly = async (req, res) => {
   let sumExpenseAmount = 0;
 
   const itemList = new Array();
-  incomeList.forEach((el) => {
-    if (
-      el.date.getFullYear().toString() === yyyy &&
-      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
-    ) {
-      itemList.push(el);
-      sumIncomeAmount += el.amount;
-    }
-  });
-  expenseList.forEach((el) => {
-    if (
-      el.date.getFullYear().toString() === yyyy &&
-      (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
-    ) {
-      itemList.push(el);
-      sumExpenseAmount += el.amount;
-    }
-  });
+  if (itemType === "all" || itemType === "i") {
+    incomeList.forEach((el) => {
+      if (
+        el.date.getFullYear().toString() === yyyy &&
+        (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
+      ) {
+        itemList.push(el);
+        sumIncomeAmount += el.amount;
+      }
+    });
+  }
+  if (itemType === "all" || itemType === "e") {
+    expenseList.forEach((el) => {
+      if (
+        el.date.getFullYear().toString() === yyyy &&
+        (el.date.getMonth() + 1).toString().padStart(2, 0) === mm
+      ) {
+        itemList.push(el);
+        sumExpenseAmount += el.amount;
+      }
+    });
+  }
   sortItem(itemList);
 
   let gap = sumIncomeAmount - sumExpenseAmount;
@@ -238,11 +252,12 @@ export const getLedgerMonthly = async (req, res) => {
     stringAbsGap,
     stringSumIncomeAmount,
     stringSumExpenseAmount,
+    itemType,
   });
 };
 
 export const getLedgerYearly = async (req, res) => {
-  const { yyyy } = req.params;
+  const { yyyy, itemType } = req.params;
 
   const prev = (Number(yyyy) - 1).toString();
   const next = (Number(yyyy) + 1).toString();
@@ -269,18 +284,22 @@ export const getLedgerYearly = async (req, res) => {
   let sumExpenseAmount = 0;
 
   const itemList = new Array();
-  incomeList.forEach((el) => {
-    if (el.date.getFullYear().toString() === yyyy) {
-      itemList.push(el);
-      sumIncomeAmount += el.amount;
-    }
-  });
-  expenseList.forEach((el) => {
-    if (el.date.getFullYear().toString() === yyyy) {
-      itemList.push(el);
-      sumExpenseAmount += el.amount;
-    }
-  });
+  if (itemType === "all" || itemType === "i") {
+    incomeList.forEach((el) => {
+      if (el.date.getFullYear().toString() === yyyy) {
+        itemList.push(el);
+        sumIncomeAmount += el.amount;
+      }
+    });
+  }
+  if (itemType === "all" || itemType === "e") {
+    expenseList.forEach((el) => {
+      if (el.date.getFullYear().toString() === yyyy) {
+        itemList.push(el);
+        sumExpenseAmount += el.amount;
+      }
+    });
+  }
   sortItem(itemList);
 
   let gap = sumIncomeAmount - sumExpenseAmount;
@@ -304,5 +323,6 @@ export const getLedgerYearly = async (req, res) => {
     stringAbsGap,
     stringSumIncomeAmount,
     stringSumExpenseAmount,
+    itemType,
   });
 };

@@ -8,14 +8,23 @@ block content
         include ledger_calendar.pug
 
         div#ledger-content
-            div#ledger-total
-                ul#ledger-total__item-list
-                    li.ledger-total__item
-                        span.ledger-total__item__span.income-color-deep #{'총 수입액 : +' + stringSumIncomeAmount + '원'} 
-                    li.ledger-total__item
-                        span.ledger-total__item__span.expense-color-deep #{'총 지출액 : -' + stringSumExpenseAmount + '원'}
-                    li.ledger-total__item
-                        span(class=`${gap !== 0 ? gap > 0 ? 'plus-color' : 'minus-color' : ''}`).ledger-total__item__span  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
+            div#ledger-content__header
+                div#ledger-total
+                    ul#ledger-total__item-list
+                        li.ledger-total__item
+                            span.ledger-total__item__span.income-color-deep #{'총 수입액 : +' + stringSumIncomeAmount + '원'} 
+                        li.ledger-total__item
+                            span.ledger-total__item__span.expense-color-deep #{'총 지출액 : -' + stringSumExpenseAmount + '원'}
+                        li.ledger-total__item
+                            span(class=`${gap !== 0 ? gap > 0 ? 'plus-color' : 'minus-color' : ''}`).ledger-total__item__span  #{'합계 : ' + (gap !== 0 ? gap > 0 ? '+' : '-' : '') + (stringAbsGap) + '원'}
+                div#ledger-options
+                    ul#ledger-options__item-list
+                        li.ledger-options__item
+                            a(href=`/ledger/${now}/${cycle}/all`).ledger-options__item__link#ledger-options__item__link__all 전체
+                        li.ledger-options__item
+                            a(href=`/ledger/${now}/${cycle}/i`).ledger-options__item__link.income-bgcolor-deep 수입
+                        li.ledger-options__item
+                            a(href=`/ledger/${now}/${cycle}/e`).ledger-options__item__link.expense-bgcolor-deep 지출
 
             div#ledger-list__wrap
                 div#ledger-list__header

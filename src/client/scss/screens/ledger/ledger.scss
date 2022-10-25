@@ -19,12 +19,20 @@
   justify-content: center;
 }
 
-#ledger-total {
+#ledger-content__header {
   width: 100%;
   height: 5%;
-  background-color: $grey-bright;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-bottom: 1px solid $white;
   box-sizing: border-box;
+}
+
+#ledger-total {
+  width: 85%;
+  height: 100%;
+  background-color: $grey-bright;
 }
 
 #ledger-total__item-list {
@@ -33,6 +41,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .ledger-total__item {
@@ -46,6 +56,45 @@
 .ledger-total__item__span {
   font-size: 16px;
   font-weight: 600;
+}
+
+#ledger-options {
+  width: 15%;
+  height: 100%;
+  background-color: $white;
+}
+
+#ledger-options__item-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ledger-options__item {
+  width: 100%;
+  height: 100%;
+  .ledger-options__item__link {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    font-size: 14px;
+    font-weight: 600;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    box-sizing: border-box;
+  }
+
+  .ledger-options__item__link:hover {
+    opacity: 0.7;
+  }
+}
+
+#ledger-options__item__link__all {
+  background-color: $green;
 }
 
 #ledger-list__wrap {
@@ -127,4 +176,14 @@
 
 #ledger-list::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width: 1000px) {
+  #ledger-total {
+    width: 80%;
+  }
+
+  #ledger-options {
+    width: 20%;
+  }
 }

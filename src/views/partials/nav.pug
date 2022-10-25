@@ -9,9 +9,9 @@ nav
 
             li.main-nav__option 
                 if pageTitle === "일별 내역" || pageTitle === "주별 내역" || pageTitle === "월별 내역" || pageTitle === "연도별 내역"
-                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).main-nav__option__link#main-nav__selected 가계부
+                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/all`).main-nav__option__link#main-nav__selected 가계부
                 else
-                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).main-nav__option__link 가계부
+                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/all`).main-nav__option__link 가계부
 
             li.main-nav__option
                 if pageTitle === "핀 목록"
