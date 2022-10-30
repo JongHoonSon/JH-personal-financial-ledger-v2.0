@@ -26,11 +26,11 @@ block content
             div#user-profile__top__right__wrap
                 div#user-profile__user-contents
                     div.user-profile__user-content__wrap
-                        a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).user-profile__user-content__link
+                        a(href=`/ledger/${thisYear}/yearly/i`).user-profile__user-content__link
                             h3.user-profile__user-content__label 등록한 수입 내역
                             span.user-profile__user-content__data #{user.incomeList.length}개
                     div.user-profile__user-content__wrap
-                        a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily`).user-profile__user-content__link
+                        a(href=`/ledger/${thisYear}/yearly/e`).user-profile__user-content__link
                             h3.user-profile__user-content__label 등록한 지출 내역
                             span.user-profile__user-content__data #{user.expenseList.length}개
                     if pageTitle.includes("작성 글")
