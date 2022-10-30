@@ -86,15 +86,24 @@
     font-weight: 600;
     border: 5px solid rgba(255, 255, 255, 0.3);
     box-sizing: border-box;
+    opacity: 0.5;
   }
 
   .ledger-options__item__link:hover {
-    opacity: 0.7;
+    opacity: 0.3;
   }
 }
 
-#ledger-options__item__link__all {
+.ledger-options__item__link__all {
   background-color: $green;
+}
+
+#ledger-options__item__clicked {
+  opacity: 1;
+}
+
+#ledger-options__item__clicked:hover {
+  opacity: 0.8;
 }
 
 #ledger-list__wrap {
