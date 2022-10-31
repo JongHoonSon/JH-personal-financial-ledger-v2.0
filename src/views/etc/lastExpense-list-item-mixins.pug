@@ -1,16 +1,17 @@
 mixin list(item)
-    li.expenseBgColor 
-        a(href=`${item.content !== null ? `/item/detail/${item.content.type}/${item.content.id}` : ``}`).lastExpense-list-item-mixins
-            ul
-                li #{'분류 : ' + item.category}
+    li.expense-bgcolor-light
+        a(href=`${item.content !== null ? `/item/detail/${item.content.type}/${item.content.id}` : ``}`).last-expense__list__item__link
+            ul.last-expense__list__item__contents
+                li.last-expense__list__item__contents__content #{'분류 : ' + item.category}
 
                 if item.content === null
-                    li 해당 분류에 대한 지출 기록이 없습니다.
+                    li.last-expense__list__item__contents__content 해당 분류에 대한 지출 기록이 없습니다.
                     li
 
                 else
-                    li
+                    li.last-expense__list__item__contents__content
                         div
                             div #{'날짜 : ' + item.lastestItemStringDate}
                             div #{item.daysDiff} 일 전
-                    li #{'금액 : ' + item.content.amount + '원'}
+                            
+                    li.last-expense__list__item__contents__content #{'금액 : ' + item.content.amount + '원'}

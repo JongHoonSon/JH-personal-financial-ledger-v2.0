@@ -2,7 +2,7 @@ extends ../base.pug
 include lastExpense-list-item-mixins.pug
 
 block content 
-    div#lastExpense-list
-        ul
+    div#last-expense__wrap
+        ul#last-expense__list
             each item in lastExpenseList
                 +list(item)

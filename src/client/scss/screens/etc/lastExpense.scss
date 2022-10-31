@@ -1,5 +1,9 @@
-#lastExpense-list {
-  width: 80%;
-  height: 95%;
+#last-expense__wrap {
+  width: 90%;
+  height: 100%;
   overflow-y: scroll;
+}
+
+#last-expense__wrap::-webkit-scrollbar {
+  display: none;
 }
