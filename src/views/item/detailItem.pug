@@ -3,7 +3,7 @@ extends ../base.pug
 block content
     div.container
         div#detail-item__wrap
-            div#detail-item__options__wrap(class=`${item.type === "i" ? 'income-bgcolor-deep' : 'expense-bgcolor-deep'}`)
+            div#detail-item__options__wrap(style=`background-color: ${item.type === "i" ? '#008FB9' : '#ff7043'}`)
                 ul#detail-item__options
                     li.detail-item__options__option
                         form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
@@ -25,7 +25,7 @@ block content
                                 i.fa-solid.fa-trash-can.delete-icon
 
             div#detail-item__contents__wrap
-                ul(class=`${item.type === "i" ? 'income-bgcolor' : 'expense-bgcolor'}`)#detail-item__contents
+                ul(class=`${item.type === "i" ? 'income-bgcolor-deep' : 'expense-bgcolor-deep'}`)#detail-item__contents
                     li.detail-item__contents__item
                         if item.type === "i"
                             label.detail-item__contents__item__label 수입일
@@ -37,7 +37,7 @@ block content
                             label.detail-item__contents__item__label 수입 금액
                         else
                             label.detail-item__contents__item__label 지출 금액
-                        span.detail-item__contents__item__span #{item.amount.toLocaleString() + ' 원'}
+                        span.detail-item__contents__item__span #{item.amount.toLocaleString() + '원'}
                     li.detail-item__contents__item#detail-item__contents__item__description
                         label.detail-item__contents__item__label 설명
                         p.detail-item__contents__item__p=item.description
