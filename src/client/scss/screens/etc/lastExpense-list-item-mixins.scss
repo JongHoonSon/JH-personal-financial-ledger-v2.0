@@ -2,16 +2,18 @@
   display: block;
   border: 1px solid black;
   height: 100px;
-  ul {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    li {
-      padding: 20px;
-      margin-left: 30px;
-      width: 100%;
-    }
-  }
+}
+
+.last-expense__list__item__contents {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.last-expense__list__item__contents__content {
+  padding: 20px;
+  margin-left: 30px;
+  width: 100%;
 }
