@@ -89,6 +89,7 @@
 #detail-item__contents__item__description,
 #detail-item__contents__item__image {
   height: 30%;
+  color: $white;
 }
 
 .detail-item__contents__item__label {
@@ -100,6 +101,7 @@
   border-right: 5px solid rgba(255, 255, 255, 0.3);
   margin: 1px;
   box-sizing: border-box;
+  color: $white;
 }
 
 .detail-item__contents__item__span {
@@ -111,6 +113,7 @@
   font-weight: 600;
   padding: 0 30px;
   box-sizing: border-box;
+  color: $white;
 }
 
 .detail-item__contents__item__p {
