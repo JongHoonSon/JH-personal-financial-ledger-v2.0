@@ -1,7 +1,26 @@
+.last-expense__list__item {
+  width: 100%;
+  height: 70px;
+  border-top: 1px solid $white;
+  border-bottom: 1px solid $white;
+}
+
+.last-expense__list__item:hover {
+  opacity: 0.9;
+}
+
+.last-expense__list__item:first-child {
+  border-top: none;
+}
+
+.last-expense__list__item:last-child {
+  border-bottom: none;
+}
+
 .last-expense__list__item__link {
+  width: 100%;
+  height: 100%;
   display: block;
-  border: 1px solid black;
-  height: 100px;
 }
 
 .last-expense__list__item__contents {
@@ -13,7 +32,30 @@
 }
 
 .last-expense__list__item__contents__content {
-  padding: 20px;
-  margin-left: 30px;
-  width: 100%;
+  width: 15%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px dotted #fff;
+  border-right: 1px dotted #fff;
+  color: $white;
+  font-weight: 600;
+}
+
+.last-expense__list__item__contents__content:first-child {
+  border-left: none;
+}
+
+.last-expense__list__item__contents__content:last-child {
+  border-right: none;
+}
+
+#last-expense__list__item__contents__description {
+  width: 40%;
+}
+
+#last-expense__list__item__contents__description-empty {
+  width: 40%;
+  color: rgba(0, 0, 0, 0.3);
 }

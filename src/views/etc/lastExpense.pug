@@ -3,6 +3,8 @@ include lastExpense-list-item-mixins.pug
 
 block content 
     div#last-expense__wrap
+        include lastExpense_header.pug
+        
         ul#last-expense__list
             each item in lastExpenseList
                 +list(item)

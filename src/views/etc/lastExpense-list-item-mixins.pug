@@ -1,17 +1,20 @@
 mixin list(item)
-    li.expense-bgcolor-light
+    li.last-expense__list__item.expense-bgcolor-deep
         a(href=`${item.content !== null ? `/item/detail/${item.content.type}/${item.content.id}` : ``}`).last-expense__list__item__link
             ul.last-expense__list__item__contents
-                li.last-expense__list__item__contents__content #{'분류 : ' + item.category}
+                li.last-expense__list__item__contents__content=item.category
 
                 if item.content === null
-                    li.last-expense__list__item__contents__content 해당 분류에 대한 지출 기록이 없습니다.
-                    li
+                    li.last-expense__list__item__contents__content -
+                    li.last-expense__list__item__contents__content -
+                    li.last-expense__list__item__contents__content#last-expense__list__item__contents__description-empty 해당 분류에 대한 지출 기록이 없습니다.
+                    li.last-expense__list__item__contents__content -
 
                 else
                     li.last-expense__list__item__contents__content
                         div
-                            div #{'날짜 : ' + item.lastestItemStringDate}
-                            div #{item.daysDiff} 일 전
+                            div #{item.daysDiff}일 전
                             
-                    li.last-expense__list__item__contents__content #{'금액 : ' + item.content.amount + '원'}
+                    li.last-expense__list__item__contents__content #{"-"+item.content.amount.toLocaleString() + '원'}
+                    li.last-expense__list__item__contents__content#last-expense__list__item__contents__description=item.content.description
+                    li.last-expense__list__item__contents__content=item.content.cycle

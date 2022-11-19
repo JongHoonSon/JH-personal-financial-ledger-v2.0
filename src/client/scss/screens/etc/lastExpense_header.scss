@@ -1,0 +1,34 @@
+#last-expense__header {
+  width: 100%;
+  height: 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  border: 1px solid $white;
+  box-sizing: border-box;
+  background-color: $red-light;
+}
+
+.last-expense__header__content {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid $white;
+  border-right: 1px solid $white;
+  box-sizing: border-box;
+}
+
+#last-expense__header__descrition {
+  width: 40%;
+}
+
+.last-expense__header__content:first-child {
+  border-left: none;
+}
+
+.last-expense__header__content:last-child {
+  border-right: none;
+}

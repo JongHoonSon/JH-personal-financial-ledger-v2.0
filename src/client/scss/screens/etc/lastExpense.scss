@@ -7,3 +7,9 @@
 #last-expense__wrap::-webkit-scrollbar {
   display: none;
 }
+
+#last-expense__list {
+  width: 100%;
+  height: 93%;
+  border: 1px solid $white;
+}
