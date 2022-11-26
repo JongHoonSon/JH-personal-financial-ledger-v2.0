@@ -5,15 +5,18 @@ mixin list(item)
                 li.last-expense__list__item__contents__content=item.category
 
                 if item.content === null
-                    li.last-expense__list__item__contents__content -
-                    li.last-expense__list__item__contents__content -
-                    li.last-expense__list__item__contents__content#last-expense__list__item__contents__description-empty 해당 분류에 대한 지출 기록이 없습니다.
-                    li.last-expense__list__item__contents__content -
+                    li.last-expense__list__item__contents__content.last-expense__list__item__empty -
+                    li.last-expense__list__item__contents__content.last-expense__list__item__empty -
+                    li.last-expense__list__item__contents__content#last-expense__list__item__contents__description.last-expense__list__item__empty 해당 분류에 대한 지출 기록이 없습니다.
+                    li.last-expense__list__item__contents__content.last-expense__list__item__empty -
 
                 else
                     li.last-expense__list__item__contents__content
                         div
-                            div #{item.daysDiff}일 전
+                            if item.daysDiff === 0
+                                div 오늘
+                            else
+                                div #{item.daysDiff}일 전
                             
                     li.last-expense__list__item__contents__content #{"-"+item.content.amount.toLocaleString() + '원'}
                     li.last-expense__list__item__contents__content#last-expense__list__item__contents__description=item.content.description
