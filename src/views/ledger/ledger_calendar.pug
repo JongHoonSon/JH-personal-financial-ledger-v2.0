@@ -1,10 +1,10 @@
 div#ledger-calendar
     ul#ledger-calendar__item-list
         li.ledger-calendar__item
-            a(href=`/ledger/${prev}/${cycle}`).ledger-calendar__item__link
+            a(href=`/ledger/${prev}/${cycle}/${itemType}`).ledger-calendar__item__link
                 i.ledger-calendar__item__link-icon.fa-solid.fa-angle-left
         li.ledger-calendar__item
             span.ledger-calendar__item__date #{calendarTitle}
         li.ledger-calendar__item
-            a(href=`/ledger/${next}/${cycle}`).ledger-calendar__item__link
+            a(href=`/ledger/${next}/${cycle}/${itemType}`).ledger-calendar__item__link
                 i.ledger-calendar__item__link-icon.fa-solid.fa-angle-right
