@@ -50,7 +50,7 @@ export const getChart = async (req, res) => {
 
   if (itemList.length > 0) {
     itemList.forEach((el) => {
-      if (getStringDateDiff(nowStringDate, el.createdAtStringDate) <= days) {
+      if (getStringDateDiff(nowStringDate, el.stringDate) <= days) {
         sumAmountByCategory[el.category] += el.amount;
         totalSum += el.amount;
       }
