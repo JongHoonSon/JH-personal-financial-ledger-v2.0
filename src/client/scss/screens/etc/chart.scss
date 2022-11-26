@@ -33,7 +33,7 @@
 
 #chart-list__header__wrap {
   width: 100%;
-  height: 10%;
+  height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -42,11 +42,12 @@
 
 .chart-list__header-item {
   width: 33%;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: $grey;
 }
 
 #chart-list {
@@ -78,7 +79,8 @@
 
   #chart-list__wrap {
     width: 60%;
-    min-height: 1000px;
+    min-height: 500px;
+    height: 100%;
     justify-content: flex-start;
   }
 }
