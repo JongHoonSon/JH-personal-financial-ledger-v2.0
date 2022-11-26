@@ -1,52 +1,84 @@
-#chart-wrapper {
+#chart__wrap {
   width: 100%;
   height: 100%;
+}
 
+#chart-contents {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
+}
+
+#chart-canvas__wrap {
+  min-width: 500px;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#chart-list__wrap {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#chart-list__header__wrap {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-list__header-item {
+  width: 33%;
+  font-size: 24px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#chart-list {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
   #chart-contents {
-    width: 100%;
-    height: 90%;
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
+    overflow-y: auto;
+  }
 
-    #chart-canvas {
-      width: 60%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  #chart-contents::-webkit-scrollbar {
+    display: none;
+  }
 
-      canvas {
-        width: 60%;
-        height: 60%;
-      }
-    }
+  #chart-canvas__wrap {
+    min-width: 500px;
+    width: 50%;
+    margin: 50px;
+  }
 
-    #chart-list {
-      width: 40%;
-      height: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-
-      #chart-list-title {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 10px;
-      }
-      ul {
-        width: 80%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        div {
-          width: 100%;
-          div {
-            width: 33%;
-          }
-        }
-      }
-    }
+  #chart-list__wrap {
+    width: 60%;
+    min-height: 1000px;
+    justify-content: flex-start;
   }
 }

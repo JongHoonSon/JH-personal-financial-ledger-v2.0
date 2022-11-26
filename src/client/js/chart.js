@@ -1,6 +1,6 @@
 import { Chart } from "chart.js";
 
-const chartWrapper = document.getElementById("chart-wrapper");
+const chartWrapper = document.getElementById("chart__wrap");
 const chartDataArr = JSON.parse(chartWrapper.dataset.chartdataarr);
 
 console.log(chartDataArr);
@@ -46,8 +46,8 @@ const config = {
   type: "pie",
   data: data,
   options: {
-    responsive: false,
+    responsive: true,
   },
 };
 
-const myChart = new Chart(document.getElementById("chart"), config);
+const myChart = new Chart(document.getElementById("chart-canvas"), config);

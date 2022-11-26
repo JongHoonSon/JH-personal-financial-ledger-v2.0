@@ -2,18 +2,18 @@ extends ../base.pug
 include chart-list-item-mixins.pug
 
 block content 
-    div#chart-wrapper(data-chartdataarr=`${JSON.stringify(chartDataArr)}`)
+    div#chart__wrap(data-chartdataarr=`${JSON.stringify(chartDataArr)}`)
         include chart_nav.pug
 
         div#chart-contents
-            div#chart-canvas
-                canvas(id="chart")
-            div#chart-list
-                ul 
-                    div#chart-list-title
-                        div 분류
-                        div 합계
-                        div 비율
+            div#chart-canvas__wrap
+                canvas#chart-canvas
+            div#chart-list__wrap
+                div#chart-list__header__wrap
+                    div.chart-list__header-item 분류
+                    div.chart-list__header-item 합계
+                    div.chart-list__header-item 비율
+                ul#chart-list
                     each chartData of chartDataArr
                         +list(chartData)
 
