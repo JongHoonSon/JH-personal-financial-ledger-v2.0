@@ -9,9 +9,9 @@
 
 .board-nav__wrap {
   width: 100%;
-  height: 5%;
+  height: 7%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   background-color: $purple;
 }
@@ -30,7 +30,7 @@
   height: 100%;
   font-size: 14px;
   font-weight: 600;
-  color: $grey-deep;
+  color: $grey;
   box-sizing: border-box;
 }
 
@@ -41,25 +41,40 @@
 #board-nav__link__selected {
   color: $grey-blur;
   background-color: $purple-deep;
-  border: 2px solid $white;
   box-sizing: border-box;
 }
 
 #board-header {
   width: 100%;
-  height: 5%;
+  height: 4%;
   background-color: $purple-light;
+  opacity: 0.8;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .board-header__content {
-  width: 100%;
+  width: 10%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: $white;
+  border: 2px solid $white;
+  box-sizing: border-box;
+}
+
+#board-header__seq,
+#board-header__views,
+#board-header__likes {
+  width: 5%;
+}
+
+#board-header__title {
+  width: 25%;
 }
 
 #board-contents {
