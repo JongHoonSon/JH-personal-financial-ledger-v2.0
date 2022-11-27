@@ -36,9 +36,12 @@ block content
 
         include board-pagination.pug
 
-        div#board-options
-            button
-                a(href="/post/add") 글 쓰기
+        div#board-options__wrap
+            div#board-options
+                button.board-options__button
+                    a(href="/post/add").board-options__button__link
+                        i.fa-solid.fa-pen
+                        span 글 쓰기
 
 block scripts 
     script(src="/assets/js/pager.js") 
