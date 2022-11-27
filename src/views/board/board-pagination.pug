@@ -1,40 +1,40 @@
 div#board-pagination(data-thispagenum=thisPageNum, data-lastpagenum=lastPageNum)
-            // 앞 페이지로 이동하는 버튼 표시
-            div#board-pagination__prev-page-btn
-                a(href=`/board/${boardName}/${thisPageNum-1}`)#board-pagination__prev-page-btn <
+    // 앞 페이지로 이동하는 버튼 표시
+    div#board-pagination__prev-page-btn__wrap
+        a(href=`/board/${boardName}/${thisPageNum-1}`)#board-pagination__prev-page-btn <
 
-            // 현재 페이지와 첫 페이지의 페이지 수 차이가 5이상일 경우
-            // 첫 페이지로 이동하는 버튼 표시
-            if thisPageNum-firstPageNum > 4  
-                div.board-pagination__page-btn__wrap
-                    a(href=`/board/${boardName}/${firstPageNum}`).board-pagination__page-btn #{firstPageNum}
-                div #{`...`}
+    // 현재 페이지와 첫 페이지의 페이지 수 차이가 4이상일 경우
+    // 첫 페이지로 이동하는 버튼 표시
+    if thisPageNum-firstPageNum > 3  
+        div.board-pagination__page-btn__wrap
+            a(href=`/board/${boardName}/${firstPageNum}`).board-pagination__page-btn #{firstPageNum}
+        div #{`...`}
 
-            // 현재 페이지보다 3페이지 앞의 페이지까지
-            // 각 페이지로 이동하는 버튼 표시
-            -for (var i = 3; i > 0; i--)
-                if thisPageNum-i > 0
-                    div.board-pagination__page-btn__wrap
-                        a(href=`/board/${boardName}/${thisPageNum-i}`).board-pagination__page-btn #{thisPageNum-i}
+    // 현재 페이지보다 3페이지 앞의 페이지까지
+    // 각 페이지로 이동하는 버튼 표시
+    -for (var i = 3; i > 0; i--)
+        if thisPageNum-i > 0
+            div.board-pagination__page-btn__wrap
+                a(href=`/board/${boardName}/${thisPageNum-i}`).board-pagination__page-btn #{thisPageNum-i}
 
-            // 현재 페이지
-            div.board-pagination__page-btn__wrap.board-pagination__current-page-btn__wrap
-                a(href=`/board/${boardName}/${thisPageNum}`).board-pagination__page-btn.board-pagination__current-page-btn #{thisPageNum}
+    // 현재 페이지
+    div.board-pagination__page-btn__wrap.board-pagination__current-page-btn__wrap
+        a(href=`/board/${boardName}/${thisPageNum}`).board-pagination__page-btn#board-pagination__current-page-btn #{thisPageNum}
 
-            // 현재 페이지보다 3페이지 뒤의 페이지까지
-            // 각 페이지로 이동하는 버튼 표시
-            -for (var j = 1; j < 4; j++)
-                if thisPageNum+j < lastPageNum+1
-                    div.board-pagination__page-btn__wrap
-                        a(href=`/board/${boardName}/${thisPageNum+j}`).board-pagination__page-btn #{thisPageNum+j}
+    // 현재 페이지보다 3페이지 뒤의 페이지까지
+    // 각 페이지로 이동하는 버튼 표시
+    -for (var j = 1; j < 4; j++)
+        if thisPageNum+j < lastPageNum+1
+            div.board-pagination__page-btn__wrap
+                a(href=`/board/${boardName}/${thisPageNum+j}`).board-pagination__page-btn #{thisPageNum+j}
 
-            // 현재 페이지와 마지막 페이지의 페이지 수 차이가 5이상일 경우
-            // 마지막 페이지로 이동하는 버튼 표시
-            if lastPageNum-thisPageNum > 4  
-                div #{`...`}
-                div.board-pagination__page-btn__wrap
-                    a(href=`/board/${boardName}/${lastPageNum}`).board-pagination__page-btn #{lastPageNum}
+    // 현재 페이지와 마지막 페이지의 페이지 수 차이가 4이상일 경우
+    // 마지막 페이지로 이동하는 버튼 표시
+    if lastPageNum-thisPageNum > 3  
+        div #{`...`}
+        div.board-pagination__page-btn__wrap
+            a(href=`/board/${boardName}/${lastPageNum}`).board-pagination__page-btn #{lastPageNum}
 
-            // 뒷 페이지로 이동하는 버튼 표시
-            div#board-pagination__next-page-btn__wrap
-                a(href=`/board/${boardName}/${thisPageNum+1}`)#board-pagination__next-page-btn >
+    // 뒷 페이지로 이동하는 버튼 표시
+    div#board-pagination__next-page-btn__wrap
+        a(href=`/board/${boardName}/${thisPageNum+1}`)#board-pagination__next-page-btn >
