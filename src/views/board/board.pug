@@ -3,7 +3,7 @@ include board-list-post-mixins.pug
 
 block content
     div#board__wrap
-        div.board-nav__wrap
+        div#board-nav__wrap
             div.board-nav
                 if boardName === "전체게시판"
                     a(href=`/board/전체게시판/1`).board-nav__link#board-nav__link__selected 전체게시판

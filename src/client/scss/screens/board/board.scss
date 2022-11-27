@@ -3,23 +3,24 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.board-nav__wrap {
-  width: 100%;
+#board-nav__wrap {
+  width: 60%;
   height: 7%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  border-bottom: 1px solid $grey-bright;
   background-color: $purple;
+  box-sizing: border-box;
 }
 
 .board-nav {
-  width: 6%;
+  width: 10%;
   height: 100%;
-  opacity: 1;
 }
 
 .board-nav__link {
@@ -45,9 +46,8 @@
 }
 
 #board-header {
-  width: 100%;
-  height: 4%;
-  background-color: $purple-light;
+  width: 60%;
+  height: 5%;
   opacity: 0.8;
   display: flex;
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 
 .board-header__content {
-  width: 10%;
+  width: 15%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -63,14 +63,20 @@
   font-size: 14px;
   font-weight: 600;
   color: $white;
-  border: 2px solid $white;
+  background-color: $purple-light;
+  border: 1px solid $grey-bright;
+  border-right: none;
   box-sizing: border-box;
+}
+
+.board-header__content:last-child {
+  border-right: 2px solid $grey-bright;
 }
 
 #board-header__seq,
 #board-header__views,
 #board-header__likes {
-  width: 5%;
+  width: 10%;
 }
 
 #board-header__title {
@@ -78,8 +84,8 @@
 }
 
 #board-contents {
-  width: 100%;
-  height: 80%;
+  width: 60%;
+  height: 70%;
 }
 
 #board-empty {
@@ -90,8 +96,12 @@
   align-items: center;
 }
 
-#board-options {
+#post-list {
   width: 100%;
-  height: 5%;
-  background-color: $purple-bright;
+  height: 100%;
+}
+
+#board-options {
+  width: 60%;
+  height: 7%;
 }

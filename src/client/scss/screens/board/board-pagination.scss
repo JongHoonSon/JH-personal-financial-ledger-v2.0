@@ -1,9 +1,12 @@
 #board-pagination {
-  width: 100%;
-  height: 5%;
+  width: 60%;
+  height: 8%;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 2px solid $grey-bright;
+  border-bottom: 2px solid $grey-bright;
+  box-sizing: border-box;
 }
 
 .board-pagination__page-btn__wrap {
