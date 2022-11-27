@@ -71,6 +71,9 @@
             margin-right: 18px;
           }
         }
+        .input__input__wrap:hover {
+          background-color: $grey-blur;
+        }
         .input__textarea__wrap {
           width: 75%;
           height: 84px;

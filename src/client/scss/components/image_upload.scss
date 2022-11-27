@@ -45,6 +45,10 @@
   cursor: pointer;
 }
 
+#image-upload__uploader__upload-button:hover {
+  opacity: 0.8;
+}
+
 #image-upload__uploader__image-input {
   position: absolute;
   width: 0;
