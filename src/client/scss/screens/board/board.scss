@@ -1,63 +1,47 @@
-#board-wrapper {
+#board__wrap {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
 
-  #board-nav {
-    width: 100%;
-    height: 10%;
-    background-color: olivedrab;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+#board-nav__wrap {
+  width: 100%;
+  height: 10%;
+  background-color: olivedrab;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
-  #board-header {
-    width: 100%;
-    height: 10%;
-    background-color: skyblue;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-  }
+#board-header {
+  width: 100%;
+  height: 10%;
+  background-color: skyblue;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
 
-  #board-main {
-    width: 100%;
-    height: 60%;
-    background-color: yellow;
+#board-contents {
+  width: 100%;
+  height: 60%;
+  background-color: yellow;
+}
 
-    .empty {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+#board-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  #board-pages {
-    width: 100%;
-    height: 10%;
-    background-color: pink;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    div {
-      margin: 10px;
-    }
-
-    .thisPage {
-      background-color: #686de0;
-    }
-  }
-
-  #board-options {
-    width: 100%;
-    height: 10%;
-    background-color: purple;
-  }
+#board-options {
+  width: 100%;
+  height: 10%;
+  background-color: purple;
 }

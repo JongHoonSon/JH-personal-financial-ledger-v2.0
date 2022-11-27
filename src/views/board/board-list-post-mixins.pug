@@ -1,10 +1,10 @@
 mixin list(post)
-    div.post-mixins
-        div.post-seq #{post.seq}
-        div.post-board-name #{post.board.name}
-        div.post-title
+    div.post
+        div.post__seq #{post.seq}
+        div.post__board-name #{post.board.name}
+        div.post__title
             a(href=`/post/detail/${post._id}`) #{post.title}
-        div.post-owner-name 
+        div.post__owner-name 
             a(href=`/user/profile/${post.owner._id}`) #{post.owner.name}
-        div.post-views #{post.views}
-        div.post-stringDate #{post.dateGap}
+        div.post__views #{post.views}
+        div.post__stringDate #{post.dateGap}

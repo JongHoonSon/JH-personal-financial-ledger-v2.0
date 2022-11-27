@@ -2,58 +2,33 @@ extends ../base.pug
 include board-list-post-mixins.pug
 
 block content
-    div#board-wrapper
-        div#board-nav
-            div 
-                a(href=`/board/전체게시판/1`) 전체게시판
-            each board_name in boardList 
-                div
-                    a(href=`/board/${board_name}/1`) #{board_name}
+    div#board__wrap
+        div#board-nav__wrap
+            div.board-nav
+                a(href=`/board/전체게시판/1`).board-nav__link 전체게시판
+            each boardName in boardList 
+                div.board-nav
+                    a(href=`/board/${boardName}/1`).board-nav__link #{boardName}
 
         div#board-header
-            div.post-seq 글 번호
-            div.post-board-name 게시판
-            div.post-title 제목
-            div.post-owner-name 글쓴이
-            div.post-views 조회수
-            div.post-stringDate 작성일
-        div#board-main 
+            div.board-header__seq 글 번호
+            div.board-header__board-name 게시판
+            div.board-header__title 제목
+            div.board-header__owner-name 글쓴이
+            div.board-header__views 조회수
+            div.board-header__stringDate 작성일
+
+        div#board-contents 
             if emptyFlag === true
-                div.empty
+                div#board-empty
                     span 아직 '#{boardName}' 탭에 작성된 글이 없습니다.
             else 
-                ul
+                ul#post-list
                     each post in postList
                         +list(post)
-        div#board-pages(data-thispagenum=thisPageNum, data-lastpagenum=lastPageNum)
-            div
-                a(href=`/board/${boardName}/${thisPageNum-1}`).prevPageBtn <
 
-            if thisPageNum-firstPageNum > 4  
-                div 
-                    a(href=`/board/${boardName}/${firstPageNum}`) #{firstPageNum}
-                div #{`...`}
+        include board-pagination.pug
 
-            -for (var i = 3; i > 0; i--)
-                if thisPageNum-i > 0
-                    div 
-                        a(href=`/board/${boardName}/${thisPageNum-i}`) #{thisPageNum-i}
-
-            div.thisPage
-                a(href=`/board/${boardName}/${thisPageNum}`) #{thisPageNum}
-
-            -for (var j = 1; j < 4; j++)
-                if thisPageNum+j < lastPageNum+1
-                    div 
-                        a(href=`/board/${boardName}/${thisPageNum+j}`) #{thisPageNum+j}
-
-            if lastPageNum-thisPageNum > 4  
-                div #{`...`}
-                div 
-                    a(href=`/board/${boardName}/${lastPageNum}`) #{lastPageNum}
-
-            div
-                a(href=`/board/${boardName}/${thisPageNum+1}`).nextPageBtn >
         div#board-options
             button
                 a(href="/post/add") 글 쓰기

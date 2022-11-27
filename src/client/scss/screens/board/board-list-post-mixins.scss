@@ -1,4 +1,4 @@
-.post-mixins {
+.post {
   width: 100%;
   height: 5%;
   display: flex;
@@ -7,19 +7,19 @@
   text-align: center;
 }
 
-.post-seq,
-.post-board-name,
-.post-owner-name,
-.post-views {
+.post__seq,
+.post__board-name,
+.post__owner-name,
+.post__views {
   width: 10%;
   padding: 10px;
 }
-.post-stringDate {
+.post__stringDate {
   width: 20%;
   padding: 10px;
 }
 
-.post-title {
+.post__title {
   width: 40%;
   padding: 10px;
 }

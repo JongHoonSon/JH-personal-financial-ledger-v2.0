@@ -1,0 +1,16 @@
+#board-pagination {
+  width: 100%;
+  height: 10%;
+  background-color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-pagination__page-btn__wrap {
+  margin: 10px;
+}
+
+.board-pagination__current-page-btn__wrap {
+  background-color: #686de0;
+}
