@@ -47,9 +47,18 @@
   color: $grey-light;
 }
 
-#board-pagination__prev-page-btn,
-#board-pagination__next-page-btn {
-  color: $black;
+.board-pagination__page-btn:hover {
+  color: $grey-deep;
+}
+
+#board-pagination__prev-page-btn i,
+#board-pagination__next-page-btn i {
+  color: $grey-deep;
+}
+
+#board-pagination__prev-page-btn i:hover,
+#board-pagination__next-page-btn i:hover {
+  color: $grey-light;
 }
 
 #board-pagination__current-page-btn {

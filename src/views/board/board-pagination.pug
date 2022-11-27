@@ -1,7 +1,8 @@
 div#board-pagination(data-thispagenum=thisPageNum, data-lastpagenum=lastPageNum)
     // 앞 페이지로 이동하는 버튼 표시
     div#board-pagination__prev-page-btn__wrap
-        a(href=`/board/${boardName}/${thisPageNum-1}`)#board-pagination__prev-page-btn <
+        a(href=`/board/${boardName}/${thisPageNum-1}`)#board-pagination__prev-page-btn
+            i.fa-solid.fa-chevron-left
 
     div#board-pagination__page-btns__wrap
         // 현재 페이지와 첫 페이지의 페이지 수 차이가 4이상일 경우
@@ -38,4 +39,5 @@ div#board-pagination(data-thispagenum=thisPageNum, data-lastpagenum=lastPageNum)
 
     // 뒷 페이지로 이동하는 버튼 표시
     div#board-pagination__next-page-btn__wrap
-        a(href=`/board/${boardName}/${thisPageNum+1}`)#board-pagination__next-page-btn >
+        a(href=`/board/${boardName}/${thisPageNum+1}`)#board-pagination__next-page-btn
+            i.fa-solid.fa-chevron-right
