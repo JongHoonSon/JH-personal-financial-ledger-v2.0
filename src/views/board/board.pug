@@ -5,10 +5,16 @@ block content
     div#board__wrap
         div#board-nav__wrap
             div.board-nav
-                a(href=`/board/전체게시판/1`).board-nav__link 전체게시판
-            each boardName in boardList 
+                if boardName === "전체게시판"
+                    a(href=`/board/전체게시판/1`).board-nav__link#board-nav__link__selected 전체게시판
+                else 
+                    a(href=`/board/전체게시판/1`).board-nav__link 전체게시판
+            each board_name in boardList 
                 div.board-nav
-                    a(href=`/board/${boardName}/1`).board-nav__link #{boardName}
+                    if boardName === board_name
+                        a(href=`/board/${board_name}/1`).board-nav__link#board-nav__link__selected #{board_name}
+                    else 
+                        a(href=`/board/${board_name}/1`).board-nav__link #{board_name}
 
         div#board-header
             div.board-header__seq 글 번호
