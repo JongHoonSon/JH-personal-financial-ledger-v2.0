@@ -1,11 +1,13 @@
 mixin list(post)
     li.post__wrap
-        a(href=`/post/detail/${post._id}`).post__link 
-            ul.post-contents__wrap
-                li.post-content.post__seq #{post.seq}
-                li.post-content.post__board-name #{post.board.name}
-                li.post-content.post__title #{post.title}
-                li.post-content.post__owner-name #{post.owner.name}
-                li.post-content.post__views #{post.views}
-                li.post-content.post__likes #{post.likesUserList.length}
-                li.post-content.post__stringDate #{post.dateGap}
+        ul.post-contents__wrap
+            li.post-content.post-content__seq #{post.seq}
+            li.post-content.post-content__board-name
+                a(href=`/board/${post.board.name}/1`).post-board__link #{post.board.name}
+            li.post-content.post-content__title
+                a(href=`/post/detail/${post._id}`).post__link #{post.title}
+            li.post-content.post-content__owner-name
+                a(href=`/user/profile/${post.owner._id}`).post-owner__link #{post.owner.name}
+            li.post-content.post-content__views #{post.views}
+            li.post-content.post-content__likes #{post.likesUserList.length}
+            li.post-content.post-content__stringDate #{post.dateGap}
