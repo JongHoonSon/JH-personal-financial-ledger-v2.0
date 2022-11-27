@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { getStringDate, getStringFullDate } from "../utils";
+import { createStringDate, getStringDate, getStringFullDate } from "../utils";
+import { createStringFullDate } from "./../utils";
 
 const expenseSchema = new mongoose.Schema({
   type: { type: String, required: true, default: "e" },
@@ -10,12 +11,12 @@ const expenseSchema = new mongoose.Schema({
   createdAtStringDate: {
     type: String,
     required: true,
-    default: getStringDate(new Date()),
+    default: createStringDate,
   },
   createdAtStringFullDate: {
     type: String,
     required: true,
-    default: getStringFullDate(new Date()),
+    default: createStringFullDate,
   },
   amount: { type: Number, required: true },
   description: { type: String },

@@ -64,6 +64,20 @@ export const getStringFullDate = (date) => {
   );
 };
 
+export const createStringDate = () => {
+  const date = new Date();
+  const stringDate = getStringDate(date);
+
+  return stringDate;
+};
+
+export const createStringFullDate = () => {
+  const date = new Date();
+  const stringFullDate = getStringFullDate(date);
+
+  return stringFullDate;
+};
+
 export const getStringAmount = (amount) => {
   const stringAmount = amount.toString();
   const arrAmount = stringAmount.split("");
