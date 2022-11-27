@@ -7,6 +7,13 @@
   align-items: center;
 }
 
+#board-nav__wrap,
+#board-header,
+#board-contents,
+#board-options {
+  min-width: 700px;
+}
+
 #board-nav__wrap {
   width: 60%;
   height: 7%;
