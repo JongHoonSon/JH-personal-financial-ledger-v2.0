@@ -3,7 +3,7 @@ include board-list-post-mixins.pug
 
 block content
     div#board__wrap
-        div#board-nav__wrap
+        div.board-nav__wrap
             div.board-nav
                 if boardName === "전체게시판"
                     a(href=`/board/전체게시판/1`).board-nav__link#board-nav__link__selected 전체게시판
@@ -17,12 +17,12 @@ block content
                         a(href=`/board/${board_name}/1`).board-nav__link #{board_name}
 
         div#board-header
-            div.board-header__seq 글 번호
-            div.board-header__board-name 게시판
-            div.board-header__title 제목
-            div.board-header__owner-name 글쓴이
-            div.board-header__views 조회수
-            div.board-header__stringDate 작성일
+            div.board-header__content#board-header__seq 글 번호
+            div.board-header__content#board-header__board-name 게시판
+            div.board-header__content#board-header__title 제목
+            div.board-header__content#board-header__owner-name 글쓴이
+            div.board-header__content#board-header__views 조회수
+            div.board-header__content#board-header__stringDate 작성일
 
         div#board-contents 
             if emptyFlag === true
