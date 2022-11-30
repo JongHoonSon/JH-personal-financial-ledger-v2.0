@@ -10,7 +10,6 @@
 @import "./components/modal.scss";
 
 // Screens
-@import "./screens/board/board-list-post-mixins.scss";
 @import "./screens/board/board-pagination.scss";
 @import "./screens/board/board.scss";
 
@@ -51,6 +50,7 @@
 @import "./screens/partials/nav.scss";
 
 @import "./screens/post/addPost.scss";
+@import "./screens/post/board-list-post-mixins.scss";
 @import "./screens/post/detailPost.scss";
 @import "./screens/post/editPost.scss";
 

@@ -63,7 +63,8 @@
 }
 
 .board-header__content {
-  width: 15%;
+  width: 5%;
+  min-width: 50px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -81,14 +82,14 @@
   border-right: 2px solid $grey-bright;
 }
 
-#board-header__seq,
-#board-header__views,
-#board-header__likes {
-  width: 10%;
+#board-header__board-name,
+#board-header__owner-name,
+#board-header__stringDate {
+  width: 15%;
 }
 
 #board-header__title {
-  width: 25%;
+  width: 40%;
 }
 
 #board-contents {

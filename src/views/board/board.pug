@@ -1,5 +1,5 @@
 extends ../base.pug
-include board-list-post-mixins.pug
+include ../post/board-list-post-mixins.pug
 
 block content
     div#board__wrap
@@ -22,7 +22,7 @@ block content
             div.board-header__content#board-header__title 제목
             div.board-header__content#board-header__owner-name 작성자
             div.board-header__content#board-header__views 조회수
-            div.board-header__content#board-header__likes 좋아요 수
+            div.board-header__content#board-header__likes 좋아요
             div.board-header__content#board-header__stringDate 작성일
 
         div#board-contents 
