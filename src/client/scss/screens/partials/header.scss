@@ -15,7 +15,7 @@ header {
   justify-content: center;
   align-items: center;
   .header-home__wrap {
-    width: 50%;
+    width: 400px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -33,7 +33,16 @@ header {
       margin-right: 30px;
       .header-nav__welcome,
       .header-nav__option__link {
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         color: $white;
+        i {
+          font-size: 20px;
+          color: $white;
+          margin-right: 8px;
+        }
       }
       .header-nav__option__link:hover {
         text-decoration: underline;
