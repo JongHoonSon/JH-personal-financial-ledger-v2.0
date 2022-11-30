@@ -1,19 +1,24 @@
 extends ../base.pug
 
 block content
-    div.form-wrapper
-        form(method="POST")
-            div.form-input-section
-                div
-                    label(for="title") 제목
-                    input(placeholder="제목", id="title", name="title", type="text", required)
-                div
-                    label(for="boardName") 게시판
-                    select(id="boardName", name="boardName", required)
-                        each board_name in boardList
-                            option(value=`${board_name}`)=board_name
-                div 
-                    label(for="content") 내용
-                    textarea(placeholder="내용", id="content", name="content", type="text", required)
-            div.form-button-section
-                input(type="submit", value="작성하기")
+    div.form-container
+        div.form__wrap#post-form__wrap
+            form(method="POST").form
+                div.form__input-section__wrap
+                    div.input
+                        label(for="title").input__label 제목
+                        div.input__input__wrap
+                            input(placeholder="title", id="title", name="title", type="text", required).input__input
+                    div.input
+                        label(for="boardName").input__label 게시판
+                        div.input__input__wrap
+                            select(id="boardName", name="boardName", required).input__select
+                                each board_name in boardList
+                                    option(value=`${board_name}`)=board_name
+                    div.input
+                        label(for="content").input__label 내용
+                        div.input__textarea__wrap
+                            textarea(placeholder="내용", id="content", name="content", type="text", required).input__textarea
+                div.form__sumbit-section__wrap
+                    div.form__submit
+                        button(type="submit", value="추가하기").submit__item 작성하기

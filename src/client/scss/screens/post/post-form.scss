@@ -1,4 +1,27 @@
 #post-form__wrap {
-  width: 1200px;
-  min-width: 800px;
+  width: 60%;
+  min-width: 700px;
+  background-color: white;
+
+  .input {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .input__label {
+    width: 15%;
+  }
+
+  .input__input__wrap,
+  .input__textarea__wrap {
+    width: 70%;
+  }
+
+  .input__textarea__wrap {
+    height: 400px;
+  }
+}
+
+#post-form__input__textarea__wrap {
+  height: 400px;
 }

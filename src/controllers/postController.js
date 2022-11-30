@@ -10,6 +10,9 @@ export const getAddPost = (req, res) => {
 export const postAddPost = async (req, res) => {
   const { title, boardName, content } = req.body;
 
+  console.log("req.body");
+  console.log(req.body);
+
   const loggedInUser = req.session.user;
   let user;
   try {
