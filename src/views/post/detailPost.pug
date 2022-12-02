@@ -1,39 +1,45 @@
 extends ../base.pug
 
 block content
-    div#detailPost-wrapper 
-        div(data-post_id=post._id)#detailPost
-            div#post-board-name
-                span
-                    a(href=`/board/${post.board.name}/1`) #{post.board.name}
-            div#post-title
-                span #{post.title}
-            div#post-meta
-                div#post-owner
-                    span 
-                        a(href=`/user/profile/${post.owner._id}`) #{post.owner.name}
-                div#post-views
-                    label 조회수
-                    span #{post.views}
-                div#post-likes
-                    label 좋아요
-                    span #{post.likesUserList.length}
-                div#post-stringFullDate
-                    span #{post.createdAtStringFullDate}
-            div#post-content
-                textarea(readonly) #{post.content}
+    div#detail-post__wrap
+        div(data-post_id=post._id)#detail-post
+            div#detail-post__infos__wrap
+                div.detail-post__info__wrap
+                    div#detail-post__board
+                        a(href=`/board/${post.board.name}/1`)#detail-post__board__link #{post.board.name}
+                div.detail-post__info__wrap
+                    div#detail-post__title #{post.title}
+                    div#detail-post__date #{post.createdAtStringFullDate}
+                div.detail-post__info__wrap
+                    div#detail-post__owner
+                        a(href=`/user/profile/${post.owner._id}`)#detail-post__owner__link #{post.owner.name}
+                    div#detail-post__meta-infos__wrap
+                        div#detail-post__views.detail-post__meta-info
+                            label.detail-post__meta-info__label 조회 수 
+                            span.detail-post__meta-info__span #{post.views}
+                        div#detail-post__likes.detail-post__meta-info
+                            label.detail-post__meta-info__label 좋아요 수 
+                            span.detail-post__meta-info__span #{post.likesUserList.length}
+                        div#detail-post__comments.detail-post__meta-info
+                            label.detail-post__meta-info__label 댓글 수 
+                            span.detail-post__meta-info__span #{post.commentList.length}
+                div.detail-post__info__wrap
+                    div#detail-post__url
+                        a(href=`/post/detail/${post._id}`)#detail-post__link localhost:4001/post/detail/#{post._id}
+                        button#detail-post__link__copy-button 복사
+            div#detail-post__content__wrap
+                div#detail-post__content
+                    textarea(readonly)#detail-post__content__textarea #{post.content}
 
-        div#detailPost-option
+        div#detail-post__options__wrap
             if String(post.owner._id) === String(loggedInUser._id)
-                div
-                    a(href=`/post/edit/${post._id}`) 수정
-                div
-                    form(method="POST", action=`/post/delete/${post._id}`)
-                        input(type="submit", value="삭제")
+                div.detail-post__option__wrap
+                    a(href=`/post/edit/${post._id}`).detail-post__option-link 수정
+                div.detail-post__option__wrap
+                    button#detail-post__delete-button.detail-post__option-button 삭제
             else
-                div
-                    form(method="POST", action=`/post/increase-likes/${post._id}`)
-                        input(type="submit", value="좋아요")
+                div.detail-post__option__wrap
+                    button#detail-post__like-button.detail-post__option-button 좋아요
 
 
         include ../comment/comment.pug
