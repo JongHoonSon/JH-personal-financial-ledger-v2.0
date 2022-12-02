@@ -38,14 +38,18 @@ header {
         justify-content: center;
         align-items: center;
         color: $white;
+        font-size: 14px;
         i {
-          font-size: 20px;
+          font-size: 16px;
           color: $white;
           margin-right: 8px;
         }
       }
       .header-nav__option__link:hover {
-        text-decoration: underline;
+        color: $grey-bright;
+      }
+      .header-nav__option__link:hover > i {
+        color: $grey-bright;
       }
     }
   }
