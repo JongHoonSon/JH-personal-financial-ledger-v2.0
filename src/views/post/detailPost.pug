@@ -7,7 +7,7 @@ block content
                 div.detail-post__info__wrap
                     div#detail-post__board
                         a(href=`/board/${post.board.name}/1`)#detail-post__board__link #{post.board.name}
-                div.detail-post__info__wrap
+                div.detail-post__info__wrap#detail-post__title__wrap
                     div#detail-post__title #{post.title}
                     div#detail-post__date #{post.createdAtStringFullDate}
                 div.detail-post__info__wrap
@@ -25,24 +25,27 @@ block content
                             span.detail-post__meta-info__span #{post.commentList.length}
                 div.detail-post__info__wrap
                     div#detail-post__url
-                        a(href=`/post/detail/${post._id}`)#detail-post__link localhost:4001/post/detail/#{post._id}
+                        a(href=`/post/detail/${post._id}`)#detail-post__link
                         button#detail-post__link__copy-button 복사
             div#detail-post__content__wrap
-                div#detail-post__content
-                    textarea(readonly)#detail-post__content__textarea #{post.content}
+                textarea(readonly)#detail-post__content__textarea #{post.content}
 
-        div#detail-post__options__wrap
-            if String(post.owner._id) === String(loggedInUser._id)
-                div.detail-post__option__wrap
-                    a(href=`/post/edit/${post._id}`).detail-post__option-link 수정
-                div.detail-post__option__wrap
-                    button#detail-post__delete-button.detail-post__option-button 삭제
-            else
-                div.detail-post__option__wrap
-                    button#detail-post__like-button.detail-post__option-button 좋아요
+            div#detail-post__options__wrap
+                if String(post.owner._id) === String(loggedInUser._id)
+                    div.detail-post__option__wrap
+                        a(href=`/post/edit/${post._id}`).detail-post__option-link
+                            i.fa-solid.fa-pen-to-square
+                            span.detail-post__option-span 수정
+                    div.detail-post__option__wrap
+                        button#detail-post__delete-button.detail-post__option-button
+                            i.fa-solid.fa-trash-can
+                            span.detail-post__option-span 삭제
+                else
+                    div.detail-post__option__wrap
+                        button#detail-post__like-button.detail-post__option-button 😄 좋아요
 
 
-        include ../comment/comment.pug
+            include ../comment/comment.pug
 
 block scripts
     script(src="/assets/js/post.js") 
