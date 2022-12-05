@@ -13,6 +13,17 @@ const increaseView = () => {
 
 increaseView();
 
+const autoResizeTextarea = () => {
+  const textarea = document.getElementById("detail-post__content__textarea");
+
+  if (textarea) {
+    const scrollHeight = textarea.scrollHeight;
+    textarea.style.height = `${scrollHeight + 8}px`;
+  }
+};
+
+autoResizeTextarea();
+
 const postLikeButton = document.getElementById("detail-post__like-button");
 
 if (postLikeButton) {
