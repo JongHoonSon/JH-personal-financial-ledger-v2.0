@@ -1,6 +1,10 @@
 const detailPost = document.getElementById("detail-post");
 const { post_id } = detailPost.dataset;
 
+const detailPostLink = document.getElementById("detail-post__link");
+
+detailPostLink.innerText = location.href;
+
 const increaseView = () => {
   fetch(`/post/increase-views/${post_id}`, {
     method: "POST",
@@ -39,3 +43,15 @@ if (postDeleteButton) {
 
   postDeleteButton.addEventListener("click", deletePost);
 }
+
+const detailPostLinkCopy = document.getElementById(
+  "detail-post__link__copy-button"
+);
+
+const copyPostLink = () => {
+  navigator.clipboard
+    .writeText(location.href)
+    .then(() => alert("링크 복사 완료!"));
+};
+
+detailPostLinkCopy.addEventListener("click", copyPostLink);
