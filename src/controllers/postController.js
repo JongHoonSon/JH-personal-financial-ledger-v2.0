@@ -195,9 +195,25 @@ export const getDetailPost = async (req, res) => {
     req.flash("error", "게시글을 찾을 수 없습니다.");
     return res.status(404).redirect("/");
   }
-  return res
-    .status(200)
-    .render("post/detailPost", { pageTitle: "글 상세보기", post });
+
+  const user = req.session.user;
+
+  let alreadyLiked = false;
+
+  for (let i = 0; i < post.likesUserList.length; i++) {
+    if (String(post.likesUserList[i]._id) === String(user._id)) {
+      alreadyLiked = true;
+      break;
+    }
+  }
+
+  console.log("alreadyLiked", alreadyLiked);
+
+  return res.status(200).render("post/detailPost", {
+    pageTitle: "글 상세보기",
+    post,
+    alreadyLiked,
+  });
 };
 
 export const postIncreaseViewsPost = async (req, res) => {
@@ -218,7 +234,7 @@ export const postIncreaseViewsPost = async (req, res) => {
   }
 };
 
-export const postIncreaseLikesPost = async (req, res) => {
+export const postToggleLikesPost = async (req, res) => {
   const { postId } = req.params;
 
   const loggedInUser = req.session.user;
@@ -249,17 +265,46 @@ export const postIncreaseLikesPost = async (req, res) => {
   }
 
   let alreadyIn = false;
+  let indexInLikesUserList;
 
   for (let i = 0; i < post.likesUserList.length; i++) {
     if (String(post.likesUserList[i]._id) === String(user._id)) {
       alreadyIn = true;
+      indexInLikesUserList = i;
       break;
     }
   }
 
   if (alreadyIn) {
-    req.flash("error", "이미 이 게시글의 좋아요를 눌렀습니다.");
-    return res.status(200).redirect(`/post/detail/${postId}`);
+    try {
+      post.likesUserList.splice(indexInLikesUserList, 1);
+      await post.save();
+    } catch (error) {
+      console.log(error);
+      req.flash(
+        "error",
+        "게시글 정보를 갱신하는 과정에서 오류가 발생했습니다."
+      );
+      return res.status(500).redirect("/board/전체게시판/1");
+    }
+
+    try {
+      let indexInPostList;
+      user.likesPostList.forEach((post, index) => {
+        if (String(post._id) === postId) {
+          indexInPostList = index;
+        }
+      });
+      user.likesPostList.splice(indexInPostList, 1);
+      await user.save();
+    } catch (error) {
+      console.log(error);
+      req.flash("error", "유저 정보를 갱신하는 과정에서 오류가 발생했습니다.");
+      return res.status(500).redirect("/board/전체게시판/1");
+    }
+
+    req.flash("success", "좋아요 취소 완료");
+    return res.sendStatus(200);
   } else {
     try {
       post.likesUserList.push(user);
@@ -283,7 +328,7 @@ export const postIncreaseLikesPost = async (req, res) => {
     }
 
     req.flash("success", "좋아요 완료");
-    return res.status(200).redirect(`/post/detail/${postId}`);
+    return res.sendStatus(200);
   }
 };
 

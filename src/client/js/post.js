@@ -27,13 +27,13 @@ autoResizeTextarea();
 const postLikeButton = document.getElementById("detail-post__like-button");
 
 if (postLikeButton) {
-  const increateLike = () => {
-    fetch(`/post/increase-likes/${post_id}`, {
+  const toggleLike = () => {
+    fetch(`/post/toggle-likes/${post_id}`, {
       method: "POST",
-    }).then(() => alert("좋아요 성공"));
+    }).then(() => location.reload());
   };
 
-  postLikeButton.addEventListener("click", increateLike);
+  postLikeButton.addEventListener("click", toggleLike);
 }
 
 const postDeleteButton = document.getElementById("detail-post__delete-button");

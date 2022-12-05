@@ -42,7 +42,10 @@ block content
                             span.detail-post__option-span 삭제
                 else
                     div.detail-post__option__wrap
-                        button#detail-post__like-button.detail-post__option-button 😄 좋아요
+                        if alreadyLiked
+                            button#detail-post__like-button.detail-post__option-button 😅 좋아요 취소
+                        else 
+                            button#detail-post__like-button.detail-post__option-button 😄 좋아요
 
 
             include ../comment/comment.pug
