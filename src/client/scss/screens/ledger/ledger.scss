@@ -2,7 +2,7 @@
   position: absolute;
   right: 30px;
   bottom: 30px;
-  background-color: $green;
+  background-color: $green-deep;
   padding: 10px;
   border-radius: 50%;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -13,7 +13,7 @@
 }
 
 #add-item__button:hover {
-  background-color: $green-deep;
+  opacity: 0.8;
 }
 
 #ledger__wrap {
