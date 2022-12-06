@@ -12,7 +12,9 @@ block content
                     div#detail-post__date #{post.createdAtStringFullDate}
                 div.detail-post__info__wrap
                     div#detail-post__owner
-                        a(href=`/user/profile/${post.owner._id}`)#detail-post__owner__link #{post.owner.name}
+                        a(href=`/user/profile/${post.owner._id}`)#detail-post__owner__link
+                            img(src=`/${post.owner.avatarUrl}`)#detail-post__owner-avatar
+                            span#detail-post__owner-name #{post.owner.name}
                     div#detail-post__meta-infos__wrap
                         div#detail-post__views.detail-post__meta-info
                             label.detail-post__meta-info__label 조회 수 

@@ -31,7 +31,7 @@
 }
 
 #detail-post__board {
-  height: 40px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +53,7 @@
 
 #detail-post__title,
 #detail-post__date {
-  height: 40px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,18 +72,30 @@
 
 #detail-post__owner,
 #detail-post__meta-infos__wrap {
-  height: 30px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #detail-post__owner__link {
-  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#detail-post__owner-avatar {
+  width: 22px;
+  height: 22px;
+  margin-right: 3px;
+}
+
+#detail-post__owner-name {
+  font-size: 13px;
   color: $grey;
 }
 
-#detail-post__owner__link:hover {
+#detail-post__owner-name:hover {
   color: $red-deep;
 }
 
