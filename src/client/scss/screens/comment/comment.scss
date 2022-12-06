@@ -8,6 +8,9 @@
 
 #comment-form__wrap {
   width: 100%;
+  border-top: 2px solid $grey;
+  border-bottom: 2px solid $grey;
+  margin-bottom: 10px;
 }
 
 #comment-form {
