@@ -27,12 +27,12 @@
   font-size: 14px;
 }
 
-.post-content.post-content__board-name,
-.post-content.post-content__stringDate {
+.post-content__board-name,
+.post-content__stringDate {
   width: 15%;
 }
 
-.post-content.post-content__owner-info {
+.post-content__owner-info {
   width: 20%;
 }
 
@@ -41,9 +41,15 @@
   width: 35%;
 }
 
+.post-owner__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .post-board__link,
 .post__link,
-.post-owner__link {
+.post-owner-name {
   width: 100%;
   padding: 15px;
   color: $grey-deep;
@@ -55,8 +61,13 @@
   box-sizing: border-box;
 }
 
+.post-owner-name {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .post-board__link:hover,
-.post-owner__link:hover {
+.post-owner-name:hover {
   color: $red-deep;
 }
 
@@ -65,7 +76,7 @@
 }
 
 .post-owner-avatar {
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
 }
