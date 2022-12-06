@@ -1,7 +1,7 @@
 import { Chart } from "chart.js";
 
-const chartWrapper = document.getElementById("chart__wrap");
-const chartDataArr = JSON.parse(chartWrapper.dataset.chartdataarr);
+const chartWrap = document.getElementById("chart__wrap");
+const chartDataArr = JSON.parse(chartWrap.dataset.chartdataarr);
 
 console.log(chartDataArr);
 
