@@ -3,7 +3,7 @@ extends ../base.pug
 block content
     div.container
         div#detail-item__wrap
-            div#detail-item__options__wrap(style=`background-color: ${item.type === "i" ? '#008FB9' : '#ff7043'}`)
+            div#detail-item__options__wrap(style=`background-color: ${item.type === "i" ? '#00a8ff' : '#ff7043'}`)
                 ul#detail-item__options
                     li.detail-item__options__option
                         form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
