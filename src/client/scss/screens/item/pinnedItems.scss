@@ -24,6 +24,18 @@
   grid-gap: 50px;
 }
 
+#pinned-items__empty__wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pinned-items__empty {
+  color: $grey-deep;
+}
+
 @media (max-width: 1800px) {
   #pinned-items__list {
     grid-template-columns: repeat(4, 1fr);
