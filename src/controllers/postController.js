@@ -207,8 +207,6 @@ export const getDetailPost = async (req, res) => {
     }
   }
 
-  console.log("alreadyLiked", alreadyLiked);
-
   return res.status(200).render("post/detailPost", {
     pageTitle: "글 상세보기",
     post,
