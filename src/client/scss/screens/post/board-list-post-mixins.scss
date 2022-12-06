@@ -66,8 +66,15 @@
   padding-right: 0px;
 }
 
+.post-owner__link {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .post-board__link:hover,
-.post-owner-name:hover {
+.post-owner__link:hover > .post-owner-name {
   color: $red-deep;
 }
 

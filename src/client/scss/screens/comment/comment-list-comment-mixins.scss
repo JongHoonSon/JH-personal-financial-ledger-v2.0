@@ -60,7 +60,7 @@
   font-weight: 600;
 }
 
-.comment-owner__link:hover {
+.comment-owner__link:hover > .comment-owner-name {
   color: $red-deep;
 }
 

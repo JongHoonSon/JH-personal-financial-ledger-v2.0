@@ -96,7 +96,7 @@
   color: $grey;
 }
 
-#detail-post__owner-name:hover {
+#detail-post__owner__link:hover > #detail-post__owner-name {
   color: $red-deep;
 }
 
