@@ -5,11 +5,13 @@ const commentDeleteBtns = document.querySelectorAll(".comment__delete-btn");
 const commentLikeBtns = document.querySelectorAll(".comment__like-btn");
 
 const handleDeleteComment = (event) => {
-  const { comment_id } = event.target.dataset;
+  if (confirm("이 댓글을 삭제하시겠습니까?")) {
+    const { comment_id } = event.target.dataset;
 
-  fetch(`/comment/delete/${post_id}/${comment_id}`, {
-    method: "POST",
-  }).then(() => location.reload());
+    fetch(`/comment/delete/${post_id}/${comment_id}`, {
+      method: "POST",
+    }).then(() => location.reload());
+  }
 };
 
 commentDeleteBtns.forEach((commentDeleteBtn) => {
