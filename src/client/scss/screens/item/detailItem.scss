@@ -86,7 +86,11 @@
   border-bottom: 5px solid rgba(255, 255, 255, 0.3);
 }
 
-#detail-item__contents__item__description,
+#detail-item__contents__item__description {
+  height: auto;
+  color: $white;
+}
+
 #detail-item__contents__item__image {
   height: 30%;
   color: $white;
@@ -116,12 +120,13 @@
   color: $white;
 }
 
-.detail-item__contents__item__p {
+.detail-item__contents__item__pre {
   width: 80%;
   padding: 0 30px;
   font-weight: 600;
   word-break: break-all;
   box-sizing: border-box;
+  line-height: 1.5;
 }
 
 #detail-item__contents__item__image__image {
