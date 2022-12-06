@@ -169,7 +169,7 @@ export const postIncreaseLikesComment = async (req, res) => {
 
   if (alreadyIn) {
     req.flash("error", "이미 이 댓글의 좋아요를 눌렀습니다.");
-    return res.status(200).redirect(`/post/detail/${postId}`);
+    return res.sendStatus(200);
   } else {
     try {
       comment.likesUserList.push(user);
@@ -190,7 +190,7 @@ export const postIncreaseLikesComment = async (req, res) => {
     }
 
     req.flash("success", "좋아요 완료");
-    return res.status(200).redirect(`/post/detail/${postId}`);
+    return res.sendStatus(200);
   }
 };
 
