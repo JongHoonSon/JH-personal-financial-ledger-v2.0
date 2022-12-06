@@ -30,7 +30,7 @@ block content
                         a(href=`/post/detail/${post._id}`)#detail-post__link
                         button#detail-post__link__copy-button 복사
             div#detail-post__content__wrap
-                textarea(readonly)#detail-post__content__textarea #{post.content}
+                pre#detail-post__content #{post.content}
 
             div#detail-post__options__wrap
                 if String(post.owner._id) === String(loggedInUser._id)
