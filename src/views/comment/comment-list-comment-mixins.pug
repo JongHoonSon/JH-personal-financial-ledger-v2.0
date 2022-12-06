@@ -1,22 +1,22 @@
 mixin list(comment)
-    div#comment(data-comment_id=comment._id)
-        div#comment-main
-            span #{comment.owner.name}
-            span #{comment.content}
-            textarea.comment-content-edit-textarea.hidden #{comment.content}
-            span #{comment.createdAtStringFullDate}
-            span #{comment.likes}
-        div#comment-options
-            if String(comment.owner._id) === String(loggedInUser._id)
-                button.comment-edit-btn 수정
-                button.comment-delete-btn
-                    form(method="POST", action=`/comment/delete/${comment.post._id}/${comment._id}`)
-                        input(type="submit", value="삭제")
-                button.comment-edit-confirm-btn.hidden 확정
-                button.comment-edit-cancel-btn.hidden 취소
-            else
-                button.comment-likes-btn
-                    form(method="POST", action=`/comment/increase-likes/${comment.post._id}/${comment._id}`)
-                        input(type="submit", value="좋아요")
+    div.comment
+        div.comment-info__wrap
+            div.comment-info__left
+                div.comment-owner
+                    a(href=`/user/profile/${comment.owner._id}`).comment-owner__link
+                        img(src=`/${comment.owner.avatarUrl}`).comment-owner-avatar
+                        span.comment-owner-name #{comment.owner.name}
+                span.comment-create-date #{comment.createdAtStringFullDate}
+                i(data-comment_id=comment._id).fa-regular.fa-thumbs-up.comment__like-btn
+                span.comment__like-counter #{comment.likesUserList.length}
+            div.comment-info__right
+                if String(comment.owner._id) === String(loggedInUser._id)
+                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-btn 수정
+                    button(data-comment_id=comment._id).comment__option-btn.comment__delete-btn 삭제
+                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-confirm-btn.hidden 확정
+                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-cancel-btn.hidden 취소
 
-            span 좋아요 #{comment.likesUserList.length}
+        div.comment-content__wrap
+            pre.comment-content #{comment.content}
+            textarea.comment-content__edit-textarea.hidden #{comment.content}
+       
