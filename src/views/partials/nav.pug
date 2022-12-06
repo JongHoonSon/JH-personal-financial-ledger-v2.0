@@ -1,12 +1,6 @@
 nav
     ul.main-nav__list
         if loggedIn 
-            li.main-nav__option
-                if pageTitle === "수입 내역 추가" || pageTitle === "지출 내역 추가"
-                    a(href="/item/add/i").main-nav__option__link#main-nav__selected 수입/지출 내역 추가
-                else
-                    a(href="/item/add/i").main-nav__option__link 수입/지출 내역 추가
-
             li.main-nav__option 
                 if pageTitle === "일별 내역" || pageTitle === "주별 내역" || pageTitle === "월별 내역" || pageTitle === "연도별 내역"
                     a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/all`).main-nav__option__link#main-nav__selected 가계부

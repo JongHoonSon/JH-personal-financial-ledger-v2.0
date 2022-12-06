@@ -3,6 +3,9 @@ include ledger-list-item-mixins.pug
 
 block content 
     div#ledger__wrap
+        a(href="/item/add/i")#add-item__button
+            i.fa-solid.fa-plus
+
         include ledger_nav.pug
 
         include ledger_calendar.pug
