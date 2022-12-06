@@ -1,15 +1,12 @@
 include comment-list-comment-mixins.pug
 
-div#comment-wrapper
-    div#add-comment
-        form(method="POST", action=`/comment/add/${post._id}`)
-            div#add-comment-input
-                div
-                    input(placeholder="댓글 내용...", id="content", name="content", type="text", required)
-            div#addcomment-button
-                input(type="submit", value="작성하기")
+div#comment__wrap
+    div#comment-form__wrap
+        form(method="POST", action=`/comment/add/${post._id}`)#comment-form
+            textarea(placeholder="댓글 내용...", name="content", type="text", required)#comment-form__input
+            input(type="submit", value="작성하기")#comment-form__button
 
-
-    div#comment-list
-        each comment in post.commentList 
-            +list(comment)
+    div#comment-list__wrap
+        div#commnet-list
+            each comment in post.commentList 
+                +list(comment)
