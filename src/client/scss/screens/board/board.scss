@@ -83,13 +83,16 @@
 }
 
 #board-header__board-name,
-#board-header__owner-name,
 #board-header__stringDate {
   width: 15%;
 }
 
+#board-header__owner-name {
+  width: 20%;
+}
+
 #board-header__title {
-  width: 40%;
+  width: 35%;
 }
 
 #board-contents {
