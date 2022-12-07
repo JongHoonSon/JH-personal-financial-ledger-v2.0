@@ -6,6 +6,7 @@ import itemController from "./itemController";
 import lastExpenseController from "./lastExpenseController";
 import ledgerController from "./ledgerController";
 import postController from "./postController";
+import userController from "./userController";
 
 export {
   boardController,
@@ -16,4 +17,5 @@ export {
   lastExpenseController,
   ledgerController,
   postController,
+  userController,
 };
