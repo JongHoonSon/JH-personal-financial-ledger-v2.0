@@ -1,9 +1,9 @@
 extends ../base.pug
-include lastExpense-list-item-mixins.pug
+include last-expense-item-mixin.pug
 
 block content 
     div#last-expense__wrap
-        include lastExpense_header.pug
+        include last-expense-header.pug
         
         ul#last-expense__list
             each item in lastExpenseList

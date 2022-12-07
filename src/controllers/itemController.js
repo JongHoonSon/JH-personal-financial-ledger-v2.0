@@ -33,7 +33,7 @@ export const getAddItem = async (req, res) => {
 
   const { incomeCategories, expenseCategories } = user;
 
-  return res.render("item/addItem", {
+  return res.render("item/add-item/add-item", {
     pageTitle,
     itemType,
     incomeCategories,
@@ -125,7 +125,7 @@ export const getEditItem = async (req, res) => {
 
   const { incomeCategories, expenseCategories } = user;
 
-  return res.render("item/editItem", {
+  return res.render("item/edit-item/edit-item", {
     pageTitle: "내역 수정",
     item,
     itemType,
@@ -234,7 +234,7 @@ export const getDetailItem = async (req, res) => {
 
   const item = checkResult.item;
 
-  return res.render("item/detailItem", {
+  return res.render("item/detail-item/detail-item", {
     pageTitle: "상세 내역",
     item,
   });
@@ -275,7 +275,10 @@ export const getPinnedItems = async (req, res) => {
 
   sortItem(itemList);
 
-  return res.render("item/pinnedItems", { pageTitle: "핀 목록", itemList });
+  return res.render("item/pinned-items/pinned-items", {
+    pageTitle: "핀 목록",
+    itemList,
+  });
 };
 
 export const postPinning = async (req, res) => {

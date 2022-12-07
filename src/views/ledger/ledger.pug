@@ -1,14 +1,14 @@
 extends ../base.pug
-include ledger-list-item-mixins.pug
+include ledger-item-mixin.pug
 
 block content 
     div#ledger__wrap
         a(href="/item/add/i")#add-item__button
             i.fa-solid.fa-plus
 
-        include ledger_nav.pug
+        include ledger-nav.pug
 
-        include ledger_calendar.pug
+        include ledger-calendar.pug
 
         div#ledger-content
             div#ledger-content__header

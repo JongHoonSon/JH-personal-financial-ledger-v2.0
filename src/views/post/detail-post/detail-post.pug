@@ -1,4 +1,4 @@
-extends ../base.pug
+extends ../../base.pug
 
 block content
     div#detail-post__wrap
@@ -50,7 +50,7 @@ block content
                             button#detail-post__like-button.detail-post__option-button 😄 좋아요
 
 
-            include ../comment/comment.pug
+            include detail-post-comments.pug
 
 block scripts
     script(src="/assets/js/post.js") 

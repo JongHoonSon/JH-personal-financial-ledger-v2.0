@@ -1,71 +1,78 @@
-// Config
+// config
 @import "./config/_reset.scss";
 @import "./config/_variables.scss";
 
-// Components
+// components
 @import "./components/container.scss";
 @import "./components/form.scss";
-@import "./components/image_upload.scss";
+@import "./components/image-upload.scss";
 @import "./components/image.scss";
 @import "./components/modal.scss";
 
-// Screens
+// screens
+
+// screens/board
 @import "./screens/board/board-pagination.scss";
+@import "./screens/board/board-post-mixin.scss";
 @import "./screens/board/board.scss";
 
-@import "./screens/comment/comment-list-comment-mixins.scss";
-@import "./screens/comment/comment.scss";
+// screens/chart
+@import "./screens/chart/chart-item-mixin.scss";
+@import "./screens/chart/chart-nav.scss";
+@import "./screens/chart/chart.scss";
 
-@import "./screens/etc/chart_nav.scss";
-@import "./screens/etc/chart-list-item-mixins.scss";
-@import "./screens/etc/chart.scss";
-@import "./screens/etc/lastExpense_header.scss";
-@import "./screens/etc/lastExpense-list-item-mixins.scss";
-@import "./screens/etc/lastExpense.scss";
-
+// screens/global
 @import "./screens/global/home.scss";
 @import "./screens/global/join.scss";
 @import "./screens/global/login.scss";
 
-@import "./screens/item/addItem_nav.scss";
-@import "./screens/item/addItem.scss";
-@import "./screens/item/detailItem.scss";
-@import "./screens/item/editItem.scss";
-@import "./screens/item/pinned-list-item-mixins.scss";
-@import "./screens/item/pinnedItems.scss";
+// screens/item
+@import "./screens/item/add-item/add-item-nav.scss";
+@import "./screens/item/add-item/add-item.scss";
+@import "./screens/item/detail-item/detail-item.scss";
+@import "./screens/item/edit-item/edit-item.scss";
+@import "./screens/item/pinned-items/pinned-items-item-mixin.scss";
+@import "./screens/item/pinned-items/pinned-items.scss";
 
-@import "./screens/ledger/ledger_calendar.scss";
-@import "./screens/ledger/ledger_nav.scss";
-@import "./screens/ledger/ledger-list-item-mixins.scss";
+// screens/last-expense
+@import "./screens/last-expense/last-expense-header.scss";
+@import "./screens/last-expense/last-expense-item-mixin.scss";
+@import "./screens/last-expense/last-expense.scss";
+
+// screens/last-expense
+@import "./screens/ledger/ledger-calendar.scss";
+@import "./screens/ledger/ledger-item-mixin.scss";
+@import "./screens/ledger/ledger-nav.scss";
 @import "./screens/ledger/ledger.scss";
 
-@import "./screens/mixins/message.scss";
+// screens/modal
+@import "./screens/modal/flash-message/flash-message.scss";
+@import "./screens/modal/user-own-categories/user-own-categories-category-mixin.scss";
+@import "./screens/modal/user-own-categories/user-own-categories-nav.scss";
+@import "./screens/modal/user-own-categories/user-own-categories.scss";
 
-@import "./screens/partials/footer.scss";
+// screens/partials
 @import "./screens/partials/footer.scss";
 @import "./screens/partials/header.scss";
 @import "./screens/partials/main.scss";
 @import "./screens/partials/nav.scss";
 
-@import "./screens/partials/main.scss";
-@import "./screens/partials/nav.scss";
-
-@import "./screens/post/board-list-post-mixins.scss";
-@import "./screens/post/detailPost.scss";
+// screens/post
+@import "./screens/post/detail-post/comment-list-comment-mixin.scss";
+@import "./screens/post/detail-post/detail-post-comments.scss";
+@import "./screens/post/detail-post/detail-post.scss";
 @import "./screens/post/post-form.scss";
 
-@import "./screens/user/editUserPassword.scss";
-@import "./screens/user/editUserProfile.scss";
-@import "./screens/user/user-list-category-mixins.scss";
-@import "./screens/user/user-list-comment-mixins.scss";
-@import "./screens/user/user-list-content-mixins.scss";
-@import "./screens/user/user-list-post-mixins.scss";
-@import "./screens/user/userOwnCategories.scss";
-@import "./screens/user/userOwnCategories_nav.scss";
-@import "./screens/user/userOwnComments.scss";
-@import "./screens/user/userOwnContents.scss";
-@import "./screens/user/userOwnPosts.scss";
-@import "./screens/user/userProfile.scss";
+// screens/post
+@import "./screens/user/detail-user/detail-user.scss";
+@import "./screens/user/detail-user/user-own-comments-comment-mixin.scss";
+@import "./screens/user/detail-user/user-own-comments.scss";
+@import "./screens/user/detail-user/user-own-contents-content-mixin.scss";
+@import "./screens/user/detail-user/user-own-contents.scss";
+@import "./screens/user/detail-user/user-own-posts-post-mixin.scss";
+@import "./screens/user/detail-user/user-own-posts.scss";
+@import "./screens/user/edit-user/edit-user-password.scss";
+@import "./screens/user/edit-user/edit-user-profile.scss";
 
-// Custom
+// custom
 @import "./custom/_custom.scss";

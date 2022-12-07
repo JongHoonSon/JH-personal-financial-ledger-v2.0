@@ -21,7 +21,7 @@ export const getUserProfile = async (req, res) => {
   const joinDate = getStringDate(user.joinDate);
   const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
-  res.render("user/userProfile", {
+  res.render("user/detail-user/detail-user", {
     pageTitle,
     user,
     isMyProfile,
@@ -41,7 +41,7 @@ export const getEditUserProfile = async (req, res) => {
 
   const user = checkResult.user;
 
-  return res.render("user/editUserProfile", {
+  return res.render("user/edit-user/edit-user-profile", {
     pageTitle: "프로필 수정",
     user,
   });
@@ -120,7 +120,9 @@ export const getEditUserPassword = async (req, res) => {
     return checkResult.return;
   }
 
-  return res.render("user/editUserPassword", { pageTitle: "비밀번호 변경" });
+  return res.render("user/edit-user/edit-user-password", {
+    pageTitle: "비밀번호 변경",
+  });
 };
 
 export const postEditUserPassword = async (req, res) => {
@@ -202,7 +204,7 @@ export const getUserOwnCategories = async (req, res) => {
     pageTitle = `${user.nickname} 님의 지출 카테고리`;
   }
 
-  res.render("user/userOwnCategories", {
+  res.render("modal/user-own-categories/user-own-categories", {
     pageTitle,
     userCategories,
     categoryType,
@@ -291,7 +293,7 @@ export const getUserOwnPosts = async (req, res) => {
   const joinDate = getStringDate(user.joinDate);
   const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
-  res.render("user/userOwnPosts", {
+  res.render("user/detail-user/user-own-posts", {
     pageTitle: `${user.nickname} 님의 작성 글`,
     user,
     joinDate,
@@ -322,7 +324,7 @@ export const getUserOwnComments = async (req, res) => {
   const joinDate = getStringDate(user.joinDate);
   const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
-  res.render("user/userOwnComments", {
+  res.render("user/detail-user/user-own-comments", {
     pageTitle: `${user.nickname} 님의 작성 댓글`,
     user,
     joinDate,

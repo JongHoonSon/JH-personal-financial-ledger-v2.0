@@ -4,7 +4,9 @@ import Post from "../models/Post";
 import { unauthorizedAccess } from "../middlewares";
 
 export const getAddPost = (req, res) => {
-  return res.status(200).render("post/addPost", { pageTitle: "글 작성" });
+  return res
+    .status(200)
+    .render("post/add-post/add-post", { pageTitle: "글 작성" });
 };
 
 export const postAddPost = async (req, res) => {
@@ -81,7 +83,7 @@ export const getEditPost = async (req, res) => {
 
   return res
     .status(200)
-    .render("post/editPost", { pageTitle: "게시글 수정", post });
+    .render("post/edit-post/edit-post", { pageTitle: "게시글 수정", post });
 };
 
 export const postEditPost = async (req, res) => {
@@ -207,7 +209,7 @@ export const getDetailPost = async (req, res) => {
     }
   }
 
-  return res.status(200).render("post/detailPost", {
+  return res.status(200).render("post/detail-post/detail-post", {
     pageTitle: "글 상세보기",
     post,
     alreadyLiked,

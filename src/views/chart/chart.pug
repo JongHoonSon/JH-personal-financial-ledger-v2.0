@@ -1,9 +1,9 @@
 extends ../base.pug
-include chart-list-item-mixins.pug
+include chart-item-mixin.pug
 
 block content 
     div#chart__wrap(data-chartdataarr=`${JSON.stringify(chartDataArr)}`)
-        include chart_nav.pug
+        include chart-nav.pug
 
         div#chart-contents
             div#chart-canvas__wrap

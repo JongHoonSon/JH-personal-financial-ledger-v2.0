@@ -82,7 +82,7 @@ export const getChart = async (req, res) => {
     chartDataArr.push(chartData);
   }
 
-  return res.render("etc/chart", {
+  return res.render("chart/chart", {
     pageTitle: "소비 리포트",
     type,
     days,
@@ -139,7 +139,7 @@ export const getLastExpense = async (req, res) => {
     }
   }
 
-  return res.render("etc/lastExpense", {
+  return res.render("last-expense/last-expense", {
     pageTitle: "마지막 지출일",
     lastExpenseList,
   });
