@@ -1,28 +1,27 @@
 import express from "express";
 import { loggedInUserOnly } from "../middlewares";
-import {
-  postAddComment,
-  postDeleteComment,
-  postEditComment,
-  postIncreaseLikesComment,
-} from "../controllers/commentController";
+import { commentController } from "../controllers";
 
 const commentRouter = express.Router();
 
-commentRouter.post("/add/:postId", loggedInUserOnly, postAddComment);
+commentRouter.post(
+  "/add/:postId",
+  loggedInUserOnly,
+  commentController.postAddComment
+);
 commentRouter.post(
   "/edit/:postId/:commentId",
   loggedInUserOnly,
-  postEditComment
+  commentController.postEditComment
 );
 commentRouter.post(
   "/delete/:postId/:commentId",
   loggedInUserOnly,
-  postDeleteComment
+  commentController.postDeleteComment
 );
 commentRouter.post(
   "/increase-likes/:postId/:commentId",
-  postIncreaseLikesComment
+  commentController.postIncreaseLikesComment
 );
 
 export default commentRouter;
