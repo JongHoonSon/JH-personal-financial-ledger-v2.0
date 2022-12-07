@@ -1,4 +1,10 @@
 import express from "express";
+import morgan from "morgan";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import flash from "express-flash";
+import cookieParser from "cookie-parser";
+import passport from "passport";
 import {
   boardRouter,
   chartRouter,
@@ -10,12 +16,6 @@ import {
   postRouter,
   userRouter,
 } from "./routers";
-import morgan from "morgan";
-import session from "express-session";
-import MongoStore from "connect-mongo";
-import flash from "express-flash";
-import cookieParser from "cookie-parser";
-import passport from "passport";
 import {
   localMiddleware,
   createObjectMiddleware,
@@ -29,6 +29,8 @@ app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 
 app.use("/assets", express.static("assets"));
+app.use("/defaults", express.static("defaults"));
+app.use("/uploads", express.static("uploads"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -52,8 +54,6 @@ app.use(logger);
 app.use(createObjectMiddleware);
 app.use(localMiddleware);
 app.use(logHistory);
-app.use("/defaults", express.static("defaults"));
-app.use("/uploads", express.static("uploads"));
 
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
