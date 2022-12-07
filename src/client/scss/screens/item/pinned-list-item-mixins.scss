@@ -3,7 +3,8 @@
   font-style: "normal";
   font-weight: 600;
   /* 브라우저&디바이스 환경에 따른 font 파일 위치 정의 */
-  src: url("/defaults/fonts/나눔손글씨가람연꽃.ttf");
+  // font : 나눔손글씨가람연꽃
+  src: url("/defaults/fonts/pinned-item-font.ttf");
 }
 
 .pinned-items__list__item {
@@ -14,7 +15,7 @@
   height: 250px;
   box-sizing: border-box;
   margin: auto;
-  background: url("/defaults/images/post-it_image2.png");
+  background: url("/defaults/images/post-it-image.png");
   background-size: 100%;
   background-repeat: no-repeat;
   opacity: 0.9;
