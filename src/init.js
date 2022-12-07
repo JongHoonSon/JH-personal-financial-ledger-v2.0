@@ -6,7 +6,7 @@ import "./models/Income";
 import "./models/Board";
 import "./models/Post";
 import "./models/Comment";
-import app from "./server";
+import app from "./app";
 
 const PORT = process.env.PORT || 4001;
 
