@@ -4,6 +4,6 @@ import { loggedInUserOnly } from "../middlewares";
 
 const lastExpenseRouter = express.Router();
 
-lastExpenseRouter.get("/last-expense", loggedInUserOnly, getLastExpense);
+lastExpenseRouter.get("/", loggedInUserOnly, getLastExpense);
 
 export default lastExpenseRouter;

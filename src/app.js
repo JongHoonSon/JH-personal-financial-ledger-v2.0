@@ -1,10 +1,15 @@
 import express from "express";
-import ledgerRouter from "./routers/ledgerRouter";
-import itemRouter from "./routers/itemRouter";
-import globalRouter from "./routers/globalRouter";
-import userRouter from "./routers/userRouter";
-import etcRouter from "./routers/etcRouter";
-import boardRouter from "./routers/boardRouter";
+import {
+  boardRouter,
+  chartRouter,
+  commentRouter,
+  globalRouter,
+  itemRouter,
+  lastExpenseRouter,
+  ledgerRouter,
+  postRouter,
+  userRouter,
+} from "./routers";
 import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -16,8 +21,6 @@ import {
   createObjectMiddleware,
   logHistory,
 } from "./middlewares";
-import postRouter from "./routers/postRouter";
-import commentRouter from "./routers/CommentRouter";
 
 const app = express();
 const logger = morgan("dev");
@@ -51,13 +54,15 @@ app.use(localMiddleware);
 app.use(logHistory);
 app.use("/defaults", express.static("defaults"));
 app.use("/uploads", express.static("uploads"));
-app.use("/", globalRouter);
+
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
 app.use("/ledger", ledgerRouter);
 app.use("/board", boardRouter);
 app.use("/post", postRouter);
 app.use("/comment", commentRouter);
-app.use("/etc", etcRouter);
+app.use("/chart", chartRouter);
+app.use("/last-expense", lastExpenseRouter);
+app.use("/", globalRouter);
 
 export default app;

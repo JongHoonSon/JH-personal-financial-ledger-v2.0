@@ -4,6 +4,6 @@ import { loggedInUserOnly } from "../middlewares";
 
 const chartRouter = express.Router();
 
-chartRouter.get("/chart/:type/:days", loggedInUserOnly, getChart);
+chartRouter.get("/:type/:days", loggedInUserOnly, getChart);
 
 export default chartRouter;
