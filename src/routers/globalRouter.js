@@ -1,21 +1,21 @@
 import express from "express";
-import {
-  finishGoogleLogin,
-  getHome,
-  getJoin,
-  getLogin,
-  logout,
-  postJoin,
-  postLogin,
-} from "../controllers/globalController";
+import { globalController } from "../controllers";
 import { loggedInUserOnly, publicOnly } from "../middlewares";
 import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
 
-globalRouter.route("/").get(getHome);
-globalRouter.route("/join").all(publicOnly).get(getJoin).post(postJoin);
-globalRouter.route("/login").all(publicOnly).get(getLogin).post(postLogin);
+globalRouter.route("/").get(globalController.getHome);
+globalRouter
+  .route("/join")
+  .all(publicOnly)
+  .get(globalController.getJoin)
+  .post(globalController.postJoin);
+globalRouter
+  .route("/login")
+  .all(publicOnly)
+  .get(globalController.getLogin)
+  .post(globalController.postLogin);
 globalRouter.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -23,9 +23,9 @@ globalRouter.get(
 globalRouter.get(
   "/auth/google/callback",
   passport.authenticate("google"),
-  finishGoogleLogin
+  globalController.finishGoogleLogin
 );
 
-globalRouter.get("/logout", loggedInUserOnly, logout);
+globalRouter.get("/logout", loggedInUserOnly, globalController.logout);
 
 export default globalRouter;
