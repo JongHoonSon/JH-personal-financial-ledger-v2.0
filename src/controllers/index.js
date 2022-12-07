@@ -5,6 +5,7 @@ import globalController from "./globalController";
 import itemController from "./itemController";
 import lastExpenseController from "./lastExpenseController";
 import ledgerController from "./ledgerController";
+import postController from "./postController";
 
 export {
   boardController,
@@ -14,4 +15,5 @@ export {
   itemController,
   lastExpenseController,
   ledgerController,
+  postController,
 };

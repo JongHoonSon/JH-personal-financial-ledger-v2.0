@@ -1,14 +1,5 @@
 import express from "express";
-import {
-  getAddPost,
-  getDetailPost,
-  getEditPost,
-  postAddPost,
-  postDeletePost,
-  postEditPost,
-  postIncreaseViewsPost,
-  postToggleLikesPost,
-} from "../controllers/postController";
+import { postController } from "../controllers";
 import { loggedInUserOnly } from "../middlewares";
 
 const postRouter = express.Router();
@@ -16,16 +7,27 @@ const postRouter = express.Router();
 postRouter
   .route("/add")
   .all(loggedInUserOnly)
-  .get(getAddPost)
-  .post(postAddPost);
+  .get(postController.getAddPost)
+  .post(postController.postAddPost);
 postRouter
   .route("/edit/:postId")
   .all(loggedInUserOnly)
-  .get(getEditPost)
-  .post(postEditPost);
-postRouter.post("/delete/:postId", loggedInUserOnly, postDeletePost);
-postRouter.get("/detail/:postId", loggedInUserOnly, getDetailPost);
-postRouter.post("/increase-views/:postId", postIncreaseViewsPost);
-postRouter.post("/toggle-likes/:postId", postToggleLikesPost);
+  .get(postController.getEditPost)
+  .post(postController.postEditPost);
+postRouter.post(
+  "/delete/:postId",
+  loggedInUserOnly,
+  postController.postDeletePost
+);
+postRouter.get(
+  "/detail/:postId",
+  loggedInUserOnly,
+  postController.getDetailPost
+);
+postRouter.post(
+  "/increase-views/:postId",
+  postController.postIncreaseViewsPost
+);
+postRouter.post("/toggle-likes/:postId", postController.postToggleLikesPost);
 
 export default postRouter;
