@@ -5,7 +5,9 @@ import Post from "../models/Post";
 class PostController {
   async getAddPost(req, res) {
     const boardList = await Board.find({});
-    const boardNameList = boardList.map((board) => board.name);
+    const boardNameList = boardList
+      .filter((board) => board.name !== "전체게시판")
+      .map((board) => board.name);
 
     return res.status(200).render("post/add-post/add-post", {
       pageTitle: "글 작성",
@@ -113,7 +115,9 @@ class PostController {
     }
 
     const boardList = await Board.find({});
-    const boardNameList = boardList.map((board) => board.name);
+    const boardNameList = boardList
+      .filter((board) => board.name !== "전체게시판")
+      .map((board) => board.name);
 
     return res.status(200).render("post/edit-post/edit-post", {
       pageTitle: "게시글 수정",
