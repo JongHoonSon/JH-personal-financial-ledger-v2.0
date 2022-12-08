@@ -21,6 +21,7 @@ class BoardController {
       });
     } else {
       let board;
+
       try {
         board = await Board.findOne({
           name: boardName,
@@ -28,9 +29,9 @@ class BoardController {
           path: "postList",
           populate: [{ path: "board" }, { path: "owner" }],
         });
+
         totalPostList = board.postList;
       } catch (error) {
-        console.log(error);
         req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
         return res.status(500).redirect("/");
       }
