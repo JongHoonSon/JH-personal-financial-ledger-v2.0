@@ -5,9 +5,11 @@ class BoardController {
   async getBoard(req, res) {
     const { boardName, pageNum } = req.params;
 
+    const selectedBoardName = boardName;
+
     let board;
     try {
-      board = await Board.findOne({ name: boardName }).populate({
+      board = await Board.findOne({ name: selectedBoardName }).populate({
         path: "postList",
         populate: [{ path: "board" }, { path: "owner" }],
       });
@@ -52,21 +54,25 @@ class BoardController {
 
     if (thisPageNum < firstPageNum || thisPageNum > lastPageNum) {
       req.flash("error", "잘못된 접근입니다.");
-      return res.status(404).redirect(`/board/${boardName}/1`);
+      return res.status(404).redirect(`/board/${selectedBoardName}/1`);
     }
 
     postList.forEach((el) => {
       el.dateGap = getTimeDiff(el.createdAt);
     });
 
+    const boardList = await Board.find({});
+    const boardNameList = boardList.map((board) => board.name);
+
     return res.status(200).render("board/board", {
       pageTitle: "게시판",
       postList,
-      boardName,
+      selectedBoardName,
       thisPageNum,
       firstPageNum,
       lastPageNum,
       emptyFlag,
+      boardNameList,
     });
   }
 }

@@ -1,37 +1,6 @@
 import multer from "multer";
-import Board from "./models/Board";
 
 export const uploadFiles = multer({ dest: "uploads/" });
-
-export const createObjectMiddleware = async (req, res, next) => {
-  const boardList = ["전체게시판", "수다", "질문", "꿀팁공유", "핫딜", "기타"];
-
-  for (let i = 0; i < boardList.length; i++) {
-    let boardExists;
-    try {
-      boardExists = await Board.exists({ name: boardList[i] });
-    } catch (error) {
-      console.log(error);
-      req.flash(
-        "error",
-        `${boardList[i]} 게시판을 불러오는 과정에서 오류가 발생했습니다.`
-      );
-    }
-    if (!boardExists) {
-      try {
-        await Board.create({ name: boardList[i] });
-      } catch (error) {
-        console.log(error);
-        req.flash(
-          "error",
-          `${boardList[i]} 게시판을 생성하는 과정에서 오류가 발생했습니다.`
-        );
-      }
-    }
-  }
-
-  next();
-};
 
 export const localMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -42,8 +11,6 @@ export const localMiddleware = (req, res, next) => {
   res.locals.thisYear = date.getFullYear().toString();
   res.locals.thisMonth = (date.getMonth() + 1).toString().padStart(2, 0);
   res.locals.thisDay = date.getDate().toString().padStart(2, 0);
-
-  res.locals.boardList = ["수다", "질문", "꿀팁공유", "핫딜", "기타"];
 
   next();
 };

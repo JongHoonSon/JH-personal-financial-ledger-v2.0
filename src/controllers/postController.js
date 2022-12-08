@@ -3,10 +3,14 @@ import Board from "../models/Board";
 import Post from "../models/Post";
 
 class PostController {
-  getAddPost(req, res) {
-    return res
-      .status(200)
-      .render("post/add-post/add-post", { pageTitle: "글 작성" });
+  async getAddPost(req, res) {
+    const boardList = await Board.find({});
+    const boardNameList = boardList.map((board) => board.name);
+
+    return res.status(200).render("post/add-post/add-post", {
+      pageTitle: "글 작성",
+      boardNameList,
+    });
   }
 
   async postAddPost(req, res) {
@@ -108,9 +112,14 @@ class PostController {
       return res.status(403).redirect("/");
     }
 
-    return res
-      .status(200)
-      .render("post/edit-post/edit-post", { pageTitle: "게시글 수정", post });
+    const boardList = await Board.find({});
+    const boardNameList = boardList.map((board) => board.name);
+
+    return res.status(200).render("post/edit-post/edit-post", {
+      pageTitle: "게시글 수정",
+      post,
+      boardNameList,
+    });
   }
 
   async postEditPost(req, res) {

@@ -4,14 +4,9 @@ include ./board-post-mixin.pug
 block content
     div#board__wrap
         div#board-nav__wrap
-            div.board-nav
-                if boardName === "전체게시판"
-                    a(href=`/board/전체게시판/1`).board-nav__link#board-nav__link__selected 전체게시판
-                else 
-                    a(href=`/board/전체게시판/1`).board-nav__link 전체게시판
-            each board_name in boardList 
+            each board_name in boardNameList 
                 div.board-nav
-                    if boardName === board_name
+                    if selectedBoardName === board_name
                         a(href=`/board/${board_name}/1`).board-nav__link#board-nav__link__selected #{board_name}
                     else 
                         a(href=`/board/${board_name}/1`).board-nav__link #{board_name}
@@ -28,7 +23,7 @@ block content
         div#board-contents 
             if emptyFlag === true
                 div#board-empty
-                    span 아직 '#{boardName}' 탭에 작성된 글이 없습니다.
+                    span 아직 '#{selectedBoardName}' 게시판에 작성된 글이 없습니다.
             else 
                 ul#post-list
                     each post in postList

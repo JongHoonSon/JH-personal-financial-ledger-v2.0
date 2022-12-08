@@ -16,11 +16,7 @@ import {
   postRouter,
   userRouter,
 } from "./routers";
-import {
-  localMiddleware,
-  createObjectMiddleware,
-  logHistory,
-} from "./middlewares";
+import { localMiddleware, logHistory } from "./middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -51,7 +47,6 @@ app.use(passport.session());
 
 app.use(flash());
 app.use(logger);
-app.use(createObjectMiddleware);
 app.use(localMiddleware);
 app.use(logHistory);
 
