@@ -69,7 +69,7 @@ class BoardController {
       }
 
       postList.forEach((post) => {
-        post.dateGap = getCreatedTime(post.createdAt);
+        post.createdTime = getCreatedTime(post.createdAt);
       });
     }
 
