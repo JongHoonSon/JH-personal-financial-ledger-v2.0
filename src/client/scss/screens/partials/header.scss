@@ -32,7 +32,7 @@ header {
     .header-nav__option {
       margin-right: 30px;
       .header-nav__welcome,
-      .header-nav__option__link {
+      .header-nav__option-link {
         height: 20px;
         display: flex;
         justify-content: center;
@@ -45,10 +45,10 @@ header {
           margin-right: 8px;
         }
       }
-      .header-nav__option__link:hover {
+      .header-nav__option-link:hover {
         color: $grey-bright;
       }
-      .header-nav__option__link:hover > i {
+      .header-nav__option-link:hover > i {
         color: $grey-bright;
       }
     }
