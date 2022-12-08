@@ -5,9 +5,7 @@ import Post from "../models/Post";
 class PostController {
   async getAddPost(req, res) {
     const boardList = await Board.find({});
-    const boardNameList = boardList
-      .filter((board) => board.name !== "전체게시판")
-      .map((board) => board.name);
+    const boardNameList = boardList.map((board) => board.name);
 
     return res.status(200).render("post/add-post/add-post", {
       pageTitle: "글 작성",
@@ -17,9 +15,6 @@ class PostController {
 
   async postAddPost(req, res) {
     const { title, boardName, content } = req.body;
-
-    console.log("req.body");
-    console.log(req.body);
 
     const loggedInUser = req.session.user;
     let user;
@@ -35,19 +30,13 @@ class PostController {
       return res.status(404).redirect("/");
     }
 
-    let totalBoard;
     let board;
     try {
-      totalBoard = await Board.findOne({ name: "전체게시판" });
       board = await Board.findOne({ name: boardName });
     } catch (error) {
       console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
+      req.flash("error", "게시판을 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!totalBoard) {
-      req.flash("error", "전체게시판을 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
     if (!board) {
       req.flash("error", `${boardName} 게시판을 찾을 수 없습니다.`);
@@ -62,10 +51,8 @@ class PostController {
         content,
       });
       user.postList.push(newPost);
-      totalBoard.postList.push(newPost);
       board.postList.push(newPost);
       await user.save();
-      await totalBoard.save();
       await board.save();
       req.flash("success", "게시글을 작성하였습니다.");
       return res.status(200).redirect(`/post/detail/${newPost._id}`);
@@ -115,9 +102,7 @@ class PostController {
     }
 
     const boardList = await Board.find({});
-    const boardNameList = boardList
-      .filter((board) => board.name !== "전체게시판")
-      .map((board) => board.name);
+    const boardNameList = boardList.map((board) => board.name);
 
     return res.status(200).render("post/edit-post/edit-post", {
       pageTitle: "게시글 수정",
@@ -129,6 +114,8 @@ class PostController {
   async postEditPost(req, res) {
     const { postId } = req.params;
     const { title, boardName, content } = req.body;
+
+    const newBoardName = boardName;
 
     let post;
     try {
@@ -166,19 +153,22 @@ class PostController {
     }
 
     try {
-      post.board.postList = post.board.postList.filter((el) => {
-        if (String(el._id) !== String(post.id)) {
-          return true;
-        }
-      });
-      await post.board.save();
+      if (newBoardName !== post.board.name) {
+        post.board.postList = post.board.postList.filter((el) => {
+          if (String(el._id) !== String(post.id)) {
+            return true;
+          }
+        });
+        await post.board.save();
 
-      const board = await Board.findOne({ name: boardName });
-      board.postList.push(post);
-      await board.save();
+        const board = await Board.findOne({ name: newBoardName });
+        board.postList.push(post);
+        await board.save();
+
+        post.board = board;
+      }
 
       post.title = title;
-      post.board = board;
       post.content = content;
       await post.save();
 
@@ -230,31 +220,14 @@ class PostController {
     }
 
     try {
-      user.postList = user.postList.filter((el) => {
-        if (String(el._id) !== String(post.id)) {
-          return true;
-        }
-      });
+      user.postList = user.postList.filter(
+        (el) => String(el._id) !== String(post.id)
+      );
       await user.save();
 
-      const totalBoard = await Board.findOne({ name: "전체게시판" });
-      if (!totalBoard) {
-        req.flash("error", "전체게시판을 찾을 수 없습니다.");
-        return res.status(404).redirect("/");
-      }
-
-      totalBoard.postList = totalBoard.postList.filter((el) => {
-        if (String(el._id) !== String(post.id)) {
-          return true;
-        }
-      });
-      await totalBoard.save();
-
-      post.board.postList = post.board.postList.filter((el) => {
-        if (String(el._id) !== String(post.id)) {
-          return true;
-        }
-      });
+      post.board.postList = post.board.postList.filter(
+        (el) => String(el._id) !== String(post.id)
+      );
       await post.board.save();
 
       await Post.findByIdAndDelete(postId);

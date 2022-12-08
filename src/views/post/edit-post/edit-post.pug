@@ -12,9 +12,12 @@ block content
                     div.input
                         label(for="boardName").input__label 게시판
                         div.input__input__wrap
-                            select(id="boardName", name="boardName", value=`${post.board.name}` required).input__select
+                            select(id="boardName", name="boardName" required).input__select
                                 each board_name in boardNameList
-                                    option(value=`${board_name}`)=board_name
+                                    if board_name === post.board.name
+                                        option(value=`${board_name}` selected)=board_name
+                                    else
+                                        option(value=`${board_name}`)=board_name
                     div.input
                         label(for="content").input__label 내용
                         div.input__textarea__wrap

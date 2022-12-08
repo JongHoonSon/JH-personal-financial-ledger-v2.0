@@ -4,6 +4,11 @@ include ./board-post-mixin.pug
 block content
     div#board__wrap
         div#board-nav__wrap
+            div.board-nav
+                if selectedBoardName === "전체게시판"
+                    a(href=`/board/전체게시판/1`).board-nav__link#board-nav__link__selected 전체게시판
+                else 
+                    a(href=`/board/전체게시판/1`).board-nav__link 전체게시판
             each board_name in boardNameList 
                 div.board-nav
                     if selectedBoardName === board_name
