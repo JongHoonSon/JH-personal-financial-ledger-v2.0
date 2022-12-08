@@ -66,7 +66,7 @@ sumbitButtonIcon.addEventListener("click", async (e) => {
   // 현재 추가하려는 카테고리의 타입이 income 인지 expense 인지를 선택된 Tab의 data 값을 이용해 파악
   const selectedTab = document.querySelector(".selected-tab");
 
-  const categoryType = selectedTab.dataset.categorytype;
+  const categoryType = selectedTab.dataset.category_type;
 
   const response = await fetch(`/user/add/category/${categoryType}`, {
     method: "POST",
@@ -91,7 +91,7 @@ const categoryDeleteBtnIcons = document.querySelectorAll(
 const handleDeleteCategory = async (event) => {
   const selectedTab = document.querySelector(".selected-tab");
 
-  const categoryType = selectedTab.dataset.categorytype;
+  const categoryType = selectedTab.dataset.category_type;
 
   const categoryName = event.target.dataset.category;
 
