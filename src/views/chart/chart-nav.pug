@@ -3,34 +3,34 @@ div#chart-nav
         ul#chart-nav-type__list
             li.chart-nav-type__list-item
                 if type === "income"
-                    a(href=`/etc/chart/income/${days}`)#chart-nav-type__list-item__selected 수입
+                    a(href=`/chart/income/${days}`)#chart-nav-type__list-item__selected 수입
                 else 
-                    a(href=`/etc/chart/income/${days}`) 수입
+                    a(href=`/chart/income/${days}`) 수입
             li.chart-nav-type__list-item
                 if type === "expense"
-                    a(href=`/etc/chart/expense/${days}`)#chart-nav-type__list-item__selected 지출
+                    a(href=`/chart/expense/${days}`)#chart-nav-type__list-item__selected 지출
                 else
-                    a(href=`/etc/chart/expense/${days}`) 지출
+                    a(href=`/chart/expense/${days}`) 지출
 
     div#chart-nav-days
         ul#chart-nav-days__list
             li.chart-nav-days__list-item
                 if days === "7"
-                    a(href=`/etc/chart/${type}/7`)#chart-nav-days__list-item__selected 최근 7일
+                    a(href=`/chart/${type}/7`)#chart-nav-days__list-item__selected 최근 7일
                 else
-                    a(href=`/etc/chart/${type}/7`) 최근 7일
+                    a(href=`/chart/${type}/7`) 최근 7일
             li.chart-nav-days__list-item
                 if days === "30"
-                    a(href=`/etc/chart/${type}/30`)#chart-nav-days__list-item__selected 최근 30일
+                    a(href=`/chart/${type}/30`)#chart-nav-days__list-item__selected 최근 30일
                 else
-                    a(href=`/etc/chart/${type}/30`) 최근 30일
+                    a(href=`/chart/${type}/30`) 최근 30일
             li.chart-nav-days__list-item
                 if days === "90"
-                    a(href=`/etc/chart/${type}/90`)#chart-nav-days__list-item__selected 최근 90일
+                    a(href=`/chart/${type}/90`)#chart-nav-days__list-item__selected 최근 90일
                 else
-                    a(href=`/etc/chart/${type}/90`) 최근 90일
+                    a(href=`/chart/${type}/90`) 최근 90일
             li.chart-nav-days__list-item
                 if days === "365"
-                    a(href=`/etc/chart/${type}/365`)#chart-nav-days__list-item__selected 최근 365일
+                    a(href=`/chart/${type}/365`)#chart-nav-days__list-item__selected 최근 365일
                 else
-                    a(href=`/etc/chart/${type}/365`) 최근 365일
+                    a(href=`/chart/${type}/365`) 최근 365일
