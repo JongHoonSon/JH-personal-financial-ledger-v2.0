@@ -1,33 +1,33 @@
 import express from "express";
 import { itemController } from "../controllers";
-import { checkUserLoggedIn, imageUploader } from "../middlewares";
+import { loginRequiredPage, imageUploader } from "../middlewares";
 
 const itemRouter = express.Router();
 
 itemRouter
   .route("/add/:itemType")
-  .all(checkUserLoggedIn)
+  .all(loginRequiredPage)
   .get(itemController.getAddItem)
   .post(imageUploader.single("image"), itemController.postAddItem);
 itemRouter
   .route("/edit/:itemType/:itemId")
-  .all(checkUserLoggedIn)
+  .all(loginRequiredPage)
   .get(itemController.getEditItem)
   .post(imageUploader.single("image"), itemController.postEditItem);
 itemRouter.post(
   "/delete/:itemType/:itemId",
-  checkUserLoggedIn,
+  loginRequiredPage,
   itemController.postDeleteItem
 );
 itemRouter.get(
   "/detail/:itemType/:itemId",
-  checkUserLoggedIn,
+  loginRequiredPage,
   itemController.getDetailItem
 );
-itemRouter.get("/pinned", checkUserLoggedIn, itemController.getPinnedItems);
+itemRouter.get("/pinned", loginRequiredPage, itemController.getPinnedItems);
 itemRouter.post(
   "/pinning/:itemType/:itemId",
-  checkUserLoggedIn,
+  loginRequiredPage,
   itemController.postPinning
 );
 

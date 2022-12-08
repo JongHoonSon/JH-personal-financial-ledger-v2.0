@@ -1,4 +1,4 @@
-const checkUserAnonymous = (req, res, next) => {
+const anonymousUserPage = (req, res, next) => {
   if (!req.session.loggedIn) {
     next();
   } else {
@@ -7,4 +7,4 @@ const checkUserAnonymous = (req, res, next) => {
   }
 };
 
-export default checkUserAnonymous;
+export default anonymousUserPage;

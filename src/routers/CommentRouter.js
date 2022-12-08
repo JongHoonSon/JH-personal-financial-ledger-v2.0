@@ -1,22 +1,22 @@
 import express from "express";
-import { checkUserLoggedIn } from "../middlewares";
+import { loginRequiredPage } from "../middlewares";
 import { commentController } from "../controllers";
 
 const commentRouter = express.Router();
 
 commentRouter.post(
   "/add/:postId",
-  checkUserLoggedIn,
+  loginRequiredPage,
   commentController.postAddComment
 );
 commentRouter.post(
   "/edit/:postId/:commentId",
-  checkUserLoggedIn,
+  loginRequiredPage,
   commentController.postEditComment
 );
 commentRouter.post(
   "/delete/:postId/:commentId",
-  checkUserLoggedIn,
+  loginRequiredPage,
   commentController.postDeleteComment
 );
 commentRouter.post(

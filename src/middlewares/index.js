@@ -1,13 +1,13 @@
 import localMiddleware from "./localMiddleware";
-import checkUserLoggedIn from "./checkUserLoggedIn";
-import checkUserAnonymous from "./checkUserAnonymous";
+import loginRequiredPage from "./loginRequiredPage";
+import anonymousUserPage from "./anonymousUserPage";
 import imageUploader from "./imageUploader";
 import logHistory from "./logHistory";
 
 export {
   localMiddleware,
-  checkUserLoggedIn,
-  checkUserAnonymous,
+  loginRequiredPage,
+  anonymousUserPage,
   imageUploader,
   logHistory,
 };

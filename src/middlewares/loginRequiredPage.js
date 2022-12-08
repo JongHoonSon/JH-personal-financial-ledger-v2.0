@@ -1,4 +1,4 @@
-const checkUserLoggedIn = (req, res, next) => {
+const loginRequiredPage = (req, res, next) => {
   if (req.session.loggedIn) {
     next();
   } else {
@@ -7,4 +7,4 @@ const checkUserLoggedIn = (req, res, next) => {
   }
 };
 
-export default checkUserLoggedIn;
+export default loginRequiredPage;

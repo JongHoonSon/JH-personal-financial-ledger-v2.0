@@ -1,12 +1,12 @@
 import express from "express";
 import { boardController } from "../controllers";
-import { checkUserLoggedIn } from "../middlewares";
+import { loginRequiredPage } from "../middlewares";
 
 const boardRouter = express.Router();
 
 boardRouter.get(
   "/:boardName/:pageNum",
-  checkUserLoggedIn,
+  loginRequiredPage,
   boardController.getBoard
 );
 
