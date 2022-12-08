@@ -7,7 +7,7 @@
   src: url("/defaults/fonts/pinned-item-font.ttf");
 }
 
-.pinned-items__list__item {
+.pinned-items__item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,11 +21,11 @@
   opacity: 0.9;
 }
 
-.pinned-items__list__item:hover {
+.pinned-items__item:hover {
   transform: scale(1.03);
 }
 
-.pinned-items__list__item__link {
+.pinned-items__item__link {
   width: 100%;
   height: 100%;
   display: flex;
@@ -34,7 +34,7 @@
   opacity: 1;
 }
 
-.pinned-items__list__item-contents {
+.pinned-items__item-contents {
   width: 80%;
   height: 85%;
   display: flex;
@@ -43,7 +43,7 @@
   align-items: center;
 }
 
-.pinned-items__list__item-contents-content {
+.pinned-items__item-content {
   display: block;
   width: 80%;
   height: 20px;
@@ -57,12 +57,12 @@
   text-align: center;
 }
 
-.pinned-items__list__item-contents-content-description {
+.pinned-items__item-content-description {
   padding: 0 20px;
   box-sizing: border-box;
 }
 
-.pinned-items__list__item-contents-content-amount {
+.pinned-items__item-content-amount {
   margin-top: 20px;
   font-size: 22px;
 }
