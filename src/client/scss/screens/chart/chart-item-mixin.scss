@@ -1,0 +1,16 @@
+.chart-item {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .chart-item-content {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $grey;
+    font-size: 14px;
+  }
+}

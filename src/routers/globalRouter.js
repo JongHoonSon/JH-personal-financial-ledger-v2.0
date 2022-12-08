@@ -1,31 +1,31 @@
 import express from "express";
-import {
-  finishGoogleLogin,
-  getHome,
-  getJoin,
-  getLogin,
-  logout,
-  postJoin,
-  postLogin,
-} from "../controllers/globalController";
-import { loggedInUserOnly, publicOnly } from "../middlewares";
+import { globalController } from "../controllers";
+import { loginRequiredPage, anonymousUserPage } from "../middlewares";
 import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
 
-globalRouter.route("/").get(getHome);
-globalRouter.route("/join").all(publicOnly).get(getJoin).post(postJoin);
-globalRouter.route("/login").all(publicOnly).get(getLogin).post(postLogin);
+globalRouter.route("/").get(loginRequiredPage, globalController.getHome);
+globalRouter
+  .route("/join")
+  .get(anonymousUserPage, globalController.getJoin)
+  .post(globalController.postJoin);
+globalRouter
+  .route("/login")
+  .get(anonymousUserPage, globalController.getLogin)
+  .post(globalController.postLogin);
 globalRouter.get(
   "/auth/google",
+  anonymousUserPage,
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 globalRouter.get(
   "/auth/google/callback",
+  anonymousUserPage,
   passport.authenticate("google"),
-  finishGoogleLogin
+  globalController.finishGoogleLogin
 );
 
-globalRouter.get("/logout", loggedInUserOnly, logout);
+globalRouter.get("/logout", loginRequiredPage, globalController.logout);
 
 export default globalRouter;

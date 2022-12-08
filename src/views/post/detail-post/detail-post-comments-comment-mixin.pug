@@ -1,0 +1,22 @@
+mixin list(comment)
+    div.comment
+        div.comment-info__wrap
+            div.comment-info__left
+                div.comment-owner
+                    a(href=`/user/profile/${comment.owner._id}`).comment-owner__link
+                        img(src=comment.owner.avatarUrl).comment-owner-avatar
+                        span.comment-owner-name #{comment.owner.name}
+                span.comment-create-date #{comment.createdAtStringFullDate}
+                i(data-comment_id=comment._id).fa-regular.fa-thumbs-up.comment__like-btn
+                span.comment__like-counter #{comment.likesUserList.length}
+            div.comment-info__right
+                if String(comment.owner._id) === String(loggedInUser._id)
+                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-btn 수정
+                    button(data-comment_id=comment._id).comment__option-btn.comment__delete-btn 삭제
+                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-confirm-btn.hidden 확정
+                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-cancel-btn.hidden 취소
+
+        div.comment-content__wrap
+            pre.comment-content #{comment.content}
+            textarea.comment-content__edit-textarea.hidden #{comment.content}
+       

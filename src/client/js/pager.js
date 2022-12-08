@@ -1,14 +1,14 @@
-const pagination = document.querySelector("#board-pagination");
-const prevPageBtn = document.querySelector("#board-pagination__prev-page-btn");
-const nextPageBtn = document.querySelector("#board-pagination__next-page-btn");
+const pagination = document.getElementById("board-pagination");
+const prevPageBtn = document.getElementById("board-pagination__prev-page-btn");
+const nextPageBtn = document.getElementById("board-pagination__next-page-btn");
 
-if (Number(pagination.dataset.thispagenum) === 1) {
+if (Number(pagination.dataset.curr_page_num) === 1) {
   prevPageBtn.href = "";
 }
 
 if (
-  Number(pagination.dataset.thispagenum) ===
-  Number(pagination.dataset.lastpagenum)
+  Number(pagination.dataset.curr_page_num) ===
+  Number(pagination.dataset.last_page_num)
 ) {
   nextPageBtn.href = "";
 }

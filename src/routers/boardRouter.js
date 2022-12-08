@@ -1,9 +1,13 @@
 import express from "express";
-import { getBoard } from "../controllers/boardController";
-import { loggedInUserOnly } from "../middlewares";
+import { boardController } from "../controllers";
+import { loginRequiredPage } from "../middlewares";
 
 const boardRouter = express.Router();
 
-boardRouter.get("/:boardName/:pageNum", loggedInUserOnly, getBoard);
+boardRouter.get(
+  "/:boardName/:pageNum",
+  loginRequiredPage,
+  boardController.getBoard
+);
 
 export default boardRouter;

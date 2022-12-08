@@ -1,33 +1,28 @@
 import express from "express";
-import {
-  getLedgerDaily,
-  getLedgerWeekly,
-  getLedgerMonthly,
-  getLedgerYearly,
-} from "../controllers/ledgerController";
-import { loggedInUserOnly } from "../middlewares";
+import { ledgerController } from "../controllers";
+import { loginRequiredPage } from "../middlewares";
 
 const ledgerRouter = express.Router();
 
 ledgerRouter.get(
   "/:yyyy([0-9]{4})-:mm([0-9]{2})-:dd([0-9]{2})/daily/:itemType",
-  loggedInUserOnly,
-  getLedgerDaily
+  loginRequiredPage,
+  ledgerController.getLedgerDaily
 );
 ledgerRouter.get(
   "/:yyyy([0-9]{4})-:mm([0-9]{2})-:dd([0-9]{2})/weekly/:itemType",
-  loggedInUserOnly,
-  getLedgerWeekly
+  loginRequiredPage,
+  ledgerController.getLedgerWeekly
 );
 ledgerRouter.get(
   "/:yyyy([0-9]{4})-:mm([0-9]{2})/monthly/:itemType",
-  loggedInUserOnly,
-  getLedgerMonthly
+  loginRequiredPage,
+  ledgerController.getLedgerMonthly
 );
 ledgerRouter.get(
   "/:yyyy([0-9]{4})/yearly/:itemType",
-  loggedInUserOnly,
-  getLedgerYearly
+  loginRequiredPage,
+  ledgerController.getLedgerYearly
 );
 
 export default ledgerRouter;

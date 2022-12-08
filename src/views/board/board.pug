@@ -1,20 +1,20 @@
 extends ../base.pug
-include ../post/board-list-post-mixins.pug
+include ./board-post-mixin.pug
 
 block content
     div#board__wrap
         div#board-nav__wrap
             div.board-nav
-                if boardName === "전체게시판"
+                if selectedBoardName === "전체게시판"
                     a(href=`/board/전체게시판/1`).board-nav__link#board-nav__link__selected 전체게시판
                 else 
                     a(href=`/board/전체게시판/1`).board-nav__link 전체게시판
-            each board_name in boardList 
+            each boardName in boardNameList 
                 div.board-nav
-                    if boardName === board_name
-                        a(href=`/board/${board_name}/1`).board-nav__link#board-nav__link__selected #{board_name}
+                    if selectedBoardName === boardName
+                        a(href=`/board/${boardName}/1`).board-nav__link#board-nav__link__selected #{boardName}
                     else 
-                        a(href=`/board/${board_name}/1`).board-nav__link #{board_name}
+                        a(href=`/board/${boardName}/1`).board-nav__link #{boardName}
 
         div#board-header
             div.board-header__content#board-header__seq 글 번호
@@ -26,9 +26,9 @@ block content
             div.board-header__content#board-header__stringDate 작성일
 
         div#board-contents 
-            if emptyFlag === true
+            if isBoardEmpty
                 div#board-empty
-                    span 아직 '#{boardName}' 탭에 작성된 글이 없습니다.
+                    span 아직 '#{selectedBoardName}' 게시판에 작성된 글이 없습니다.
             else 
                 ul#post-list
                     each post in postList

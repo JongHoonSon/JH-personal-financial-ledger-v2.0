@@ -1,0 +1,235 @@
+#user-profile__wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#user-profile__top {
+  width: 100%;
+  height: 40%;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $grey;
+  box-sizing: border-box;
+}
+
+#user-profile__top__left__wrap,
+#user-profile__top__right__wrap {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-profile__top__left__wrap {
+  width: 50%;
+}
+
+#user-profile__top__right__wrap {
+  width: 50%;
+}
+
+#user-profile__user-image__wrap {
+  width: 200px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 50px;
+  box-sizing: border-box;
+}
+
+#user-profile__user-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid $grey-deep;
+}
+
+#user-profile__user-infos {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-profile__user-nickname__wrap {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+#user-profile__user-nickname {
+  width: 100%;
+  height: 50%;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 58px;
+  font-weight: bold;
+  color: $white;
+}
+
+#user-profile__user-options {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.user-profile__user-option__wrap {
+  width: 100%;
+  margin-left: 5px;
+  box-sizing: border-box;
+  .user-profile__user-option__link {
+    font-size: 12px;
+    color: $grey-light;
+    i {
+      font-size: 14px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.user-profile__user-option__wrap:first-child {
+  margin-bottom: 10px;
+}
+
+.user-profile__user-info__wrap {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  .user-profile__user-info {
+    font-size: 12px;
+    color: $grey-light;
+    margin-bottom: 10px;
+  }
+}
+
+#user-profile__user-contents {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user-profile__user-content__wrap {
+  width: 150px;
+  height: 150px;
+  background-color: $grey-bright;
+  border-radius: 5px;
+  border: 3px solid $grey-deep;
+}
+
+.user-profile__user-content__wrap__clicked {
+  background-color: $grey-light;
+}
+
+.user-profile__user-content__wrap:hover {
+  background-color: $grey-light;
+}
+
+.user-profile__user-content__link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-profile__user-content__label,
+.user-profile__user-content__data {
+  color: $black;
+  font-weight: bold;
+}
+
+.user-profile__user-content__label {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.user-profile__user-content__data {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+#user-profile__bottom {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-profile__user-posts,
+.user-profile__user-comments {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1000px) {
+  #user-profile__top__left__wrap {
+    width: 60%;
+  }
+
+  #user-profile__top__right__wrap {
+    width: 40%;
+  }
+
+  #user-profile__user-contents {
+    display: flex;
+    justify-content: space-around;
+    align-items: space-around;
+    flex-wrap: wrap;
+  }
+
+  .user-profile__user-content__wrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .user-profile__user-content__label {
+    font-size: 14px;
+  }
+
+  .user-profile__user-content__data {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  #user-profile__user-image__wrap {
+    width: 150px;
+    margin: 0 20px;
+  }
+
+  #user-profile__user-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  #user-profile__user-nickname {
+    font-size: 48px;
+  }
+}

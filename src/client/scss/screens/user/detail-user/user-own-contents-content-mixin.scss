@@ -1,0 +1,16 @@
+.user-own-contents__tbody__tr {
+  height: 40px;
+}
+
+.user-own-contents__tbody__tr:hover {
+  background-color: $grey-blur;
+}
+
+.user-own-contents__tbody__tr__td {
+  text-align: center;
+  padding: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid $grey-light;
+}

@@ -1,0 +1,11 @@
+mixin list(item)
+    li.pinned-items__item
+        a(href=`/item/detail/${item.type}/${item.id}`).pinned-items__item__link
+            ul.pinned-items__item-contents
+                li.pinned-items__item-content.pinned-items__item-content-date #{item.stringDate}
+                li.pinned-items__item-content.pinned-items__item-content-category #{item.category}
+                li.pinned-items__item-content.pinned-items__item-content-description #{item.description}
+                if item.type === "i"
+                    li.pinned-items__item-content.pinned-items__item-content-amount.income-color-deep  #{"+" + item.amount.toLocaleString() + '원'}
+                else
+                    li.pinned-items__item-content.pinned-items__item-content-amount.expense-color-deep #{"-" + item.amount.toLocaleString() + '원'}

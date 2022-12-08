@@ -1,0 +1,10 @@
+extends ../base.pug
+include last-expense-item-mixin.pug
+
+block content 
+    div#last-expense__wrap
+        include last-expense-header.pug
+        
+        ul#last-expense__list
+            each item in lastExpenseList
+                +list(item)

@@ -1,0 +1,23 @@
+include user-own-categories-category-mixin.pug
+
+div.modal__background
+div.modal__body__wrap
+    div#user-own-categories.modal__body
+        include user-own-categories-nav
+
+        div#user-own-categories__contents
+            div.user-own-categories__list__wrap#user-own-categories__income
+                ul.user-own-categories__list#user-own-categories__income-list
+                    each category in incomeCategories
+                        +list(category)
+            div.user-own-categories__list__wrap#user-own-categories__expense
+                ul.user-own-categories__list#user-own-categories__expense-list
+                    each category in expenseCategories
+                        +list(category)
+        div#user-own-categories__add-category__wrap
+            input(type="text" name="new_category")#user-own-categories__add-category__input
+            button(value="추가하기")#user-own-categories__add-category__submit
+                i.fa-solid.fa-circle-plus#user-own-categories__add-category__submit__icon
+
+block scripts 
+    script(src="/assets/js/category.js") 

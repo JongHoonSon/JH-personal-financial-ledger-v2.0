@@ -1,0 +1,68 @@
+@font-face {
+  font-family: "nanum";
+  font-style: "normal";
+  font-weight: 600;
+  /* 브라우저&디바이스 환경에 따른 font 파일 위치 정의 */
+  // font : 나눔손글씨가람연꽃
+  src: url("/defaults/fonts/pinned-item-font.ttf");
+}
+
+.pinned-items__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  box-sizing: border-box;
+  margin: auto;
+  background: url("/defaults/images/post-it-image.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
+
+.pinned-items__item:hover {
+  transform: scale(1.03);
+}
+
+.pinned-items__item__link {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 1;
+}
+
+.pinned-items__item-contents {
+  width: 80%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pinned-items__item-content {
+  display: block;
+  width: 80%;
+  height: 20px;
+  margin-bottom: 10px;
+  font-family: "nanum";
+  font-size: 20px;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.pinned-items__item-content-description {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.pinned-items__item-content-amount {
+  margin-top: 20px;
+  font-size: 22px;
+}

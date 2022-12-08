@@ -1,16 +1,14 @@
 import { Chart } from "chart.js";
 
 const chartWrap = document.getElementById("chart__wrap");
-const chartDataArr = JSON.parse(chartWrap.dataset.chartdataarr);
-
-console.log(chartDataArr);
+const chartDataArr = JSON.parse(chartWrap.dataset.chart_data_arr);
 
 const chartData_Labels = [];
 const chartData_datasets_data = [];
 
 for (const chartData of chartDataArr) {
   chartData_Labels.push(`${chartData.category}(${chartData.percentage}%)`);
-  chartData_datasets_data.push(chartData.sumAmount);
+  chartData_datasets_data.push(chartData.amount);
 }
 
 const data = {

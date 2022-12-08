@@ -1,0 +1,26 @@
+extends detail-user.pug
+include user-own-posts-post-mixin.pug
+
+block user-posts
+    div#user-own-contents__wrap
+        div#user-own-contents__header__wrap
+            h2#user-own-contents__header #{user.nickname} 님의 작성 글 목록
+        div#user-own-contents__table__wrap
+            table#user-own-contents__table
+                colgroup#user-own-contents__colgroup
+                    col#user-own-posts__col__date
+                    col#user-own-posts__col__title
+                    col#user-own-posts__col__views
+                    col#user-own-posts__col__likes
+                thead#user-own-contents__thead
+                    tr#user-own-contents__thead__tr
+                        th(scope="col").user-own-contents__thead__th 작성일
+                        th(scope="col").user-own-contents__thead__th 글 제목
+                        th(scope="col").user-own-contents__thead__th 조회수
+                        th(scope="col").user-own-contents__thead__th 좋아요
+                tbody#user-own-contents__tbody
+                    if user.postList.length > 0
+                        each post in user.postList.reverse()
+                            +list(post)
+                    else
+                        td#empty-table="작성한 글이 없습니다."

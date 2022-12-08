@@ -1,0 +1,12 @@
+include detail-post-comments-comment-mixin.pug
+
+div#comment__wrap
+    div#comment-form__wrap
+        form(method="POST", action=`/comment/add/${post._id}`)#comment-form
+            textarea(placeholder="댓글 내용...", name="content", type="text", required)#comment-form__input
+            input(type="submit", value="작성하기")#comment-form__button
+
+    div#comment-list__wrap
+        div#commnet-list
+            each comment in post.commentList 
+                +list(comment)
