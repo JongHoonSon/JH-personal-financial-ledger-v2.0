@@ -5,23 +5,23 @@ import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
 
-globalRouter.route("/").get(globalController.getHome);
+globalRouter.route("/").get(loginRequiredPage, globalController.getHome);
 globalRouter
   .route("/join")
-  .all(anonymousUserPage)
-  .get(globalController.getJoin)
+  .get(anonymousUserPage, globalController.getJoin)
   .post(globalController.postJoin);
 globalRouter
   .route("/login")
-  .all(anonymousUserPage)
-  .get(globalController.getLogin)
+  .get(anonymousUserPage, globalController.getLogin)
   .post(globalController.postLogin);
 globalRouter.get(
   "/auth/google",
+  anonymousUserPage,
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 globalRouter.get(
   "/auth/google/callback",
+  anonymousUserPage,
   passport.authenticate("google"),
   globalController.finishGoogleLogin
 );

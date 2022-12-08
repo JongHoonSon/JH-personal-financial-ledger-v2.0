@@ -4,19 +4,13 @@ import { commentController } from "../controllers";
 
 const commentRouter = express.Router();
 
-commentRouter.post(
-  "/add/:postId",
-  loginRequiredPage,
-  commentController.postAddComment
-);
+commentRouter.post("/add/:postId", commentController.postAddComment);
 commentRouter.post(
   "/edit/:postId/:commentId",
-  loginRequiredPage,
   commentController.postEditComment
 );
 commentRouter.post(
   "/delete/:postId/:commentId",
-  loginRequiredPage,
   commentController.postDeleteComment
 );
 commentRouter.post(
