@@ -2,21 +2,21 @@ div#ledger-nav
     ul#ledger-nav__item-list
         li.legder-nav__item
             if pageTitle.includes("일별")
-                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/${itemType}`).legder-nav__item__link.legder-nav__item__clicked 일별
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/${itemType}`).legder-nav__item-link.legder-nav__item-clicked 일별
             else
-                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/${itemType}`).legder-nav__item__link 일별
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/${itemType}`).legder-nav__item-link 일별
         li.legder-nav__item
             if pageTitle.includes("주별")
-                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/weekly/${itemType}`).legder-nav__item__link.legder-nav__item__clicked 주별
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/weekly/${itemType}`).legder-nav__item-link.legder-nav__item-clicked 주별
             else 
-                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/weekly/${itemType}`).legder-nav__item__link 주별
+                a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/weekly/${itemType}`).legder-nav__item-link 주별
         li.legder-nav__item
             if pageTitle.includes("월별")
-                a(href=`/ledger/${thisYear}-${thisMonth}/monthly/${itemType}`).legder-nav__item__link.legder-nav__item__clicked 월별
+                a(href=`/ledger/${thisYear}-${thisMonth}/monthly/${itemType}`).legder-nav__item-link.legder-nav__item-clicked 월별
             else
-                a(href=`/ledger/${thisYear}-${thisMonth}/monthly/${itemType}`).legder-nav__item__link 월별
+                a(href=`/ledger/${thisYear}-${thisMonth}/monthly/${itemType}`).legder-nav__item-link 월별
         li.legder-nav__item
             if pageTitle.includes("연도별")
-                a(href=`/ledger/${thisYear}/yearly/${itemType}`).legder-nav__item__link.legder-nav__item__clicked 연도별
+                a(href=`/ledger/${thisYear}/yearly/${itemType}`).legder-nav__item-link.legder-nav__item-clicked 연도별
             else 
-                a(href=`/ledger/${thisYear}/yearly/${itemType}`).legder-nav__item__link 연도별
+                a(href=`/ledger/${thisYear}/yearly/${itemType}`).legder-nav__item-link 연도별

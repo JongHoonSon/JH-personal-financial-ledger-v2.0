@@ -43,7 +43,7 @@
   color: $grey-blur;
 }
 
-.ledger-calendar__item__link {
+.ledger-calendar__item-link {
   width: 20px;
   height: 20px;
   display: flex;
@@ -51,11 +51,11 @@
   align-items: center;
 }
 
-.ledger-calendar__item__link-icon {
+.ledger-calendar__item-link-icon {
   font-size: 18px;
   color: $grey-blur;
 }
 
-.ledger-calendar__item__link-icon:hover {
+.ledger-calendar__item-link-icon:hover {
   color: $grey;
 }

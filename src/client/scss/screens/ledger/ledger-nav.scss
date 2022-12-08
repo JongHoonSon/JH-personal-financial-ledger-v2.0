@@ -14,16 +14,16 @@
   margin: 0 50px;
 }
 
-.legder-nav__item__link {
+.legder-nav__item-link {
   font-weight: 600;
   font-size: 16px;
   color: $grey-light;
 }
 
-.legder-nav__item__clicked {
+.legder-nav__item-clicked {
   color: $grey-bright;
 }
 
-.legder-nav__item__link:hover {
+.legder-nav__item-link:hover {
   color: $grey-bright;
 }
