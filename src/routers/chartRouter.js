@@ -1,9 +1,9 @@
 import express from "express";
 import { chartController } from "../controllers";
-import { loggedInUserOnly } from "../middlewares";
+import { checkUserLoggedIn } from "../middlewares";
 
 const chartRouter = express.Router();
 
-chartRouter.get("/:type/:days", loggedInUserOnly, chartController.getChart);
+chartRouter.get("/:type/:days", checkUserLoggedIn, chartController.getChart);
 
 export default chartRouter;

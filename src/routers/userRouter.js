@@ -1,33 +1,33 @@
 import express from "express";
 import { userController } from "../controllers";
-import { loggedInUserOnly, uploadFiles } from "../middlewares";
+import { checkUserLoggedIn, uploadFiles } from "../middlewares";
 
 const userRouter = express.Router();
 
 userRouter.get("/profile/:userId", userController.getUserProfile);
 userRouter
   .route("/edit-profile")
-  .all(loggedInUserOnly)
+  .all(checkUserLoggedIn)
   .get(userController.getEditUserProfile)
   .post(uploadFiles.single("image"), userController.postEditUserProfile);
 userRouter
   .route("/edit-password")
-  .all(loggedInUserOnly)
+  .all(checkUserLoggedIn)
   .get(userController.getEditUserPassword)
   .post(userController.postEditUserPassword);
 userRouter.get(
   "/own-categories/:categoryType",
-  loggedInUserOnly,
+  checkUserLoggedIn,
   userController.getUserOwnCategories
 );
 userRouter.post(
   "/add/category/:categoryType",
-  loggedInUserOnly,
+  checkUserLoggedIn,
   userController.postAddUserCategory
 );
 userRouter.delete(
   "/delete/category/:categoryType",
-  loggedInUserOnly,
+  checkUserLoggedIn,
   userController.postDeleteUserCategory
 );
 userRouter.get("/own-posts/:userId", userController.getUserOwnPosts);

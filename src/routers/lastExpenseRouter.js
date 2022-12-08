@@ -1,12 +1,12 @@
 import express from "express";
 import { lastExpenseController } from "../controllers";
-import { loggedInUserOnly } from "../middlewares";
+import { checkUserLoggedIn } from "../middlewares";
 
 const lastExpenseRouter = express.Router();
 
 lastExpenseRouter.get(
   "/",
-  loggedInUserOnly,
+  checkUserLoggedIn,
   lastExpenseController.getLastExpense
 );
 

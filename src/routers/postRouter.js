@@ -1,27 +1,27 @@
 import express from "express";
 import { postController } from "../controllers";
-import { loggedInUserOnly } from "../middlewares";
+import { checkUserLoggedIn } from "../middlewares";
 
 const postRouter = express.Router();
 
 postRouter
   .route("/add")
-  .all(loggedInUserOnly)
+  .all(checkUserLoggedIn)
   .get(postController.getAddPost)
   .post(postController.postAddPost);
 postRouter
   .route("/edit/:postId")
-  .all(loggedInUserOnly)
+  .all(checkUserLoggedIn)
   .get(postController.getEditPost)
   .post(postController.postEditPost);
 postRouter.post(
   "/delete/:postId",
-  loggedInUserOnly,
+  checkUserLoggedIn,
   postController.postDeletePost
 );
 postRouter.get(
   "/detail/:postId",
-  loggedInUserOnly,
+  checkUserLoggedIn,
   postController.getDetailPost
 );
 postRouter.post(

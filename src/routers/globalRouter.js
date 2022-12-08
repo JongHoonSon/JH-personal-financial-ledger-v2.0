@@ -1,6 +1,6 @@
 import express from "express";
 import { globalController } from "../controllers";
-import { loggedInUserOnly, publicOnly } from "../middlewares";
+import { checkUserLoggedIn, publicOnly } from "../middlewares";
 import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
@@ -26,6 +26,6 @@ globalRouter.get(
   globalController.finishGoogleLogin
 );
 
-globalRouter.get("/logout", loggedInUserOnly, globalController.logout);
+globalRouter.get("/logout", checkUserLoggedIn, globalController.logout);
 
 export default globalRouter;
