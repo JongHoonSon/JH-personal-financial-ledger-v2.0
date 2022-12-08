@@ -40,15 +40,15 @@ const postDeleteButton = document.getElementById("detail-post__delete-button");
 
 if (postDeleteButton) {
   const deletePost = () => {
-    console.log("clicked");
-
     const deleteConfirm = confirm("이 게시물을 삭제하시겠습니까?");
     if (deleteConfirm) {
       fetch(`/post/delete/${post_id}`, {
         method: "POST",
-      }).then(() => {
-        alert("삭제 성공");
-      });
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          location.replace(data);
+        });
     }
   };
 

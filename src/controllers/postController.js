@@ -256,7 +256,9 @@ class PostController {
       await Post.findByIdAndDelete(postId);
 
       req.flash("success", "게시글을 삭제했습니다.");
-      return res.status(200).redirect("/board/전체게시판/1");
+      if (req.session.logHistory.prevPageURL) {
+        return res.status(200).json(req.session.history.prevPageURL);
+      }
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 삭제하는 과정에서 오류가 발생했습니다.");

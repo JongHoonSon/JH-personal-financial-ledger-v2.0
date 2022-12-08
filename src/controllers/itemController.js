@@ -293,8 +293,8 @@ class ItemController {
         await user.save();
       }
       req.flash("success", "아이템을 삭제했습니다.");
-      if (req.session.logHistory.prevPageURL) {
-        return res.status(200).redirect(req.session.logHistory.prevPageURL);
+      if (req.session.history.prevPageURL) {
+        return res.status(200).redirect(req.session.history.prevPageURL);
       }
       return res.status(200).redirect("/");
     } catch (error) {
