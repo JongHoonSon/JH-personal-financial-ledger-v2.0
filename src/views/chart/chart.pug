@@ -2,7 +2,7 @@ extends ../base.pug
 include chart-item-mixin.pug
 
 block content 
-    div#chart__wrap(data-chartdataarr=`${JSON.stringify(chartDataArr)}`)
+    div#chart__wrap(data-chart_data_arr=`${JSON.stringify(chartDataArr)}`)
         include chart-nav.pug
 
         div#chart-contents
