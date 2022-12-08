@@ -1,5 +1,5 @@
 import Board from "../models/Board";
-import { getTimeDiff } from "../utils";
+import { getCreatedTime } from "../utils";
 
 class BoardController {
   async getBoard(req, res) {
@@ -69,7 +69,7 @@ class BoardController {
       }
 
       postList.forEach((post) => {
-        post.dateGap = getTimeDiff(post.createdAt);
+        post.dateGap = getCreatedTime(post.createdAt);
       });
     }
 

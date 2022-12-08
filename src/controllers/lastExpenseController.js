@@ -1,5 +1,5 @@
 import User from "../models/User";
-import { getStringDate, sortItem, getStringDateDiff } from "../utils";
+import { getStringDate, sortItem, getDaysDiff } from "../utils";
 
 class LastExpenseController {
   async getLastExpense(req, res) {
@@ -45,7 +45,7 @@ class LastExpenseController {
         lastExpenseList.push({
           category: categories[i],
           content: expenseListByCategories[0],
-          daysDiff: getStringDateDiff(nowStringDate, lastestItemStringDate),
+          daysDiff: getDaysDiff(nowStringDate, lastestItemStringDate),
           lastestItemStringDate: lastestItemStringDate,
         });
       }

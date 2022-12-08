@@ -1,5 +1,5 @@
 import User from "../models/User";
-import { getStringDate, getStringDateDiff, getStringAmount } from "../utils";
+import { getStringDate, getDaysDiff, getStringAmount } from "../utils";
 
 class ChartController {
   async getChart(req, res) {
@@ -46,7 +46,7 @@ class ChartController {
 
     if (itemList.length > 0) {
       itemList.forEach((el) => {
-        if (getStringDateDiff(nowStringDate, el.stringDate) <= days) {
+        if (getDaysDiff(nowStringDate, el.stringDate) <= days) {
           sumAmountByCategory[el.category] += el.amount;
           totalSum += el.amount;
         }
