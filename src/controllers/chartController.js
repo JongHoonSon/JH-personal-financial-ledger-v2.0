@@ -7,7 +7,6 @@ class ChartController {
 
     const loggedInUser = req.session.user;
     let user;
-
     try {
       user = await User.findById(loggedInUser._id)
         .populate("incomeCategories")
@@ -24,7 +23,6 @@ class ChartController {
     }
 
     let categories;
-
     if (type === "income") {
       categories = user.incomeCategories;
     } else if (type === "expense") {
@@ -32,13 +30,11 @@ class ChartController {
     }
 
     const totalAmountPerCategory = {};
-
     for (const category of categories) {
       totalAmountPerCategory[category] = 0;
     }
 
     let itemList;
-
     if (type === "income") {
       itemList = user.incomeList;
     } else if (type === "expense") {
@@ -47,7 +43,6 @@ class ChartController {
 
     const nowStringDate = getStringDate(res.locals.date);
     let totalAmount = 0;
-
     if (itemList.length > 0) {
       itemList.forEach((item) => {
         if (getDaysDiff(nowStringDate, item.stringDate) <= days) {
@@ -58,7 +53,6 @@ class ChartController {
     }
 
     const percentagePerCategory = {};
-
     for (const category of categories) {
       if (totalAmount === 0) {
         percentagePerCategory[category] = 0;
@@ -71,7 +65,6 @@ class ChartController {
     }
 
     const chartDataArr = [];
-
     for (const category of categories) {
       const chartData = {
         category,

@@ -7,7 +7,6 @@ class BoardController {
 
     let boardList;
     let totalPostList = [];
-
     if (boardName === "전체게시판") {
       boardList = await Board.find({}).populate({
         path: "postList",
@@ -21,7 +20,6 @@ class BoardController {
       });
     } else {
       let board;
-
       try {
         board = await Board.findOne({
           name: boardName,
@@ -46,7 +44,6 @@ class BoardController {
     const firstPageNum = 1;
     let lastPageNum;
     const postList = [];
-
     if (totalPostList.length === 0) {
       isBoardEmpty = true;
       lastPageNum = 1;
@@ -75,7 +72,6 @@ class BoardController {
     }
 
     const boardNameList = boardList.map((board) => board.name);
-
     if (firstPageNum > currPageNum || currPageNum > lastPageNum) {
       req.flash("error", "잘못된 접근입니다.");
       return res.status(404).redirect(`/board/${boardName}/1`);
