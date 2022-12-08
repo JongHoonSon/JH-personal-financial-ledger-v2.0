@@ -1,18 +1,10 @@
 import localMiddleware from "./localMiddleware";
 import checkUserLoggedIn from "./checkUserLoggedIn";
+import checkUserAnonymous from "./checkUserAnonymous";
 
 import multer from "multer";
 
 export const uploadFiles = multer({ dest: "uploads/" });
-
-export const publicOnly = (req, res, next) => {
-  if (!req.session.loggedIn) {
-    next();
-  } else {
-    req.flash("error", "잘못된 접근입니다.");
-    return res.redirect("/");
-  }
-};
 
 export const unauthorizedAccess = (req, res, next) => {
   req.flash("error", "권한이 없습니다.");
@@ -41,4 +33,4 @@ export const logHistory = (req, res, next) => {
   next();
 };
 
-export { localMiddleware, checkUserLoggedIn };
+export { localMiddleware, checkUserLoggedIn, checkUserAnonymous };

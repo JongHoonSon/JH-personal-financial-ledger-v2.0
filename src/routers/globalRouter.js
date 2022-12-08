@@ -1,6 +1,6 @@
 import express from "express";
 import { globalController } from "../controllers";
-import { checkUserLoggedIn, publicOnly } from "../middlewares";
+import { checkUserLoggedIn, checkUserAnonymous } from "../middlewares";
 import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
@@ -8,12 +8,12 @@ const globalRouter = express.Router();
 globalRouter.route("/").get(globalController.getHome);
 globalRouter
   .route("/join")
-  .all(publicOnly)
+  .all(checkUserAnonymous)
   .get(globalController.getJoin)
   .post(globalController.postJoin);
 globalRouter
   .route("/login")
-  .all(publicOnly)
+  .all(checkUserAnonymous)
   .get(globalController.getLogin)
   .post(globalController.postLogin);
 globalRouter.get(
