@@ -8,7 +8,7 @@ block content
                     div.input
                         label(for="image-upload__uploader__image-input").input__label 프로필 사진
                         div#image-upload__wrap
-                            img(src=`/${user.avatarUrl}`)#image-upload__preview
+                            img(src=user.avatarUrl)#image-upload__preview
                             div#image-upload__uploader__wrap
                                 input(value="첨부파일" readonly="readonly")#image-upload__uploader__image-name
                                 label(for="image-upload__uploader__image-input")#image-upload__uploader__upload-button 파일찾기

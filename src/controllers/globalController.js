@@ -95,7 +95,7 @@ class GlobalController {
         name,
         email,
         nickname,
-        avatarUrl: "defaults/images/default-avatar.png",
+        avatarUrl: "/defaults/images/default-avatar.png",
         incomeCategories: income_categories,
         expenseCategories: expense_categories,
       });

@@ -8,7 +8,7 @@ mixin list(post)
                 a(href=`/post/detail/${post._id}`).post__link #{post.title}
             li.post-content.post-content__owner-info
                 a(href=`/user/profile/${post.owner._id}`).post-owner__link
-                    img(src=`/${post.owner.avatarUrl}`).post-owner-avatar
+                    img(src=post.owner.avatarUrl).post-owner-avatar
                     span.post-owner-name #{post.owner.name}
             li.post-content.post-content__views #{post.views}
             li.post-content.post-content__likes #{post.likesUserList.length}

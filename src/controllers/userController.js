@@ -112,13 +112,16 @@ class UserController {
     }
 
     try {
+      const filePath = file
+        ? `/assets/img/user-upload-images/${file.filename}`
+        : user.avatarUrl;
       const updatedUser = await User.findByIdAndUpdate(
         user._id,
         {
           name,
           nickname,
           email,
-          avatarUrl: file ? file.path : user.avatarUrl,
+          avatarUrl: filePath,
         },
         { new: true }
       );

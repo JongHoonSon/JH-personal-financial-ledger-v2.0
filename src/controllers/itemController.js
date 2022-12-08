@@ -63,6 +63,9 @@ class ItemController {
     if (itemType === "i") {
       try {
         const user = await User.findById(loggedInUser._id);
+        const filePath = file
+          ? `/assets/img/user-upload-images/${file.filename}`
+          : "/defaults/images/empty-image.png";
         const newIncome = await Income.create({
           owner: user,
           date,
@@ -70,7 +73,7 @@ class ItemController {
           category,
           description,
           cycle,
-          imageUrl: file ? file.path : "defaults/images/empty-image.png",
+          imageUrl: filePath,
         });
         user.incomeList.push(newIncome);
         await user.save();
@@ -87,6 +90,9 @@ class ItemController {
     } else {
       const { paymentMethod } = req.body;
       try {
+        const filePath = file
+          ? `/assets/img/user-upload-images/${file.filename}`
+          : "/defaults/images/empty-image.png";
         const newExpense = await Expense.create({
           owner: user,
           date,
@@ -95,7 +101,7 @@ class ItemController {
           description,
           cycle,
           paymentMethod,
-          imageUrl: file ? file.path : "",
+          imageUrl: filePath,
         });
         user.expenseList.push(newExpense);
         await user.save();
@@ -212,12 +218,15 @@ class ItemController {
         const { paymentMethod } = req.body;
         item.paymentMethod = paymentMethod;
       }
+      const filePath = file
+        ? `/assets/img/user-upload-images/${file.filename}`
+        : item.imageUrl;
       item.date = date;
       item.amount = amount;
       item.category = category;
       item.description = description;
       item.cycle = cycle;
-      item.imageUrl = file ? file.path : item.imageUrl;
+      item.imageUrl = filePath;
       await item.save();
       req.flash("success", "아이템을 수정했습니다.");
       return res.status(200).redirect(`/item/detail/${itemType}/${item.id}`);

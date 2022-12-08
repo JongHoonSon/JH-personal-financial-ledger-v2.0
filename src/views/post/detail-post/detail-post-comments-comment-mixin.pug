@@ -4,7 +4,7 @@ mixin list(comment)
             div.comment-info__left
                 div.comment-owner
                     a(href=`/user/profile/${comment.owner._id}`).comment-owner__link
-                        img(src=`/${comment.owner.avatarUrl}`).comment-owner-avatar
+                        img(src=comment.owner.avatarUrl).comment-owner-avatar
                         span.comment-owner-name #{comment.owner.name}
                 span.comment-create-date #{comment.createdAtStringFullDate}
                 i(data-comment_id=comment._id).fa-regular.fa-thumbs-up.comment__like-btn
