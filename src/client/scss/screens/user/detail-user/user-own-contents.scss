@@ -35,7 +35,7 @@
   display: none;
 }
 
-#user-own-contents__content-table {
+#user-own-contents__table {
   width: 100%;
   table-layout: fixed;
   border-collapse: separate;
@@ -43,11 +43,11 @@
   box-sizing: border-box;
 }
 
-#user-own-contents__content-table__thead {
+#user-own-contents__thead {
   box-sizing: border-box;
 }
 
-.user-own-contents__content-table__thead__th {
+.user-own-contents__thead__th {
   position: sticky;
   top: 0px;
   font-size: 18px;

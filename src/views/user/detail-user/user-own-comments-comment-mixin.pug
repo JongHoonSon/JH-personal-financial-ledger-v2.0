@@ -1,6 +1,6 @@
 mixin list(comment)
-    tr(onclick=`location.href='/post/detail/${comment.post._id}'` style="cursor:pointer").user-own-contents__content-table__tbody__tr
-        td.user-own-contents__content-table__tbody__tr__td #{comment.createdAtStringFullDate}
-        td.user-own-contents__content-table__tbody__tr__td#user-own-comments__comment-table__tbody__tr__td__title #{comment.post.title}
-        td.user-own-contents__content-table__tbody__tr__td#user-own-comments__comment-table__tbody__tr__td__content #{comment.content}
-        td.user-own-contents__content-table__tbody__tr__td #{comment.likesUserList.length}
+    tr(onclick=`location.href='/post/detail/${comment.post._id}'` style="cursor:pointer").user-own-contents__tbody__tr
+        td.user-own-contents__tbody__tr__td #{comment.createdAtStringFullDate}
+        td.user-own-contents__tbody__tr__td#user-own-comments__tbody__td__title #{comment.post.title}
+        td.user-own-contents__tbody__tr__td#user-own-comments__tbody__td__content #{comment.content}
+        td.user-own-contents__tbody__tr__td #{comment.likesUserList.length}
