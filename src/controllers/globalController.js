@@ -3,10 +3,6 @@ import bcrypt from "bcrypt";
 
 class GlobalController {
   getHome(req, res) {
-    if (!req.session.loggedIn) {
-      return res.redirect("/login");
-    }
-
     return res.render("global/home", { pageTitle: "홈" });
   }
 
@@ -66,7 +62,7 @@ class GlobalController {
     }
 
     try {
-      const income_categories = [
+      const incomeCategories = [
         "월급",
         "주급",
         "용돈",
@@ -75,7 +71,7 @@ class GlobalController {
         "기타",
       ];
 
-      const expense_categories = [
+      const expenseCategories = [
         "식비",
         "주거비",
         "통신비",
@@ -96,8 +92,8 @@ class GlobalController {
         email,
         nickname,
         avatarUrl: "/defaults/images/default-avatar.png",
-        incomeCategories: income_categories,
-        expenseCategories: expense_categories,
+        incomeCategories,
+        expenseCategories,
       });
       req.flash("success", "회원가입에 완료했습니다.");
       return res.status(200).redirect("/login");
@@ -109,20 +105,16 @@ class GlobalController {
   }
 
   getLogin(req, res) {
-    let save_username = false;
-    let saved_username = "";
-
-    if (req.cookies.save_username) {
-      if (req.cookies.save_username === "true") {
-        save_username = true;
-        saved_username = req.cookies.saved_username;
-      }
-    }
+    let saveUsername =
+      req.cookies.save_username && req.cookies.save_username === "true"
+        ? true
+        : false;
+    let savedUsername = saveUsername ? req.cookies.saved_username : "";
 
     return res.render("global/login", {
       pageTitle: "로그인",
-      save_username,
-      saved_username,
+      saveUsername,
+      savedUsername,
     });
   }
 
@@ -142,15 +134,15 @@ class GlobalController {
       return res.status(400).redirect("/login");
     }
 
-    let passwordCorrect;
+    let isPasswordCorrect;
     try {
-      passwordCorrect = await bcrypt.compare(password, user.password);
+      isPasswordCorrect = await bcrypt.compare(password, user.password);
     } catch (error) {
       console.log(error);
       req.flash("error", "비밀번호를 검증하는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!passwordCorrect) {
+    if (!isPasswordCorrect) {
       req.flash("error", "비밀번호가 일치하지 않습니다.");
       return res.status(400).redirect("/login");
     }
@@ -175,20 +167,19 @@ class GlobalController {
       return res.status(500).redirect("/");
     }
 
-    req.session.loggedIn = true;
     req.session.user = user;
+    req.session.loggedIn = true;
 
     req.flash("success", `안녕하세요, ${user.nickname} 님!`);
     return res.status(200).redirect("/");
   }
 
   logout(req, res) {
-    const loggedInUserNickname = req.session.user.username;
+    const { username } = req.session.user;
     req.session.user = null;
     req.session.loggedIn = false;
-    res.locals.loggedInUser = req.session.user;
 
-    req.flash("success", `다음에 또 봬요, ${loggedInUserNickname} 님!`);
+    req.flash("success", `다음에 또 봬요, ${username} 님!`);
     return res.status(200).redirect("/");
   }
 
