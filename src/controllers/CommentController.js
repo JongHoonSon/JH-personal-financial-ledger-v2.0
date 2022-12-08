@@ -1,7 +1,6 @@
 import User from "../models/User";
 import Post from "../models/Post";
 import Comment from "../models/Comment";
-import { defaults } from "chart.js";
 
 class CommentController {
   async postAddComment(req, res) {
@@ -144,11 +143,9 @@ class CommentController {
     }
 
     try {
-      user.commentList = user.commentList.filter((el) => {
-        if (String(el._id) !== String(comment._id)) {
-          return true;
-        }
-      });
+      user.commentList = user.commentList.filter(
+        (el) => String(el._id) !== String(comment._id)
+      );
       await user.save();
 
       const post = await Post.findById(postId).populate("commentList");
@@ -156,11 +153,9 @@ class CommentController {
         req.flash("error", "게시글을 찾을 수 없습니다.");
         return res.status(404).redirect("/");
       }
-      post.commentList = post.commentList.filter((el) => {
-        if (String(el._id) !== String(comment._id)) {
-          return true;
-        }
-      });
+      post.commentList = post.commentList.filter(
+        (el) => String(el._id) !== String(comment._id)
+      );
       await post.save();
 
       await Comment.findByIdAndDelete(commentId);
@@ -204,16 +199,15 @@ class CommentController {
       return res.status(404).redirect(`/post/detail/${postId}`);
     }
 
-    let alreadyIn = false;
-
+    let alreadyLikesThisComment = false;
     for (let i = 0; i < comment.likesUserList.length; i++) {
       if (String(comment.likesUserList[i]._id) === String(user._id)) {
-        alreadyIn = true;
+        alreadyLikesThisComment = true;
         break;
       }
     }
 
-    if (alreadyIn) {
+    if (alreadyLikesThisComment) {
       req.flash("error", "이미 이 댓글의 좋아요를 눌렀습니다.");
       return res.sendStatus(200);
     } else {
