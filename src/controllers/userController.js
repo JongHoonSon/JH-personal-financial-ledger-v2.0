@@ -1,4 +1,3 @@
-import { unauthorizedAccess } from "../middlewares";
 import { getStringDate, getStringFullDate } from "../utils";
 import User from "../models/User";
 import bcrypt from "bcrypt";
