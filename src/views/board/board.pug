@@ -9,12 +9,12 @@ block content
                     a(href=`/board/전체게시판/1`).board-nav__link#board-nav__link__selected 전체게시판
                 else 
                     a(href=`/board/전체게시판/1`).board-nav__link 전체게시판
-            each board_name in boardNameList 
+            each boardName in boardNameList 
                 div.board-nav
-                    if selectedBoardName === board_name
-                        a(href=`/board/${board_name}/1`).board-nav__link#board-nav__link__selected #{board_name}
+                    if selectedBoardName === boardName
+                        a(href=`/board/${boardName}/1`).board-nav__link#board-nav__link__selected #{boardName}
                     else 
-                        a(href=`/board/${board_name}/1`).board-nav__link #{board_name}
+                        a(href=`/board/${boardName}/1`).board-nav__link #{boardName}
 
         div#board-header
             div.board-header__content#board-header__seq 글 번호
@@ -26,7 +26,7 @@ block content
             div.board-header__content#board-header__stringDate 작성일
 
         div#board-contents 
-            if emptyFlag === true
+            if isBoardEmpty
                 div#board-empty
                     span 아직 '#{selectedBoardName}' 게시판에 작성된 글이 없습니다.
             else 
