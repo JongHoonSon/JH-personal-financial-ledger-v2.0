@@ -10,7 +10,7 @@
   background-color: $orange-very-deep;
 }
 
-.last-expense__header__content {
+.last-expense__header-content {
   width: 15%;
   height: 100%;
   display: flex;
@@ -21,14 +21,14 @@
   box-sizing: border-box;
 }
 
-#last-expense__header__descrition {
+#last-expense__header-description {
   width: 40%;
 }
 
-.last-expense__header__content:first-child {
+.last-expense__header-content:first-child {
   border-left: none;
 }
 
-.last-expense__header__content:last-child {
+.last-expense__header-content:last-child {
   border-right: none;
 }

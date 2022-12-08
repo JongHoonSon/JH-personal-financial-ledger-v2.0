@@ -1,4 +1,4 @@
-.last-expense__list__item {
+.last-expense__item {
   width: 100%;
   height: 70px;
   border-top: 1px solid $white;
@@ -6,25 +6,25 @@
   opacity: 0.9;
 }
 
-.last-expense__list__item:hover {
+.last-expense__item:hover {
   opacity: 0.8;
 }
 
-.last-expense__list__item:first-child {
+.last-expense__item:first-child {
   border-top: none;
 }
 
-.last-expense__list__item:last-child {
+.last-expense__item:last-child {
   border-bottom: none;
 }
 
-.last-expense__list__item__link {
+.last-expense__item__link {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.last-expense__list__item__contents {
+.last-expense__item-contents {
   width: 100%;
   height: 100%;
   display: flex;
@@ -32,7 +32,7 @@
   align-items: center;
 }
 
-.last-expense__list__item__contents__content {
+.last-expense__item-content {
   width: 15%;
   height: 40%;
   display: flex;
@@ -45,19 +45,19 @@
   font-size: 15px;
 }
 
-.last-expense__list__item__contents__content:first-child {
+.last-expense__item-content:first-child {
   border-left: none;
 }
 
-.last-expense__list__item__contents__content:last-child {
+.last-expense__item-content:last-child {
   border-right: none;
 }
 
-#last-expense__list__item__contents__description {
+#last-expense__item-description {
   width: 40%;
 }
 
-.last-expense__list__item__empty {
+.last-expense__item__empty {
   color: rgba(0, 0, 0, 0.3);
   font-size: 13px;
 }

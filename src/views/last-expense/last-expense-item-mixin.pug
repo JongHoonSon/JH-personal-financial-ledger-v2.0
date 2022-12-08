@@ -1,23 +1,23 @@
 mixin list(item)
-    li.last-expense__list__item.expense-bgcolor-deep
-        a(href=`${item.content !== null ? `/item/detail/${item.content.type}/${item.content.id}` : ``}`).last-expense__list__item__link
-            ul.last-expense__list__item__contents
-                li.last-expense__list__item__contents__content=item.category
+    li.last-expense__item.expense-bgcolor-deep
+        a(href=`${item.content !== null ? `/item/detail/${item.content.type}/${item.content.id}` : ``}`).last-expense__item__link
+            ul.last-expense__item-contents
+                li.last-expense__item-content=item.category
 
                 if item.content === null
-                    li.last-expense__list__item__contents__content.last-expense__list__item__empty -
-                    li.last-expense__list__item__contents__content.last-expense__list__item__empty -
-                    li.last-expense__list__item__contents__content#last-expense__list__item__contents__description.last-expense__list__item__empty 해당 분류에 대한 지출 기록이 없습니다.
-                    li.last-expense__list__item__contents__content.last-expense__list__item__empty -
+                    li.last-expense__item-content.last-expense__item__empty -
+                    li.last-expense__item-content.last-expense__item__empty -
+                    li.last-expense__item-content#last-expense__item-description.last-expense__item__empty 해당 분류에 대한 지출 기록이 없습니다.
+                    li.last-expense__item-content.last-expense__item__empty -
 
                 else
-                    li.last-expense__list__item__contents__content
+                    li.last-expense__item-content
                         div
                             if item.daysDiff === 0
                                 div 오늘
                             else
                                 div #{item.daysDiff}일 전
                             
-                    li.last-expense__list__item__contents__content #{"-"+item.content.amount.toLocaleString() + '원'}
-                    li.last-expense__list__item__contents__content#last-expense__list__item__contents__description=item.content.description
-                    li.last-expense__list__item__contents__content=item.content.cycle
+                    li.last-expense__item-content #{"-"+item.content.amount.toLocaleString() + '원'}
+                    li.last-expense__item-content#last-expense__item-description=item.content.description
+                    li.last-expense__item-content=item.content.cycle
