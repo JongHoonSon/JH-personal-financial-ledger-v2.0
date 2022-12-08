@@ -91,11 +91,11 @@
   align-items: flex-start;
 }
 
-.user-profile__user-options__option__wrap {
+.user-profile__user-option__wrap {
   width: 100%;
   margin-left: 5px;
   box-sizing: border-box;
-  .user-profile__user-options__option__link {
+  .user-profile__user-option__link {
     font-size: 12px;
     color: $grey-light;
     i {
@@ -105,7 +105,7 @@
   }
 }
 
-.user-profile__user-options__option__wrap:first-child {
+.user-profile__user-option__wrap:first-child {
   margin-bottom: 10px;
 }
 
