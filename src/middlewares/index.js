@@ -1,10 +1,7 @@
 import localMiddleware from "./localMiddleware";
 import checkUserLoggedIn from "./checkUserLoggedIn";
 import checkUserAnonymous from "./checkUserAnonymous";
-
-import multer from "multer";
-
-export const uploadFiles = multer({ dest: "uploads/" });
+import imageUploader from "./imageUploader";
 
 // html 문서를 가져오는 GET 요청에서만 방문한 URL을 세션의 logHistory에 기록하는 미들웨어
 export const logHistory = (req, res, next) => {
@@ -28,4 +25,9 @@ export const logHistory = (req, res, next) => {
   next();
 };
 
-export { localMiddleware, checkUserLoggedIn, checkUserAnonymous };
+export {
+  localMiddleware,
+  checkUserLoggedIn,
+  checkUserAnonymous,
+  imageUploader,
+};

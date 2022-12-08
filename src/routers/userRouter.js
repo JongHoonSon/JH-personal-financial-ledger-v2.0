@@ -1,6 +1,6 @@
 import express from "express";
 import { userController } from "../controllers";
-import { checkUserLoggedIn, uploadFiles } from "../middlewares";
+import { checkUserLoggedIn, imageUploader } from "../middlewares";
 
 const userRouter = express.Router();
 
@@ -9,7 +9,7 @@ userRouter
   .route("/edit-profile")
   .all(checkUserLoggedIn)
   .get(userController.getEditUserProfile)
-  .post(uploadFiles.single("image"), userController.postEditUserProfile);
+  .post(imageUploader.single("image"), userController.postEditUserProfile);
 userRouter
   .route("/edit-password")
   .all(checkUserLoggedIn)
