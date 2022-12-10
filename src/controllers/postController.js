@@ -181,7 +181,7 @@ class PostController {
     }
   }
 
-  async postDeletePost(req, res) {
+  async deletePost(req, res) {
     const { postId } = req.params;
 
     let post;
@@ -283,7 +283,7 @@ class PostController {
     });
   }
 
-  async postIncreaseViewsPost(req, res) {
+  async increasePostViews(req, res) {
     const { postId } = req.params;
 
     try {
@@ -301,7 +301,7 @@ class PostController {
     }
   }
 
-  async postToggleLikesPost(req, res) {
+  async increasePostLikes(req, res) {
     const { postId } = req.params;
 
     const loggedInUser = req.session.user;

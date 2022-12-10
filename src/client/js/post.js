@@ -7,7 +7,7 @@ detailPostLink.innerText = location.href;
 
 const increaseView = () => {
   fetch(`/post/increase-views/${post_id}`, {
-    method: "POST",
+    method: "PUT",
   });
 };
 
@@ -29,7 +29,7 @@ const postLikeButton = document.getElementById("detail-post__like-button");
 if (postLikeButton) {
   const toggleLike = () => {
     fetch(`/post/toggle-likes/${post_id}`, {
-      method: "POST",
+      method: "PUT",
     })
       .then(async (res) => {
         if (!res.ok) {
@@ -55,11 +55,22 @@ if (postDeleteButton) {
     const deleteConfirm = confirm("이 게시물을 삭제하시겠습니까?");
     if (deleteConfirm) {
       fetch(`/post/delete/${post_id}`, {
-        method: "POST",
+        method: "DELETE",
       })
-        .then((res) => res.json())
-        .then((data) => {
-          location.replace(data);
+        .then(async (res) => {
+          const json = await res.json();
+          if (!res.ok) {
+            return Promise.reject(json);
+          }
+          return json;
+        })
+        .then((redirectURL) => {
+          location.replace(redirectURL);
+        })
+        .catch((errorMessage) => {
+          if (errorMessage.haveToRedirect) {
+            location.replace(errorMessage.redirectURL);
+          }
         });
     }
   };

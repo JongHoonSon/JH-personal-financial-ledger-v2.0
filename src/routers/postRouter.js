@@ -14,21 +14,17 @@ postRouter
   .all(loginRequired)
   .get(postController.getEditPost)
   .post(postController.postEditPost);
-postRouter.post(
-  "/delete/:postId",
-  loginRequired,
-  postController.postDeletePost
-);
+postRouter.delete("/delete/:postId", loginRequired, postController.deletePost);
 postRouter.get("/detail/:postId", loginRequired, postController.getDetailPost);
-postRouter.post(
+postRouter.put(
   "/increase-views/:postId",
   loginRequired,
-  postController.postIncreaseViewsPost
+  postController.increasePostViews
 );
-postRouter.post(
+postRouter.put(
   "/toggle-likes/:postId",
   loginRequired,
-  postController.postToggleLikesPost
+  postController.increasePostLikes
 );
 
 export default postRouter;
