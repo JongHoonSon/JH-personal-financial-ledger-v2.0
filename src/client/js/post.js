@@ -36,6 +36,7 @@ if (postLikeButton) {
           const json = await res.json();
           return Promise.reject(json);
         }
+        location.reload();
       })
       .catch((errorMessage) => {
         if (errorMessage.haveToRedirect) {
