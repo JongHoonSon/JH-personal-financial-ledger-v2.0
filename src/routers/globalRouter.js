@@ -1,11 +1,11 @@
 import express from "express";
 import { globalController } from "../controllers";
-import { loginRequiredPage, anonymousUserPage } from "../middlewares";
+import { loginRequired, anonymousUserPage } from "../middlewares";
 import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
 
-globalRouter.route("/").get(loginRequiredPage, globalController.getHome);
+globalRouter.route("/").get(loginRequired, globalController.getHome);
 globalRouter
   .route("/join")
   .get(anonymousUserPage, globalController.getJoin)
@@ -26,6 +26,6 @@ globalRouter.get(
   globalController.finishGoogleLogin
 );
 
-globalRouter.get("/logout", loginRequiredPage, globalController.logout);
+globalRouter.get("/logout", loginRequired, globalController.logout);
 
 export default globalRouter;
