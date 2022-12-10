@@ -233,7 +233,7 @@ class PostController {
       await Post.findByIdAndDelete(postId);
 
       req.flash("success", "게시글을 삭제했습니다.");
-      if (req.session.logHistory.prevPageURL) {
+      if (req.session.history.prevPageURL) {
         return res.status(200).json(req.session.history.prevPageURL);
       }
     } catch (error) {
