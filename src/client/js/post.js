@@ -8,7 +8,18 @@ detailPostLink.innerText = location.href;
 const increaseView = () => {
   fetch(`/post/increase-views/${post_id}`, {
     method: "PUT",
-  });
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        const json = await res.json();
+        return Promise.reject(json);
+      }
+    })
+    .catch((errorMessage) => {
+      if (errorMessage.haveToRedirect) {
+        location.replace(errorMessage.redirectURL);
+      }
+    });
 };
 
 increaseView();
