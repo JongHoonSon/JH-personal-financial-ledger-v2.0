@@ -30,7 +30,18 @@ if (postLikeButton) {
   const toggleLike = () => {
     fetch(`/post/toggle-likes/${post_id}`, {
       method: "POST",
-    }).then(() => location.reload());
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const json = await res.json();
+          return Promise.reject(json);
+        }
+      })
+      .catch((errorMessage) => {
+        if (errorMessage.haveToRedirect) {
+          location.replace(errorMessage.redirectURL);
+        }
+      });
   };
 
   postLikeButton.addEventListener("click", toggleLike);
