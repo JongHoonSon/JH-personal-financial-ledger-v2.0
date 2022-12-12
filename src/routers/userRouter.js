@@ -1,36 +1,48 @@
 import express from "express";
 import { userController } from "../controllers";
-import { loginRequiredPage, imageUploader } from "../middlewares";
+import { loginRequired, imageUploader } from "../middlewares";
 
 const userRouter = express.Router();
 
-userRouter.get("/profile/:userId", userController.getUserProfile);
+userRouter.get(
+  "/profile/:userId",
+  loginRequired,
+  userController.getUserProfile
+);
 userRouter
   .route("/edit-profile")
-  .all(loginRequiredPage)
+  .all(loginRequired)
   .get(userController.getEditUserProfile)
   .post(imageUploader.single("image"), userController.postEditUserProfile);
 userRouter
   .route("/edit-password")
-  .all(loginRequiredPage)
+  .all(loginRequired)
   .get(userController.getEditUserPassword)
   .post(userController.postEditUserPassword);
 userRouter.get(
   "/own-categories/:categoryType",
-  loginRequiredPage,
+  loginRequired,
   userController.getUserOwnCategories
 );
 userRouter.post(
   "/add/category/:categoryType",
-  loginRequiredPage,
+  loginRequired,
   userController.postAddUserCategory
 );
 userRouter.delete(
   "/delete/category/:categoryType",
-  loginRequiredPage,
+  loginRequired,
   userController.postDeleteUserCategory
 );
-userRouter.get("/own-posts/:userId", userController.getUserOwnPosts);
-userRouter.get("/own-comments/:userId", userController.getUserOwnComments);
+userRouter.get(
+  "/own-posts/:userId",
+  loginRequired,
+  userController.getUserOwnPosts
+);
+userRouter.get(
+  "/own-comments/:userId",
+  loginRequired,
+  userController.getUserOwnComments
+);
 
 export default userRouter;

@@ -3,16 +3,16 @@ extends ../../base.pug
 block content
     div.form-container
         div.form__wrap#post-form__wrap
-            form(method="POST").form
+            form(method="POST").form#post-edit-form
                 div.form__input-section__wrap
                     div.input
                         label(for="title").input__label 제목
                         div.input__input__wrap
-                            input(placeholder="title", id="title", name="title", type="text", value=`${post.title}`, required).input__input
+                            input(placeholder="title", name="title", type="text", value=`${post.title}`, required).input__input#post-edit-form__title
                     div.input
                         label(for="boardName").input__label 게시판
                         div.input__input__wrap
-                            select(id="boardName", name="boardName" required).input__select
+                            select(name="boardName" required).input__select#post-edit-form__board-name
                                 each board_name in boardNameList
                                     if board_name === post.board.name
                                         option(value=`${board_name}` selected)=board_name
@@ -21,7 +21,10 @@ block content
                     div.input
                         label(for="content").input__label 내용
                         div.input__textarea__wrap
-                            textarea(placeholder="내용", id="content", name="content", type="text", required).input__textarea #{post.content}
+                            textarea(placeholder="내용", name="content", type="text", required).input__textareat#post-edit-form__content #{post.content}
                 div.form__sumbit-section__wrap
                     div.form__submit
-                        button(type="submit", value="추가하기").submit__item 작성하기
+                        button(type="button", value="추가하기").submit__item#post-edit-form__button(data-post_id=postId) 작성하기
+
+block scripts
+    script(src="/assets/js/edit-post.js") 

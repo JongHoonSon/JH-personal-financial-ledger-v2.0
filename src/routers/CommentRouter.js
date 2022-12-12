@@ -1,21 +1,24 @@
 import express from "express";
-import { loginRequiredPage } from "../middlewares";
+import { loginRequired } from "../middlewares";
 import { commentController } from "../controllers";
 
 const commentRouter = express.Router();
 
-commentRouter.post("/add/:postId", commentController.postAddComment);
-commentRouter.post(
-  "/edit/:postId/:commentId",
-  commentController.postEditComment
+commentRouter.post("/add/:postId", loginRequired, commentController.addComment);
+commentRouter.put(
+  "/edit/:commentId",
+  loginRequired,
+  commentController.editComment
 );
-commentRouter.post(
+commentRouter.delete(
   "/delete/:postId/:commentId",
-  commentController.postDeleteComment
+  loginRequired,
+  commentController.deleteComment
 );
-commentRouter.post(
-  "/increase-likes/:postId/:commentId",
-  commentController.postIncreaseLikesComment
+commentRouter.put(
+  "/increase-likes/:commentId",
+  loginRequired,
+  commentController.increaseCommentLikes
 );
 
 export default commentRouter;

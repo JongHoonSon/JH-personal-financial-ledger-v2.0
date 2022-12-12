@@ -9,8 +9,20 @@ const handleDeleteComment = (event) => {
     const { comment_id } = event.target.dataset;
 
     fetch(`/comment/delete/${post_id}/${comment_id}`, {
-      method: "POST",
-    }).then(() => location.reload());
+      method: "DELETE",
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const json = await res.json();
+          return Promise.reject(json);
+        }
+        location.reload();
+      })
+      .catch((errorMessage) => {
+        if (errorMessage.haveToRedirect) {
+          location.replace(errorMessage.redirectURL);
+        }
+      });
   }
 };
 
@@ -21,9 +33,21 @@ commentDeleteBtns.forEach((commentDeleteBtn) => {
 const handleLikeComment = (event) => {
   const { comment_id } = event.target.dataset;
 
-  fetch(`/comment/increase-likes/${post_id}/${comment_id}`, {
-    method: "POST",
-  }).then(() => location.reload());
+  fetch(`/comment/increase-likes/${comment_id}`, {
+    method: "PUT",
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        const json = await res.json();
+        return Promise.reject(json);
+      }
+      location.reload();
+    })
+    .catch((errorMessage) => {
+      if (errorMessage.haveToRedirect) {
+        location.replace(errorMessage.redirectURL);
+      }
+    });
 };
 
 commentLikeBtns.forEach((commentLikeBtn) => {
@@ -95,17 +119,25 @@ const handleEditComment = (event) => {
   commentEditConfirmBtn.onclick = async () => {
     const newContent = commentContentEditTextarea.value;
 
-    const response = await fetch(`/comment/edit/${post_id}/${comment_id}`, {
-      method: "POST",
+    fetch(`/comment/edit/${comment_id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ newContent }),
-    });
-
-    if (response.status === 200) {
-      location.reload();
-    }
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const json = await res.json();
+          return Promise.reject(json);
+        }
+        location.reload();
+      })
+      .catch((errorMessage) => {
+        if (errorMessage.haveToRedirect) {
+          location.replace(errorMessage.redirectURL);
+        }
+      });
   };
 
   commentEditCancelBtn.onclick = () => {

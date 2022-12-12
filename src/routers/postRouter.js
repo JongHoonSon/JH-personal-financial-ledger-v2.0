@@ -1,33 +1,30 @@
 import express from "express";
 import { postController } from "../controllers";
-import { loginRequiredPage } from "../middlewares";
+import { loginRequired } from "../middlewares";
 
 const postRouter = express.Router();
 
 postRouter
   .route("/add")
-  .all(loginRequiredPage)
+  .all(loginRequired)
   .get(postController.getAddPost)
-  .post(postController.postAddPost);
+  .post(postController.addPost);
 postRouter
   .route("/edit/:postId")
-  .all(loginRequiredPage)
+  .all(loginRequired)
   .get(postController.getEditPost)
-  .post(postController.postEditPost);
-postRouter.post(
-  "/delete/:postId",
-  loginRequiredPage,
-  postController.postDeletePost
-);
-postRouter.get(
-  "/detail/:postId",
-  loginRequiredPage,
-  postController.getDetailPost
-);
-postRouter.post(
+  .put(postController.editPost);
+postRouter.delete("/delete/:postId", loginRequired, postController.deletePost);
+postRouter.get("/detail/:postId", loginRequired, postController.getDetailPost);
+postRouter.put(
   "/increase-views/:postId",
-  postController.postIncreaseViewsPost
+  loginRequired,
+  postController.increasePostViews
 );
-postRouter.post("/toggle-likes/:postId", postController.postToggleLikesPost);
+postRouter.put(
+  "/toggle-likes/:postId",
+  loginRequired,
+  postController.togglePostLikes
+);
 
 export default postRouter;

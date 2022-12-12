@@ -13,7 +13,7 @@ class PostController {
     });
   }
 
-  async postAddPost(req, res) {
+  async addPost(req, res) {
     const { title, boardName, content } = req.body;
 
     const loggedInUser = req.session.user;
@@ -107,15 +107,19 @@ class PostController {
     return res.status(200).render("post/edit-post/edit-post", {
       pageTitle: "게시글 수정",
       post,
+      postId,
       boardNameList,
     });
   }
 
-  async postEditPost(req, res) {
+  async editPost(req, res) {
     const { postId } = req.params;
-    const { title, boardName, content } = req.body;
 
-    const newBoardName = boardName;
+    const {
+      title: newTitle,
+      boardName: newBoardName,
+      content: newContent,
+    } = req.body;
 
     let post;
     try {
@@ -126,11 +130,15 @@ class PostController {
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/board/전체게시판/1");
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
     if (!post) {
       req.flash("error", "게시글을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res
+        .status(404)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
 
     const loggedInUser = req.session.user;
@@ -140,25 +148,23 @@ class PostController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(post.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
+      return res.status(403).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     try {
       if (newBoardName !== post.board.name) {
-        post.board.postList = post.board.postList.filter((el) => {
-          if (String(el._id) !== String(post.id)) {
-            return true;
-          }
-        });
+        post.board.postList = post.board.postList.filter(
+          (el) => String(el._id) !== String(post.id)
+        );
         await post.board.save();
 
         const board = await Board.findOne({ name: newBoardName });
@@ -168,20 +174,22 @@ class PostController {
         post.board = board;
       }
 
-      post.title = title;
-      post.content = content;
+      post.title = newTitle;
+      post.content = newContent;
       await post.save();
 
       req.flash("success", "게시글을 수정했습니다.");
-      return res.status(200).redirect(`/post/detail/${postId}`);
+      return res.status(200).json(`/post/detail/${postId}`);
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 수정하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/post/edit/${postId}`);
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
   }
 
-  async postDeletePost(req, res) {
+  async deletePost(req, res) {
     const { postId } = req.params;
 
     let post;
@@ -193,11 +201,15 @@ class PostController {
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/board/전체게시판/1");
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
     if (!post) {
       req.flash("error", "게시글을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res
+        .status(404)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
 
     const loggedInUser = req.session.user;
@@ -207,16 +219,16 @@ class PostController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(post.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
+      return res.status(403).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     try {
@@ -233,13 +245,15 @@ class PostController {
       await Post.findByIdAndDelete(postId);
 
       req.flash("success", "게시글을 삭제했습니다.");
-      if (req.session.logHistory.prevPageURL) {
+      if (req.session.history.prevPageURL) {
         return res.status(200).json(req.session.history.prevPageURL);
       }
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 삭제하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/post/detail/${postId}`);
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: `/post/detail/${postId}` });
     }
   }
 
@@ -283,7 +297,7 @@ class PostController {
     });
   }
 
-  async postIncreaseViewsPost(req, res) {
+  async increasePostViews(req, res) {
     const { postId } = req.params;
 
     try {
@@ -297,11 +311,13 @@ class PostController {
         "error",
         "게시글의 조회수를 증가시키는 과정에서 오류가 발생했습니다."
       );
-      return res.status(500).redirect("/board/전체게시판/1");
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
   }
 
-  async postToggleLikesPost(req, res) {
+  async togglePostLikes(req, res) {
     const { postId } = req.params;
 
     const loggedInUser = req.session.user;
@@ -311,11 +327,11 @@ class PostController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     let post;
@@ -324,11 +340,15 @@ class PostController {
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/board/전체게시판/1");
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
     if (!post) {
       req.flash("error", "게시글을 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res
+        .status(404)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
 
     let alreadyIn = false;
@@ -352,7 +372,9 @@ class PostController {
           "error",
           "게시글 정보를 갱신하는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect("/board/전체게시판/1");
+        return res
+          .status(500)
+          .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
       }
 
       try {
@@ -370,7 +392,9 @@ class PostController {
           "error",
           "유저 정보를 갱신하는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect("/board/전체게시판/1");
+        return res
+          .status(500)
+          .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
       }
 
       req.flash("success", "좋아요 취소 완료");
@@ -385,7 +409,9 @@ class PostController {
           "error",
           "게시글 정보를 갱신하는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect("/board/전체게시판/1");
+        return res
+          .status(500)
+          .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
       }
 
       try {
@@ -397,7 +423,9 @@ class PostController {
           "error",
           "유저 정보를 갱신하는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect("/board/전체게시판/1");
+        return res
+          .status(500)
+          .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
       }
 
       req.flash("success", "좋아요 완료");
