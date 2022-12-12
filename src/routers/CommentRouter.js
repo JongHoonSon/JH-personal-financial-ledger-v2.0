@@ -4,25 +4,21 @@ import { commentController } from "../controllers";
 
 const commentRouter = express.Router();
 
-commentRouter.post(
-  "/add/:postId",
+commentRouter.post("/add/:postId", loginRequired, commentController.addComment);
+commentRouter.put(
+  "/edit/:commentId",
   loginRequired,
-  commentController.postAddComment
+  commentController.editComment
 );
-commentRouter.post(
-  "/edit/:postId/:commentId",
-  loginRequired,
-  commentController.postEditComment
-);
-commentRouter.post(
+commentRouter.delete(
   "/delete/:postId/:commentId",
   loginRequired,
-  commentController.postDeleteComment
+  commentController.deleteComment
 );
-commentRouter.post(
-  "/increase-likes/:postId/:commentId",
+commentRouter.put(
+  "/increase-likes/:commentId",
   loginRequired,
-  commentController.postIncreaseLikesComment
+  commentController.increaseCommentLikes
 );
 
 export default commentRouter;

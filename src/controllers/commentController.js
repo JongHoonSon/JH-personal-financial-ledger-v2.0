@@ -3,7 +3,7 @@ import Post from "../models/Post";
 import Comment from "../models/Comment";
 
 class CommentController {
-  async postAddComment(req, res) {
+  async addComment(req, res) {
     const { postId } = req.params;
     const { content } = req.body;
 
@@ -52,8 +52,8 @@ class CommentController {
     }
   }
 
-  async postEditComment(req, res) {
-    const { postId, commentId } = req.params;
+  async editComment(req, res) {
+    const { commentId } = req.params;
     const { newContent } = req.body;
 
     let comment;
@@ -65,11 +65,15 @@ class CommentController {
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/board/전체게시판/1");
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
     if (!comment) {
       req.flash("error", "댓글을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res
+        .status(404)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
 
     const loggedInUser = req.session.user;
@@ -79,16 +83,16 @@ class CommentController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(comment.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     try {
@@ -96,15 +100,17 @@ class CommentController {
       await comment.save();
 
       req.flash("success", "댓글을 수정했습니다.");
-      return res.status(200).redirect(`/post/detail/${postId}`);
+      return res.sendStatus(200);
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 수정하는 과정에서 오류가 발생했습니다.");
-      return res.status(200).redirect(`/post/detail/${postId}`);
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
   }
 
-  async postDeleteComment(req, res) {
+  async deleteComment(req, res) {
     const { postId, commentId } = req.params;
 
     let comment;
@@ -116,11 +122,15 @@ class CommentController {
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/board/전체게시판/1");
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
     if (!comment) {
       req.flash("error", "댓글을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res
+        .status(404)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
 
     const loggedInUser = req.session.user;
@@ -130,16 +140,16 @@ class CommentController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(comment.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     try {
@@ -151,7 +161,9 @@ class CommentController {
       const post = await Post.findById(postId).populate("commentList");
       if (!post) {
         req.flash("error", "게시글을 찾을 수 없습니다.");
-        return res.status(404).redirect("/");
+        return res
+          .status(404)
+          .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
       }
       post.commentList = post.commentList.filter(
         (el) => String(el._id) !== String(comment._id)
@@ -161,16 +173,18 @@ class CommentController {
       await Comment.findByIdAndDelete(commentId);
 
       req.flash("success", "댓글을 삭제했습니다.");
-      return res.status(200).redirect(`/post/detail/${postId}`);
+      return res.sendStatus(200);
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 삭제하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/post/detail/${postId}`);
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
   }
 
-  async postIncreaseLikesComment(req, res) {
-    const { postId, commentId } = req.params;
+  async increaseCommentLikes(req, res) {
+    const { commentId } = req.params;
 
     const loggedInUser = req.session.user;
     let user;
@@ -179,11 +193,11 @@ class CommentController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     let comment;
@@ -192,11 +206,15 @@ class CommentController {
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/post/detail/${postId}`);
+      return res
+        .status(500)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
     if (!comment) {
       req.flash("error", "댓글을 찾을 수 없습니다.");
-      return res.status(404).redirect(`/post/detail/${postId}`);
+      return res
+        .status(404)
+        .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
     }
 
     let alreadyLikesThisComment = false;
@@ -220,7 +238,9 @@ class CommentController {
           "error",
           "댓글 정보를 갱신하는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect(`/post/detail/${postId}`);
+        return res
+          .status(500)
+          .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
       }
 
       try {
@@ -232,7 +252,9 @@ class CommentController {
           "error",
           "유저 정보를 갱신하는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect(`/post/detail/${postId}`);
+        return res
+          .status(500)
+          .json({ haveToRedirect: true, redirectURL: "/board/전체게시판/1" });
       }
 
       req.flash("success", "좋아요 완료");
