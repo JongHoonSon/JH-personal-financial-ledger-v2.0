@@ -8,12 +8,12 @@ postRouter
   .route("/add")
   .all(loginRequired)
   .get(postController.getAddPost)
-  .post(postController.postAddPost);
+  .post(postController.addPost);
 postRouter
   .route("/edit/:postId")
   .all(loginRequired)
   .get(postController.getEditPost)
-  .post(postController.postEditPost);
+  .put(postController.editPost);
 postRouter.delete("/delete/:postId", loginRequired, postController.deletePost);
 postRouter.get("/detail/:postId", loginRequired, postController.getDetailPost);
 postRouter.put(
@@ -24,7 +24,7 @@ postRouter.put(
 postRouter.put(
   "/toggle-likes/:postId",
   loginRequired,
-  postController.increasePostLikes
+  postController.togglePostLikes
 );
 
 export default postRouter;
