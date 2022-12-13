@@ -9,11 +9,11 @@ globalRouter.route("/").get(loginRequired, globalController.getHome);
 globalRouter
   .route("/join")
   .get(anonymousUserPage, globalController.getJoin)
-  .post(globalController.postJoin);
+  .post(globalController.join);
 globalRouter
   .route("/login")
   .get(anonymousUserPage, globalController.getLogin)
-  .post(globalController.postLogin);
+  .post(globalController.login);
 globalRouter.get(
   "/auth/google",
   anonymousUserPage,

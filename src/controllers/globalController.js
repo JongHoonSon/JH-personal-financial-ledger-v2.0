@@ -3,14 +3,14 @@ import bcrypt from "bcrypt";
 
 class GlobalController {
   getHome(req, res) {
-    return res.render("global/home", { pageTitle: "홈" });
+    return res.status(200).render("global/home", { pageTitle: "홈" });
   }
 
   getJoin(req, res) {
-    return res.render("global/join", { pageTitle: "회원가입" });
+    return res.status(200).render("global/join", { pageTitle: "회원가입" });
   }
 
-  async postJoin(req, res) {
+  async join(req, res) {
     const { username, password, password_confirm, name, email, nickname } =
       req.body;
 
@@ -111,14 +111,14 @@ class GlobalController {
         : false;
     let savedUsername = saveUsername ? req.cookies.saved_username : "";
 
-    return res.render("global/login", {
+    return res.status(200).render("global/login", {
       pageTitle: "로그인",
       saveUsername,
       savedUsername,
     });
   }
 
-  async postLogin(req, res) {
+  async login(req, res) {
     const { username, password, save_username } = req.body;
 
     let user;
@@ -180,14 +180,14 @@ class GlobalController {
     req.session.loggedIn = false;
 
     req.flash("success", `다음에 또 봬요, ${username} 님!`);
-    return res.status(200).redirect("/");
+    return res.status(200).redirect("/login");
   }
 
   finishGoogleLogin(req, res) {
-    req.session.loggedIn = true;
     req.session.user = req.user;
+    req.session.loggedIn = true;
 
-    return res.redirect("/");
+    return res.status(200).redirect("/");
   }
 }
 
