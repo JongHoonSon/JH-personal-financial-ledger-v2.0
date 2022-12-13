@@ -135,7 +135,7 @@ class ItemController {
     }
     if (!item) {
       req.flash("error", "아이템을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).redirect("/");
     }
 
     const loggedInUser = req.session.user;
@@ -151,7 +151,7 @@ class ItemController {
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).redirect("/");
     }
 
     if (String(item.owner._id) !== String(user._id)) {
@@ -321,7 +321,7 @@ class ItemController {
     }
     if (!item) {
       req.flash("error", "아이템을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).redirect("/");
     }
 
     const loggedInUser = req.session.user;
@@ -337,7 +337,7 @@ class ItemController {
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).redirect("/");
     }
 
     if (String(item.owner._id) !== String(user._id)) {
