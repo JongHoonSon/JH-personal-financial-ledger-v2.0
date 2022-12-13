@@ -24,7 +24,7 @@ block components
                         button(type="submit").login-button__item 로그인
                     div.login-utils
                         div.login-checkbox
-                            if isUsernameSaved
+                            if saveUsername
                                 input(id="save_username", name="save_username", type="checkbox" checked)
                             else 
                                 input(id="save_username", name="save_username", type="checkbox")
