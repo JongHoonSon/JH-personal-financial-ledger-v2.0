@@ -41,7 +41,7 @@ class ItemController {
     });
   }
 
-  async postAddItem(req, res) {
+  async addItem(req, res) {
     const { itemType } = req.params;
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
@@ -170,7 +170,7 @@ class ItemController {
     });
   }
 
-  async postEditItem(req, res) {
+  async editItem(req, res) {
     const { itemType, itemId } = req.params;
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
@@ -237,7 +237,7 @@ class ItemController {
     }
   }
 
-  async postDeleteItem(req, res) {
+  async deleteItem(req, res) {
     const { itemType, itemId } = req.params;
 
     let item;
@@ -392,7 +392,7 @@ class ItemController {
     });
   }
 
-  async postPinning(req, res) {
+  async pinItem(req, res) {
     const { itemType, itemId } = req.params;
 
     let item;

@@ -6,7 +6,7 @@ block content
             div#detail-item__options__wrap(style=`background-color: ${item.type === "i" ? '#00a8ff' : '#ff7043'}`)
                 ul#detail-item__options
                     li.detail-item__options__option
-                        form(method="POST", action=`/item/pinning/${item.type}/${item.id}`)
+                        form(method="POST", action=`/item/pin/${item.type}/${item.id}`)
                             if item.pinned === true 
                                 button(type="submit", value="핀 목록에서 삭제")
                                     i.fa-solid.fa-star.pin-icon#pinned

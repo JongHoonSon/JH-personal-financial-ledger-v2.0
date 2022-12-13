@@ -8,16 +8,16 @@ itemRouter
   .route("/add/:itemType")
   .all(loginRequired)
   .get(itemController.getAddItem)
-  .post(imageUploader.single("image"), itemController.postAddItem);
+  .post(imageUploader.single("image"), itemController.addItem);
 itemRouter
   .route("/edit/:itemType/:itemId")
   .all(loginRequired)
   .get(itemController.getEditItem)
-  .post(imageUploader.single("image"), itemController.postEditItem);
+  .post(imageUploader.single("image"), itemController.editItem);
 itemRouter.post(
   "/delete/:itemType/:itemId",
   loginRequired,
-  itemController.postDeleteItem
+  itemController.deleteItem
 );
 itemRouter.get(
   "/detail/:itemType/:itemId",
@@ -26,9 +26,9 @@ itemRouter.get(
 );
 itemRouter.get("/pinned", loginRequired, itemController.getPinnedItems);
 itemRouter.post(
-  "/pinning/:itemType/:itemId",
+  "/pin/:itemType/:itemId",
   loginRequired,
-  itemController.postPinning
+  itemController.pinItem
 );
 
 export default itemRouter;
