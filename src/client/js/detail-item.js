@@ -1,4 +1,4 @@
-const deleteBtn = document.querySelector(".delete-icon");
+const deleteBtn = document.querySelector("#detail-item__delete-icon");
 
 function deleteConfirm(event) {
   if (!confirm("정말 이 내역을 삭제하시겠습니까?")) {

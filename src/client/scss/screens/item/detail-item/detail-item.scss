@@ -36,18 +36,18 @@
   i:hover {
     opacity: 0.6;
   }
-  .pin-icon {
+  #detail-item__pin-icon {
     color: $yellow;
   }
-  .edit-icon {
+  #detail-item__edit-icon {
     color: $navy;
   }
-  .delete-icon {
+  #detail-item__delete-icon {
     color: $forest_blue;
   }
 }
 
-#pinned {
+.detail-item__pinned-item__pin-button {
   color: $yellow;
 }
 
