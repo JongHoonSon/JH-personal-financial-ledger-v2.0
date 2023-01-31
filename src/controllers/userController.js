@@ -158,6 +158,7 @@ class UserController {
 
   async postEditUserPassword(req, res) {
     const loggedInUserId = req.session.user._id;
+
     const { password, new_password, new_password_confirm } = req.body;
 
     let user;
@@ -166,11 +167,10 @@ class UserController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     let passwordCorrect;
@@ -179,11 +179,13 @@ class UserController {
     } catch (error) {
       console.log(error);
       req.flash("error", "비밀번호를 검증하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!passwordCorrect) {
       req.flash("error", "비밀번호가 일치하지 않습니다.");
-      return res.status(400).redirect(`/user/edit-password`);
+      return res
+        .status(400)
+        .json({ haveToRedirect: true, redirectURL: "/user/edit-password" });
     }
 
     if (new_password !== new_password_confirm) {
@@ -191,7 +193,9 @@ class UserController {
         "error",
         "입력하신 새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다."
       );
-      return res.status(400).redirect(`/user/edit-password`);
+      return res
+        .status(400)
+        .json({ haveToRedirect: true, redirectURL: "/user/edit-password" });
     }
 
     try {
@@ -199,11 +203,13 @@ class UserController {
       await user.save();
       req.session.user = user;
       req.flash("success", "비밀번호를 변경했습니다.");
-      return res.status(200).redirect(`/user/profile/${user._id}`);
+      return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {
       console.log(error);
       req.flash("error", "비밀번호를 변경하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect(`/user/edit-password`);
+      return res
+        .status(400)
+        .json({ haveToRedirect: true, redirectURL: "/user/edit-password" });
     }
   }
 

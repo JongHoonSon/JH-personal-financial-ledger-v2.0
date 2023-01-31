@@ -8,7 +8,7 @@ userRouter.get("/profile/:userId", userController.getUserProfile);
 userRouter
   .route("/edit-profile")
   .get(userController.getEditUserProfile)
-  .post(imageUploader.single("image"), userController.postEditUserProfile);
+  .put(imageUploader.single("image"), userController.postEditUserProfile);
 userRouter
   .route("/edit-password")
   .get(userController.getEditUserPassword)
