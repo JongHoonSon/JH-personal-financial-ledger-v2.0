@@ -1,6 +1,6 @@
 mixin list(item)
     li.last-expense__item.expense-bgcolor-deep
-        a(href=`${item.content !== null ? `/item/detail/${item.content.type}/${item.content.id}` : ``}`).last-expense__item__link
+        a(href=`${item.content !== null ? `/item/${item.content.type}/${item.content.id}` : ``}`).last-expense__item__link
             ul.last-expense__item-contents
                 li.last-expense__item-content=item.category
 
