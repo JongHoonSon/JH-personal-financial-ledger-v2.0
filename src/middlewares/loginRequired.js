@@ -22,6 +22,7 @@ const loginRequired = (req, res, next) => {
     else if (
       req.headers["content-length"] === "0" ||
       req.headers["content-type"] === "application/json" ||
+      req.method === "POST" ||
       req.method === "PUT" ||
       req.method === "DELETE"
     ) {
