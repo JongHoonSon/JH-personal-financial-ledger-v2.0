@@ -25,7 +25,6 @@ globalRouter.get(
   passport.authenticate("google"),
   globalController.finishGoogleLogin
 );
-
 globalRouter.get("/logout", loginRequired, globalController.logout);
 
 export default globalRouter;

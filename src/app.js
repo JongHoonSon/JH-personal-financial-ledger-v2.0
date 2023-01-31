@@ -17,6 +17,7 @@ import {
   userRouter,
 } from "./routers";
 import { localMiddleware, logHistory } from "./middlewares";
+import loginRequired from "./middlewares/loginRequired";
 
 const app = express();
 const logger = morgan("dev");
@@ -50,6 +51,9 @@ app.use(logger);
 app.use(localMiddleware);
 app.use(logHistory);
 
+app.use("/", globalRouter);
+
+app.use(loginRequired);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
 app.use("/ledger", ledgerRouter);
@@ -58,6 +62,5 @@ app.use("/post", postRouter);
 app.use("/comment", commentRouter);
 app.use("/chart", chartRouter);
 app.use("/last-expense", lastExpenseRouter);
-app.use("/", globalRouter);
 
 export default app;
