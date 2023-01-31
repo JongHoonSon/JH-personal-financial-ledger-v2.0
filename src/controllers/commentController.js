@@ -111,14 +111,11 @@ class CommentController {
   }
 
   async deleteComment(req, res) {
-    const { postId, commentId } = req.params;
+    const { commentId } = req.params;
 
     let comment;
     try {
-      comment = await Comment.findById(commentId).populate({
-        path: "owner",
-        populate: "commentList",
-      });
+      comment = await Comment.findById(commentId).populate("post");
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 불러오는 과정에서 오류가 발생했습니다.");
@@ -158,7 +155,9 @@ class CommentController {
       );
       await user.save();
 
-      const post = await Post.findById(postId).populate("commentList");
+      const post = await Post.findById(comment.post._id).populate(
+        "commentList"
+      );
       if (!post) {
         req.flash("error", "게시글을 찾을 수 없습니다.");
         return res

@@ -4,19 +4,14 @@ import { commentController } from "../controllers";
 const commentRouter = express.Router();
 
 commentRouter.post("/add/:postId", commentController.addComment);
-commentRouter.put(
-  "/edit/:commentId",
 
-  commentController.editComment
-);
-commentRouter.delete(
-  "/delete/:postId/:commentId",
+commentRouter
+  .route("/:commentId")
+  .put(commentController.editComment)
+  .delete(commentController.deleteComment);
 
-  commentController.deleteComment
-);
 commentRouter.put(
   "/increase-likes/:commentId",
-
   commentController.increaseCommentLikes
 );
 

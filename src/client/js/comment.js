@@ -1,5 +1,3 @@
-const { post_id } = document.getElementById("detail-post").dataset;
-
 const commentEditBtns = document.querySelectorAll(".comment__edit-btn");
 const commentDeleteBtns = document.querySelectorAll(".comment__delete-btn");
 const commentLikeBtns = document.querySelectorAll(".comment__like-btn");
@@ -8,7 +6,7 @@ const handleDeleteComment = (event) => {
   if (confirm("이 댓글을 삭제하시겠습니까?")) {
     const { comment_id } = event.target.dataset;
 
-    fetch(`/comment/delete/${post_id}/${comment_id}`, {
+    fetch(`/comment/${comment_id}`, {
       method: "DELETE",
     })
       .then(async (res) => {
@@ -119,7 +117,7 @@ const handleEditComment = (event) => {
   commentEditConfirmBtn.onclick = async () => {
     const newContent = commentContentEditTextarea.value;
 
-    fetch(`/comment/edit/${comment_id}`, {
+    fetch(`/comment/${comment_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
