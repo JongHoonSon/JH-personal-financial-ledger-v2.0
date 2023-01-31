@@ -10,21 +10,22 @@ globalRouter.get("/", loginRequired, globalController.getHome);
 globalRouter.get("/logout", loginRequired, globalController.logout);
 
 // Anonymous User Page
-globalRouter.use(anonymousUserPage);
 globalRouter
   .route("/join")
-  .get(globalController.getJoin)
+  .get(anonymousUserPage, globalController.getJoin)
   .post(globalController.join);
 globalRouter
   .route("/login")
-  .get(globalController.getLogin)
+  .get(anonymousUserPage, globalController.getLogin)
   .post(globalController.login);
 globalRouter.get(
   "/auth/google",
+  anonymousUserPage,
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 globalRouter.get(
   "/auth/google/callback",
+  anonymousUserPage,
   passport.authenticate("google"),
   globalController.finishGoogleLogin
 );
