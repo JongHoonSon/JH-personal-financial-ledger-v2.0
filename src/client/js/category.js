@@ -104,7 +104,7 @@ const handleDeleteCategory = async (event) => {
   });
 
   if (response.status === 200) {
-    removeDeletedCategory(event, categoryType, categoryName);
+    removeDeletedCategory(event, categoryType);
     console.log("delete category success");
   }
 };
@@ -150,7 +150,7 @@ function addNewCategory(categoryType, newCategoryName) {
   delButtonTag.appendChild(delIconTag);
 }
 
-function removeDeletedCategory(event, categoryType, categoryName) {
+function removeDeletedCategory(event, categoryType) {
   let categoryList;
 
   if (categoryType === "i") {
