@@ -3,7 +3,7 @@ extends ../../base.pug
 block content 
     div.form-container
         div.form__wrap
-            form(method="POST", enctype="multipart/form-data").form
+            form.form#edit-user-profile__form
                 div.form__input-section__wrap
                     div.input
                         label(for="image-upload__uploader__image-input").input__label 프로필 사진
@@ -40,3 +40,4 @@ block content
 
 block scripts
     script(src="/assets/js/image-preview.js") 
+    script(src="/assets/js/edit-user-profile.js") 

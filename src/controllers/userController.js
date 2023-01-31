@@ -68,11 +68,11 @@ class UserController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (user.nickname !== nickname) {
@@ -85,11 +85,13 @@ class UserController {
           "error",
           "유저 정보를 불러오는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect("/");
+        return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
       }
       if (existedNickname) {
         req.flash("error", "이미 사용 중인 닉네임입니다.");
-        return res.status(400).redirect("/join");
+        return res
+          .status(400)
+          .json({ haveToRedirect: true, redirectURL: "/user/edit-profile" });
       }
     }
 
@@ -103,11 +105,13 @@ class UserController {
           "error",
           "유저 정보를 불러오는 과정에서 오류가 발생했습니다."
         );
-        return res.status(500).redirect("/");
+        return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
       }
       if (existedEmail) {
         req.flash("error", "이미 사용 중인 이메일입니다.");
-        return res.status(400).redirect("/join");
+        return res
+          .status(400)
+          .json({ haveToRedirect: true, redirectURL: "/user/edit-profile" });
       }
     }
 
@@ -127,11 +131,14 @@ class UserController {
       );
       req.session.user = updatedUser;
       req.flash("success", "프로필을 수정했습니다.");
-      return res.status(200).redirect(`/user/profile/${user._id}`);
+      return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {
       console.log(error);
       req.flash("error", "프로필을 수정하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect(`/user/profile/${user._id}`);
+      return res.status(400).json({
+        haveToRedirect: true,
+        redirectURL: `/user/profile/${user._id}`,
+      });
     }
   }
 
