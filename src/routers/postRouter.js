@@ -4,18 +4,14 @@ import { loginRequired } from "../middlewares";
 
 const postRouter = express.Router();
 
+postRouter.get("/add", loginRequired, postController.getAddPost);
+postRouter.post("/", loginRequired, postController.addPost);
+postRouter.get("/edit/:postId", loginRequired, postController.getEditPost);
 postRouter
-  .route("/add")
-  .all(loginRequired)
-  .get(postController.getAddPost)
-  .post(postController.addPost);
-postRouter
-  .route("/edit/:postId")
-  .all(loginRequired)
-  .get(postController.getEditPost)
-  .put(postController.editPost);
-postRouter.delete("/delete/:postId", loginRequired, postController.deletePost);
-postRouter.get("/detail/:postId", loginRequired, postController.getDetailPost);
+  .route("/:postId")
+  .get(loginRequired, postController.getDetailPost)
+  .put(loginRequired, postController.editPost)
+  .delete(loginRequired, postController.deletePost);
 postRouter.put(
   "/increase-views/:postId",
   loginRequired,

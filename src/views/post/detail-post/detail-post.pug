@@ -27,7 +27,7 @@ block content
                             span.detail-post__meta-info__span #{post.commentList.length}
                 div.detail-post__info__wrap
                     div#detail-post__url
-                        a(href=`/post/detail/${post._id}`)#detail-post__link
+                        a(href=`/post/${post._id}`)#detail-post__link
                         button#detail-post__link__copy-button 복사
             div#detail-post__content__wrap
                 p#detail-post__content #{post.content}
@@ -53,5 +53,5 @@ block content
             include detail-post-comments.pug
 
 block scripts
-    script(src="/assets/js/post.js") 
+    script(src="/assets/js/detail-post.js") 
     script(src="/assets/js/comment.js") 

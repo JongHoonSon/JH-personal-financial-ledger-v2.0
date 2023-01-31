@@ -2,12 +2,6 @@ const postEditFormButton = document.getElementById("post-edit-form__button");
 
 const postId = postEditFormButton.dataset.post_id;
 
-console.log("postId");
-console.log(postId);
-
-console.log("postEditFormButton");
-console.log(postEditFormButton);
-
 const handlePostEditFormButtonClick = (e) => {
   e.preventDefault();
 
@@ -17,16 +11,7 @@ const handlePostEditFormButtonClick = (e) => {
   ).value;
   const newContent = document.getElementById("post-edit-form__content").value;
 
-  console.log("newTitle.value");
-  console.log(newTitle.value);
-
-  console.log("newBoardName.value");
-  console.log(newBoardName.value);
-
-  console.log("newContent.value");
-  console.log(newContent.value);
-
-  fetch(`/post/edit/${postId}`, {
+  fetch(`/post/${postId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

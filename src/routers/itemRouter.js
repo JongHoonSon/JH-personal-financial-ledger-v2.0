@@ -14,7 +14,7 @@ itemRouter
   .all(loginRequired)
   .get(itemController.getEditItem)
   .post(imageUploader.single("image"), itemController.editItem);
-itemRouter.post(
+itemRouter.delete(
   "/delete/:itemType/:itemId",
   loginRequired,
   itemController.deleteItem
@@ -25,10 +25,6 @@ itemRouter.get(
   itemController.getDetailItem
 );
 itemRouter.get("/pinned", loginRequired, itemController.getPinnedItems);
-itemRouter.post(
-  "/pin/:itemType/:itemId",
-  loginRequired,
-  itemController.pinItem
-);
+itemRouter.put("/pin/:itemType/:itemId", loginRequired, itemController.pinItem);
 
 export default itemRouter;

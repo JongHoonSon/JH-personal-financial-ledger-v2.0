@@ -5,7 +5,7 @@ mixin list(post)
             li.post-content.post-content__board-name
                 a(href=`/board/${post.board.name}/1`).post-board__link #{post.board.name}
             li.post-content.post-content__title
-                a(href=`/post/detail/${post._id}`).post__link #{post.title}
+                a(href=`/post/${post._id}`).post__link #{post.title}
             li.post-content.post-content__owner-info
                 a(href=`/user/profile/${post.owner._id}`).post-owner__link
                     img(src=post.owner.avatarUrl).post-owner-avatar

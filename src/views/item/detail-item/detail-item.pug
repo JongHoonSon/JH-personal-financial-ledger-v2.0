@@ -2,15 +2,15 @@ extends ../../base.pug
 
 block content
     div.container
-        div#detail-item__wrap
+        div#detail-item__wrap(data-item=item)
             div#detail-item__options__wrap(style=`background-color: ${item.type === "i" ? '#00a8ff' : '#ff7043'}`)
                 ul#detail-item__options
                     li.detail-item__options__option
                         if item.pinned === true 
-                            button(value="핀 목록에서 삭제")#detail-item__pin-button
+                            button#detail-item__pin-button
                                 i.fa-solid.fa-star#detail-item__pin-icon.detail-item__pinned-item__pin-button
                         if item.pinned === false
-                            button(value="핀 목록에 추가")#detail-item__pin-button
+                            button#detail-item__pin-button
                                 i.fa-regular.fa-star#detail-item__pin-icon
 
                     li.detail-item__options__option
@@ -19,7 +19,7 @@ block content
                                 i.fa-solid.fa-pen-to-square#detail-item__edit-icon
 
                     li.detail-item__options__option
-                        button(type="submit", value="삭제")#detail-item__delete-button
+                        button#detail-item__delete-button
                             i.fa-solid.fa-trash-can#detail-item__delete-icon
 
             div#detail-item__contents__wrap

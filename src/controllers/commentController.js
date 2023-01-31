@@ -44,11 +44,11 @@ class CommentController {
       await post.save();
 
       req.flash("success", "댓글을 생성했습니다.");
-      return res.status(200).redirect(`/post/detail/${postId}`);
+      return res.status(200).redirect(`/post/${postId}`);
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 생성하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/post/detail/${postId}`);
+      return res.status(500).redirect(`/post/${postId}`);
     }
   }
 

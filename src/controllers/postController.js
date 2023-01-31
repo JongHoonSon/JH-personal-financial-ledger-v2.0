@@ -55,7 +55,7 @@ class PostController {
       await user.save();
       await board.save();
       req.flash("success", "게시글을 작성하였습니다.");
-      return res.status(200).redirect(`/post/detail/${newPost._id}`);
+      return res.status(200).redirect(`/post/${newPost._id}`);
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 작성하는 과정에서 오류가 발생했습니다.");
@@ -179,7 +179,7 @@ class PostController {
       await post.save();
 
       req.flash("success", "게시글을 수정했습니다.");
-      return res.status(200).json(`/post/detail/${postId}`);
+      return res.status(200).json(`/post/${postId}`);
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 수정하는 과정에서 오류가 발생했습니다.");
@@ -253,7 +253,7 @@ class PostController {
       req.flash("error", "게시글을 삭제하는 과정에서 오류가 발생했습니다.");
       return res
         .status(500)
-        .json({ haveToRedirect: true, redirectURL: `/post/detail/${postId}` });
+        .json({ haveToRedirect: true, redirectURL: `/post/${postId}` });
     }
   }
 
