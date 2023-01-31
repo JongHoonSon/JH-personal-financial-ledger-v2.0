@@ -79,7 +79,7 @@ class PostController {
     }
     if (!post) {
       req.flash("error", "게시글을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).redirect("/");
     }
 
     const loggedInUser = req.session.user;
@@ -93,7 +93,7 @@ class PostController {
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      return res.status(404).redirect("/");
     }
 
     if (String(post.owner._id) !== String(user._id)) {
