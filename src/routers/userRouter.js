@@ -13,18 +13,10 @@ userRouter
   .route("/edit-password")
   .get(userController.getEditUserPassword)
   .post(userController.postEditUserPassword);
-userRouter.get(
-  "/own-categories/:categoryType",
-  userController.getUserOwnCategories
-);
-userRouter.post(
-  "/add/category/:categoryType",
-  userController.postAddUserCategory
-);
-userRouter.delete(
-  "/delete/category/:categoryType",
-  userController.postDeleteUserCategory
-);
+userRouter
+  .route("/category/:categoryType")
+  .post(userController.postAddUserCategory)
+  .delete(userController.postDeleteUserCategory);
 userRouter.get("/own-posts/:userId", userController.getUserOwnPosts);
 userRouter.get("/own-comments/:userId", userController.getUserOwnComments);
 

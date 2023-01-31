@@ -68,7 +68,7 @@ sumbitButtonIcon.addEventListener("click", async (e) => {
 
   const categoryType = selectedTab.dataset.category_type;
 
-  const response = await fetch(`/user/add/category/${categoryType}`, {
+  const response = await fetch(`/user/category/${categoryType}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const handleDeleteCategory = async (event) => {
 
   const categoryName = event.target.dataset.category;
 
-  const response = await fetch(`/user/delete/category/${categoryType}`, {
+  const response = await fetch(`/user/category/${categoryType}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
