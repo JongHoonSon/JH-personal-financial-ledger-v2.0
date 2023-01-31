@@ -57,7 +57,7 @@ class UserController {
     });
   }
 
-  async postEditUserProfile(req, res) {
+  async editUserProfile(req, res) {
     const loggedInUserId = req.session.user._id;
     const { name, nickname, email } = req.body;
     const { file } = req;
@@ -156,7 +156,7 @@ class UserController {
     });
   }
 
-  async postEditUserPassword(req, res) {
+  async editUserPassword(req, res) {
     const loggedInUserId = req.session.user._id;
 
     const { password, new_password, new_password_confirm } = req.body;
@@ -255,7 +255,7 @@ class UserController {
     });
   }
 
-  async postAddUserCategory(req, res) {
+  async addUserCategory(req, res) {
     const loggedInUserId = req.session.user._id;
     const { categoryType } = req.params;
     const { newCategoryName } = req.body;
@@ -286,7 +286,7 @@ class UserController {
     return res.send(200);
   }
 
-  async postDeleteUserCategory(req, res) {
+  async deleteUserCategory(req, res) {
     const loggedInUserId = req.session.user._id;
     const { categoryType } = req.params;
     const { categoryName } = req.body;

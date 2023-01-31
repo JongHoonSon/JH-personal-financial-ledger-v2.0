@@ -8,15 +8,15 @@ userRouter.get("/profile/:userId", userController.getUserProfile);
 userRouter
   .route("/edit-profile")
   .get(userController.getEditUserProfile)
-  .put(imageUploader.single("image"), userController.postEditUserProfile);
+  .put(imageUploader.single("image"), userController.editUserProfile);
 userRouter
   .route("/edit-password")
   .get(userController.getEditUserPassword)
-  .post(userController.postEditUserPassword);
+  .put(userController.editUserPassword);
 userRouter
   .route("/category/:categoryType")
-  .post(userController.postAddUserCategory)
-  .delete(userController.postDeleteUserCategory);
+  .post(userController.addUserCategory)
+  .delete(userController.deleteUserCategory);
 userRouter.get("/own-posts/:userId", userController.getUserOwnPosts);
 userRouter.get("/own-comments/:userId", userController.getUserOwnComments);
 
