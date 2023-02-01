@@ -14,12 +14,12 @@ class BoardController {
           populate: [{ path: "board" }, { path: "owner" }],
         });
       } catch (error) {
-        error.statusCode = 404;
+        error.message = "게시판을 찾는 과정에서 오류가 발생했습니다.";
         next(error);
       }
 
       if (!boardList) {
-        const error = new Error("게시판을 찾을 수 없습니다.");
+        const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
         next(error);
       }
@@ -42,13 +42,14 @@ class BoardController {
           });
 
         if (!board) {
-          const error = new Error("게시판을 찾을 수 없습니다.");
+          const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
           error.statusCode = 404;
           next(error);
         }
 
         totalPostList = board.postList;
       } catch (error) {
+        error.message = "게시판을 찾는 과정에서 오류가 발생했습니다.";
         next(error);
       }
     }
@@ -64,7 +65,7 @@ class BoardController {
 
       if (firstPageNum > currPageNum || currPageNum > lastPageNum) {
         const error = new Error("잘못된 접근입니다.");
-        error.statusCode = 403;
+        error.statusCode = 400;
         error.redirectURL = `/board/${boardName}/1`;
         throw error;
       }
@@ -74,7 +75,7 @@ class BoardController {
 
       if (firstPageNum > currPageNum || currPageNum > lastPageNum) {
         const error = new Error("잘못된 접근입니다.");
-        error.statusCode = 403;
+        error.statusCode = 400;
         error.redirectURL = `/board/${boardName}/1`;
         throw error;
       }
@@ -86,6 +87,7 @@ class BoardController {
         try {
           boardList = await boardModel.find({});
         } catch (error) {
+          error.message = "게시판을 찾는 과정에서 오류가 발생했습니다.";
           next(error);
         }
       }

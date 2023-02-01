@@ -13,6 +13,7 @@ class CommentController {
         .findByIdWithPopulate(loggedInUser._id)
         .populate("commentList");
     } catch (error) {
+      error.message = "유저를 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
 
@@ -22,6 +23,7 @@ class CommentController {
         .findByIdWithPopulate(postId)
         .populate("commentList");
     } catch (error) {
+      error.message = "게시글을 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
 
@@ -37,6 +39,7 @@ class CommentController {
       req.flash("success", "댓글을 생성했습니다.");
       return res.status(200).redirect(`/post/${postId}`);
     } catch (error) {
+      error.message = "댓글을 생성하는 과정에서 오류가 발생했습니다.";
       next(error);
     }
   }
@@ -52,6 +55,7 @@ class CommentController {
         populate: "commentList",
       });
     } catch (error) {
+      error.message = "댓글을 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
@@ -63,6 +67,7 @@ class CommentController {
         .findByIdWithPopulate(loggedInUser._id)
         .populate("commentList");
     } catch (error) {
+      error.message = "유저를 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
 
@@ -75,6 +80,7 @@ class CommentController {
       req.flash("success", "댓글을 수정했습니다.");
       return res.sendStatus(200);
     } catch (error) {
+      error.message = "댓글을 수정하는 과정에서 오류가 발생했습니다.";
       next(error);
     }
   }
@@ -88,6 +94,7 @@ class CommentController {
         .findByIdWithPopulate(commentId)
         .populate("post");
     } catch (error) {
+      error.message = "댓글을 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
@@ -99,6 +106,7 @@ class CommentController {
         .findByIdWithPopulate(loggedInUser._id)
         .populate("commentList");
     } catch (error) {
+      error.message = "유저를 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
 
@@ -107,7 +115,13 @@ class CommentController {
     user.commentList = user.commentList.filter(
       (el) => String(el._id) !== String(comment._id)
     );
-    await user.save();
+
+    try {
+      await user.save();
+    } catch (error) {
+      error.message = "유저 정보를 저장하는 과정에서 오류가 발생했습니다.";
+      next(error);
+    }
 
     let post;
     try {
@@ -122,19 +136,26 @@ class CommentController {
         next(error);
       }
     } catch (error) {
+      error.message = "게시글을 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
 
     post.commentList = post.commentList.filter(
       (el) => String(el._id) !== String(comment._id)
     );
-    await post.save();
+    try {
+      await post.save();
+    } catch (error) {
+      error.message = "게시글을 저장하는 과정에서 오류가 발생했습니다.";
+      next(error);
+    }
 
     try {
       await commentModel.findByIdAndDelete(commentId);
       req.flash("success", "댓글을 삭제했습니다.");
       return res.sendStatus(200);
     } catch (error) {
+      error.message = "댓글을 삭제하는 과정에서 오류가 발생했습니다.";
       next(error);
     }
   }
@@ -157,6 +178,7 @@ class CommentController {
         next(error);
       }
     } catch (error) {
+      error.message = "댓글을 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
 
@@ -176,6 +198,7 @@ class CommentController {
         comment.likesUserList.push(user);
         await comment.save();
       } catch (error) {
+        error.message = "댓글을 저장하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
         next(error);
       }
@@ -184,6 +207,7 @@ class CommentController {
         user.likesCommentList.push(comment);
         await user.save();
       } catch (error) {
+        error.message = "댓글을 저장하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
         next(error);
       }

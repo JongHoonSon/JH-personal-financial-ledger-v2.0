@@ -5,7 +5,7 @@ class ChartController {
   async getChart(req, res, next) {
     const { type, days } = req.params;
 
-    const loggedInUser = req.session.user;
+    const { loggedInUser } = req.session;
     let user;
     try {
       user = await userModel
@@ -14,8 +14,14 @@ class ChartController {
         .populate("expenseCategories")
         .populate("incomeList")
         .populate("expenseList");
+
+      if (!user) {
+        const error = new Error("유저를 DB에서 찾을 수 없습니다.");
+        error.statusCode = 404;
+        next(error);
+      }
     } catch (error) {
-      error.statusCode = 404;
+      error.message = "유저를 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
 

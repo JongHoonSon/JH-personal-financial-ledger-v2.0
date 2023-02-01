@@ -13,7 +13,7 @@ class PostModel {
       const post = await Post.find(params);
 
       if (!post) {
-        const error = new Error("게시물을 DB에서 찾을 수 없습니다.");
+        const error = new Error("게시글을 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
         throw error;
       }
@@ -29,7 +29,7 @@ class PostModel {
       const post = await Post.findById(postId);
 
       if (!post) {
-        const error = new Error("게시물을 DB에서 찾을 수 없습니다.");
+        const error = new Error("게시글을 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
         throw error;
       }
