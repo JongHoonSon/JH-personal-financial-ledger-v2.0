@@ -4,7 +4,9 @@ const errorHandler = (error, req, res, next) => {
     if (req.method === "GET" && req.headers["sec-fetch-dest"] === "document") {
       console.log("페이지 접속에 대한 GET 요청");
       req.flash("error", error.message);
-      return res.status(error.statusCode).redirect(error.redirectURL);
+      return res
+        .status(error.statusCode)
+        .redirect(error.redirectURL ? error.redirectURL : "/");
     }
 
     // form으로 보낸 POST 요청
@@ -13,7 +15,9 @@ const errorHandler = (error, req, res, next) => {
     ) {
       console.log("form에서 보낸 POST 요청");
       req.flash("error", error.message);
-      return res.status(error.statusCode).redirect(error.redirectURL);
+      return res
+        .status(error.statusCode)
+        .redirect(error.redirectURL ? error.redirectURL : "/");
     }
 
     // fetch로 보낸 POST, PUT, DELETE 요청
@@ -28,7 +32,10 @@ const errorHandler = (error, req, res, next) => {
       req.flash("error", error.message);
       return res
         .status(error.statusCode)
-        .json({ haveToRedirect: true, redirectURL: error.redirectURL });
+        .json({
+          haveToRedirect: true,
+          redirectURL: error.redirectURL ? error.redirectURL : "/",
+        });
     }
   }
 };
