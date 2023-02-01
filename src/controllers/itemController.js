@@ -25,10 +25,6 @@ class ItemController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     const { incomeCategories, expenseCategories } = user;
 
@@ -53,10 +49,6 @@ class ItemController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     if (itemType === "i") {
@@ -149,10 +141,6 @@ class ItemController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     if (String(item.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
@@ -203,10 +191,6 @@ class ItemController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(item.owner._id) !== String(user._id)) {
@@ -272,10 +256,6 @@ class ItemController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(item.owner._id) !== String(user._id)) {
@@ -344,10 +324,6 @@ class ItemController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     if (String(item.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
@@ -372,10 +348,6 @@ class ItemController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     const itemList = new Array();
@@ -433,10 +405,6 @@ class ItemController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({ haveToRedirect: true, redirectURL: `/` });
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).json({ haveToRedirect: true, redirectURL: `/` });
     }
 
     if (String(item.owner._id) !== String(user._id)) {

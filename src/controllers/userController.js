@@ -14,10 +14,6 @@ class UserController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     const isMyProfile = req.session.user._id === userId ? true : false;
 
@@ -46,10 +42,6 @@ class UserController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     return res.render("user/edit-user/edit-user-profile", {
       pageTitle: "프로필 수정",
@@ -69,10 +61,6 @@ class UserController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (user.nickname !== nickname) {
@@ -152,10 +140,6 @@ class UserController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     return res.render("user/edit-user/edit-user-password", {
@@ -244,11 +228,6 @@ class UserController {
       return res.status(500).redirect("/");
     }
 
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
-
     let pageTitle;
 
     if (categoryType === "i") {
@@ -289,11 +268,6 @@ class UserController {
       return res.status(500).redirect("/");
     }
 
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
-
     return res.send(200);
   }
 
@@ -326,11 +300,6 @@ class UserController {
       return res.status(500).redirect("/");
     }
 
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
-
     return res.sendStatus(200);
   }
 
@@ -344,11 +313,6 @@ class UserController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     const joinDate = getStringDate(user.joinDate);
@@ -375,11 +339,6 @@ class UserController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     const joinDate = getStringDate(user.joinDate);

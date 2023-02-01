@@ -23,10 +23,6 @@ class PostController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     let board;
     try {
@@ -89,10 +85,6 @@ class PostController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     if (String(post.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
@@ -147,10 +139,6 @@ class PostController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(post.owner._id) !== String(user._id)) {
@@ -218,10 +206,6 @@ class PostController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(post.owner._id) !== String(user._id)) {
@@ -327,10 +311,6 @@ class PostController {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     let post;

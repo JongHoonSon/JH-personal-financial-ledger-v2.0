@@ -15,10 +15,6 @@ class LastExpenseController {
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
     }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
 
     const expenseList = user.expenseList;
     const lastExpenseList = [];
