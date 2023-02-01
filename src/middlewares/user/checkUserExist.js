@@ -11,12 +11,12 @@ const checkUserExist = async (req, res, next) => {
         const error = new Error("로그인한 계정이 DB에 존재하지 않습니다.");
         error.statusCode = 404;
         error.redirectURL = "/";
-        throw error;
+        next(error);
       }
 
       req.session.loggedInUser = loggedInUser;
     } catch (error) {
-      throw error;
+      next(error);
     }
 
     next();

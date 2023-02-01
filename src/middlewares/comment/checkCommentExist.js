@@ -9,7 +9,7 @@ const checkCommentExist = async (req, res, next) => {
     const error = new Error("댓글이 DB에 존재하지 않습니다.");
     error.statusCode = 404;
     error.redirectURL = "/";
-    throw error;
+    next(error);
   }
 
   req.session.comment = comment;
