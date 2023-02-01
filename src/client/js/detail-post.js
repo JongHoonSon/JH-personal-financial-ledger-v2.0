@@ -63,7 +63,7 @@ const postDeleteButton = document.getElementById("detail-post__delete-button");
 
 if (postDeleteButton) {
   const deletePost = () => {
-    const deleteConfirm = confirm("이 게시물을 삭제하시겠습니까?");
+    const deleteConfirm = confirm("이 게시글을 삭제하시겠습니까?");
     if (deleteConfirm) {
       fetch(`/post/${post_id}`, {
         method: "DELETE",
