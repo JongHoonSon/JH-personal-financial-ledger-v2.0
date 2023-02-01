@@ -6,19 +6,11 @@ const checkUserExist = async (req, res, next) => {
 
     try {
       const loggedInUser = await userModel.findById(user._id);
-
-      if (!loggedInUser) {
-        const error = new Error("로그인한 계정이 DB에 존재하지 않습니다.");
-        error.statusCode = 404;
-        next(error);
-      }
-
       req.session.loggedInUser = loggedInUser;
+      next();
     } catch (error) {
       next(error);
     }
-
-    next();
   }
 };
 
