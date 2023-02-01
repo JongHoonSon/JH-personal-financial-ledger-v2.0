@@ -10,10 +10,12 @@
     color: $white;
     font-size: 30px;
   }
+  z-index: 10;
+  opacity: 0.8;
 }
 
 #add-item__button:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 #ledger__wrap {
