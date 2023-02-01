@@ -13,7 +13,7 @@ const checkItemExist = async (req, res, next) => {
 
   if (!item) {
     const error = new Error("아이템이 DB에 존재하지 않습니다.");
-    error.statusCode = 401;
+    error.statusCode = 404;
     error.redirectURL = "/";
     throw error;
   }
