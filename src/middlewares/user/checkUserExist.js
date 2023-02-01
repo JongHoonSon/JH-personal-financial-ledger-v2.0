@@ -10,7 +10,6 @@ const checkUserExist = async (req, res, next) => {
       if (!loggedInUser) {
         const error = new Error("로그인한 계정이 DB에 존재하지 않습니다.");
         error.statusCode = 404;
-        error.redirectURL = "/";
         next(error);
       }
 
