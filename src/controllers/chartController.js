@@ -2,21 +2,21 @@ import { userModel } from "./../db/models";
 import { getStringDate, getDaysDiff, getStringAmount } from "../utils";
 
 class ChartController {
-  async getChart(req, res) {
+  async getChart(req, res, next) {
     const { type, days } = req.params;
 
     const loggedInUser = req.session.user;
     let user;
     try {
       user = await userModel
-        .findById(loggedInUser._id)
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories")
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.statusCode = 404;
+      next(error);
     }
 
     let categories;
