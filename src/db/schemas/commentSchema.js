@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { getStringDate, getStringFullDate } from "./../../utils";
 
-export const commentSchema = new mongoose.Schema(
+const commentSchema = new mongoose.Schema(
   {
     owner: {
       type: mongoose.Schema.Types.ObjectId,
@@ -50,3 +50,5 @@ export const commentSchema = new mongoose.Schema(
     collection: "comments",
   }
 );
+
+export default commentSchema;

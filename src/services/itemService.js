@@ -1,3 +1,5 @@
 class ItemService {}
 
-export const itemService = new ItemService();
+const itemService = new ItemService();
+
+export default itemService;

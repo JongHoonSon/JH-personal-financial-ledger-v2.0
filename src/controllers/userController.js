@@ -8,7 +8,7 @@ class UserController {
 
     let user;
     try {
-      user = await User.findById(userId);
+      user = await userModel.findById(userId);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -40,7 +40,7 @@ class UserController {
 
     let user;
     try {
-      user = await User.findById(loggedInUserId);
+      user = await userModel.findById(loggedInUserId);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -64,7 +64,7 @@ class UserController {
 
     let user;
     try {
-      user = await User.findById(loggedInUserId);
+      user = await userModel.findById(loggedInUserId);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -78,7 +78,7 @@ class UserController {
     if (user.nickname !== nickname) {
       let existedNickname;
       try {
-        existedNickname = await User.exists({ nickname });
+        existedNickname = await userModel.exists({ nickname });
       } catch (error) {
         console.log(error);
         req.flash(
@@ -98,7 +98,7 @@ class UserController {
     if (user.email !== email) {
       let existedEmail;
       try {
-        existedEmail = await User.exists({ email });
+        existedEmail = await userModel.exists({ email });
       } catch (error) {
         console.log(error);
         req.flash(
@@ -119,7 +119,7 @@ class UserController {
       const filePath = file
         ? `/assets/img/user-upload-images/${file.filename}`
         : user.avatarUrl;
-      const updatedUser = await User.findByIdAndUpdate(
+      const updatedUser = await userModel.findByIdAndUpdate(
         user._id,
         {
           name,
@@ -147,7 +147,7 @@ class UserController {
 
     let user;
     try {
-      user = await User.findById(loggedInUserId);
+      user = await userModel.findById(loggedInUserId);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -170,7 +170,7 @@ class UserController {
 
     let user;
     try {
-      user = await User.findById(loggedInUserId);
+      user = await userModel.findById(loggedInUserId);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -228,12 +228,14 @@ class UserController {
     let userCategories;
     try {
       if (categoryType === "i") {
-        user = await User.findById(loggedInUserId).populate("incomeCategories");
+        user = await userModel
+          .findById(loggedInUserId)
+          .populate("incomeCategories");
         userCategories = user.incomeCategories;
       } else if (categoryType === "e") {
-        user = await User.findById(loggedInUserId).populate(
-          "expenseCategories"
-        );
+        user = await userModel
+          .findById(loggedInUserId)
+          .populate("expenseCategories");
         userCategories = user.expenseCategories;
       }
     } catch (error) {
@@ -270,12 +272,14 @@ class UserController {
     let user;
     try {
       if (categoryType === "i") {
-        user = await User.findById(loggedInUserId).populate("incomeCategories");
+        user = await userModel
+          .findById(loggedInUserId)
+          .populate("incomeCategories");
         user.incomeCategories.push(newCategoryName);
       } else if (categoryType === "e") {
-        user = await User.findById(loggedInUserId).populate(
-          "expenseCategories"
-        );
+        user = await userModel
+          .findById(loggedInUserId)
+          .populate("expenseCategories");
         user.expenseCategories.push(newCategoryName);
       }
       await user.save();
@@ -301,14 +305,16 @@ class UserController {
     let user;
     try {
       if (categoryType === "i") {
-        user = await User.findById(loggedInUserId).populate("incomeCategories");
+        user = await userModel
+          .findById(loggedInUserId)
+          .populate("incomeCategories");
         user.incomeCategories = user.incomeCategories.filter(
           (el) => el !== categoryName
         );
       } else if (categoryType === "e") {
-        user = await User.findById(loggedInUserId).populate(
-          "expenseCategories"
-        );
+        user = await userModel
+          .findById(loggedInUserId)
+          .populate("expenseCategories");
         user.expenseCategories = user.expenseCategories.filter(
           (el) => el !== categoryName
         );
@@ -333,7 +339,7 @@ class UserController {
 
     let user;
     try {
-      user = await User.findById(userId).populate("postList");
+      user = await userModel.findById(userId).populate("postList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -361,7 +367,7 @@ class UserController {
 
     let user;
     try {
-      user = await User.findById(userId).populate({
+      user = await userModel.findById(userId).populate({
         path: "commentList",
         populate: "post",
       });
@@ -388,4 +394,6 @@ class UserController {
   }
 }
 
-export const userController = new UserController();
+const userController = new UserController();
+
+export default userController;

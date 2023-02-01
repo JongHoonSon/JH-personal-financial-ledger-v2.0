@@ -1,3 +1,5 @@
 class PostService {}
 
-export const postService = new PostService();
+const postService = new PostService();
+
+export default postService;

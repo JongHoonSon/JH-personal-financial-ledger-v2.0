@@ -4,7 +4,7 @@ import { createStringDate, createStringFullDate } from "./../../utils";
 
 autoIncrement.initialize(mongoose.connection);
 
-export const postSchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     seq: {
       type: Number,
@@ -83,3 +83,5 @@ postSchema.plugin(autoIncrement.plugin, {
   startAt: 1,
   increment: 1,
 });
+
+export default postSchema;

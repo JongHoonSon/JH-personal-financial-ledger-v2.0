@@ -59,4 +59,6 @@ class LastExpenseController {
   }
 }
 
-export const lastExpenseController = new LastExpenseController();
+const lastExpenseController = new LastExpenseController();
+
+export default lastExpenseController;

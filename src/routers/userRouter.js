@@ -2,7 +2,7 @@ import express from "express";
 import { userController } from "../controllers";
 import { imageUploader } from "../middlewares";
 
-export const userRouter = express.Router();
+const userRouter = express.Router();
 
 userRouter.get("/profile/:userId", userController.getUserProfile);
 
@@ -24,3 +24,5 @@ userRouter
 userRouter.get("/own-posts/:userId", userController.getUserOwnPosts);
 
 userRouter.get("/own-comments/:userId", userController.getUserOwnComments);
+
+export default userRouter;

@@ -5,7 +5,7 @@ import {
   createStringFullDate,
 } from "./../../utils";
 
-export const incomeSchema = new mongoose.Schema(
+const incomeSchema = new mongoose.Schema(
   {
     type: {
       type: String,
@@ -86,3 +86,5 @@ incomeSchema.pre("save", function () {
     this.stringDate = getStringDate(this.date);
   }
 });
+
+export default incomeSchema;

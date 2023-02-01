@@ -1,3 +1,5 @@
 class ChartService {}
 
-export const chartService = new ChartService();
+const chartService = new ChartService();
+
+export default chartService;

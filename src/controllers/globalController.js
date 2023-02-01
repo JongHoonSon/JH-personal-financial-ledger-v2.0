@@ -24,7 +24,7 @@ class GlobalController {
 
     let existedUsername;
     try {
-      existedUsername = await User.exists({ username });
+      existedUsername = await userModel.exists({ username });
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
@@ -37,7 +37,7 @@ class GlobalController {
 
     let existedEmail;
     try {
-      existedEmail = await User.exists({ email });
+      existedEmail = await userModel.exists({ email });
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
@@ -50,7 +50,7 @@ class GlobalController {
 
     let existedNickname;
     try {
-      existedNickname = await User.exists({ nickname });
+      existedNickname = await userModel.exists({ nickname });
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
@@ -85,7 +85,7 @@ class GlobalController {
         "기타",
       ];
 
-      await User.create({
+      await userModel.create({
         username,
         password,
         name,
@@ -123,7 +123,7 @@ class GlobalController {
 
     let user;
     try {
-      user = await User.findOne({ username, socialOnly: false });
+      user = await userModel.findOne({ username, socialOnly: false });
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -191,4 +191,6 @@ class GlobalController {
   }
 }
 
-export const globalController = new GlobalController();
+const globalController = new GlobalController();
+
+export default globalController;

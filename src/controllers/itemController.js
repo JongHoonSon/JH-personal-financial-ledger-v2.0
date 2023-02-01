@@ -470,4 +470,6 @@ class ItemController {
   }
 }
 
-export const itemController = new ItemController();
+const itemController = new ItemController();
+
+export default itemController;

@@ -1,3 +1,5 @@
 class LastExpenseService {}
 
-export const lastExpenseService = new LastExpenseService();
+const lastExpenseService = new LastExpenseService();
+
+export default lastExpenseService;

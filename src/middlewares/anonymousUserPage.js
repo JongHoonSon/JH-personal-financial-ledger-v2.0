@@ -1,4 +1,4 @@
-export const anonymousUserPage = (req, res, next) => {
+const anonymousUserPage = (req, res, next) => {
   if (!req.session.loggedIn) {
     next();
   } else {
@@ -6,3 +6,5 @@ export const anonymousUserPage = (req, res, next) => {
     return res.redirect("/");
   }
 };
+
+export default anonymousUserPage;

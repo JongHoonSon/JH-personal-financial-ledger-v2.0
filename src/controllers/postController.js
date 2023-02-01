@@ -433,4 +433,6 @@ class PostController {
   }
 }
 
-export const postController = new PostController();
+const postController = new PostController();
+
+export default postController;

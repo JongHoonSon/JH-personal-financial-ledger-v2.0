@@ -1,4 +1,4 @@
-export const loginRequired = (req, res, next) => {
+const loginRequired = (req, res, next) => {
   if (req.session.loggedIn) {
     next();
   } else {
@@ -34,3 +34,5 @@ export const loginRequired = (req, res, next) => {
     }
   }
 };
+
+export default loginRequired;

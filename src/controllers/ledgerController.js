@@ -110,7 +110,8 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
@@ -189,7 +190,8 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
@@ -266,7 +268,8 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
@@ -329,4 +332,6 @@ class LedgerController {
   }
 }
 
-export const ledgerController = new LedgerController();
+const ledgerController = new LedgerController();
+
+export default ledgerController;

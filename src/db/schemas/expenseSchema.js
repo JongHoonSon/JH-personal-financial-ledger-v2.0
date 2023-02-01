@@ -5,7 +5,7 @@ import {
   createStringFullDate,
 } from "./../../utils";
 
-export const expenseSchema = new mongoose.Schema(
+const expenseSchema = new mongoose.Schema(
   {
     type: {
       type: String,
@@ -91,3 +91,5 @@ expenseSchema.pre("save", function () {
     this.stringDate = getStringDate(this.date);
   }
 });
+
+export default expenseSchema;

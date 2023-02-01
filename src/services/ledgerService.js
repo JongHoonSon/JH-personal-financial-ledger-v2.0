@@ -1,3 +1,5 @@
 class LedgerService {}
 
-export const ledgerService = new LedgerService();
+const ledgerService = new LedgerService();
+
+export default ledgerService;

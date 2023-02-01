@@ -17,7 +17,12 @@ import {
   userRouter,
 } from "./routers";
 
-import { localMiddleware, logHistory, loginRequired } from "./middlewares";
+import {
+  logHistory,
+  loginRequired,
+  logCurrentDate,
+  localMiddleware,
+} from "./middlewares";
 
 export const app = express();
 const logger = morgan("dev");
@@ -48,7 +53,9 @@ app.use(passport.session());
 
 app.use(flash());
 app.use(logger);
+// app.use(authenticateUser);
 app.use(localMiddleware);
+app.use(logCurrentDate);
 app.use(logHistory);
 
 app.use("/", globalRouter);

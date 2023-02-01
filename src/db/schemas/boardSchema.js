@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const boardSchema = new mongoose.Schema(
+const boardSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -19,3 +19,5 @@ export const boardSchema = new mongoose.Schema(
     collection: "boards",
   }
 );
+
+export default boardSchema;

@@ -1,3 +1,5 @@
 class GlobalService {}
 
-export const globalService = new GlobalService();
+const globalService = new GlobalService();
+
+export default globalService;

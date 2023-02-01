@@ -1,3 +1,5 @@
 class BoardService {}
 
-export const boardService = new BoardService();
+const boardService = new BoardService();
+
+export default boardService;
