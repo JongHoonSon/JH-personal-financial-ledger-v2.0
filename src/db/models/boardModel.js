@@ -17,12 +17,26 @@ class BoardModel {
       const board = await Board.find(params);
 
       if (!board) {
-        const error = new Error("게시판이 존재하지 않습니다.");
+        const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
         throw error;
       }
 
       return board;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findOne(params) {
+    try {
+      const board = await Board.findOne(params);
+
+      if (!board) {
+        const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
+        error.statusCode = 404;
+        throw error;
+      }
     } catch (error) {
       throw error;
     }
