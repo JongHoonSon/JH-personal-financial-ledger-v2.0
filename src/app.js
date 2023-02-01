@@ -18,10 +18,11 @@ import {
 } from "./routers";
 
 import {
-  logHistory,
-  loginRequired,
-  logCurrentDate,
-  localMiddleware,
+  saveResponseLocalData,
+  logPathHistory,
+  checkUserLoggedIn,
+  checkUserExist,
+  errorHandler,
 } from "./middlewares";
 
 export const app = express();
@@ -53,14 +54,13 @@ app.use(passport.session());
 
 app.use(flash());
 app.use(logger);
-// app.use(authenticateUser);
-app.use(localMiddleware);
-app.use(logCurrentDate);
-app.use(logHistory);
+app.use(saveResponseLocalData);
+app.use(logPathHistory);
 
 app.use("/", globalRouter);
 
-app.use(loginRequired);
+app.use(checkUserLoggedIn);
+app.use(checkUserExist);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
 app.use("/ledger", ledgerRouter);
@@ -69,3 +69,5 @@ app.use("/post", postRouter);
 app.use("/comment", commentRouter);
 app.use("/chart", chartRouter);
 app.use("/last-expense", lastExpenseRouter);
+
+app.use(errorHandler);

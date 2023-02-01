@@ -1,13 +1,13 @@
 import express from "express";
 import { globalController } from "../controllers";
-import { loginRequired, anonymousUserPage } from "../middlewares";
+import { checkUserLoggedIn, anonymousUserPage } from "../middlewares";
 import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
 
 // Logged In User required
-globalRouter.get("/", loginRequired, globalController.getHome);
-globalRouter.get("/logout", loginRequired, globalController.logout);
+globalRouter.get("/", checkUserLoggedIn, globalController.getHome);
+globalRouter.get("/logout", checkUserLoggedIn, globalController.logout);
 
 // Anonymous User Page
 globalRouter

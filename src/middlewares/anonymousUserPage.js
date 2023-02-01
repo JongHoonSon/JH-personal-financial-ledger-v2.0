@@ -2,8 +2,10 @@ const anonymousUserPage = (req, res, next) => {
   if (!req.session.loggedIn) {
     next();
   } else {
-    req.flash("error", "로그아웃이 필요한 페이지입니다.");
-    return res.redirect("/");
+    const error = new Error("로그아웃이 필요한 페이지입니다.");
+    error.statusCode = 401;
+    error.redirectURL = "/";
+    throw error;
   }
 };
 
