@@ -2,16 +2,27 @@ import { boardModel } from "./../db/models";
 import { getCreatedTime } from "../utils";
 
 class BoardController {
-  async getBoard(req, res) {
+  async getBoard(req, res, next) {
     const { boardName, pageNum } = req.params;
 
     let boardList;
     let totalPostList = [];
     if (boardName === "전체게시판") {
-      boardList = await boardModel.find({}).populate({
-        path: "postList",
-        populate: [{ path: "board" }, { path: "owner" }],
-      });
+      try {
+        boardList = await boardModel.findWithPopulate({}).populate({
+          path: "postList",
+          populate: [{ path: "board" }, { path: "owner" }],
+        });
+      } catch (error) {
+        error.statusCode = 404;
+        next(error);
+      }
+
+      if (!boardList) {
+        const error = new Error("게시판을 찾을 수 없습니다.");
+        error.statusCode = 404;
+        next(error);
+      }
 
       boardList.forEach((board) => {
         if (board.postList.length !== 0) {
@@ -22,7 +33,7 @@ class BoardController {
       let board;
       try {
         board = await boardModel
-          .findOne({
+          .findOneWithPopulate({
             name: boardName,
           })
           .populate({
@@ -30,14 +41,16 @@ class BoardController {
             populate: [{ path: "board" }, { path: "owner" }],
           });
 
+        if (!board) {
+          const error = new Error("게시판을 찾을 수 없습니다.");
+          error.statusCode = 404;
+          next(error);
+        }
+
         totalPostList = board.postList;
       } catch (error) {
-        req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
-        return res.status(500).redirect("/");
-      }
-      if (!board) {
-        req.flash("error", "게시판을 찾을 수 없습니다.");
-        return res.status(404).redirect("/");
+        error.statusCode = 500;
+        next(error);
       }
     }
 
@@ -49,15 +62,33 @@ class BoardController {
     if (totalPostList.length === 0) {
       isBoardEmpty = true;
       lastPageNum = 1;
+
+      if (firstPageNum > currPageNum || currPageNum > lastPageNum) {
+        const error = new Error("잘못된 접근입니다.");
+        error.statusCode = 403;
+        error.redirectURL = `/board/${boardName}/1`;
+        throw error;
+      }
     } else {
       isBoardEmpty = false;
       lastPageNum = Math.ceil(totalPostList.length / 10);
+
+      if (firstPageNum > currPageNum || currPageNum > lastPageNum) {
+        const error = new Error("잘못된 접근입니다.");
+        error.statusCode = 403;
+        error.redirectURL = `/board/${boardName}/1`;
+        throw error;
+      }
 
       if (boardName === "전체게시판") {
         totalPostList.sort((a, b) => b.seq - a.seq);
       } else {
         totalPostList.reverse();
-        boardList = await boardModel.find({});
+        try {
+          boardList = await boardModel.find({});
+        } catch (error) {
+          next(error);
+        }
       }
 
       // totalPostList에서 currPageNum(현재 페이지) 10개의 post를 postList에 넣는 로직
@@ -74,10 +105,6 @@ class BoardController {
     }
 
     const boardNameList = boardList.map((board) => board.name);
-    if (firstPageNum > currPageNum || currPageNum > lastPageNum) {
-      req.flash("error", "잘못된 접근입니다.");
-      return res.status(404).redirect(`/board/${boardName}/1`);
-    }
 
     return res.status(200).render("board/board", {
       pageTitle: "게시판",
