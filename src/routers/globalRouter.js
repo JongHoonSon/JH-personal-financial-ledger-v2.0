@@ -1,6 +1,6 @@
 import express from "express";
 import { globalController } from "../controllers";
-import { checkUserLoggedIn, anonymousUserPage } from "../middlewares";
+import { checkUserLoggedIn, checkUserAnonymous } from "../middlewares";
 import passport from "../lib/passport.js";
 
 const globalRouter = express.Router();
@@ -12,20 +12,20 @@ globalRouter.get("/logout", checkUserLoggedIn, globalController.logout);
 // Anonymous User Page
 globalRouter
   .route("/join")
-  .get(anonymousUserPage, globalController.getJoin)
+  .get(checkUserAnonymous, globalController.getJoin)
   .post(globalController.join);
 globalRouter
   .route("/login")
-  .get(anonymousUserPage, globalController.getLogin)
+  .get(checkUserAnonymous, globalController.getLogin)
   .post(globalController.login);
 globalRouter.get(
   "/auth/google",
-  anonymousUserPage,
+  checkUserAnonymous,
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 globalRouter.get(
   "/auth/google/callback",
-  anonymousUserPage,
+  checkUserAnonymous,
   passport.authenticate("google"),
   globalController.finishGoogleLogin
 );
