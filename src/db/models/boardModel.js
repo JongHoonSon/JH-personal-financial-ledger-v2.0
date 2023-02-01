@@ -37,6 +37,8 @@ class BoardModel {
         error.statusCode = 404;
         throw error;
       }
+
+      return board;
     } catch (error) {
       throw error;
     }
