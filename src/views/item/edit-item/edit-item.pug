@@ -5,7 +5,7 @@ block content
         include ../../modal/user-own-categories/user-own-categories.pug
     div.form-container
         div.form__wrap
-            form.form
+            form(data-item=item).form#item-edit-form
                 div.form__input-section__wrap
                     div.input 
                         label(for="image-upload__uploader__image-input").input__label 사진

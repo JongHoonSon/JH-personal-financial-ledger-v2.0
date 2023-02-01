@@ -185,11 +185,11 @@ class ItemController {
     } catch (error) {
       console.log(error);
       req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!item) {
       req.flash("error", "아이템을 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     const loggedInUser = req.session.user;
@@ -201,16 +201,16 @@ class ItemController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     if (String(item.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
+      return res.status(403).json({ haveToRedirect: true, redirectURL: "/" });
     }
 
     try {
@@ -229,11 +229,14 @@ class ItemController {
       item.imageUrl = filePath;
       await item.save();
       req.flash("success", "아이템을 수정했습니다.");
-      return res.status(200).redirect(`/item/${itemType}/${item.id}`);
+      return res.status(200).json(`/item/${item.type}/${item.id}`);
     } catch (error) {
       console.log(error);
       req.flash("error", "아이템을 수정하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/item/edit/${itemType}/${item.id}`);
+      return res.status(500).json({
+        haveToRedirect: true,
+        redirectURL: `/item/${item.type}/${item.id}`,
+      });
     }
   }
 
@@ -296,13 +299,13 @@ class ItemController {
       if (req.session.history.prevPageURL) {
         return res.status(200).json(req.session.history.prevPageURL);
       }
-      return res.status(200).redirect("/");
+      return res.status(200).json("/");
     } catch (error) {
       console.log(error);
       req.flash("error", "아이템을 삭제하는 과정에서 오류가 발생했습니다.");
       return res.status(500).json({
         haveToRedirect: true,
-        redirectURL: `/item/detail/${itemType}/${item.id}`,
+        redirectURL: `/item/${itemType}/${item.id}`,
       });
     }
   }
@@ -456,7 +459,7 @@ class ItemController {
       );
       return res.status(500).json({
         haveToRedirect: true,
-        redirectURL: `/item/detail/${itemType}/${item.id}`,
+        redirectURL: `/item/${itemType}/${item.id}`,
       });
     }
   }
