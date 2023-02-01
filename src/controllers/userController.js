@@ -1,5 +1,5 @@
 import { getStringDate, getStringFullDate } from "../utils";
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import bcrypt from "bcrypt";
 
 class UserController {

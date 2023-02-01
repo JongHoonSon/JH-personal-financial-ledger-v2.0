@@ -1,4 +1,4 @@
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import { getStringDate, getDaysDiff, getStringAmount } from "../utils";
 
 class ChartController {
@@ -8,7 +8,8 @@ class ChartController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories")
         .populate("incomeList")

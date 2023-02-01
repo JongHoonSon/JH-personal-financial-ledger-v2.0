@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
-import { createStringDate, getStringDate } from "../utils";
-import { createStringFullDate } from "./../utils";
+import {
+  createStringDate,
+  getStringDate,
+  createStringFullDate,
+} from "./../../utils";
 
 export const incomeSchema = new mongoose.Schema(
   {

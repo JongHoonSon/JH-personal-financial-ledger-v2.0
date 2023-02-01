@@ -1,4 +1,4 @@
-import Board from "../models/Board";
+import { boardModel } from "./../db/models";
 import { getCreatedTime } from "../utils";
 
 class BoardController {
@@ -8,7 +8,7 @@ class BoardController {
     let boardList;
     let totalPostList = [];
     if (boardName === "전체게시판") {
-      boardList = await Board.find({}).populate({
+      boardList = await boardModel.find({}).populate({
         path: "postList",
         populate: [{ path: "board" }, { path: "owner" }],
       });
@@ -21,12 +21,14 @@ class BoardController {
     } else {
       let board;
       try {
-        board = await Board.findOne({
-          name: boardName,
-        }).populate({
-          path: "postList",
-          populate: [{ path: "board" }, { path: "owner" }],
-        });
+        board = await boardModel
+          .findOne({
+            name: boardName,
+          })
+          .populate({
+            path: "postList",
+            populate: [{ path: "board" }, { path: "owner" }],
+          });
 
         totalPostList = board.postList;
       } catch (error) {
@@ -55,7 +57,7 @@ class BoardController {
         totalPostList.sort((a, b) => b.seq - a.seq);
       } else {
         totalPostList.reverse();
-        boardList = await Board.find({});
+        boardList = await boardModel.find({});
       }
 
       // totalPostList에서 currPageNum(현재 페이지) 10개의 post를 postList에 넣는 로직

@@ -1,7 +1,7 @@
 import express from "express";
 import { postController } from "../controllers";
 
-const postRouter = express.Router();
+export const postRouter = express.Router();
 
 postRouter.get("/add", postController.getAddPost);
 
@@ -18,5 +18,3 @@ postRouter
 postRouter.put("/increase-views/:postId", postController.increasePostViews);
 
 postRouter.put("/toggle-likes/:postId", postController.togglePostLikes);
-
-export default postRouter;

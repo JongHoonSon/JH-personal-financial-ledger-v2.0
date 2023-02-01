@@ -1,6 +1,4 @@
-import User from "../models/User";
-import Post from "../models/Post";
-import Comment from "../models/Comment";
+import { userModel, postModel, commentModel } from "./../db/models";
 
 class CommentController {
   async addComment(req, res) {
@@ -10,7 +8,7 @@ class CommentController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id).populate("commentList");
+      user = await userModel.findById(loggedInUser._id).populate("commentList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -23,7 +21,7 @@ class CommentController {
 
     let post;
     try {
-      post = await Post.findById(postId).populate("commentList");
+      post = await postModel.findById(postId).populate("commentList");
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
@@ -35,7 +33,7 @@ class CommentController {
     }
 
     try {
-      const comment = await Comment.create({ owner: user, content, post });
+      const comment = await commentModel.create({ owner: user, content, post });
 
       user.commentList.push(comment);
       await user.save();
@@ -58,7 +56,7 @@ class CommentController {
 
     let comment;
     try {
-      comment = await Comment.findById(commentId).populate({
+      comment = await commentModel.findById(commentId).populate({
         path: "owner",
         populate: "commentList",
       });
@@ -79,7 +77,7 @@ class CommentController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id).populate("commentList");
+      user = await userModel.findById(loggedInUser._id).populate("commentList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -115,7 +113,7 @@ class CommentController {
 
     let comment;
     try {
-      comment = await Comment.findById(commentId).populate("post");
+      comment = await commentModel.findById(commentId).populate("post");
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 불러오는 과정에서 오류가 발생했습니다.");
@@ -133,7 +131,7 @@ class CommentController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id).populate("commentList");
+      user = await userModel.findById(loggedInUser._id).populate("commentList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -155,9 +153,9 @@ class CommentController {
       );
       await user.save();
 
-      const post = await Post.findById(comment.post._id).populate(
-        "commentList"
-      );
+      const post = await postModel
+        .findById(comment.post._id)
+        .populate("commentList");
       if (!post) {
         req.flash("error", "게시글을 찾을 수 없습니다.");
         return res
@@ -169,7 +167,7 @@ class CommentController {
       );
       await post.save();
 
-      await Comment.findByIdAndDelete(commentId);
+      await commentModel.findByIdAndDelete(commentId);
 
       req.flash("success", "댓글을 삭제했습니다.");
       return res.sendStatus(200);
@@ -188,7 +186,7 @@ class CommentController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id);
+      user = await userModel.findById(loggedInUser._id);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -201,7 +199,9 @@ class CommentController {
 
     let comment;
     try {
-      comment = await Comment.findById(commentId).populate("likesUserList");
+      comment = await commentModel
+        .findById(commentId)
+        .populate("likesUserList");
     } catch (error) {
       console.log(error);
       req.flash("error", "댓글을 불러오는 과정에서 오류가 발생했습니다.");

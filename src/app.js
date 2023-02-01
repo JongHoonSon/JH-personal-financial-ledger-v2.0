@@ -9,13 +9,14 @@ import {
   boardRouter,
   chartRouter,
   commentRouter,
+  postRouter,
   globalRouter,
   itemRouter,
   lastExpenseRouter,
   ledgerRouter,
-  postRouter,
   userRouter,
 } from "./routers";
+
 import { localMiddleware, logHistory, loginRequired } from "./middlewares";
 
 export const app = express();

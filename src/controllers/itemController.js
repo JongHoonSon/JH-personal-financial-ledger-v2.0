@@ -1,6 +1,4 @@
-import Income from "../models/Income";
-import Expense from "../models/Expense";
-import User from "../models/User";
+import { incomeModel, expenseModel, userModel } from "./../db/models";
 import { sortItem } from "../utils";
 
 class ItemController {
@@ -18,7 +16,8 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
@@ -49,7 +48,7 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id);
+      user = await userModel.findById(loggedInUser._id);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -62,11 +61,11 @@ class ItemController {
 
     if (itemType === "i") {
       try {
-        const user = await User.findById(loggedInUser._id);
+        const user = await userModel.findById(loggedInUser._id);
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`
           : "/defaults/images/empty-image.png";
-        const newIncome = await Income.create({
+        const newIncome = await incomeModel.create({
           owner: user,
           date,
           amount,
@@ -93,7 +92,7 @@ class ItemController {
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`
           : "/defaults/images/empty-image.png";
-        const newExpense = await Expense.create({
+        const newExpense = await expenseModel.create({
           owner: user,
           date,
           amount,
@@ -124,9 +123,9 @@ class ItemController {
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findById(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel.findById(itemId).populate("owner");
       }
     } catch (error) {
       console.log(error);
@@ -141,7 +140,8 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
@@ -178,9 +178,9 @@ class ItemController {
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findById(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel.findById(itemId).populate("owner");
       }
     } catch (error) {
       console.log(error);
@@ -195,7 +195,8 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
@@ -246,9 +247,9 @@ class ItemController {
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findById(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel.findById(itemId).populate("owner");
       }
     } catch (error) {
       console.log(error);
@@ -263,7 +264,8 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
@@ -283,13 +285,13 @@ class ItemController {
 
     try {
       if (itemType === "i") {
-        await Income.findByIdAndDelete(itemId);
+        await incomeModel.findByIdAndDelete(itemId);
         user.incomeList = user.incomeList.filter(
           (income) => String(income._id) !== String(itemId)
         );
         await user.save();
       } else {
-        await Expense.findByIdAndDelete(itemId);
+        await expenseModel.findByIdAndDelete(itemId);
         user.expenseList = user.expenseList.filter(
           (expense) => String(expense._id) !== String(itemId)
         );
@@ -316,9 +318,9 @@ class ItemController {
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findById(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel.findById(itemId).populate("owner");
       }
     } catch (error) {
       console.log(error);
@@ -333,7 +335,8 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
@@ -361,7 +364,8 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
@@ -404,9 +408,9 @@ class ItemController {
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findById(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel.findById(itemId).populate("owner");
       }
     } catch (error) {
       console.log(error);
@@ -421,7 +425,8 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {

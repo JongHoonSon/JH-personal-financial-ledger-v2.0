@@ -1,4 +1,4 @@
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import { getStringDate, sortItem, getDaysDiff } from "../utils";
 
 class LastExpenseController {
@@ -6,7 +6,8 @@ class LastExpenseController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("expenseCategories")
         .populate("expenseList");
     } catch (error) {

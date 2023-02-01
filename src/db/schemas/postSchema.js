@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
-import { createStringDate } from "../utils";
-import { createStringFullDate } from "./../utils";
+import { createStringDate, createStringFullDate } from "./../../utils";
 
 autoIncrement.initialize(mongoose.connection);
 

@@ -1,5 +1,4 @@
-import Income from "../models/Income";
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import { sortItem, getStringDate, getStringAmount } from "../utils";
 
 class LedgerController {
@@ -20,7 +19,8 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findById(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { getStringDate, getStringFullDate } from "../../utils";
+import { getStringDate, getStringFullDate } from "./../../utils";
 
 export const commentSchema = new mongoose.Schema(
   {

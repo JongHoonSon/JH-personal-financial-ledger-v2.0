@@ -1,4 +1,4 @@
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import bcrypt from "bcrypt";
 
 class GlobalController {

@@ -1,10 +1,8 @@
-import User from "../models/User";
-import Board from "../models/Board";
-import Post from "../models/Post";
+import { userModel, boardModel, postModel } from "./../db/models";
 
 class PostController {
   async getAddPost(req, res) {
-    const boardList = await Board.find({});
+    const boardList = await boardModel.find({});
     const boardNameList = boardList.map((board) => board.name);
 
     return res.status(200).render("post/add-post/add-post", {
@@ -19,7 +17,7 @@ class PostController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id);
+      user = await userModel.findById(loggedInUser._id);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -32,7 +30,7 @@ class PostController {
 
     let board;
     try {
-      board = await Board.findOne({ name: boardName });
+      board = await boardModel.findOne({ name: boardName });
     } catch (error) {
       console.log(error);
       req.flash("error", "게시판을 불러오는 과정에서 오류가 발생했습니다.");
@@ -44,7 +42,7 @@ class PostController {
     }
 
     try {
-      const newPost = await Post.create({
+      const newPost = await postModel.create({
         title,
         board,
         owner: user,
@@ -68,7 +66,7 @@ class PostController {
 
     let post;
     try {
-      post = await Post.findById(postId).populate({
+      post = await postModel.findById(postId).populate({
         path: "board",
         populate: "postList",
       });
@@ -85,7 +83,7 @@ class PostController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id);
+      user = await userModel.findById(loggedInUser._id);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -101,7 +99,7 @@ class PostController {
       return res.status(403).redirect("/");
     }
 
-    const boardList = await Board.find({});
+    const boardList = await boardModel.find({});
     const boardNameList = boardList.map((board) => board.name);
 
     return res.status(200).render("post/edit-post/edit-post", {
@@ -123,7 +121,7 @@ class PostController {
 
     let post;
     try {
-      post = await Post.findById(postId).populate({
+      post = await postModel.findById(postId).populate({
         path: "board",
         populate: "postList",
       });
@@ -144,7 +142,7 @@ class PostController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id);
+      user = await userModel.findById(loggedInUser._id);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -167,7 +165,7 @@ class PostController {
         );
         await post.board.save();
 
-        const board = await Board.findOne({ name: newBoardName });
+        const board = await boardModel.findOne({ name: newBoardName });
         board.postList.push(post);
         await board.save();
 
@@ -194,7 +192,7 @@ class PostController {
 
     let post;
     try {
-      post = await Post.findById(postId).populate({
+      post = await postModel.findById(postId).populate({
         path: "board",
         populate: "postList",
       });
@@ -215,7 +213,7 @@ class PostController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id);
+      user = await userModel.findById(loggedInUser._id);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -242,7 +240,7 @@ class PostController {
       );
       await post.board.save();
 
-      await Post.findByIdAndDelete(postId);
+      await postModel.findByIdAndDelete(postId);
 
       req.flash("success", "게시글을 삭제했습니다.");
       if (req.session.history.prevPageURL) {
@@ -262,7 +260,8 @@ class PostController {
 
     let post;
     try {
-      post = await Post.findById(postId)
+      post = await postModel
+        .findById(postId)
         .populate("board")
         .populate("owner")
         .populate({
@@ -301,7 +300,7 @@ class PostController {
     const { postId } = req.params;
 
     try {
-      const post = await Post.findById(postId);
+      const post = await postModel.findById(postId);
       post.views += 1;
       await post.save();
       return res.sendStatus(200);
@@ -323,7 +322,7 @@ class PostController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id);
+      user = await userModel.findById(loggedInUser._id);
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
@@ -336,7 +335,7 @@ class PostController {
 
     let post;
     try {
-      post = await Post.findById(postId).populate("likesUserList");
+      post = await postModel.findById(postId).populate("likesUserList");
     } catch (error) {
       console.log(error);
       req.flash("error", "게시글을 불러오는 과정에서 오류가 발생했습니다.");
