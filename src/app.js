@@ -16,10 +16,9 @@ import {
   postRouter,
   userRouter,
 } from "./routers";
-import { localMiddleware, logHistory } from "./middlewares";
-import loginRequired from "./middlewares/loginRequired";
+import { localMiddleware, logHistory, loginRequired } from "./middlewares";
 
-const app = express();
+export const app = express();
 const logger = morgan("dev");
 
 app.set("view engine", "pug");
@@ -62,5 +61,3 @@ app.use("/post", postRouter);
 app.use("/comment", commentRouter);
 app.use("/chart", chartRouter);
 app.use("/last-expense", lastExpenseRouter);
-
-export default app;

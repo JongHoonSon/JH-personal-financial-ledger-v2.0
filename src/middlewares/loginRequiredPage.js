@@ -1,4 +1,4 @@
-const loginRequiredPage = (req, res, next) => {
+export const loginRequiredPage = (req, res, next) => {
   if (req.session.loggedIn) {
     next();
   } else {
@@ -6,5 +6,3 @@ const loginRequiredPage = (req, res, next) => {
     return res.redirect("/login");
   }
 };
-
-export default loginRequiredPage;

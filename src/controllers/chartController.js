@@ -85,6 +85,4 @@ class ChartController {
   }
 }
 
-const chartController = new ChartController();
-
-export default chartController;
+export const chartController = new ChartController();

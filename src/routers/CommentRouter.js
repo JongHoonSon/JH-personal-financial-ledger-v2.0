@@ -1,7 +1,7 @@
 import express from "express";
 import { commentController } from "../controllers";
 
-const commentRouter = express.Router();
+export const commentRouter = express.Router();
 
 commentRouter.post("/add/:postId", commentController.addComment);
 
@@ -14,5 +14,3 @@ commentRouter.put(
   "/increase-likes/:commentId",
   commentController.increaseCommentLikes
 );
-
-export default commentRouter;

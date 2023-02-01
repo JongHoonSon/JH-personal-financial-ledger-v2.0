@@ -191,6 +191,4 @@ class GlobalController {
   }
 }
 
-const globalController = new GlobalController();
-
-export default globalController;
+export const globalController = new GlobalController();

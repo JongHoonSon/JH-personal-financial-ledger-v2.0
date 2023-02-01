@@ -3,7 +3,7 @@ import { globalController } from "../controllers";
 import { loginRequired, anonymousUserPage } from "../middlewares";
 import passport from "../lib/passport.js";
 
-const globalRouter = express.Router();
+export const globalRouter = express.Router();
 
 // Logged In User required
 globalRouter.get("/", loginRequired, globalController.getHome);
@@ -29,5 +29,3 @@ globalRouter.get(
   passport.authenticate("google"),
   globalController.finishGoogleLogin
 );
-
-export default globalRouter;

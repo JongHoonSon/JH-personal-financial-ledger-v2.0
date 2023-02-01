@@ -90,6 +90,4 @@ class BoardController {
   }
 }
 
-const boardController = new BoardController();
-
-export default boardController;
+export const boardController = new BoardController();

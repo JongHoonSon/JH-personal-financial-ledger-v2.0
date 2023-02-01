@@ -1,4 +1,4 @@
-const loginRequiredAPI = (req, res, next) => {
+export const loginRequiredAPI = (req, res, next) => {
   if (req.session.loggedIn) {
     next();
   } else {
@@ -6,5 +6,3 @@ const loginRequiredAPI = (req, res, next) => {
     return res.status(401).json("/login");
   }
 };
-
-export default loginRequiredAPI;

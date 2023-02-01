@@ -1,4 +1,4 @@
-const localMiddleware = (req, res, next) => {
+export const localMiddleware = (req, res, next) => {
   res.locals.loggedInUser = req.session.user || {};
   res.locals.loggedIn = Boolean(req.session.loggedIn);
 
@@ -10,5 +10,3 @@ const localMiddleware = (req, res, next) => {
 
   next();
 };
-
-export default localMiddleware;

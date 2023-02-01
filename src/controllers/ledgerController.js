@@ -329,6 +329,4 @@ class LedgerController {
   }
 }
 
-const ledgerController = new LedgerController();
-
-export default ledgerController;
+export const ledgerController = new LedgerController();

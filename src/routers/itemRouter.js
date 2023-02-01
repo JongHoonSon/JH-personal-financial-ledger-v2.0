@@ -2,7 +2,7 @@ import express from "express";
 import { itemController } from "../controllers";
 import { imageUploader } from "../middlewares";
 
-const itemRouter = express.Router();
+export const itemRouter = express.Router();
 
 itemRouter.get("/add/:itemType", itemController.getAddItem);
 
@@ -23,5 +23,3 @@ itemRouter
 itemRouter.get("/pinned", itemController.getPinnedItems);
 
 itemRouter.put("/pin/:itemType/:itemId", itemController.pinItem);
-
-export default itemRouter;

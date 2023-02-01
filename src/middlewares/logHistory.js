@@ -1,6 +1,6 @@
 // html 문서를 가져오는 GET 요청에 대해서만 동작하는 미들웨어
 // 방문한 페이지의 URL을 req.session.history에 기록함
-const logHistory = (req, res, next) => {
+export const logHistory = (req, res, next) => {
   if (!req.session.history) {
     req.session.history = {
       currPageURL: req.path,
@@ -25,5 +25,3 @@ const logHistory = (req, res, next) => {
 
   next();
 };
-
-export default logHistory;
