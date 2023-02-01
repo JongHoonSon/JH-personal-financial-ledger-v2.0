@@ -5,7 +5,7 @@ const errorHandler = (error, req, res, next) => {
       console.log("페이지 접속에 대한 GET 요청");
       req.flash("error", error.message);
       return res
-        .status(error.statusCode ? error.statusCode : "500")
+        .status(error.statusCode ? error.statusCode : 500)
         .redirect(error.redirectURL ? error.redirectURL : "/");
     }
 
@@ -16,7 +16,7 @@ const errorHandler = (error, req, res, next) => {
       console.log("form에서 보낸 POST 요청");
       req.flash("error", error.message);
       return res
-        .status(error.statusCode ? error.statusCode : "400")
+        .status(error.statusCode ? error.statusCode : 400)
         .redirect(error.redirectURL ? error.redirectURL : "/");
     }
 
@@ -30,7 +30,7 @@ const errorHandler = (error, req, res, next) => {
     ) {
       console.log("fetch에서 보낸 POST 요청");
       req.flash("error", error.message);
-      return res.status(error.statusCode ? error.statusCode : "400").json({
+      return res.status(error.statusCode ? error.statusCode : 400).json({
         haveToRedirect: true,
         redirectURL: error.redirectURL ? error.redirectURL : "/",
       });
