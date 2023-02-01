@@ -24,7 +24,6 @@ class BoardModel {
 
       return board;
     } catch (error) {
-      error.statusCode = 500;
       throw error;
     }
   }

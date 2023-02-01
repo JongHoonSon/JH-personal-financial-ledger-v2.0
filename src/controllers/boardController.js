@@ -49,7 +49,6 @@ class BoardController {
 
         totalPostList = board.postList;
       } catch (error) {
-        error.statusCode = 500;
         next(error);
       }
     }
