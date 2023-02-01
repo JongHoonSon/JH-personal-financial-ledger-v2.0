@@ -1,3 +1,4 @@
+
 import { incomeModel, expenseModel } from "../../db/models";
 
 const checkItemExist = async (req, res, next) => {
@@ -11,13 +12,6 @@ const checkItemExist = async (req, res, next) => {
     } else if (itemType === "e") {
       item = await expenseModel.findById(itemId);
     }
-
-    if (!item) {
-      const error = new Error("아이템이 DB에 존재하지 않습니다.");
-      error.statusCode = 404;
-      next(error);
-    }
-
     req.session.item = item;
     next();
   } catch (error) {
