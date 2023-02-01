@@ -408,11 +408,11 @@ class ItemController {
     } catch (error) {
       console.log(error);
       req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: `/` });
     }
     if (!item) {
       req.flash("error", "아이템을 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: `/` });
     }
 
     const loggedInUser = req.session.user;
@@ -424,16 +424,16 @@ class ItemController {
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return res.status(500).json({ haveToRedirect: true, redirectURL: `/` });
     }
     if (!user) {
       req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      return res.status(404).json({ haveToRedirect: true, redirectURL: `/` });
     }
 
     if (String(item.owner._id) !== String(user._id)) {
       req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
+      return res.status(403).json({ haveToRedirect: true, redirectURL: `/` });
     }
 
     try {
@@ -441,12 +441,12 @@ class ItemController {
         item.pinned = true;
         await item.save();
         req.flash("success", "핀 목록에 추가하였습니다.");
-        return res.status(200).redirect(`/item/${itemType}/${item.id}`);
+        return res.status(200).json(`/item/${itemType}/${item.id}`);
       } else {
         item.pinned = false;
         await item.save();
         req.flash("success", "핀 목록에서 삭제하였습니다.");
-        return res.status(200).redirect(`/item/${itemType}/${item.id}`);
+        return res.status(200).json(`/item/${itemType}/${item.id}`);
       }
     } catch (error) {
       console.log(error);
@@ -454,7 +454,10 @@ class ItemController {
         "error",
         "아이템을 핀 목록에 추가하는 과정에서 오류가 발생했습니다."
       );
-      return res.status(500).redirect(`/item/${itemType}/${item.id}`);
+      return res.status(500).json({
+        haveToRedirect: true,
+        redirectURL: `/item/detail/${itemType}/${item.id}`,
+      });
     }
   }
 }

@@ -2,8 +2,6 @@ const item = JSON.parse(
   document.getElementById("detail-item__wrap").dataset.item
 );
 
-const pinItemButton = document.getElementById("detail-item__pin-button");
-
 const deleteItemButton = document.getElementById("detail-item__delete-button");
 
 const handleDeleteItemButtonClick = () => {
@@ -26,3 +24,24 @@ const handleDeleteItemButtonClick = () => {
 };
 
 deleteItemButton.addEventListener("click", handleDeleteItemButtonClick);
+
+const pinItemButton = document.getElementById("detail-item__pin-button");
+
+const handlePinItemButtonClick = () => {
+  fetch(`/item/pin/${item.type}/${item._id}`, { method: "PUT" })
+    .then(async (res) => {
+      const json = await res.json();
+      if (!res.ok) {
+        return Promise.reject(json);
+      }
+      return json;
+    })
+    .then((redirectURL) => location.replace(redirectURL))
+    .catch((errorMessage) => {
+      if (errorMessage.haveToRedirect) {
+        location.replace(errorMessage.redirectURL);
+      }
+    });
+};
+
+pinItemButton.addEventListener("click", handlePinItemButtonClick);
