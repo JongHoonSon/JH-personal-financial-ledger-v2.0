@@ -4,14 +4,6 @@ import { boardSchema } from "../schemas";
 const Board = mongoose.model("Board", boardSchema);
 
 class BoardModel {
-  findWithPopulate(params) {
-    return Board.find(params);
-  }
-
-  findOneWithPopulate(params) {
-    return Board.findOne(params);
-  }
-
   async find(params) {
     try {
       const board = await Board.find(params);
@@ -42,6 +34,14 @@ class BoardModel {
     } catch (error) {
       throw error;
     }
+  }
+
+  findWithPopulate(params) {
+    return Board.find(params);
+  }
+
+  findOneWithPopulate(params) {
+    return Board.findOne(params);
   }
 }
 
