@@ -80,7 +80,7 @@ class ChartController {
     }
 
     return res.render("chart/chart", {
-      pageTitle: "소비 리포트",
+      pageTitle: "차트",
       type,
       days,
       chartDataArr,

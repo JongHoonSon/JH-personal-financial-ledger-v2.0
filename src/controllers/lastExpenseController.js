@@ -53,7 +53,7 @@ class LastExpenseController {
     }
 
     return res.render("last-expense/last-expense", {
-      pageTitle: "마지막 지출일",
+      pageTitle: "마지막 지출",
       lastExpenseList,
     });
   }

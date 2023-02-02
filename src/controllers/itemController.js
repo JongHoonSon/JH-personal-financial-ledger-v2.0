@@ -321,7 +321,7 @@ class ItemController {
     sortItem(itemList);
 
     return res.render("item/pinned-items/pinned-items", {
-      pageTitle: "핀 목록",
+      pageTitle: "즐겨찾기",
       itemList,
     });
   }
@@ -361,17 +361,17 @@ class ItemController {
       if (item.pinned === false) {
         item.pinned = true;
         await item.save();
-        req.flash("success", "핀 목록에 추가하였습니다.");
+        req.flash("success", "즐겨찾기에 추가하였습니다.");
         return res.status(200).json(`/item/${itemType}/${item.id}`);
       } else {
         item.pinned = false;
         await item.save();
-        req.flash("success", "핀 목록에서 삭제하였습니다.");
+        req.flash("success", "즐겨찾기에서 삭제하였습니다.");
         return res.status(200).json(`/item/${itemType}/${item.id}`);
       }
     } catch (error) {
       error.message =
-        "아이템을 핀 목록에 추가하는 과정에서 오류가 발생했습니다.";
+        "아이템을 즐겨찾기에 추가하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = `/item/${itemType}/${item.id}`;
       return next(error);
     }
