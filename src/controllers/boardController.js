@@ -15,13 +15,13 @@ class BoardController {
         });
       } catch (error) {
         error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-        next(error);
+        return next(error);
       }
 
       if (!boardList) {
         const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
-        next(error);
+        return next(error);
       }
 
       boardList.forEach((board) => {
@@ -44,13 +44,13 @@ class BoardController {
         if (!board) {
           const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
           error.statusCode = 404;
-          next(error);
+          return next(error);
         }
 
         totalPostList = board.postList;
       } catch (error) {
         error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-        next(error);
+        return next(error);
       }
     }
 
@@ -88,7 +88,7 @@ class BoardController {
           boardList = await boardModel.find({});
         } catch (error) {
           error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-          next(error);
+          return next(error);
         }
       }
 

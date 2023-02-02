@@ -1,4 +1,3 @@
-
 import { incomeModel, expenseModel } from "../../db/models";
 
 const checkItemExist = async (req, res, next) => {
@@ -15,7 +14,7 @@ const checkItemExist = async (req, res, next) => {
     req.session.item = item;
     next();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 

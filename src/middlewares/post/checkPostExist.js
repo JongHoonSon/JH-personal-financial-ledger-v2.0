@@ -8,7 +8,7 @@ const checkPostExist = async (req, res, next) => {
     req.session.post = post;
     next();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 

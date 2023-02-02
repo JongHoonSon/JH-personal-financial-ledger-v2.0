@@ -13,11 +13,11 @@ class LastExpenseController {
       if (!user) {
         const error = new Error("유저를 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
-        next(error);
+        return next(error);
       }
     } catch (error) {
       error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      next(error);
+      return next(error);
     }
 
     const expenseList = user.expenseList;
