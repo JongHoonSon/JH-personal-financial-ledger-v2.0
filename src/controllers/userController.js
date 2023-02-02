@@ -181,7 +181,7 @@ class UserController {
       pageTitle = `${user.nickname} 님의 지출 카테고리`;
     }
 
-    res.render("modal/user-own-categories/user-own-categories", {
+    return res.render("modal/user-own-categories/user-own-categories", {
       pageTitle,
       userCategories,
       categoryType,
