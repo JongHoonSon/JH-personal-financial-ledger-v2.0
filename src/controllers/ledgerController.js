@@ -20,7 +20,7 @@ class LedgerController {
     let user;
     try {
       user = await userModel
-        .findById(loggedInUser._id)
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
@@ -107,7 +107,7 @@ class LedgerController {
     let user;
     try {
       user = await userModel
-        .findById(loggedInUser._id)
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
@@ -183,7 +183,7 @@ class LedgerController {
     let user;
     try {
       user = await userModel
-        .findById(loggedInUser._id)
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
@@ -257,7 +257,7 @@ class LedgerController {
     let user;
     try {
       user = await userModel
-        .findById(loggedInUser._id)
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
