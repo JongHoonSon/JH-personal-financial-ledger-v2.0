@@ -4,22 +4,12 @@ import { postSchema } from "../schemas";
 const Post = mongoose.model("Post", postSchema);
 
 class PostModel {
-  create(params) {
-    return Post.create(params);
-  }
-
-  async find(params) {
+  async create(params) {
     try {
-      const post = await Post.find(params);
-
-      if (!post) {
-        const error = new Error("게시글을 DB에서 찾을 수 없습니다.");
-        error.statusCode = 404;
-        throw error;
-      }
-
+      const post = await Post.create(params);
       return post;
     } catch (error) {
+      error.message = "게시글을 DB에 생성하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -36,6 +26,7 @@ class PostModel {
 
       return post;
     } catch (error) {
+      error.message = "게시글을 DB에서 찾는 과정에서 에러가 발생했습니다.";
       throw error;
     }
   }

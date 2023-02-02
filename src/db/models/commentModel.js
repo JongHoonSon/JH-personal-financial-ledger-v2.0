@@ -4,8 +4,14 @@ import { commentSchema } from "../schemas";
 const Comment = mongoose.model("Comment", commentSchema);
 
 class CommentModel {
-  create(params) {
-    return Comment.create(params);
+  async create(params) {
+    try {
+      const comment = await Comment.create(params);
+      return comment;
+    } catch (error) {
+      error.message = "댓글을 DB에 생성하는 과정에서 오류가 발생했습니다.";
+      throw error;
+    }
   }
 
   async findById(commentId) {
@@ -20,6 +26,7 @@ class CommentModel {
 
       return comment;
     } catch (error) {
+      error.message = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }

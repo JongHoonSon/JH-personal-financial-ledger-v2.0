@@ -32,15 +32,15 @@ class PostController {
       });
 
       user.postList.push(newPost);
-      board.postList.push(newPost);
-
       await user.save();
+
+      board.postList.push(newPost);
       await board.save();
 
       req.flash("success", "게시글을 작성하였습니다.");
       return res.status(200).redirect(`/post/${newPost._id}`);
     } catch (error) {
-      error.message = "게시글을 작성하는 과정에서 오류가 발생했습니다.";
+      error.message = "게시글을 생성하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/post/add";
       next(error);
     }
@@ -56,7 +56,7 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 찾는 과정에서 오류가 발생했습니다.";
+      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
@@ -69,7 +69,7 @@ class PostController {
     try {
       boardList = await boardModel.find({});
     } catch (error) {
-      error.message = "게시판을 찾는 과정에서 오류가 발생했습니다.";
+      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       next(error);
     }
     const boardNameList = boardList.map((board) => board.name);
@@ -98,7 +98,7 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 찾는 과정에서 오류가 발생했습니다.";
+      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
@@ -144,7 +144,7 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 찾는 과정에서 오류가 발생했습니다.";
+      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
@@ -190,7 +190,7 @@ class PostController {
           populate: { path: "owner" },
         });
     } catch (error) {
-      error.message = "게시글을 찾는 과정에서 오류가 발생했습니다.";
+      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
@@ -216,17 +216,24 @@ class PostController {
   async increasePostViews(req, res, next) {
     const { postId } = req.params;
 
+    let post;
     try {
-      const post = await postModel.findById(postId);
+      post = await postModel.findById(postId);
+    } catch (error) {
+      next(error);
+    }
+
+    try {
       post.views += 1;
       await post.save();
-      return res.sendStatus(200);
-    } catch (error) {
+    } catch (e) {
       error.message =
         "게시글의 조회수를 증가시키는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
+
+    return res.sendStatus(200);
   }
 
   async togglePostLikes(req, res, next) {
@@ -240,7 +247,7 @@ class PostController {
         .findByIdWithPopulate(postId)
         .populate("likesUserList");
     } catch (error) {
-      error.message = "게시글을 찾는 과정에서 오류가 발생했습니다.";
+      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
     }
@@ -260,13 +267,7 @@ class PostController {
       try {
         post.likesUserList.splice(indexInLikesUserList, 1);
         await post.save();
-      } catch (error) {
-        error.message = "게시글 정보를 갱신하는 과정에서 오류가 발생했습니다.";
-        error.redirectURL = "/board/전체게시판/1";
-        next(error);
-      }
 
-      try {
         let indexInPostList;
         user.likesPostList.forEach((post, index) => {
           if (String(post._id) === postId) {
@@ -275,29 +276,25 @@ class PostController {
         });
         user.likesPostList.splice(indexInPostList, 1);
         await user.save();
+
+        req.flash("success", "좋아요 취소 완료");
+        return res.sendStatus(200);
       } catch (error) {
-        error.message = "유저 정보를 갱신하는 과정에서 오류가 발생했습니다.";
+        error.message =
+          "게시글의 좋아요 수를 변경하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
         next(error);
       }
-
-      req.flash("success", "좋아요 취소 완료");
-      return res.sendStatus(200);
     } else {
       try {
         post.likesUserList.push(user);
         await post.save();
-      } catch (error) {
-        error.message = "게시글 정보를 갱신하는 과정에서 오류가 발생했습니다.";
-        error.redirectURL = "/board/전체게시판/1";
-        next(error);
-      }
 
-      try {
         user.likesPostList.push(post);
         await user.save();
       } catch (error) {
-        error.message = "유저 정보를 갱신하는 과정에서 오류가 발생했습니다.";
+        error.message =
+          "게시글의 좋아요 수를 변경하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
         next(error);
       }
