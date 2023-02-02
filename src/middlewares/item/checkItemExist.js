@@ -14,7 +14,8 @@ const checkItemExist = async (req, res, next) => {
     req.session.item = item;
     next();
   } catch (error) {
-    return next(error);
+    next(error);
+    return;
   }
 };
 

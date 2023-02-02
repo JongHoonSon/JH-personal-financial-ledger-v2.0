@@ -1,5 +1,6 @@
 import { boardModel } from "./../db/models";
 import { getCreatedTime } from "../utils";
+import { checkNaN } from "../middlewares";
 
 class BoardController {
   async getBoard(req, res, next) {
@@ -15,13 +16,15 @@ class BoardController {
         });
       } catch (error) {
         error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-        return next(error);
+        next(error);
+        return;
       }
 
       if (!boardList) {
         const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
-        return next(error);
+        next(error);
+        return;
       }
 
       boardList.forEach((board) => {
@@ -44,13 +47,15 @@ class BoardController {
         if (!board) {
           const error = new Error("게시판을 DB에서 찾을 수 없습니다.");
           error.statusCode = 404;
-          return next(error);
+          next(error);
+          return;
         }
 
         totalPostList = board.postList;
       } catch (error) {
         error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-        return next(error);
+        next(error);
+        return;
       }
     }
 
@@ -67,7 +72,8 @@ class BoardController {
         const error = new Error("잘못된 접근입니다.");
         error.statusCode = 400;
         error.redirectURL = `/board/${boardName}/1`;
-        throw error;
+        next(error);
+        return;
       }
     } else {
       isBoardEmpty = false;
@@ -77,7 +83,8 @@ class BoardController {
         const error = new Error("잘못된 접근입니다.");
         error.statusCode = 400;
         error.redirectURL = `/board/${boardName}/1`;
-        throw error;
+        next(error);
+        return;
       }
 
       if (boardName === "전체게시판") {
@@ -88,7 +95,8 @@ class BoardController {
           boardList = await boardModel.find({});
         } catch (error) {
           error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-          return next(error);
+          next(error);
+          return;
         }
       }
 

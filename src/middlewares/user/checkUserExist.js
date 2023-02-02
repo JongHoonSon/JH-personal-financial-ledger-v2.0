@@ -9,7 +9,8 @@ const checkUserExist = async (req, res, next) => {
       req.session.loggedInUser = loggedInUser;
       next();
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
   }
 };

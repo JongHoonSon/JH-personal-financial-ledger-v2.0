@@ -23,7 +23,8 @@ class ItemController {
         .populate("expenseCategories");
     } catch (error) {
       error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     const { incomeCategories, expenseCategories } = user;
@@ -67,7 +68,8 @@ class ItemController {
       } catch (error) {
         error.message = "수입 내역을 추가하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/item/add/i";
-        return next(error);
+        next(error);
+        return;
       }
     } else {
       const { paymentMethod } = req.body;
@@ -92,7 +94,8 @@ class ItemController {
       } catch (error) {
         error.message = "지출 내역을 추가하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/item/add/e";
-        return next(error);
+        next(error);
+        return;
       }
     }
   }
@@ -111,7 +114,8 @@ class ItemController {
       }
     } catch (error) {
       error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -123,7 +127,8 @@ class ItemController {
         .populate("expenseCategories");
     } catch (error) {
       error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     checkItemOwner(item, user, next);
@@ -155,7 +160,8 @@ class ItemController {
       }
     } catch (error) {
       error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -167,7 +173,8 @@ class ItemController {
         .populate("expenseCategories");
     } catch (error) {
       error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     checkItemOwner(item, user, next);
@@ -191,7 +198,8 @@ class ItemController {
       return res.status(200).json(`/item/${item.type}/${item.id}`);
     } catch (error) {
       error.message = "아이템을 수정하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -209,7 +217,8 @@ class ItemController {
       }
     } catch (error) {
       error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -221,7 +230,8 @@ class ItemController {
         .populate("expenseCategories");
     } catch (error) {
       error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     checkItemOwner(item, user, next);
@@ -248,7 +258,8 @@ class ItemController {
     } catch (error) {
       error.message = "아이템을 삭제하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = `/item/${itemType}/${item.id}`;
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -266,7 +277,8 @@ class ItemController {
       }
     } catch (error) {
       error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -278,7 +290,8 @@ class ItemController {
         .populate("expenseCategories");
     } catch (error) {
       error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     checkItemOwner(item, user, next);
@@ -299,7 +312,8 @@ class ItemController {
         .populate("expenseList");
     } catch (error) {
       error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     const itemList = new Array();
@@ -340,7 +354,8 @@ class ItemController {
       }
     } catch (error) {
       error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -352,7 +367,8 @@ class ItemController {
         .populate("expenseCategories");
     } catch (error) {
       error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
 
     checkItemOwner(item, user, next);
@@ -373,7 +389,8 @@ class ItemController {
       error.message =
         "아이템을 즐겨찾기에 추가하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = `/item/${itemType}/${item.id}`;
-      return next(error);
+      next(error);
+      return;
     }
   }
 }

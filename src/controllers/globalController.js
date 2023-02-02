@@ -20,7 +20,8 @@ class GlobalController {
       );
       error.statusCode = 400;
       error.redirectURL = "/join";
-      return next(error);
+      next(error);
+      return;
     }
 
     try {
@@ -31,10 +32,12 @@ class GlobalController {
         );
         error.statusCode = 400;
         error.redirectURL = "/join";
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
 
     try {
@@ -45,10 +48,12 @@ class GlobalController {
         );
         error.statusCode = 400;
         error.redirectURL = "/join";
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
 
     try {
@@ -59,10 +64,12 @@ class GlobalController {
         );
         error.statusCode = 400;
         error.redirectURL = "/join";
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
 
     const incomeCategories = [
@@ -102,7 +109,8 @@ class GlobalController {
       req.flash("success", "회원가입에 완료했습니다.");
       return res.status(200).redirect("/login");
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -129,7 +137,8 @@ class GlobalController {
     } catch (error) {
       error.message = "해당하는 아이디를 갖는 유저가 없습니다.";
       error.redirectURL = "/login";
-      return next(error);
+      next(error);
+      return;
     }
 
     try {
@@ -139,12 +148,14 @@ class GlobalController {
         const error = new Error("비밀번호가 일치하지 않습니다.");
         error.statusCode = 400;
         error.redirectURL = "/login";
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
       error.message = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/login";
-      return next(error);
+      next(error);
+      return;
     }
 
     if (save_username) {
@@ -170,7 +181,8 @@ class GlobalController {
     } catch (error) {
       error.message = "유저를 DB에 저장하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/login";
-      return next(error);
+      next(error);
+      return;
     }
   }
 

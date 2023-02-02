@@ -12,7 +12,8 @@ class PostController {
         boardNameList,
       });
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -42,7 +43,8 @@ class PostController {
     } catch (error) {
       error.message = "게시글을 생성하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/post/add";
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -58,7 +60,8 @@ class PostController {
     } catch (error) {
       error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
@@ -70,7 +73,8 @@ class PostController {
       boardList = await boardModel.find({});
     } catch (error) {
       error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
     const boardNameList = boardList.map((board) => board.name);
 
@@ -100,7 +104,8 @@ class PostController {
     } catch (error) {
       error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
@@ -130,7 +135,8 @@ class PostController {
     } catch (error) {
       error.message = "게시글을 수정하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -146,7 +152,8 @@ class PostController {
     } catch (error) {
       error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
@@ -172,7 +179,8 @@ class PostController {
       }
     } catch (error) {
       error.message = "게시글을 삭제하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -192,7 +200,8 @@ class PostController {
     } catch (error) {
       error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
@@ -220,7 +229,8 @@ class PostController {
     try {
       post = await postModel.findById(postId);
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
 
     try {
@@ -230,7 +240,8 @@ class PostController {
       error.message =
         "게시글의 조회수를 증가시키는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     return res.sendStatus(200);
@@ -249,7 +260,8 @@ class PostController {
     } catch (error) {
       error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     let alreadyIn = false;
@@ -283,7 +295,8 @@ class PostController {
         error.message =
           "게시글의 좋아요 수를 변경하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
     } else {
       try {
@@ -296,7 +309,8 @@ class PostController {
         error.message =
           "게시글의 좋아요 수를 변경하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
 
       req.flash("success", "좋아요 완료");
