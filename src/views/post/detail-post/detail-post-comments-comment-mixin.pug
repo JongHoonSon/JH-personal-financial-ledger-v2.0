@@ -17,6 +17,6 @@ mixin list(comment)
                     button(data-comment_id=comment._id).comment__option-btn.comment__edit-cancel-btn.hidden 취소
 
         div.comment-content__wrap
-            pre.comment-content #{comment.content}
+            p.comment-content #{comment.content}
             textarea.comment-content__edit-textarea.hidden #{comment.content}
        

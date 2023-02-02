@@ -1,91 +1,95 @@
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import bcrypt from "bcrypt";
 
 class GlobalController {
   getHome(req, res) {
-    return res.render("global/home", { pageTitle: "홈" });
+    return res.status(200).render("global/home", { pageTitle: "홈" });
   }
 
   getJoin(req, res) {
-    return res.render("global/join", { pageTitle: "회원가입" });
+    return res.status(200).render("global/join", { pageTitle: "회원가입" });
   }
 
-  async postJoin(req, res) {
+  async join(req, res, next) {
     const { username, password, password_confirm, name, email, nickname } =
       req.body;
 
     if (password !== password_confirm) {
-      req.flash(
-        "error",
+      const error = new Error(
         "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다."
       );
-      return res.status(400).redirect("/join");
+      error.statusCode = 400;
+      error.redirectURL = "/join";
+      return next(error);
     }
 
-    let existedUsername;
     try {
-      existedUsername = await User.exists({ username });
+      const isExistedUsername = await userModel.exists({ username });
+      if (isExistedUsername) {
+        const error = new Error(
+          `해당 아이디을 사용하는 사용자가 이미 존재합니다.`
+        );
+        error.statusCode = 400;
+        error.redirectURL = "/join";
+        return next(error);
+      }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (existedUsername) {
-      req.flash("error", "이미 사용 중인 아이디입니다.");
-      return res.status(400).redirect("/join");
+      return next(error);
     }
 
-    let existedEmail;
     try {
-      existedEmail = await User.exists({ email });
+      const isExistedEmail = await userModel.exists({ email });
+      if (isExistedEmail) {
+        const error = new Error(
+          `해당 이메일을 사용하는 사용자가 이미 존재합니다.`
+        );
+        error.statusCode = 400;
+        error.redirectURL = "/join";
+        return next(error);
+      }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (existedEmail) {
-      req.flash("error", "이미 사용 중인 이메일입니다.");
-      return res.status(400).redirect("/join");
+      return next(error);
     }
 
-    let existedNickname;
     try {
-      existedNickname = await User.exists({ nickname });
+      const isExistedNickname = await userModel.exists({ nickname });
+      if (isExistedNickname) {
+        const error = new Error(
+          `해당 닉네임을 사용하는 사용자가 이미 존재합니다.`
+        );
+        error.statusCode = 400;
+        error.redirectURL = "/join";
+        return next(error);
+      }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 찾는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      return next(error);
     }
-    if (existedNickname) {
-      req.flash("error", "이미 사용 중인 닉네임입니다.");
-      return res.status(400).redirect("/join");
-    }
+
+    const incomeCategories = [
+      "월급",
+      "주급",
+      "용돈",
+      "은행이자",
+      "주식이윤",
+      "기타",
+    ];
+
+    const expenseCategories = [
+      "식비",
+      "주거비",
+      "통신비",
+      "교통비",
+      "의료비",
+      "생활비",
+      "의류비",
+      "교육비",
+      "주식거래",
+      "주식손해",
+      "기타",
+    ];
 
     try {
-      const incomeCategories = [
-        "월급",
-        "주급",
-        "용돈",
-        "은행이자",
-        "주식이윤",
-        "기타",
-      ];
-
-      const expenseCategories = [
-        "식비",
-        "주거비",
-        "통신비",
-        "교통비",
-        "의료비",
-        "생활비",
-        "의류비",
-        "교육비",
-        "주식거래",
-        "주식손해",
-        "기타",
-      ];
-
-      await User.create({
+      await userModel.create({
         username,
         password,
         name,
@@ -98,9 +102,7 @@ class GlobalController {
       req.flash("success", "회원가입에 완료했습니다.");
       return res.status(200).redirect("/login");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 생성하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).redirect("/join");
+      return next(error);
     }
   }
 
@@ -111,40 +113,38 @@ class GlobalController {
         : false;
     let savedUsername = saveUsername ? req.cookies.saved_username : "";
 
-    return res.render("global/login", {
+    return res.status(200).render("global/login", {
       pageTitle: "로그인",
       saveUsername,
       savedUsername,
     });
   }
 
-  async postLogin(req, res) {
+  async login(req, res, next) {
     const { username, password, save_username } = req.body;
 
     let user;
     try {
-      user = await User.findOne({ username, socialOnly: false });
+      user = await userModel.findOne({ username, socialOnly: false });
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "입력하신 아이디는 없는 아이디입니다.");
-      return res.status(400).redirect("/login");
+      error.message = "해당하는 아이디를 갖는 유저가 없습니다.";
+      error.redirectURL = "/login";
+      return next(error);
     }
 
-    let isPasswordCorrect;
     try {
-      isPasswordCorrect = await bcrypt.compare(password, user.password);
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordCorrect) {
+        const error = new Error("비밀번호가 일치하지 않습니다.");
+        error.statusCode = 400;
+        error.redirectURL = "/login";
+        return next(error);
+      }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "비밀번호를 검증하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!isPasswordCorrect) {
-      req.flash("error", "비밀번호가 일치하지 않습니다.");
-      return res.status(400).redirect("/login");
+      error.message = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
+      error.redirectURL = "/login";
+      return next(error);
     }
 
     if (save_username) {
@@ -161,17 +161,17 @@ class GlobalController {
     try {
       user.lastLoggedInDate = Date.now();
       await user.save();
+
+      req.session.user = user;
+      req.session.loggedIn = true;
+
+      req.flash("success", `안녕하세요, ${user.nickname} 님!`);
+      return res.status(200).redirect("/");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.message = "유저를 DB에 저장하는 과정에서 오류가 발생했습니다.";
+      error.redirectURL = "/login";
+      return next(error);
     }
-
-    req.session.user = user;
-    req.session.loggedIn = true;
-
-    req.flash("success", `안녕하세요, ${user.nickname} 님!`);
-    return res.status(200).redirect("/");
   }
 
   logout(req, res) {
@@ -180,14 +180,14 @@ class GlobalController {
     req.session.loggedIn = false;
 
     req.flash("success", `다음에 또 봬요, ${username} 님!`);
-    return res.status(200).redirect("/");
+    return res.status(200).redirect("/login");
   }
 
   finishGoogleLogin(req, res) {
-    req.session.loggedIn = true;
     req.session.user = req.user;
+    req.session.loggedIn = true;
 
-    return res.redirect("/");
+    return res.status(200).redirect("/");
   }
 }
 

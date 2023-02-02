@@ -1,5 +1,5 @@
 mixin list(post)
-    tr(onclick=`location.href='/post/detail/${post._id}'` style="cursor:pointer").user-own-contents__tbody__tr
+    tr(onclick=`location.href='/post/${post._id}'` style="cursor:pointer").user-own-contents__tbody__tr
         td.user-own-contents__tbody__tr__td #{post.createdAtStringFullDate}
         td.user-own-contents__tbody__tr__td#user-own-posts__tbody__td__title #{post.title}
         td.user-own-contents__tbody__tr__td #{post.views}

@@ -5,7 +5,7 @@ block content
         include ../../modal/user-own-categories/user-own-categories.pug
     div.form-container
         div.form__wrap
-            form(method="POST", enctype="multipart/form-data").form
+            form(data-item=item).form#item-edit-form
                 div.form__input-section__wrap
                     div.input 
                         label(for="image-upload__uploader__image-input").input__label 사진
@@ -81,3 +81,4 @@ block content
 block scripts
     script(src="/assets/js/image-preview.js")
     script(src="/assets/js/modal.js")
+    script(src="/assets/js/edit-item.js")

@@ -1,5 +1,4 @@
-import Income from "../models/Income";
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import { sortItem, getStringDate, getStringAmount } from "../utils";
 
 class LedgerController {
@@ -20,17 +19,14 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     const { incomeList, expenseList } = user;
@@ -110,17 +106,14 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     const { incomeList, expenseList } = user;
@@ -189,17 +182,14 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     const { incomeList, expenseList } = user;
@@ -266,17 +256,14 @@ class LedgerController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
       console.log(error);
       req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
       return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
     }
 
     const { incomeList, expenseList } = user;

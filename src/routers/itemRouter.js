@@ -1,34 +1,37 @@
 import express from "express";
 import { itemController } from "../controllers";
-import { loginRequired, imageUploader } from "../middlewares";
+import { imageUploader } from "../middlewares";
+import checkItemExist from "./../middlewares/item/checkItemExist";
 
 const itemRouter = express.Router();
 
-itemRouter
-  .route("/add/:itemType")
-  .all(loginRequired)
-  .get(itemController.getAddItem)
-  .post(imageUploader.single("image"), itemController.postAddItem);
-itemRouter
-  .route("/edit/:itemType/:itemId")
-  .all(loginRequired)
-  .get(itemController.getEditItem)
-  .post(imageUploader.single("image"), itemController.postEditItem);
+itemRouter.get("/add/:itemType", itemController.getAddItem);
+
 itemRouter.post(
-  "/delete/:itemType/:itemId",
-  loginRequired,
-  itemController.postDeleteItem
+  "/:itemType",
+  imageUploader.single("image"),
+  itemController.addItem
 );
+
 itemRouter.get(
-  "/detail/:itemType/:itemId",
-  loginRequired,
-  itemController.getDetailItem
+  "/edit/:itemType/:itemId",
+  checkItemExist,
+  itemController.getEditItem
 );
-itemRouter.get("/pinned", loginRequired, itemController.getPinnedItems);
-itemRouter.post(
-  "/pinning/:itemType/:itemId",
-  loginRequired,
-  itemController.postPinning
+
+itemRouter
+  .route("/:itemType/:itemId")
+  .all(checkItemExist)
+  .get(itemController.getDetailItem)
+  .put(imageUploader.single("image"), itemController.editItem)
+  .delete(itemController.deleteItem);
+
+itemRouter.get("/pinned", itemController.getPinnedItems);
+
+itemRouter.put(
+  "/pin/:itemType/:itemId",
+  checkItemExist,
+  itemController.pinItem
 );
 
 export default itemRouter;

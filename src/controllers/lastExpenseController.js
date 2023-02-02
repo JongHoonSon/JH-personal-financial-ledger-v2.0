@@ -1,22 +1,23 @@
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import { getStringDate, sortItem, getDaysDiff } from "../utils";
 
 class LastExpenseController {
-  async getLastExpense(req, res) {
+  async getLastExpense(req, res, next) {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("expenseCategories")
         .populate("expenseList");
+      if (!user) {
+        const error = new Error("유저를 DB에서 찾을 수 없습니다.");
+        error.statusCode = 404;
+        return next(error);
+      }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const expenseList = user.expenseList;
@@ -52,7 +53,7 @@ class LastExpenseController {
     }
 
     return res.render("last-expense/last-expense", {
-      pageTitle: "마지막 지출일",
+      pageTitle: "마지막 지출",
       lastExpenseList,
     });
   }

@@ -1,5 +1,5 @@
 import passport from "passport";
-import User from "../models/User";
+import { userModel } from "./../db/models";
 var GoogleStrategy = require("passport-google-oauth2").Strategy;
 
 passport.serializeUser(function (user, done) {
@@ -7,7 +7,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(async function (userId, done) {
-  const user = await User.findById(userId);
+  const user = await userModel.findById(userId);
   done(null, user);
 });
 
@@ -20,14 +20,14 @@ passport.use(
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
-      const exists = await User.exists({ email: profile.email });
+      const exists = await userModel.exists({ email: profile.email });
 
       let user;
       if (exists) {
-        user = await User.findOne({ email: profile.email });
+        user = await userModel.findOne({ email: profile.email });
       } else {
         try {
-          user = await User.create({
+          user = await userModel.create({
             username: profile.id,
             password: "",
             name: profile.given_name + profile.family_name,

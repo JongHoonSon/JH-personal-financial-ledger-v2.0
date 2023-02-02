@@ -1,10 +1,9 @@
-import Income from "../models/Income";
-import Expense from "../models/Expense";
-import User from "../models/User";
+import { incomeModel, expenseModel, userModel } from "./../db/models";
 import { sortItem } from "../utils";
+import checkItemOwner from "./../middlewares/item/checkItemOwner";
 
 class ItemController {
-  async getAddItem(req, res) {
+  async getAddItem(req, res, next) {
     const { itemType } = req.params;
 
     let pageTitle;
@@ -18,17 +17,13 @@ class ItemController {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const { incomeCategories, expenseCategories } = user;
@@ -41,32 +36,22 @@ class ItemController {
     });
   }
 
-  async postAddItem(req, res) {
+  async addItem(req, res, next) {
     const { itemType } = req.params;
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
 
-    const loggedInUser = req.session.user;
-    let user;
-    try {
-      user = await User.findById(loggedInUser._id);
-    } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
-    }
+    console.log("file");
+    console.log(file);
+
+    const user = req.session.loggedInUser;
 
     if (itemType === "i") {
       try {
-        const user = await User.findById(loggedInUser._id);
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`
           : "/defaults/images/empty-image.png";
-        const newIncome = await Income.create({
+        const newIncome = await incomeModel.create({
           owner: user,
           date,
           amount,
@@ -80,12 +65,9 @@ class ItemController {
         req.flash("success", "수입 내역이 추가되었습니다.");
         return res.status(200).redirect("/item/add/i");
       } catch (error) {
-        console.log(error);
-        req.flash(
-          "error",
-          "수입 내역을 추가하는 과정에서 오류가 발생했습니다."
-        );
-        return res.status(500).redirect("/item/add/i");
+        error.message = "수입 내역을 추가하는 과정에서 오류가 발생했습니다.";
+        error.redirectURL = "/item/add/i";
+        return next(error);
       }
     } else {
       const { paymentMethod } = req.body;
@@ -93,7 +75,7 @@ class ItemController {
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`
           : "/defaults/images/empty-image.png";
-        const newExpense = await Expense.create({
+        const newExpense = await expenseModel.create({
           owner: user,
           date,
           amount,
@@ -108,56 +90,43 @@ class ItemController {
         req.flash("success", "지출 내역이 추가되었습니다.");
         return res.status(200).redirect("/item/add/e");
       } catch (error) {
-        console.log(error);
-        req.flash(
-          "error",
-          "지출 내역을 추가하는 과정에서 오류가 발생했습니다."
-        );
-        return res.status(500).redirect("/item/add/e");
+        error.message = "지출 내역을 추가하는 과정에서 오류가 발생했습니다.";
+        error.redirectURL = "/item/add/e";
+        return next(error);
       }
     }
   }
 
-  async getEditItem(req, res) {
+  async getEditItem(req, res, next) {
     const { itemType, itemId } = req.params;
 
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findByIdWithPopulate(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel
+          .findByIdWithPopulate(itemId)
+          .populate("owner");
       }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!item) {
-      req.flash("error", "아이템을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
-    if (String(item.owner._id) !== String(user._id)) {
-      req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
-    }
+    checkItemOwner(item, user, next);
 
     const { incomeCategories, expenseCategories } = user;
 
@@ -170,7 +139,7 @@ class ItemController {
     });
   }
 
-  async postEditItem(req, res) {
+  async editItem(req, res, next) {
     const { itemType, itemId } = req.params;
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
@@ -178,40 +147,30 @@ class ItemController {
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findByIdWithPopulate(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel
+          .findByIdWithPopulate(itemId)
+          .populate("owner");
       }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!item) {
-      req.flash("error", "아이템을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
-    if (String(item.owner._id) !== String(user._id)) {
-      req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
-    }
+    checkItemOwner(item, user, next);
 
     try {
       if (itemType === "e") {
@@ -229,64 +188,53 @@ class ItemController {
       item.imageUrl = filePath;
       await item.save();
       req.flash("success", "아이템을 수정했습니다.");
-      return res.status(200).redirect(`/item/detail/${itemType}/${item.id}`);
+      return res.status(200).json(`/item/${item.type}/${item.id}`);
     } catch (error) {
-      console.log(error);
-      req.flash("error", "아이템을 수정하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/item/edit/${itemType}/${item.id}`);
+      error.message = "아이템을 수정하는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
   }
 
-  async postDeleteItem(req, res) {
+  async deleteItem(req, res, next) {
     const { itemType, itemId } = req.params;
 
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findByIdWithPopulate(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel
+          .findByIdWithPopulate(itemId)
+          .populate("owner");
       }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!item) {
-      req.flash("error", "아이템을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
-    if (String(item.owner._id) !== String(user._id)) {
-      req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
-    }
+    checkItemOwner(item, user, next);
 
     try {
       if (itemType === "i") {
-        await Income.findByIdAndDelete(itemId);
+        await incomeModel.findByIdAndDelete(itemId);
         user.incomeList = user.incomeList.filter(
           (income) => String(income._id) !== String(itemId)
         );
         await user.save();
       } else {
-        await Expense.findByIdAndDelete(itemId);
+        await expenseModel.findByIdAndDelete(itemId);
         user.expenseList = user.expenseList.filter(
           (expense) => String(expense._id) !== String(itemId)
         );
@@ -294,56 +242,46 @@ class ItemController {
       }
       req.flash("success", "아이템을 삭제했습니다.");
       if (req.session.history.prevPageURL) {
-        return res.status(200).redirect(req.session.history.prevPageURL);
+        return res.status(200).json(req.session.history.prevPageURL);
       }
-      return res.status(200).redirect("/");
+      return res.status(200).json("/");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "아이템을 삭제하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect(`/item/detail/${itemType}/${item.id}`);
+      error.message = "아이템을 삭제하는 과정에서 오류가 발생했습니다.";
+      error.redirectURL = `/item/${itemType}/${item.id}`;
+      return next(error);
     }
   }
 
-  async getDetailItem(req, res) {
+  async getDetailItem(req, res, next) {
     const { itemType, itemId } = req.params;
 
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findByIdWithPopulate(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel
+          .findByIdWithPopulate(itemId)
+          .populate("owner");
       }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!item) {
-      req.flash("error", "아이템을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
-    if (String(item.owner._id) !== String(user._id)) {
-      req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
-    }
+    checkItemOwner(item, user, next);
 
     return res.render("item/detail-item/detail-item", {
       pageTitle: "상세 내역",
@@ -351,21 +289,17 @@ class ItemController {
     });
   }
 
-  async getPinnedItems(req, res) {
+  async getPinnedItems(req, res, next) {
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const itemList = new Array();
@@ -387,71 +321,59 @@ class ItemController {
     sortItem(itemList);
 
     return res.render("item/pinned-items/pinned-items", {
-      pageTitle: "핀 목록",
+      pageTitle: "즐겨찾기",
       itemList,
     });
   }
 
-  async postPinning(req, res) {
+  async pinItem(req, res, next) {
     const { itemType, itemId } = req.params;
 
     let item;
     try {
       if (itemType === "i") {
-        item = await Income.findById(itemId).populate("owner");
+        item = await incomeModel.findByIdWithPopulate(itemId).populate("owner");
       } else {
-        item = await Expense.findById(itemId).populate("owner");
+        item = await expenseModel
+          .findByIdWithPopulate(itemId)
+          .populate("owner");
       }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "아이템을 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!item) {
-      req.flash("error", "아이템을 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const loggedInUser = req.session.user;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return { pass: false, return: res.status(404).redirect("/") };
+      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
-    if (String(item.owner._id) !== String(user._id)) {
-      req.flash("error", "권한이 없습니다.");
-      return res.status(403).redirect("/");
-    }
+    checkItemOwner(item, user, next);
 
     try {
       if (item.pinned === false) {
         item.pinned = true;
         await item.save();
-        req.flash("success", "핀 목록에 추가하였습니다.");
-        return res.status(200).redirect(`/item/detail/${itemType}/${item.id}`);
+        req.flash("success", "즐겨찾기에 추가하였습니다.");
+        return res.status(200).json(`/item/${itemType}/${item.id}`);
       } else {
         item.pinned = false;
         await item.save();
-        req.flash("success", "핀 목록에서 삭제하였습니다.");
-        return res.status(200).redirect(`/item/detail/${itemType}/${item.id}`);
+        req.flash("success", "즐겨찾기에서 삭제하였습니다.");
+        return res.status(200).json(`/item/${itemType}/${item.id}`);
       }
     } catch (error) {
-      console.log(error);
-      req.flash(
-        "error",
-        "아이템을 핀 목록에 추가하는 과정에서 오류가 발생했습니다."
-      );
-      return res.status(500).redirect(`/item/detail/${itemType}/${item.id}`);
+      error.message =
+        "아이템을 즐겨찾기에 추가하는 과정에서 오류가 발생했습니다.";
+      error.redirectURL = `/item/${itemType}/${item.id}`;
+      return next(error);
     }
   }
 }

@@ -3,27 +3,27 @@ nav
         if loggedIn 
             li.main-nav__option 
                 if pageTitle === "일별 내역" || pageTitle === "주별 내역" || pageTitle === "월별 내역" || pageTitle === "연도별 내역"
-                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/all`).main-nav__option-link#main-nav__selected 가계부
+                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/all`).main-nav__option-link#main-nav__selected 전체 내역
                 else
-                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/all`).main-nav__option-link 가계부
+                    a(href=`/ledger/${thisYear}-${thisMonth}-${thisDay}/daily/all`).main-nav__option-link 전체 내역
 
             li.main-nav__option
-                if pageTitle === "핀 목록"
-                    a(href="/item/pinned").main-nav__option-link#main-nav__selected 핀 목록
+                if pageTitle === "즐겨찾기"
+                    a(href="/item/pinned").main-nav__option-link#main-nav__selected 즐겨찾기
                 else
-                    a(href="/item/pinned").main-nav__option-link 핀 목록
+                    a(href="/item/pinned").main-nav__option-link 즐겨찾기
 
             li.main-nav__option
-                if pageTitle === "마지막 지출일"
-                    a(href="/last-expense").main-nav__option-link#main-nav__selected 마지막 지출일
+                if pageTitle === "마지막 지출"
+                    a(href="/last-expense").main-nav__option-link#main-nav__selected 마지막 지출
                 else
-                    a(href="/last-expense").main-nav__option-link 마지막 지출일
+                    a(href="/last-expense").main-nav__option-link 마지막 지출
                 
             li.main-nav__option
-                if pageTitle === "소비 리포트"
-                    a(href="/chart/expense/7").main-nav__option-link#main-nav__selected 소비 리포트
+                if pageTitle === "통계"
+                    a(href="/chart/expense/7").main-nav__option-link#main-nav__selected 통계
                 else
-                    a(href="/chart/expense/7").main-nav__option-link 소비 리포트
+                    a(href="/chart/expense/7").main-nav__option-link 통계
                 
             li.main-nav__option
                 if pageTitle === "게시판"

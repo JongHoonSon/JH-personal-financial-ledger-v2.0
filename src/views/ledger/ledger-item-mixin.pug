@@ -1,6 +1,6 @@
 mixin list(item)
     li(class=`${item.type === "i" ? 'income-bgcolor-deep income-bordercolor-light ledger-list__item__income' : 'expense-bgcolor-deep expense-bordercolor-light ledger-list__item__expense'}`).ledger-list__item
-        a(href=`/item/detail/${item.type}/${item.id}`).ledger-list__item__link
+        a(href=`/item/${item.type}/${item.id}`).ledger-list__item__link
             ul.ledger-list__item-contents
                 li.ledger-list__item-content.ledger-list__item-content-date #{item.stringDate}
                 if item.type === "i"

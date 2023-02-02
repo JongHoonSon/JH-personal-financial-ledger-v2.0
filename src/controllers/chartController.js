@@ -1,25 +1,28 @@
-import User from "../models/User";
+import { userModel } from "./../db/models";
 import { getStringDate, getDaysDiff, getStringAmount } from "../utils";
 
 class ChartController {
-  async getChart(req, res) {
+  async getChart(req, res, next) {
     const { type, days } = req.params;
 
-    const loggedInUser = req.session.user;
+    const { loggedInUser } = req.session;
     let user;
     try {
-      user = await User.findById(loggedInUser._id)
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
         .populate("incomeCategories")
         .populate("expenseCategories")
         .populate("incomeList")
         .populate("expenseList");
+
+      if (!user) {
+        const error = new Error("유저를 DB에서 찾을 수 없습니다.");
+        error.statusCode = 404;
+        return next(error);
+      }
     } catch (error) {
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-    if (!user) {
-      req.flash("error", "유저를 찾을 수 없습니다.");
-      return res.status(404).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     let categories;
@@ -77,7 +80,7 @@ class ChartController {
     }
 
     return res.render("chart/chart", {
-      pageTitle: "소비 리포트",
+      pageTitle: "통계",
       type,
       days,
       chartDataArr,
