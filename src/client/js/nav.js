@@ -1,8 +1,8 @@
-const $nav_options = document.querySelectorAll(".nav_option");
+const navOptions = document.querySelectorAll(".nav_option");
 
-$nav_options.forEach((el) => console.log(el.classList));
+navOptions.forEach((el) => console.log(el.classList));
 
-$nav_options.forEach((el) =>
+navOptions.forEach((el) =>
   el.addEventListener("click", handleNavOptionClicked)
 );
 
