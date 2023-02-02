@@ -35,8 +35,14 @@ class CommentModel {
     return Comment.findById(commentId);
   }
 
-  findByIdAndDelete(commentId) {
-    return Comment.findByIdAndDelete(commentId);
+  async findByIdAndDelete(commentId) {
+    try {
+      await Comment.findByIdAndDelete(commentId);
+      return;
+    } catch (error) {
+      error.message = "댓글을 DB에서 삭제하는 과정에서 오류가 발생했습니다.";
+      throw error;
+    }
   }
 }
 

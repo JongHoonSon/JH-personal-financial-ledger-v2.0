@@ -35,8 +35,14 @@ class PostModel {
     return Post.findById(postId);
   }
 
-  findByIdAndDelete(postId) {
-    return Post.findByIdAndDelete(postId);
+  async findByIdAndDelete(postId) {
+    try {
+      await Post.findByIdAndDelete(postId);
+      return;
+    } catch (error) {
+      error.message = "게시글을 DB에서 삭제하는 과정에서 오류가 발생했습니다.";
+      throw error;
+    }
   }
 }
 
