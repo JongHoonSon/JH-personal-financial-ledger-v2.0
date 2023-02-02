@@ -132,17 +132,17 @@ class GlobalController {
       return next(error);
     }
 
-    let isPasswordCorrect;
     try {
-      isPasswordCorrect = await bcrypt.compare(password, user.password);
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordCorrect) {
+        const error = new Error("비밀번호가 일치하지 않습니다.");
+        error.statusCode = 400;
+        error.redirectURL = "/login";
+        return next(error);
+      }
     } catch (error) {
       error.message = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
-      error.redirectURL = "/login";
-      return next(error);
-    }
-    if (!isPasswordCorrect) {
-      const error = new Error("비밀번호가 일치하지 않습니다.");
-      error.statusCode = 400;
       error.redirectURL = "/login";
       return next(error);
     }
