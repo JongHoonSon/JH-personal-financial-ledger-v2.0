@@ -60,6 +60,16 @@ class UserModel {
   findByIdWithPopulate(userId) {
     return User.findById(userId);
   }
+
+  async findByIdAndUpdate(params) {
+    try {
+      const user = await User.findByIdAndUpdate(params);
+      return user;
+    } catch (error) {
+      error.message = "유저를 DB에서 수정하는 과정에서 오류가 발생했습니다.";
+      throw error;
+    }
+  }
 }
 
 const userModel = new UserModel();
