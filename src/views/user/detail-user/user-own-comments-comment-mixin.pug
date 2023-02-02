@@ -1,6 +1,6 @@
 mixin list(comment)
-    tr(onclick=`location.href='/post/${comment.post._id}'` style="cursor:pointer").user-own-contents__tbody__tr
+    tr(onclick=`location.href='${comment.post ? `/post/${comment.post._id}` : `/user/own-comments/${user._id}`}'` style="cursor:pointer").user-own-contents__tbody__tr
         td.user-own-contents__tbody__tr__td #{comment.createdAtStringFullDate}
-        td.user-own-contents__tbody__tr__td#user-own-comments__tbody__td__title #{comment.post.title}
+        td.user-own-contents__tbody__tr__td#user-own-comments__tbody__td__title #{comment.post ? comment.post.title : "삭제된 게시글 입니다."}
         td.user-own-contents__tbody__tr__td#user-own-comments__tbody__td__content #{comment.content}
         td.user-own-contents__tbody__tr__td #{comment.likesUserList.length}

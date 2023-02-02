@@ -3,16 +3,15 @@ import { userModel } from "./../db/models";
 import bcrypt from "bcrypt";
 
 class UserController {
-  async getUserProfile(req, res) {
+  async getUserProfile(req, res, next) {
     const { userId } = req.params;
 
     let user;
     try {
       user = await userModel.findById(userId);
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const isMyProfile = req.session.user._id === userId ? true : false;
@@ -22,7 +21,7 @@ class UserController {
     const joinDate = getStringDate(user.joinDate);
     const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
-    res.render("user/detail-user/detail-user", {
+    return res.render("user/detail-user/detail-user", {
       pageTitle,
       user,
       isMyProfile,
@@ -31,17 +30,8 @@ class UserController {
     });
   }
 
-  async getEditUserProfile(req, res) {
-    const loggedInUserId = req.session.user._id;
-
-    let user;
-    try {
-      user = await userModel.findById(loggedInUserId);
-    } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
+  getEditUserProfile(req, res) {
+    const user = req.session.loggedInUser;
 
     return res.render("user/edit-user/edit-user-profile", {
       pageTitle: "프로필 수정",
@@ -49,57 +39,44 @@ class UserController {
     });
   }
 
-  async editUserProfile(req, res) {
-    const loggedInUserId = req.session.user._id;
+  async editUserProfile(req, res, next) {
     const { name, nickname, email } = req.body;
     const { file } = req;
 
-    let user;
-    try {
-      user = await userModel.findById(loggedInUserId);
-    } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
+    console.log("file");
+    console.log(file);
+
+    const user = req.session.loggedInUser;
 
     if (user.nickname !== nickname) {
-      let existedNickname;
       try {
-        existedNickname = await userModel.exists({ nickname });
+        const isExistedNickname = await userModel.exists({ nickname });
+        if (isExistedNickname) {
+          const error = new Error(
+            `해당 닉네임을 사용하는 사용자가 이미 존재합니다.`
+          );
+          error.statusCode = 400;
+          error.redirectURL = "/join";
+          return next(error);
+        }
       } catch (error) {
-        console.log(error);
-        req.flash(
-          "error",
-          "유저 정보를 불러오는 과정에서 오류가 발생했습니다."
-        );
-        return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-      }
-      if (existedNickname) {
-        req.flash("error", "이미 사용 중인 닉네임입니다.");
-        return res
-          .status(400)
-          .json({ haveToRedirect: true, redirectURL: "/user/edit-profile" });
+        return next(error);
       }
     }
 
     if (user.email !== email) {
-      let existedEmail;
       try {
-        existedEmail = await userModel.exists({ email });
+        const isExistedEmail = await userModel.exists({ email });
+        if (isExistedEmail) {
+          const error = new Error(
+            `해당 이메일을 사용하는 사용자가 이미 존재합니다.`
+          );
+          error.statusCode = 400;
+          error.redirectURL = "/join";
+          return next(error);
+        }
       } catch (error) {
-        console.log(error);
-        req.flash(
-          "error",
-          "유저 정보를 불러오는 과정에서 오류가 발생했습니다."
-        );
-        return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-      }
-      if (existedEmail) {
-        req.flash("error", "이미 사용 중인 이메일입니다.");
-        return res
-          .status(400)
-          .json({ haveToRedirect: true, redirectURL: "/user/edit-profile" });
+        return next(error);
       }
     }
 
@@ -121,72 +98,43 @@ class UserController {
       req.flash("success", "프로필을 수정했습니다.");
       return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {
-      console.log(error);
-      req.flash("error", "프로필을 수정하는 과정에서 오류가 발생했습니다.");
-      return res.status(400).json({
-        haveToRedirect: true,
-        redirectURL: `/user/profile/${user._id}`,
-      });
+      return next(error);
     }
   }
 
-  async getEditUserPassword(req, res) {
-    const loggedInUserId = req.session.user._id;
-
-    let user;
-    try {
-      user = await userModel.findById(loggedInUserId);
-    } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
-    }
-
+  getEditUserPassword(req, res) {
     return res.render("user/edit-user/edit-user-password", {
       pageTitle: "비밀번호 변경",
     });
   }
 
-  async editUserPassword(req, res) {
-    const loggedInUserId = req.session.user._id;
-
+  async editUserPassword(req, res, next) {
     const { password, new_password, new_password_confirm } = req.body;
 
-    let user;
-    try {
-      user = await userModel.findById(loggedInUserId);
-    } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!user) {
-      return res.status(404).json({ haveToRedirect: true, redirectURL: "/" });
-    }
+    const user = req.session.loggedInUser;
 
-    let passwordCorrect;
     try {
-      passwordCorrect = await bcrypt.compare(password, user.password);
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordCorrect) {
+        const error = new Error("기존 비밀번호가 일치하지 않습니다.");
+        error.statusCode = 400;
+        error.redirectURL = "/user/edit-password";
+        return next(error);
+      }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "비밀번호를 검증하는 과정에서 오류가 발생했습니다.");
-      return res.status(500).json({ haveToRedirect: true, redirectURL: "/" });
-    }
-    if (!passwordCorrect) {
-      req.flash("error", "비밀번호가 일치하지 않습니다.");
-      return res
-        .status(400)
-        .json({ haveToRedirect: true, redirectURL: "/user/edit-password" });
+      error.message = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
+      error.redirectURL = "/user/edit-password";
+      return next(error);
     }
 
     if (new_password !== new_password_confirm) {
-      req.flash(
-        "error",
+      const error = new Error(
         "입력하신 새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다."
       );
-      return res
-        .status(400)
-        .json({ haveToRedirect: true, redirectURL: "/user/edit-password" });
+      error.statusCode = 400;
+      error.redirectURL = "/user/edit-password ";
+      return next(error);
     }
 
     try {
@@ -196,36 +144,33 @@ class UserController {
       req.flash("success", "비밀번호를 변경했습니다.");
       return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {
-      console.log(error);
-      req.flash("error", "비밀번호를 변경하는 과정에서 오류가 발생했습니다.");
-      return res
-        .status(400)
-        .json({ haveToRedirect: true, redirectURL: "/user/edit-password" });
+      error.message = "비밀번호를 변경하는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
   }
 
-  async getUserOwnCategories(req, res) {
-    const loggedInUserId = req.session.user._id;
+  async getUserOwnCategories(req, res, next) {
     const { categoryType } = req.params;
+
+    const loggedInUser = req.session.user;
 
     let user;
     let userCategories;
     try {
       if (categoryType === "i") {
         user = await userModel
-          .findById(loggedInUserId)
+          .findByIdWithPopulate(loggedInUser._id)
           .populate("incomeCategories");
         userCategories = user.incomeCategories;
       } else if (categoryType === "e") {
         user = await userModel
-          .findById(loggedInUserId)
+          .findByIdWithPopulate(loggedInUser._id)
           .populate("expenseCategories");
         userCategories = user.expenseCategories;
       }
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     let pageTitle;
@@ -243,51 +188,52 @@ class UserController {
     });
   }
 
-  async addUserCategory(req, res) {
-    const loggedInUserId = req.session.user._id;
+  async addUserCategory(req, res, next) {
     const { categoryType } = req.params;
     const { newCategoryName } = req.body;
+
+    const loggedInUser = req.session.user;
 
     let user;
     try {
       if (categoryType === "i") {
         user = await userModel
-          .findById(loggedInUserId)
+          .findByIdWithPopulate(loggedInUser._id)
           .populate("incomeCategories");
         user.incomeCategories.push(newCategoryName);
       } else if (categoryType === "e") {
         user = await userModel
-          .findById(loggedInUserId)
+          .findByIdWithPopulate(loggedInUser._id)
           .populate("expenseCategories");
         user.expenseCategories.push(newCategoryName);
       }
       await user.save();
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     return res.send(200);
   }
 
-  async deleteUserCategory(req, res) {
-    const loggedInUserId = req.session.user._id;
+  async deleteUserCategory(req, res, next) {
     const { categoryType } = req.params;
     const { categoryName } = req.body;
+
+    const loggedInUser = req.session.user;
 
     let user;
     try {
       if (categoryType === "i") {
         user = await userModel
-          .findById(loggedInUserId)
+          .findByIdWithPopulate(loggedInUser._id)
           .populate("incomeCategories");
         user.incomeCategories = user.incomeCategories.filter(
           (el) => el !== categoryName
         );
       } else if (categoryType === "e") {
         user = await userModel
-          .findById(loggedInUserId)
+          .findByIdWithPopulate(loggedInUser._id)
           .populate("expenseCategories");
         user.expenseCategories = user.expenseCategories.filter(
           (el) => el !== categoryName
@@ -295,30 +241,28 @@ class UserController {
       }
       await user.save();
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     return res.sendStatus(200);
   }
 
-  async getUserOwnPosts(req, res) {
+  async getUserOwnPosts(req, res, next) {
     const { userId } = req.params;
 
     let user;
     try {
-      user = await userModel.findById(userId).populate("postList");
+      user = await userModel.findByIdWithPopulate(userId).populate("postList");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const joinDate = getStringDate(user.joinDate);
     const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
-    res.render("user/detail-user/user-own-posts", {
+    return res.render("user/detail-user/user-own-posts", {
       pageTitle: `${user.nickname} 님의 작성 글`,
       user,
       joinDate,
@@ -326,25 +270,24 @@ class UserController {
     });
   }
 
-  async getUserOwnComments(req, res) {
+  async getUserOwnComments(req, res, next) {
     const { userId } = req.params;
 
     let user;
     try {
-      user = await userModel.findById(userId).populate({
+      user = await userModel.findByIdWithPopulate(userId).populate({
         path: "commentList",
         populate: "post",
       });
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      return next(error);
     }
 
     const joinDate = getStringDate(user.joinDate);
     const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
-    res.render("user/detail-user/user-own-comments", {
+    return res.render("user/detail-user/user-own-comments", {
       pageTitle: `${user.nickname} 님의 작성 댓글`,
       user,
       joinDate,
