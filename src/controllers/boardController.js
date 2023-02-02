@@ -6,6 +6,9 @@ class BoardController {
   async getBoard(req, res, next) {
     const { boardName, pageNum } = req.params;
 
+    const { isNaN } = checkNaN(pageNum, next);
+    if (isNaN) return;
+
     let boardList;
     let totalPostList = [];
     if (boardName === "전체게시판") {

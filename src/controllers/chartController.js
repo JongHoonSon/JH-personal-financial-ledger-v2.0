@@ -1,9 +1,13 @@
 import { userModel } from "./../db/models";
 import { getStringDate, getDaysDiff, getStringAmount } from "../utils";
+import { checkNaN } from "../middlewares";
 
 class ChartController {
   async getChart(req, res, next) {
     const { type, days } = req.params;
+
+    const { isNaN } = checkNaN(days, next);
+    if (isNaN) return;
 
     const { loggedInUser } = req.session;
     let user;

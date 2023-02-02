@@ -3,6 +3,7 @@ import errorHandler from "./common/errorHandler";
 import imageUploader from "./common/imageUploader";
 import logPathHistory from "./common/logPathHistory";
 import saveResponseLocalData from "./common/saveResponseLocalData";
+import checkNaN from "./common/checkNaN";
 
 // comment
 import checkCommentExist from "./comment/checkCommentExist";
@@ -29,6 +30,7 @@ export {
   imageUploader,
   logPathHistory,
   saveResponseLocalData,
+  checkNaN,
   checkItemExist,
   checkItemOwner,
   checkPostExist,
