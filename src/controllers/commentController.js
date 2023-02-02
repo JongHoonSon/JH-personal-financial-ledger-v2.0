@@ -155,7 +155,6 @@ class CommentController {
       req.flash("success", "댓글을 삭제했습니다.");
       return res.sendStatus(200);
     } catch (error) {
-      error.message = "댓글을 DB에서 삭제하는 과정에서 오류가 발생했습니다.";
       return next(error);
     }
   }
