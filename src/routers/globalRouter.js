@@ -14,15 +14,18 @@ globalRouter
   .route("/join")
   .get(checkUserAnonymous, globalController.getJoin)
   .post(globalController.join);
+
 globalRouter
   .route("/login")
   .get(checkUserAnonymous, globalController.getLogin)
   .post(globalController.login);
+
 globalRouter.get(
   "/auth/google",
   checkUserAnonymous,
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
+
 globalRouter.get(
   "/auth/google/callback",
   checkUserAnonymous,
