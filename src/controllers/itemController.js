@@ -131,7 +131,8 @@ class ItemController {
       return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     const { incomeCategories, expenseCategories } = user;
 
@@ -177,7 +178,8 @@ class ItemController {
       return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     try {
       if (itemType === "e") {
@@ -234,7 +236,8 @@ class ItemController {
       return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     try {
       if (itemType === "i") {
@@ -294,7 +297,8 @@ class ItemController {
       return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     return res.render("item/detail-item/detail-item", {
       pageTitle: "상세 내역",
@@ -371,7 +375,8 @@ class ItemController {
       return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     try {
       if (item.pinned === false) {

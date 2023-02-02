@@ -76,7 +76,8 @@ class CommentController {
       return;
     }
 
-    checkCommentOwner(comment, user, next);
+    const { isOwner } = checkCommentOwner(comment, user, next);
+    if (!isOwner) return;
 
     try {
       comment.content = newContent;
@@ -118,7 +119,8 @@ class CommentController {
       return;
     }
 
-    checkCommentOwner(comment, user, next);
+    const { isOwner } = checkCommentOwner(comment, user, next);
+    if (!isOwner) return;
 
     user.commentList = user.commentList.filter(
       (el) => String(el._id) !== String(comment._id)

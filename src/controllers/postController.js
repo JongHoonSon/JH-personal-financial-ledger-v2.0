@@ -66,7 +66,9 @@ class PostController {
 
     const user = req.session.loggedInUser;
 
-    checkPostOwner(post, user, next);
+    const { isOwner } = checkPostOwner(post, user, next);
+
+    if (!isOwner) return;
 
     let boardList;
     try {
@@ -110,7 +112,8 @@ class PostController {
 
     const user = req.session.loggedInUser;
 
-    checkPostOwner(post, user, next);
+    const { isOwner } = checkPostOwner(post, user, next);
+    if (!isOwner) return;
 
     try {
       if (newBoardName !== post.board.name) {
@@ -158,7 +161,8 @@ class PostController {
 
     const user = req.session.loggedInUser;
 
-    checkPostOwner(post, user, next);
+    const { isOwner } = checkPostOwner(post, user, next);
+    if (!isOwner) return;
 
     try {
       user.postList = user.postList.filter(
