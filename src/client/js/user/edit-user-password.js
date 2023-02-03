@@ -5,36 +5,38 @@ const editUserPasswordForm = document.getElementById(
 const handleEditUserPasswordFormSubmit = (e) => {
   e.preventDefault();
 
-  const password = document.getElementById("password").value;
-  const new_password = document.getElementById("new_password").value;
-  const new_password_confirm = document.getElementById(
-    "new_password_confirm"
-  ).value;
+  const password = document.getElementById("password");
+  const newPassword = document.getElementById("new_password");
+  const newPasswordConfirm = document.getElementById("new_password_confirm");
 
-  fetch("/user/edit-password", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      password,
-      new_password,
-      new_password_confirm,
-    }),
-  })
-    .then(async (res) => {
-      const json = await res.json();
-      if (!res.ok) {
-        return Promise.reject(json);
-      }
-      return json;
+  if (newPassword.value !== newPasswordConfirm.value) {
+    alert("입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+  } else {
+    fetch("/user/edit-password", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: password.value,
+        new_password: newPassword.value,
+        new_password_confirm: newPasswordConfirm.value,
+      }),
     })
-    .then((redirectURL) => location.replace(redirectURL))
-    .catch((errorMessage) => {
-      if (errorMessage.haveToRedirect) {
-        location.replace(errorMessage.redirectURL);
-      }
-    });
+      .then(async (res) => {
+        const json = await res.json();
+        if (!res.ok) {
+          return Promise.reject(json);
+        }
+        return json;
+      })
+      .then((redirectURL) => location.replace(redirectURL))
+      .catch((errorMessage) => {
+        if (errorMessage.haveToRedirect) {
+          location.replace(errorMessage.redirectURL);
+        }
+      });
+  }
 };
 
 editUserPasswordForm.addEventListener(
