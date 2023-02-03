@@ -273,8 +273,11 @@ class UserController {
     const joinDate = getStringDate(user.joinDate);
     const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
+    const isMyProfile = userId === String(user._id) ? true : false;
+
     return res.render("user/detail-user/user-own-posts", {
       pageTitle: `${user.nickname} 님의 작성 글`,
+      isMyProfile,
       user,
       joinDate,
       lastLoggedInDate,
@@ -299,8 +302,11 @@ class UserController {
     const joinDate = getStringDate(user.joinDate);
     const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
+    const isMyProfile = userId === String(user._id) ? true : false;
+
     return res.render("user/detail-user/user-own-comments", {
       pageTitle: `${user.nickname} 님의 작성 댓글`,
+      isMyProfile,
       user,
       joinDate,
       lastLoggedInDate,
