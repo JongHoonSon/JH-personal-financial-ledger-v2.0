@@ -1,3 +1,5 @@
+import { fetcher } from "../utils/fetcher";
+
 const commentEditButtons = document.querySelectorAll(".comment__edit-button");
 const commentDeleteButtons = document.querySelectorAll(
   ".comment__delete-button"
@@ -8,21 +10,7 @@ const handleCommentDeleteButtonClick = (event) => {
   if (confirm("이 댓글을 삭제하시겠습니까?")) {
     const { comment_id } = event.target.dataset;
 
-    fetch(`/comment/${comment_id}`, {
-      method: "DELETE",
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const json = await res.json();
-          return Promise.reject(json);
-        }
-        location.reload();
-      })
-      .catch((errorMessage) => {
-        if (errorMessage.haveToRedirect) {
-          location.replace(errorMessage.redirectURL);
-        }
-      });
+    fetcher(`/comment/${comment_id}`, "DELETE");
   }
 };
 
@@ -33,21 +21,7 @@ commentDeleteButtons.forEach((commentDeleteButton) => {
 const handleCommentLikeButtonClick = (event) => {
   const { comment_id } = event.target.dataset;
 
-  fetch(`/comment/increase-likes/${comment_id}`, {
-    method: "PUT",
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const json = await res.json();
-        return Promise.reject(json);
-      }
-      location.reload();
-    })
-    .catch((errorMessage) => {
-      if (errorMessage.haveToRedirect) {
-        location.replace(errorMessage.redirectURL);
-      }
-    });
+  fetcher(`/comment/increase-likes/${comment_id}`, "PUT");
 };
 
 commentLikeButtons.forEach((commentLikeButton) => {
@@ -119,25 +93,9 @@ const handleCommentEditButtonClick = (event) => {
   commentEditConfirmButton.onclick = async () => {
     const newContent = commentContentEditTextarea.value;
 
-    fetch(`/comment/${comment_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ newContent }),
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const json = await res.json();
-          return Promise.reject(json);
-        }
-        location.reload();
-      })
-      .catch((errorMessage) => {
-        if (errorMessage.haveToRedirect) {
-          location.replace(errorMessage.redirectURL);
-        }
-      });
+    const body = JSON.stringify({ newContent });
+
+    fetcher(`/comment/${comment_id}`, "PUT", body);
   };
 
   commentEditCancelButton.onclick = () => {
