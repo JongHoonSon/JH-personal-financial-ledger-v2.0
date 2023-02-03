@@ -1,3 +1,4 @@
+import { fetcher } from "../utils/fetcher";
 import { validatePassword } from "../utils/validateInput";
 
 const editUserPasswordForm = document.getElementById(
@@ -17,7 +18,7 @@ const handleEditUserPasswordFormSubmit = (e) => {
   }
 
   const { isPasswordSuccess, passwordErrorMessage } = validatePassword(
-    new_password.value
+    newPassword.value
   );
 
   if (!isPasswordSuccess) {
@@ -25,30 +26,13 @@ const handleEditUserPasswordFormSubmit = (e) => {
     return;
   }
 
-  fetch("/user/edit-password", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      password: password.value,
-      new_password: newPassword.value,
-      new_password_confirm: newPasswordConfirm.value,
-    }),
-  })
-    .then(async (res) => {
-      const json = await res.json();
-      if (!res.ok) {
-        return Promise.reject(json);
-      }
-      return json;
-    })
-    .then((redirectURL) => location.replace(redirectURL))
-    .catch((errorMessage) => {
-      if (errorMessage.haveToRedirect) {
-        location.replace(errorMessage.redirectURL);
-      }
-    });
+  const body = JSON.stringify({
+    password: password.value,
+    new_password: newPassword.value,
+    new_password_confirm: newPasswordConfirm.value,
+  });
+
+  fetcher("/user/edit-password", "PUT", body);
 };
 
 editUserPasswordForm.addEventListener(
