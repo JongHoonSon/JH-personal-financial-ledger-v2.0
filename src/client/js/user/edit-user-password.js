@@ -2,7 +2,7 @@ const editUserPasswordForm = document.getElementById(
   "edit-user-password__form"
 );
 
-const handleEditUserPasswordForm = (e) => {
+const handleEditUserPasswordFormSubmit = (e) => {
   e.preventDefault();
 
   const password = document.getElementById("password").value;
@@ -37,4 +37,7 @@ const handleEditUserPasswordForm = (e) => {
     });
 };
 
-editUserPasswordForm.addEventListener("submit", handleEditUserPasswordForm);
+editUserPasswordForm.addEventListener(
+  "submit",
+  handleEditUserPasswordFormSubmit
+);

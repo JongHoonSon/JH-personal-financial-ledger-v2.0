@@ -78,7 +78,7 @@ sumbitButtonIcon.addEventListener("click", async (e) => {
 
   if (response.status === 200) {
     console.log("category added success");
-    addNewCategory(categoryType, newCategoryName);
+    addNewCategoryElement(categoryType, newCategoryName);
   }
 
   categoryInput.value = "";
@@ -104,7 +104,7 @@ const handleDeleteCategory = async (event) => {
   });
 
   if (response.status === 200) {
-    removeDeletedCategory(event, categoryType);
+    removeDeletedCategoryElement(event, categoryType);
     console.log("delete category success");
   }
 };
@@ -113,7 +113,7 @@ categoryDeleteBtnIcons.forEach((el) => {
   el.addEventListener("click", handleDeleteCategory);
 });
 
-function addNewCategory(categoryType, newCategoryName) {
+function addNewCategoryElement(categoryType, newCategoryName) {
   // 새로 추가한 카테고리를 화면에 추가하기 위해 태그 만들기
   const divTag = document.createElement("div");
   divTag.classList.add("user-own-categories__category__wrap");
@@ -150,7 +150,7 @@ function addNewCategory(categoryType, newCategoryName) {
   delButtonTag.appendChild(delIconTag);
 }
 
-function removeDeletedCategory(event, categoryType) {
+function removeDeletedCategoryElement(event, categoryType) {
   let categoryList;
 
   if (categoryType === "i") {

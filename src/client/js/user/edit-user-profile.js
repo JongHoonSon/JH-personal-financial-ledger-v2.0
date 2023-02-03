@@ -1,6 +1,6 @@
 const editUserProfileForm = document.getElementById("edit-user-profile__form");
 
-const handleEditUserProfileForm = (e) => {
+const handleEditUserProfileFormSubmit = (e) => {
   e.preventDefault();
 
   const formData = new FormData(editUserProfileForm);
@@ -24,4 +24,4 @@ const handleEditUserProfileForm = (e) => {
     });
 };
 
-editUserProfileForm.addEventListener("submit", handleEditUserProfileForm);
+editUserProfileForm.addEventListener("submit", handleEditUserProfileFormSubmit);

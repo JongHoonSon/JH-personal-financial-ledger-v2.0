@@ -38,7 +38,7 @@ autoResizeTextarea();
 const postLikeButton = document.getElementById("detail-post__like-button");
 
 if (postLikeButton) {
-  const toggleLike = () => {
+  const handlePostLikeButtonClick = () => {
     fetch(`/post/toggle-likes/${post_id}`, {
       method: "PUT",
     })
@@ -56,13 +56,13 @@ if (postLikeButton) {
       });
   };
 
-  postLikeButton.addEventListener("click", toggleLike);
+  postLikeButton.addEventListener("click", handlePostLikeButtonClick);
 }
 
 const postDeleteButton = document.getElementById("detail-post__delete-button");
 
 if (postDeleteButton) {
-  const deletePost = () => {
+  const handlePostDeleteButtonClick = () => {
     const deleteConfirm = confirm("이 게시글을 삭제하시겠습니까?");
     if (deleteConfirm) {
       fetch(`/post/${post_id}`, {
@@ -86,7 +86,7 @@ if (postDeleteButton) {
     }
   };
 
-  postDeleteButton.addEventListener("click", deletePost);
+  postDeleteButton.addEventListener("click", handlePostDeleteButtonClick);
 }
 
 const detailPostLinkCopy = document.getElementById(

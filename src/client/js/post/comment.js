@@ -2,7 +2,7 @@ const commentEditBtns = document.querySelectorAll(".comment__edit-btn");
 const commentDeleteBtns = document.querySelectorAll(".comment__delete-btn");
 const commentLikeBtns = document.querySelectorAll(".comment__like-btn");
 
-const handleDeleteComment = (event) => {
+const handleCommentDeleteBtnClick = (event) => {
   if (confirm("이 댓글을 삭제하시겠습니까?")) {
     const { comment_id } = event.target.dataset;
 
@@ -25,10 +25,10 @@ const handleDeleteComment = (event) => {
 };
 
 commentDeleteBtns.forEach((commentDeleteBtn) => {
-  commentDeleteBtn.addEventListener("click", handleDeleteComment);
+  commentDeleteBtn.addEventListener("click", handleCommentDeleteBtnClick);
 });
 
-const handleLikeComment = (event) => {
+const handleCommentLikeBtnClick = (event) => {
   const { comment_id } = event.target.dataset;
 
   fetch(`/comment/increase-likes/${comment_id}`, {
@@ -49,10 +49,10 @@ const handleLikeComment = (event) => {
 };
 
 commentLikeBtns.forEach((commentLikeBtn) => {
-  commentLikeBtn.addEventListener("click", handleLikeComment);
+  commentLikeBtn.addEventListener("click", handleCommentLikeBtnClick);
 });
 
-const handleEditComment = (event) => {
+const handleCommentEditBtnClick = (event) => {
   // 댓글 id
   const { comment_id } = event.target.dataset;
 
@@ -155,5 +155,5 @@ console.log("commentEditBtns");
 console.log(commentEditBtns);
 
 commentEditBtns.forEach((commentEditBtn) => {
-  commentEditBtn.addEventListener("click", handleEditComment);
+  commentEditBtn.addEventListener("click", handleCommentEditBtnClick);
 });

@@ -2,7 +2,7 @@ const imageUploadInput = document.getElementById(
   "image-upload__uploader__image-input"
 );
 
-function handleImagePreview() {
+function handleImageUploadInputChange() {
   const imageName = document.getElementById(
     "image-upload__uploader__image-name"
   );
@@ -22,4 +22,4 @@ function handleImagePreview() {
   }
 }
 
-imageUpload.addEventListener("change", handleImagePreview);
+imageUploadInput.addEventListener("change", handleImageUploadInputChange);
