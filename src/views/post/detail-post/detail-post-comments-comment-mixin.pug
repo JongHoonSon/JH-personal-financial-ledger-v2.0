@@ -5,7 +5,7 @@ mixin list(comment)
                 div.comment-owner
                     a(href=`/user/profile/${comment.owner._id}`).comment-owner__link
                         img(src=comment.owner.avatarUrl).comment-owner-avatar
-                        span.comment-owner-name #{comment.owner.name}
+                        span.comment-owner-name #{comment.owner.nickname}
                 span.comment-create-date #{comment.createdAtStringFullDate}
                 i(data-comment_id=comment._id).fa-regular.fa-thumbs-up.comment__like-button
                 span.comment__like-counter #{comment.likesUserList.length}
