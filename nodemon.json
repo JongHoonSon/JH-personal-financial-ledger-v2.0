@@ -1,0 +1,4 @@
+{
+  "ignore": ["src/client/*", "assets/*"],
+  "exec": "babel-node src/init.js"
+}
