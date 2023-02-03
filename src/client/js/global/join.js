@@ -1,9 +1,16 @@
-import { validatePassword, validateUsername } from "../utils/validateInput";
+import {
+  validateName,
+  validateNickname,
+  validatePassword,
+  validateUsername,
+} from "../utils/validateInput";
 
 const joinForm = document.getElementById("join-form");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
 const passwordConfirm = document.getElementById("password_confirm");
+const name = document.getElementById("name");
+const nickname = document.getElementById("nickname");
 
 const handleJoinFormSubmit = (e) => {
   const { isUsernameSuccess, usernameErrorMessage } = validateUsername(
@@ -29,6 +36,24 @@ const handleJoinFormSubmit = (e) => {
   if (!isPasswordSuccess) {
     e.preventDefault();
     alert(passwordErrorMessage);
+    return;
+  }
+
+  const { isNameSuccess, nameErrorMessage } = validateName(name.value);
+
+  if (!isNameSuccess) {
+    e.preventDefault();
+    alert(nameErrorMessage);
+    return;
+  }
+
+  const { isNicknameSuccess, nicknameErrorMessage } = validateNickname(
+    nickname.value
+  );
+
+  if (!isNicknameSuccess) {
+    e.preventDefault();
+    alert(nicknameErrorMessage);
     return;
   }
 };

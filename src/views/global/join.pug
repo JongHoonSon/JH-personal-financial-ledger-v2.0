@@ -32,19 +32,19 @@ block components
                         div.login-input
                             label(for="name").login-input__label 이름
                             div.login-input__wrap
-                                input(id="name", name="name", type="text", required).login-input__input
+                                input(placeholder="한글 이름, 총 길이 2-5자", id="name", name="name", type="text", required).login-input__input
                                 button(type="button").login-input__button-clear.hidden
                                     i.fa-solid.fa-circle-xmark
                         div.login-input
                             label(for="email").login-input__label 이메일
                             div.login-input__wrap
-                                input(id="email", name="email", type="email", required).login-input__input
+                                input(placeholder="ex) abc1234@gmail.com" id="email", name="email", type="email", required).login-input__input
                                 button(type="button").login-input__button-clear.hidden
                                     i.fa-solid.fa-circle-xmark
                         div.login-input
                             label(for="nickname").login-input__label 닉네임
                             div.login-input__wrap
-                                input(id="nickname", name="nickname", type="text", required).login-input__input
+                                input(placeholder="한글(초성 불가), 영어, 숫자, 총 길이 2-16자" id="nickname", name="nickname", type="text", required).login-input__input
                                 button(type="button").login-input__button-clear.hidden
                                     i.fa-solid.fa-circle-xmark
                     div.login-button.join-button
