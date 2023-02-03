@@ -1,5 +1,8 @@
 const errorHandler = (error, req, res, next) => {
   if (error) {
+    console.log("error");
+    console.log(error);
+
     // 페이지 접속에 대한 GET 요청
     if (req.method === "GET" && req.headers["sec-fetch-dest"] === "document") {
       console.log("페이지 접속에 대한 GET 요청");
