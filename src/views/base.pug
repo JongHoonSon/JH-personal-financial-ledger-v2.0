@@ -4,7 +4,7 @@ doctype html
 html(lang="ko")
     head 
         title #{pageTitle} | PFL
-        link(rel="stylesheet", href="/assets/css/styles.css")
+        link(rel="stylesheet", href="/assets/css/styles.min.css")
         // gulp-webserver에서 실행하는 index.html 기준 css 경로
         //- link(rel="stylesheet", href="/css/styles.css")
     body 
@@ -21,6 +21,6 @@ html(lang="ko")
                 include partials/nav.pug
                 include partials/main.pug
             include partials/footer.pug
-    script(src="/assets/js/common/nav.js") 
+    script(src="/assets/js/common/nav.min.js") 
     script(src="https://kit.fontawesome.com/4bc00e0a4c.js" crossorigin="anonymous")
     block scripts

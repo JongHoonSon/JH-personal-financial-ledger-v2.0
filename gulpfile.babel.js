@@ -6,6 +6,7 @@ import miniCSS from "gulp-csso";
 import gbro from "gulp-bro";
 import babelify from "babelify";
 import gghPages from "gulp-gh-pages";
+import grename from "gulp-rename";
 
 const gsass = require("gulp-sass")(require("node-sass"));
 
@@ -36,6 +37,7 @@ const styles = () =>
     .pipe(gsass().on("error", gsass.logError))
     .pipe(autop())
     .pipe(miniCSS())
+    .pipe(grename({ extname: ".min.css" }))
     .pipe(gulp.dest(routes.scss.dest));
 
 const js = () =>
@@ -49,6 +51,7 @@ const js = () =>
         ],
       })
     )
+    .pipe(grename({ extname: ".min.js" }))
     .pipe(gulp.dest(routes.js.dest));
 
 const cleanCSS = () => del(["assets/css", ".publish"]);
