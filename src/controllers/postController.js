@@ -294,7 +294,7 @@ class PostController {
         await user.save();
 
         req.flash("success", "좋아요 취소 완료");
-        return res.sendStatus(200);
+        return res.status(200).json(`/post/${post._id}`);
       } catch (error) {
         error.message =
           "게시글의 좋아요 수를 변경하는 과정에서 오류가 발생했습니다.";
@@ -318,7 +318,7 @@ class PostController {
       }
 
       req.flash("success", "좋아요 완료");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${post._id}`);
     }
   }
 }

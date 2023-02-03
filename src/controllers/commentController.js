@@ -208,7 +208,7 @@ class CommentController {
 
     if (alreadyLikesThisComment) {
       req.flash("error", "이미 이 댓글의 좋아요를 눌렀습니다.");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${comment.post._id}`);
     } else {
       try {
         comment.likesUserList.push(user);
