@@ -11,13 +11,13 @@ block components
                         div.login-input
                             label(for="username").login-input__label 아이디
                             div.login-input__wrap
-                                input(placeholder="영문, 숫자 5-11자", id="username", name="username", type="text", required).login-input__input
+                                input(placeholder="영문, 숫자 포함, 총 길이 7-14자", id="username", name="username", type="text", required).login-input__input
                                 button(type="button").login-input__button-clear.hidden
                                     i.fa-solid.fa-circle-xmark
                         div.login-input
                             label(for="password").login-input__label 비밀번호
                             div.login-input__wrap
-                                input(placeholder="숫자, 영문, 특수문자 조합 최소 8자", id="password", name="password", type="password", required).login-input__input
+                                input(placeholder="숫자, 영문, 특수문자 최소 1개씩 포함", id="password", name="password", type="password", required).login-input__input
                                 button(type="button").login-input__button-clear.hidden
                                     i.fa-solid.fa-circle-xmark
                                 button(type="button").login-input__button-show
