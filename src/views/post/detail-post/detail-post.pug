@@ -8,7 +8,7 @@ block content
                     div#detail-post__board
                         a(href=`/board/${post.board.name}/1`)#detail-post__board__link #{post.board.name}
                 div.detail-post__info__wrap#detail-post__title__wrap
-                    div#detail-post__title #{post.title}
+                    a(href=`/post/${post._id}`)#detail-post__title #{post.title}
                     div#detail-post__date #{post.createdAtStringFullDate}
                 div.detail-post__info__wrap
                     div#detail-post__owner

@@ -56,8 +56,15 @@
 }
 
 .comment-owner-name {
+  display: block;
+
   font-size: 13px;
   font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 
 .comment-owner__link:hover > .comment-owner-name {

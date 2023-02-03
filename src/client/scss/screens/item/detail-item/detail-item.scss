@@ -87,7 +87,7 @@
 }
 
 #detail-item__contents__item__description {
-  height: auto;
+  height: 20%;
   color: $white;
 }
 
@@ -120,12 +120,14 @@
   color: $white;
 }
 
-.detail-item__contents__item__pre {
+.detail-item__contents__item__p {
   width: 80%;
-  padding: 0 30px;
+  height: 100%;
+  padding: 10px 30px;
   font-weight: 600;
   word-break: break-all;
   box-sizing: border-box;
+  overflow-y: scroll;
   line-height: 1.5;
 }
 
