@@ -86,7 +86,7 @@ class UserController {
       const filePath = file
         ? `/assets/img/user-upload-images/${file.filename}`
         : user.avatarUrl;
-      await userModel.findByIdAndUpdate(
+      const updatedUser = await userModel.findByIdAndUpdate(
         user._id,
         {
           name,
@@ -96,6 +96,7 @@ class UserController {
         },
         { new: true }
       );
+      req.session.user = updatedUser;
       req.flash("success", "프로필을 수정했습니다.");
       return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {

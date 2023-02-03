@@ -61,9 +61,10 @@ class UserModel {
     return User.findById(userId);
   }
 
-  findByIdAndUpdate(userId, params, option) {
+  async findByIdAndUpdate(userId, params, option) {
     try {
-      return User.findByIdAndUpdate(userId, params, option);
+      const user = await User.findByIdAndUpdate(userId, params, option);
+      return user;
     } catch (error) {
       error.message = "유저를 DB에서 수정하는 과정에서 오류가 발생했습니다.";
       throw error;
