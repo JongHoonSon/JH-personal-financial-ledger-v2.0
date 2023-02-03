@@ -1,3 +1,5 @@
+import { fetcher } from "./../utils/fetcher";
+
 const detailPost = document.getElementById("detail-post");
 const { post_id } = detailPost.dataset;
 
@@ -6,20 +8,10 @@ const detailPostLink = document.getElementById("detail-post__link");
 detailPostLink.innerText = location.href;
 
 const increaseView = () => {
-  fetch(`/post/increase-views/${post_id}`, {
+  fetcher({
+    endpoint: `/post/increase-views/${post_id}`,
     method: "PUT",
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const json = await res.json();
-        return Promise.reject(json);
-      }
-    })
-    .catch((errorMessage) => {
-      if (errorMessage.haveToRedirect) {
-        location.replace(errorMessage.redirectURL);
-      }
-    });
+  });
 };
 
 increaseView();
@@ -39,21 +31,10 @@ const postLikeButton = document.getElementById("detail-post__like-button");
 
 if (postLikeButton) {
   const handlePostLikeButtonClick = () => {
-    fetch(`/post/toggle-likes/${post_id}`, {
+    fetcher({
+      endpoint: `/post/toggle-likes/${post_id}`,
       method: "PUT",
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const json = await res.json();
-          return Promise.reject(json);
-        }
-        location.reload();
-      })
-      .catch((errorMessage) => {
-        if (errorMessage.haveToRedirect) {
-          location.replace(errorMessage.redirectURL);
-        }
-      });
+    });
   };
 
   postLikeButton.addEventListener("click", handlePostLikeButtonClick);
@@ -65,24 +46,10 @@ if (postDeleteButton) {
   const handlePostDeleteButtonClick = () => {
     const deleteConfirm = confirm("이 게시글을 삭제하시겠습니까?");
     if (deleteConfirm) {
-      fetch(`/post/${post_id}`, {
+      fetcher({
+        endpoint: `/post/${post_id}`,
         method: "DELETE",
-      })
-        .then(async (res) => {
-          const json = await res.json();
-          if (!res.ok) {
-            return Promise.reject(json);
-          }
-          return json;
-        })
-        .then((redirectURL) => {
-          location.replace(redirectURL);
-        })
-        .catch((errorMessage) => {
-          if (errorMessage.haveToRedirect) {
-            location.replace(errorMessage.redirectURL);
-          }
-        });
+      });
     }
   };
 

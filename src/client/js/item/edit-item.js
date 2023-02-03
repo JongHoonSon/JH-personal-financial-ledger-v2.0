@@ -1,3 +1,5 @@
+import { fetcher } from "../utils/fetcher";
+
 const itemEditForm = document.getElementById("item-edit-form");
 
 const handleItemEditFormSubmit = (e) => {
@@ -6,25 +8,12 @@ const handleItemEditFormSubmit = (e) => {
   const formData = new FormData(itemEditForm);
   const item = JSON.parse(itemEditForm.dataset.item);
 
-  fetch(`/item/${item.type}/${item._id}`, {
+  fetcher({
+    endpoint: `/item/${item.type}/${item._id}`,
     method: "PUT",
     body: formData,
-  })
-    .then(async (res) => {
-      const json = await res.json();
-      if (!res.ok) {
-        return Promise.reject(json);
-      }
-      return json;
-    })
-    .then((redirectURL) => {
-      location.replace(redirectURL);
-    })
-    .catch((errorMessage) => {
-      if (errorMessage.haveToRedirect) {
-        location.replace(errorMessage.redirectURL);
-      }
-    });
+    isBodyFormData: true,
+  });
 };
 
 itemEditForm.addEventListener("submit", handleItemEditFormSubmit);

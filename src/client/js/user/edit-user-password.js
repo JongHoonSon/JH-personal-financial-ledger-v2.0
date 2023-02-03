@@ -26,13 +26,16 @@ const handleEditUserPasswordFormSubmit = (e) => {
     return;
   }
 
-  const body = JSON.stringify({
-    password: password.value,
-    new_password: newPassword.value,
-    new_password_confirm: newPasswordConfirm.value,
+  fetcher({
+    endpoint: "/user/edit-password",
+    method: "PUT",
+    body: {
+      password: password.value,
+      new_password: newPassword.value,
+      new_password_confirm: newPasswordConfirm.value,
+    },
+    isBodyJsonData: true,
   });
-
-  fetcher("/user/edit-password", "PUT", body);
 };
 
 editUserPasswordForm.addEventListener(

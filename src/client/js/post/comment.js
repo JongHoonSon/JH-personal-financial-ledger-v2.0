@@ -10,7 +10,10 @@ const handleCommentDeleteButtonClick = (event) => {
   if (confirm("이 댓글을 삭제하시겠습니까?")) {
     const { comment_id } = event.target.dataset;
 
-    fetcher(`/comment/${comment_id}`, "DELETE");
+    fetcher({
+      endpoint: `/comment/${comment_id}`,
+      method: "DELETE",
+    });
   }
 };
 
@@ -21,7 +24,10 @@ commentDeleteButtons.forEach((commentDeleteButton) => {
 const handleCommentLikeButtonClick = (event) => {
   const { comment_id } = event.target.dataset;
 
-  fetcher(`/comment/increase-likes/${comment_id}`, "PUT");
+  fetcher({
+    endpoint: `/comment/increase-likes/${comment_id}`,
+    method: "PUT",
+  });
 };
 
 commentLikeButtons.forEach((commentLikeButton) => {
@@ -93,9 +99,12 @@ const handleCommentEditButtonClick = (event) => {
   commentEditConfirmButton.onclick = async () => {
     const newContent = commentContentEditTextarea.value;
 
-    const body = JSON.stringify({ newContent });
-
-    fetcher(`/comment/${comment_id}`, "PUT", body);
+    fetcher({
+      endpoint: `/comment/${comment_id}`,
+      method: "PUT",
+      body: { newContent },
+      isBodyJsonData: true,
+    });
   };
 
   commentEditCancelButton.onclick = () => {

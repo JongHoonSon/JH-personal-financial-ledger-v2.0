@@ -7,7 +7,12 @@ const handleEditUserProfileFormSubmit = (e) => {
 
   const formData = new FormData(editUserProfileForm);
 
-  fetcher("/user/edit-profile", "PUT", formData);
+  fetcher({
+    endpoint: "/user/edit-profile",
+    method: "PUT",
+    body: formData,
+    isBodyFormData: true,
+  });
 };
 
 editUserProfileForm.addEventListener("submit", handleEditUserProfileFormSubmit);
