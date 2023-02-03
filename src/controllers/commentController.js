@@ -84,7 +84,7 @@ class CommentController {
       await comment.save();
 
       req.flash("success", "댓글을 수정했습니다.");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${comment.post._id}`);
     } catch (error) {
       error.message = "댓글을 수정하는 과정에서 오류가 발생했습니다.";
       next(error);
@@ -167,7 +167,7 @@ class CommentController {
     try {
       await commentModel.findByIdAndDelete(commentId);
       req.flash("success", "댓글을 삭제했습니다.");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${post._id}`);
     } catch (error) {
       next(error);
       return;
@@ -231,7 +231,7 @@ class CommentController {
       }
 
       req.flash("success", "좋아요 완료");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${comment.post._id}`);
     }
   }
 }
