@@ -1,11 +1,24 @@
-export const fetcher = (endpoint, method, body) => {
-  fetch(endpoint, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body,
-  })
+export const fetcher = ({
+  endpoint,
+  method,
+  body,
+  isBodyJsonData,
+  isBodyFormData,
+}) => {
+  const fetchOption = { method };
+
+  if (body) {
+    if (isBodyJsonData) {
+      fetchOption.body = JSON.stringify(body);
+      fetchOption.headers = {
+        "Content-Type": "application/json",
+      };
+    } else if (isBodyFormData) {
+      fetchOption.body = body;
+    }
+  }
+
+  return fetch(endpoint, fetchOption)
     .then(async (res) => {
       const json = await res.json();
       if (!res.ok) {
