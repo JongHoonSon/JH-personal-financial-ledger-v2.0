@@ -84,8 +84,8 @@ sumbitButtonIcon.addEventListener("click", async (e) => {
   categoryInput.value = "";
 });
 
-const categoryDeleteBtnIcons = document.querySelectorAll(
-  ".user-own-categories__category__del-btn__icon"
+const categoryDeleteButtonIcons = document.querySelectorAll(
+  ".user-own-categories__category__del-button__icon"
 );
 
 const handleDeleteCategory = async (event) => {
@@ -109,7 +109,7 @@ const handleDeleteCategory = async (event) => {
   }
 };
 
-categoryDeleteBtnIcons.forEach((el) => {
+categoryDeleteButtonIcons.forEach((el) => {
   el.addEventListener("click", handleDeleteCategory);
 });
 
@@ -123,13 +123,13 @@ function addNewCategoryElement(categoryType, newCategoryName) {
   liTag.innerText = newCategoryName;
 
   const delButtonTag = document.createElement("button");
-  delButtonTag.classList.add("user-own-categories__category__del-btn");
+  delButtonTag.classList.add("user-own-categories__category__del-button");
 
   const delIconTag = document.createElement("i");
   delIconTag.classList.add(
     "fa-solid",
     "fa-circle-minus",
-    "user-own-categories__category__del-btn__icon"
+    "user-own-categories__category__del-button__icon"
   );
   delIconTag.dataset.category = newCategoryName;
 

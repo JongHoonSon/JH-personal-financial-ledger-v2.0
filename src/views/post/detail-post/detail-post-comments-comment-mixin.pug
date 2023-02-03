@@ -7,14 +7,14 @@ mixin list(comment)
                         img(src=comment.owner.avatarUrl).comment-owner-avatar
                         span.comment-owner-name #{comment.owner.name}
                 span.comment-create-date #{comment.createdAtStringFullDate}
-                i(data-comment_id=comment._id).fa-regular.fa-thumbs-up.comment__like-btn
+                i(data-comment_id=comment._id).fa-regular.fa-thumbs-up.comment__like-button
                 span.comment__like-counter #{comment.likesUserList.length}
             div.comment-info__right
                 if String(comment.owner._id) === String(loggedInUser._id)
-                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-btn 수정
-                    button(data-comment_id=comment._id).comment__option-btn.comment__delete-btn 삭제
-                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-confirm-btn.hidden 확정
-                    button(data-comment_id=comment._id).comment__option-btn.comment__edit-cancel-btn.hidden 취소
+                    button(data-comment_id=comment._id).comment__option-button.comment__edit-button 수정
+                    button(data-comment_id=comment._id).comment__option-button.comment__delete-button 삭제
+                    button(data-comment_id=comment._id).comment__option-button.comment__edit-confirm-button.hidden 확정
+                    button(data-comment_id=comment._id).comment__option-button.comment__edit-cancel-button.hidden 취소
 
         div.comment-content__wrap
             p.comment-content #{comment.content}

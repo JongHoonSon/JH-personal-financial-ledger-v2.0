@@ -1,14 +1,18 @@
 const pagination = document.getElementById("board-pagination");
-const prevPageBtn = document.getElementById("board-pagination__prev-page-btn");
-const nextPageBtn = document.getElementById("board-pagination__next-page-btn");
+const prevPageButton = document.getElementById(
+  "board-pagination__prev-page-button"
+);
+const nextPageButton = document.getElementById(
+  "board-pagination__next-page-button"
+);
 
 if (Number(pagination.dataset.curr_page_num) === 1) {
-  prevPageBtn.href = "";
+  prevPageButton.href = "";
 }
 
 if (
   Number(pagination.dataset.curr_page_num) ===
   Number(pagination.dataset.last_page_num)
 ) {
-  nextPageBtn.href = "";
+  nextPageButton.href = "";
 }

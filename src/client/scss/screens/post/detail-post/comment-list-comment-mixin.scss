@@ -64,7 +64,7 @@
   color: $red-deep;
 }
 
-.comment__option-btn {
+.comment__option-button {
   width: 32px;
   height: 20px;
   margin: 0px 3px;
@@ -74,21 +74,21 @@
   border-radius: 4px;
 }
 
-.comment__option-btn:hover {
+.comment__option-button:hover {
   opacity: 0.8;
 }
 
-.comment__like-btn {
+.comment__like-button {
   cursor: pointer;
   margin-right: 5px;
   margin-left: 15px;
 }
 
-.comment__like-btn:hover {
+.comment__like-button:hover {
   color: $red-deep;
 }
 
-.comment__like-btn,
+.comment__like-button,
 .comment__like-counter {
   font-size: 14px;
   color: $grey-deep;

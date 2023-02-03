@@ -1,8 +1,10 @@
-const commentEditBtns = document.querySelectorAll(".comment__edit-btn");
-const commentDeleteBtns = document.querySelectorAll(".comment__delete-btn");
-const commentLikeBtns = document.querySelectorAll(".comment__like-btn");
+const commentEditButtons = document.querySelectorAll(".comment__edit-button");
+const commentDeleteButtons = document.querySelectorAll(
+  ".comment__delete-button"
+);
+const commentLikeButtons = document.querySelectorAll(".comment__like-button");
 
-const handleCommentDeleteBtnClick = (event) => {
+const handleCommentDeleteButtonClick = (event) => {
   if (confirm("이 댓글을 삭제하시겠습니까?")) {
     const { comment_id } = event.target.dataset;
 
@@ -24,11 +26,11 @@ const handleCommentDeleteBtnClick = (event) => {
   }
 };
 
-commentDeleteBtns.forEach((commentDeleteBtn) => {
-  commentDeleteBtn.addEventListener("click", handleCommentDeleteBtnClick);
+commentDeleteButtons.forEach((commentDeleteButton) => {
+  commentDeleteButton.addEventListener("click", handleCommentDeleteButtonClick);
 });
 
-const handleCommentLikeBtnClick = (event) => {
+const handleCommentLikeButtonClick = (event) => {
   const { comment_id } = event.target.dataset;
 
   fetch(`/comment/increase-likes/${comment_id}`, {
@@ -48,38 +50,38 @@ const handleCommentLikeBtnClick = (event) => {
     });
 };
 
-commentLikeBtns.forEach((commentLikeBtn) => {
-  commentLikeBtn.addEventListener("click", handleCommentLikeBtnClick);
+commentLikeButtons.forEach((commentLikeButton) => {
+  commentLikeButton.addEventListener("click", handleCommentLikeButtonClick);
 });
 
-const handleCommentEditBtnClick = (event) => {
+const handleCommentEditButtonClick = (event) => {
   // 댓글 id
   const { comment_id } = event.target.dataset;
 
-  // 수정 버튼 / button.comment__option-btn.comment__edit-btn
-  const commentEditBtn = event.target;
-  console.log("commentEditBtn");
-  console.log(commentEditBtn);
+  // 수정 버튼 / button.comment__option-button.comment__edit-button
+  const commentEditButton = event.target;
+  console.log("commentEditButton");
+  console.log(commentEditButton);
 
   // div.comment-info__right
-  const commentInfoRight = commentEditBtn.parentElement;
+  const commentInfoRight = commentEditButton.parentElement;
   console.log("commentInfoRight");
   console.log(commentInfoRight);
 
-  // 삭제 버튼 / button.comment__option-btn.comment__delete-btn
-  const commentDeleteBtn = commentInfoRight.childNodes[1];
-  console.log("commentDeleteBtn");
-  console.log(commentDeleteBtn);
+  // 삭제 버튼 / button.comment__option-button.comment__delete-button
+  const commentDeleteButton = commentInfoRight.childNodes[1];
+  console.log("commentDeleteButton");
+  console.log(commentDeleteButton);
 
-  // 확정 버튼 / button.comment__option-btn.comment__edit-confirm-btn
-  const commentEditConfirmBtn = commentInfoRight.childNodes[2];
-  console.log("commentEditConfirmBtn");
-  console.log(commentEditConfirmBtn);
+  // 확정 버튼 / button.comment__option-button.comment__edit-confirm-button
+  const commentEditConfirmButton = commentInfoRight.childNodes[2];
+  console.log("commentEditConfirmButton");
+  console.log(commentEditConfirmButton);
 
-  // 취소 버튼 / button.comment__option-btn.comment__edit-cancel-btn
-  const commentEditCancelBtn = commentInfoRight.childNodes[3];
-  console.log("commentEditCancelBtn");
-  console.log(commentEditCancelBtn);
+  // 취소 버튼 / button.comment__option-button.comment__edit-cancel-button
+  const commentEditCancelButton = commentInfoRight.childNodes[3];
+  console.log("commentEditCancelButton");
+  console.log(commentEditCancelButton);
 
   // 댓글 / div.comment-info__wrap
   const commentInfoWrap = commentInfoRight.parentElement;
@@ -106,15 +108,15 @@ const handleCommentEditBtnClick = (event) => {
   console.log("commentContentEditTextarea");
   console.log(commentContentEditTextarea);
 
-  commentEditBtn.classList.add("hidden");
-  commentDeleteBtn.classList.add("hidden");
+  commentEditButton.classList.add("hidden");
+  commentDeleteButton.classList.add("hidden");
   commentContent.classList.add("hidden");
 
-  commentEditConfirmBtn.classList.remove("hidden");
-  commentEditCancelBtn.classList.remove("hidden");
+  commentEditConfirmButton.classList.remove("hidden");
+  commentEditCancelButton.classList.remove("hidden");
   commentContentEditTextarea.classList.remove("hidden");
 
-  commentEditConfirmBtn.onclick = async () => {
+  commentEditConfirmButton.onclick = async () => {
     const newContent = commentContentEditTextarea.value;
 
     fetch(`/comment/${comment_id}`, {
@@ -138,22 +140,22 @@ const handleCommentEditBtnClick = (event) => {
       });
   };
 
-  commentEditCancelBtn.onclick = () => {
+  commentEditCancelButton.onclick = () => {
     commentContentEditTextarea.value = commentContent.innerText;
 
-    commentEditBtn.classList.remove("hidden");
-    commentDeleteBtn.classList.remove("hidden");
+    commentEditButton.classList.remove("hidden");
+    commentDeleteButton.classList.remove("hidden");
     commentContent.classList.remove("hidden");
 
-    commentEditConfirmBtn.classList.add("hidden");
-    commentEditCancelBtn.classList.add("hidden");
+    commentEditConfirmButton.classList.add("hidden");
+    commentEditCancelButton.classList.add("hidden");
     commentContentEditTextarea.classList.add("hidden");
   };
 };
 
-console.log("commentEditBtns");
-console.log(commentEditBtns);
+console.log("commentEditButtons");
+console.log(commentEditButtons);
 
-commentEditBtns.forEach((commentEditBtn) => {
-  commentEditBtn.addEventListener("click", handleCommentEditBtnClick);
+commentEditButtons.forEach((commentEditButton) => {
+  commentEditButton.addEventListener("click", handleCommentEditButtonClick);
 });
