@@ -1,4 +1,4 @@
-import { validatePassword, validateUsername } from "../common/validateInput";
+import { validatePassword, validateUsername } from "../utils/validateInput";
 
 const joinForm = document.getElementById("join-form");
 const username = document.getElementById("username");
