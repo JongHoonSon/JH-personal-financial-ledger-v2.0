@@ -44,9 +44,6 @@ class UserController {
     const { name, nickname, email } = req.body;
     const { file } = req;
 
-    console.log("file");
-    console.log(file);
-
     const user = req.session.loggedInUser;
 
     if (user.nickname !== nickname) {
@@ -57,7 +54,7 @@ class UserController {
             `해당 닉네임을 사용하는 사용자가 이미 존재합니다.`
           );
           error.statusCode = 400;
-          error.redirectURL = "/join";
+          error.redirectURL = "/user/edit-profile";
           next(error);
           return;
         }
@@ -89,7 +86,7 @@ class UserController {
       const filePath = file
         ? `/assets/img/user-upload-images/${file.filename}`
         : user.avatarUrl;
-      const updatedUser = await userModel.findByIdAndUpdate(
+      await userModel.findByIdAndUpdate(
         user._id,
         {
           name,
@@ -99,7 +96,6 @@ class UserController {
         },
         { new: true }
       );
-      req.session.user = updatedUser;
       req.flash("success", "프로필을 수정했습니다.");
       return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {
@@ -308,6 +304,22 @@ class UserController {
       joinDate,
       lastLoggedInDate,
     });
+  }
+
+  async deleteUser(req, res, next) {
+    const user = req.session.loggedInUser;
+
+    try {
+      await userModel.findByIdAndUpdate(user._id, {
+        nickname: "탈퇴한 회원입니다.",
+        isDeleted: true,
+      });
+    } catch (error) {
+      next(error);
+      return;
+    }
+
+    return res.status(200).json("/logout");
   }
 }
 

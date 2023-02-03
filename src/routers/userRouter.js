@@ -4,6 +4,8 @@ import { imageUploader } from "../middlewares";
 
 const userRouter = express.Router();
 
+userRouter.put("/", userController.deleteUser);
+
 userRouter.get("/profile/:userId", userController.getUserProfile);
 
 userRouter

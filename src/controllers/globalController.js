@@ -131,11 +131,30 @@ class GlobalController {
   async login(req, res, next) {
     const { username, password, save_username } = req.body;
 
+    if (save_username) {
+      res.cookie("save_username", "true", { path: "/login", httpOnly: true });
+      res.cookie("saved_username", `${username}`, {
+        path: "/login",
+        httpOnly: true,
+      });
+    } else {
+      res.cookie("save_username", "false", { path: "/login", httpOnly: true });
+      res.cookie("saved_username", "", { path: "/login", httpOnly: true });
+    }
+
     let user;
     try {
       user = await userModel.findOne({ username, socialOnly: false });
     } catch (error) {
       error.message = "해당하는 아이디를 갖는 유저가 없습니다.";
+      error.redirectURL = "/login";
+      next(error);
+      return;
+    }
+
+    if (user.isDeleted === true) {
+      const error = new Error("이미 회원탈퇴한 계정입니다.");
+      error.statusCode = 400;
       error.redirectURL = "/login";
       next(error);
       return;
@@ -156,17 +175,6 @@ class GlobalController {
       error.redirectURL = "/login";
       next(error);
       return;
-    }
-
-    if (save_username) {
-      res.cookie("save_username", "true", { path: "/login", httpOnly: true });
-      res.cookie("saved_username", `${username}`, {
-        path: "/login",
-        httpOnly: true,
-      });
-    } else {
-      res.cookie("save_username", "false", { path: "/login", httpOnly: true });
-      res.cookie("saved_username", "", { path: "/login", httpOnly: true });
     }
 
     try {
