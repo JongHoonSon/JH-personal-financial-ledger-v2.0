@@ -6,7 +6,7 @@ block content
             div#user-profile__top__left__wrap
                 div#user-profile__user-image__wrap
                     img(src=user.avatarUrl)#user-profile__user-image
-                div#user-profile__user-infos
+                div#user-profile__user-info
                     div#user-profile__user-nickname__wrap
                         span#user-profile__user-nickname #{user.nickname}
                     if isMyProfile 
@@ -23,9 +23,9 @@ block content
                                 button.user-profile__user-option__link#user-profile__delete-account-button
                                     i.fa-solid.fa-right-from-bracket.warning
                                     span.user-profile__user-option__link__text.warning 회원 탈퇴
-                    div.user-profile__user-info__wrap
-                        span.user-profile__user-info 가입일 : #{joinDate}
-                        span.user-profile__user-info 마지막 로그인 기록 : #{lastLoggedInDate}
+                    div.user-profile__user-history__wrap
+                        span.user-profile__user-history 가입일 : #{joinDate}
+                        span.user-profile__user-history 마지막 로그인 기록 : #{lastLoggedInDate}
 
             div#user-profile__top__right__wrap
                 div#user-profile__user-contents
