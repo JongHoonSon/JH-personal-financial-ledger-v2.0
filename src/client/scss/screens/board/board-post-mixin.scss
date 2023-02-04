@@ -52,8 +52,13 @@
 .post__link,
 .post-owner-name {
   width: 100%;
+  height: 100%;
   padding: 15px;
   color: $grey-deep;
+
+  display: block;
+
+  line-height: 1.8;
 
   text-align: center;
   white-space: nowrap;
@@ -68,6 +73,7 @@
 }
 
 .post-owner__link {
+  width: 90%;
   height: 100%;
   display: flex;
   justify-content: center;
