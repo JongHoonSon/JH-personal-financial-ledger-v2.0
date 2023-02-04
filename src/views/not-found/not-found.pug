@@ -1,0 +1,16 @@
+extends ../base.pug
+
+block content
+    div#not__found__container
+        i#not__found__image.fa-solid.fa-user-secret
+        h1#not__found__error-code 404
+        h2#not__found__title Page not found
+        div#not__found__content__wrap
+            span#not__found__content__kr 입력하신 주소에 대한 페이지를 찾을 수 없습니다.
+            span#not__found__content__kr 아래 버튼을 눌러 홈 페이지로 이동해 주세요.
+        div#not__found__content__wrap
+            span#not__found__content__en The Page you are looking for doesn't exist.
+            span#not__found__content__en Please click the below button and go back to home page.
+        a(href="/")#not__found__redirect-button
+            span 홈 페이지로 이동
+            span Go to the home page

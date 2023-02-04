@@ -72,4 +72,8 @@ app.use("/comment", commentRouter);
 app.use("/chart", chartRouter);
 app.use("/last-expense", lastExpenseRouter);
 
+app.get("*", (req, res) => {
+  return res.status(404).render("not-found/not-found");
+});
+
 app.use(errorHandler);
