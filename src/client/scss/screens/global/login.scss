@@ -72,6 +72,10 @@
             .login-input__button-show {
               margin-right: 10px;
             }
+            .login-input__button-clear:hover,
+            .login-input__button-show:hover {
+              opacity: 0.5;
+            }
           }
           .login-input__wrap:focus-within {
             border-color: $grey;
@@ -92,6 +96,9 @@
           margin: 1px;
           color: $white;
         }
+      }
+      .login-button:hover {
+        opacity: 0.8;
       }
       .login-utils {
         width: 100%;
@@ -124,8 +131,11 @@
         font-weight: 800;
         border-radius: 4px;
         border: 1px solid $grey;
-        background-color: $white;
         color: $black;
+        background-color: $white;
+      }
+      a:hover {
+        background-color: rgba(0, 0, 0, 0.05);
       }
     }
   }
