@@ -325,8 +325,11 @@ class UserController {
       next(error);
       return;
     }
+    req.session.user = {};
+    req.session.loggedIn = false;
 
-    return res.status(200).json("/logout");
+    req.flash("success", "정상적으로 회원탈퇴 되었습니다.");
+    return res.status(200).json("/login");
   }
 }
 
