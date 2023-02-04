@@ -4,7 +4,15 @@
 
 #edit__user-categories {
   position: absolute;
-  right: -40px;
-  bottom: 14px;
+  right: -46px;
+  bottom: 8px;
   font-size: 12px;
+  color: $grey-blur;
+  background-color: $grey-light;
+  padding: 5px;
+  border-radius: 6px;
+
+  &:hover {
+    opacity: 0.5;
+  }
 }
