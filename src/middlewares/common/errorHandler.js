@@ -3,6 +3,18 @@ const errorHandler = (error, req, res, next) => {
     console.log("error");
     console.log(error);
 
+    console.log("req.method");
+    console.log(req.method);
+
+    console.log('req.headers["sec-fetch-dest"]');
+    console.log(req.headers["sec-fetch-dest"]);
+
+    console.log('req.headers["content-type"]');
+    console.log(req.headers["content-type"]);
+
+    console.log('req.headers["content-length"]');
+    console.log(req.headers["content-length"]);
+
     // 페이지 접속에 대한 GET 요청
     if (req.method === "GET" && req.headers["sec-fetch-dest"] === "document") {
       console.log("페이지 접속에 대한 GET 요청");
