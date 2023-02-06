@@ -44,7 +44,12 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+    store: MongoStore.create({
+      mongoUrl:
+        process.env.NODE_ENV === "production"
+          ? process.env.DEPLOY_DB_URL
+          : process.env.LOCAL_DB_URL,
+    }),
   })
 );
 

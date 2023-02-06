@@ -1,9 +1,14 @@
 import mongoose from "mongoose";
 
-mongoose.connect(process.env.DB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  process.env.NODE_ENV === "production"
+    ? process.env.DEPLOY_DB_URL
+    : process.env.LOCAL_DB_URL,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const db = mongoose.connection;
 
