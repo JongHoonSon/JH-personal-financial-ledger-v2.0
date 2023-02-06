@@ -1,10 +1,13 @@
 import { incomeModel, expenseModel, userModel } from "./../db/models";
 import { sortItem } from "../utils";
-import checkItemOwner from "./../middlewares/item/checkItemOwner";
+import { checkItemOwner, checkParamValue } from "./../middlewares/";
 
 class ItemController {
   async getAddItem(req, res, next) {
     const { itemType } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let pageTitle;
 
@@ -42,8 +45,8 @@ class ItemController {
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
 
-    console.log("file");
-    console.log(file);
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     const user = req.session.loggedInUser;
 
@@ -103,6 +106,9 @@ class ItemController {
   async getEditItem(req, res, next) {
     const { itemType, itemId } = req.params;
 
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
+
     let item;
     try {
       if (itemType === "i") {
@@ -149,6 +155,9 @@ class ItemController {
     const { itemType, itemId } = req.params;
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let item;
     try {
@@ -207,6 +216,9 @@ class ItemController {
 
   async deleteItem(req, res, next) {
     const { itemType, itemId } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let item;
     try {
@@ -268,6 +280,9 @@ class ItemController {
 
   async getDetailItem(req, res, next) {
     const { itemType, itemId } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let item;
     try {
@@ -346,6 +361,9 @@ class ItemController {
 
   async pinItem(req, res, next) {
     const { itemType, itemId } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let item;
     try {

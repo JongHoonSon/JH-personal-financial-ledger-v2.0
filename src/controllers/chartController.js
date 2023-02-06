@@ -1,10 +1,17 @@
 import { userModel } from "./../db/models";
 import { getStringDate, getDaysDiff, getStringAmount } from "../utils";
-import { checkParamNaN } from "../middlewares";
+import { checkParamNaN, checkParamValue } from "../middlewares";
 
 class ChartController {
   async getChart(req, res, next) {
     const { type, days } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(
+      type,
+      ["income", "expense"],
+      next
+    );
+    if (!isParamCorrectValue) return;
 
     const { isParamNaN } = checkParamNaN(days, next);
     if (isParamNaN) return;

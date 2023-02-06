@@ -1,20 +1,28 @@
 import { userModel } from "./../db/models";
 import { sortItem, getStringDate, getStringAmount } from "../utils";
+import { checkParamValue } from "../middlewares";
 
 class LedgerController {
-  async getLedgerDaily(req, res) {
+  async getLedgerDaily(req, res, next) {
     const { yyyy, mm, dd, itemType } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(
+      itemType,
+      ["i", "e", "all"],
+      next
+    );
+    if (!isParamCorrectValue) return;
 
     const todayStringDate = yyyy + "-" + mm + "-" + dd;
     const todayDate = new Date(todayStringDate);
 
     const prevDate = new Date(todayDate.getTime());
     prevDate.setDate(todayDate.getDate() - 1);
-    const prev = getStringDate(prevDate);
+    const prevCalendar = getStringDate(prevDate);
 
     const nextDate = new Date(todayDate.getTime());
     nextDate.setDate(todayDate.getDate() + 1);
-    const next = getStringDate(nextDate);
+    const nextCalendar = getStringDate(nextDate);
 
     const loggedInUser = req.session.user;
     let user;
@@ -65,9 +73,9 @@ class LedgerController {
     return res.render("ledger/ledger", {
       pageTitle: "일별 내역",
       itemList,
-      prev,
+      prevCalendar,
       now,
-      next,
+      nextCalendar,
       calendarTitle,
       cycle,
       gap,
@@ -78,8 +86,15 @@ class LedgerController {
     });
   }
 
-  async getLedgerWeekly(req, res) {
+  async getLedgerWeekly(req, res, next) {
     const { yyyy, mm, dd, itemType } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(
+      itemType,
+      ["i", "e", "all"],
+      next
+    );
+    if (!isParamCorrectValue) return;
 
     const todayStringDate = yyyy + "-" + mm + "-" + dd;
     const todayDate = new Date(todayStringDate);
@@ -87,11 +102,11 @@ class LedgerController {
 
     const prevDate = new Date(todayDate.getTime());
     prevDate.setDate(todayDate.getDate() - 7);
-    const prev = getStringDate(prevDate);
+    const prevCalendar = getStringDate(prevDate);
 
     const nextDate = new Date(todayDate.getTime());
     nextDate.setDate(todayDate.getDate() + 7);
-    const next = getStringDate(nextDate);
+    const nextCalendar = getStringDate(nextDate);
 
     const todayDay = todayDate.getDay();
 
@@ -153,9 +168,9 @@ class LedgerController {
     return res.render("ledger/ledger", {
       pageTitle: "주별 내역",
       itemList,
-      prev,
+      prevCalendar,
       now,
-      next,
+      nextCalendar,
       calendarTitle,
       cycle,
       gap,
@@ -166,18 +181,25 @@ class LedgerController {
     });
   }
 
-  async getLedgerMonthly(req, res) {
+  async getLedgerMonthly(req, res, next) {
     const { yyyy, mm, itemType } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(
+      itemType,
+      ["i", "e", "all"],
+      next
+    );
+    if (!isParamCorrectValue) return;
 
     const prevMonth =
       mm === "01" ? "12" : (Number(mm) - 1).toString().padStart(2, 0);
     const prevYear = prevMonth === "12" ? (Number(yyyy) - 1).toString() : yyyy;
-    const prev = prevYear + "-" + prevMonth;
+    const prevCalendar = prevYear + "-" + prevMonth;
 
     const nextMonth =
       mm === "12" ? "01" : (Number(mm) + 1).toString().padStart(2, 0);
     const nextYear = nextMonth === "01" ? (Number(yyyy) + 1).toString() : yyyy;
-    const next = nextYear + "-" + nextMonth;
+    const nextCalendar = nextYear + "-" + nextMonth;
 
     const loggedInUser = req.session.user;
     let user;
@@ -234,9 +256,9 @@ class LedgerController {
     return res.render("ledger/ledger", {
       pageTitle: "월별 내역",
       itemList,
-      prev,
+      prevCalendar,
       now,
-      next,
+      nextCalendar,
       calendarTitle,
       cycle,
       gap,
@@ -247,11 +269,18 @@ class LedgerController {
     });
   }
 
-  async getLedgerYearly(req, res) {
+  async getLedgerYearly(req, res, next) {
     const { yyyy, itemType } = req.params;
 
-    const prev = (Number(yyyy) - 1).toString();
-    const next = (Number(yyyy) + 1).toString();
+    const { isParamCorrectValue } = checkParamValue(
+      itemType,
+      ["i", "e", "all"],
+      next
+    );
+    if (!isParamCorrectValue) return;
+
+    const prevCalendar = (Number(yyyy) - 1).toString();
+    const nextCalendar = (Number(yyyy) + 1).toString();
 
     const loggedInUser = req.session.user;
     let user;
@@ -302,9 +331,9 @@ class LedgerController {
     return res.render("ledger/ledger", {
       pageTitle: "연도별 내역",
       itemList,
-      prev,
+      prevCalendar,
       now,
-      next,
+      nextCalendar,
       calendarTitle,
       cycle,
       gap,
