@@ -10,8 +10,9 @@ class UserController {
     try {
       user = await userModel.findById(userId);
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const isMyProfile = req.session.user._id === userId ? true : false;
@@ -43,9 +44,6 @@ class UserController {
     const { name, nickname, email } = req.body;
     const { file } = req;
 
-    console.log("file");
-    console.log(file);
-
     const user = req.session.loggedInUser;
 
     if (user.nickname !== nickname) {
@@ -56,11 +54,13 @@ class UserController {
             `해당 닉네임을 사용하는 사용자가 이미 존재합니다.`
           );
           error.statusCode = 400;
-          error.redirectURL = "/join";
-          return next(error);
+          error.redirectURL = "/user/edit-profile";
+          next(error);
+          return;
         }
       } catch (error) {
-        return next(error);
+        next(error);
+        return;
       }
     }
 
@@ -73,10 +73,12 @@ class UserController {
           );
           error.statusCode = 400;
           error.redirectURL = "/join";
-          return next(error);
+          next(error);
+          return;
         }
       } catch (error) {
-        return next(error);
+        next(error);
+        return;
       }
     }
 
@@ -98,7 +100,8 @@ class UserController {
       req.flash("success", "프로필을 수정했습니다.");
       return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -120,12 +123,14 @@ class UserController {
         const error = new Error("기존 비밀번호가 일치하지 않습니다.");
         error.statusCode = 400;
         error.redirectURL = "/user/edit-password";
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
-      error.message = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/user/edit-password";
-      return next(error);
+      next(error);
+      return;
     }
 
     if (new_password !== new_password_confirm) {
@@ -134,7 +139,8 @@ class UserController {
       );
       error.statusCode = 400;
       error.redirectURL = "/user/edit-password ";
-      return next(error);
+      next(error);
+      return;
     }
 
     try {
@@ -144,8 +150,9 @@ class UserController {
       req.flash("success", "비밀번호를 변경했습니다.");
       return res.status(200).json(`/user/profile/${user._id}`);
     } catch (error) {
-      error.message = "비밀번호를 변경하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "비밀번호를 변경하는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
   }
 
@@ -169,8 +176,9 @@ class UserController {
         userCategories = user.expenseCategories;
       }
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     let pageTitle;
@@ -181,7 +189,7 @@ class UserController {
       pageTitle = `${user.nickname} 님의 지출 카테고리`;
     }
 
-    res.render("modal/user-own-categories/user-own-categories", {
+    return res.render("modal/user-own-categories/user-own-categories", {
       pageTitle,
       userCategories,
       categoryType,
@@ -209,8 +217,9 @@ class UserController {
       }
       await user.save();
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     return res.send(200);
@@ -241,8 +250,9 @@ class UserController {
       }
       await user.save();
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     return res.sendStatus(200);
@@ -255,15 +265,19 @@ class UserController {
     try {
       user = await userModel.findByIdWithPopulate(userId).populate("postList");
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const joinDate = getStringDate(user.joinDate);
     const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
+    const isMyProfile = userId === String(user._id) ? true : false;
+
     return res.render("user/detail-user/user-own-posts", {
       pageTitle: `${user.nickname} 님의 작성 글`,
+      isMyProfile,
       user,
       joinDate,
       lastLoggedInDate,
@@ -280,19 +294,42 @@ class UserController {
         populate: "post",
       });
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const joinDate = getStringDate(user.joinDate);
     const lastLoggedInDate = getStringFullDate(user.lastLoggedInDate);
 
+    const isMyProfile = userId === String(user._id) ? true : false;
+
     return res.render("user/detail-user/user-own-comments", {
       pageTitle: `${user.nickname} 님의 작성 댓글`,
+      isMyProfile,
       user,
       joinDate,
       lastLoggedInDate,
     });
+  }
+
+  async deleteUser(req, res, next) {
+    const user = req.session.loggedInUser;
+
+    try {
+      await userModel.findByIdAndUpdate(user._id, {
+        nickname: "탈퇴한 회원입니다.",
+        isDeleted: true,
+      });
+    } catch (error) {
+      next(error);
+      return;
+    }
+    req.session.user = {};
+    req.session.loggedIn = false;
+
+    req.flash("success", "정상적으로 회원탈퇴 되었습니다.");
+    return res.status(200).json("/login");
   }
 }
 

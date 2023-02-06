@@ -1,4 +1,4 @@
-import { boardModel, postModel } from "./../db/models";
+import { boardModel, postModel, userModel } from "./../db/models";
 import checkPostOwner from "./../middlewares/post/checkPostOwner";
 
 class PostController {
@@ -12,14 +12,26 @@ class PostController {
         boardNameList,
       });
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
   }
 
   async addPost(req, res, next) {
     const { title, boardName, content } = req.body;
 
-    const user = req.session.loggedInUser;
+    const { loggedInUser } = req.session;
+
+    let user;
+    try {
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
+        .populate("postList");
+    } catch (error) {
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
+    }
 
     const board = await boardModel.findOne({ name: boardName });
 
@@ -40,9 +52,10 @@ class PostController {
       req.flash("success", "게시글을 작성하였습니다.");
       return res.status(200).redirect(`/post/${newPost._id}`);
     } catch (error) {
-      error.message = "게시글을 생성하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "게시글을 생성하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/post/add";
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -56,21 +69,27 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
 
-    checkPostOwner(post, user, next);
+    const { isOwner } = checkPostOwner(post, user, next);
+
+    if (!isOwner) return;
 
     let boardList;
     try {
       boardList = await boardModel.find({});
     } catch (error) {
-      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow =
+        "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
     const boardNameList = boardList.map((board) => board.name);
 
@@ -98,14 +117,17 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
 
-    checkPostOwner(post, user, next);
+    const { isOwner } = checkPostOwner(post, user, next);
+    if (!isOwner) return;
 
     try {
       if (newBoardName !== post.board.name) {
@@ -128,9 +150,10 @@ class PostController {
       req.flash("success", "게시글을 수정했습니다.");
       return res.status(200).json(`/post/${postId}`);
     } catch (error) {
-      error.message = "게시글을 수정하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "게시글을 수정하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -144,14 +167,17 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
 
-    checkPostOwner(post, user, next);
+    const { isOwner } = checkPostOwner(post, user, next);
+    if (!isOwner) return;
 
     try {
       user.postList = user.postList.filter(
@@ -171,8 +197,9 @@ class PostController {
         return res.status(200).json(req.session.history.prevPageURL);
       }
     } catch (error) {
-      error.message = "게시글을 삭제하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "게시글을 삭제하는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
   }
 
@@ -190,9 +217,11 @@ class PostController {
           populate: { path: "owner" },
         });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const user = req.session.loggedInUser;
@@ -220,7 +249,8 @@ class PostController {
     try {
       post = await postModel.findById(postId);
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
 
     try {
@@ -230,7 +260,8 @@ class PostController {
       error.message =
         "게시글의 조회수를 증가시키는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     return res.sendStatus(200);
@@ -247,9 +278,11 @@ class PostController {
         .findByIdWithPopulate(postId)
         .populate("likesUserList");
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     let alreadyIn = false;
@@ -278,12 +311,13 @@ class PostController {
         await user.save();
 
         req.flash("success", "좋아요 취소 완료");
-        return res.sendStatus(200);
+        return res.status(200).json(`/post/${post._id}`);
       } catch (error) {
         error.message =
           "게시글의 좋아요 수를 변경하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
     } else {
       try {
@@ -296,11 +330,12 @@ class PostController {
         error.message =
           "게시글의 좋아요 수를 변경하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
 
       req.flash("success", "좋아요 완료");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${post._id}`);
     }
   }
 }

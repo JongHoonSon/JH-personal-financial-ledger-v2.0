@@ -42,37 +42,40 @@
   align-items: center;
   margin: 0 50px;
   box-sizing: border-box;
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 #user-profile__user-image {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  border: 3px solid $grey-deep;
+  border: 1px solid $grey-deep;
 }
 
-#user-profile__user-infos {
-  width: 100%;
-  height: 100%;
+#user-profile__user-info {
+  width: 60%;
+  height: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 #user-profile__user-nickname__wrap {
   width: 100%;
-  height: 50%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-end;
-  margin-bottom: 20px;
+  a {
+    width: 100%;
+  }
 }
 
 #user-profile__user-nickname {
   width: 100%;
-  height: 50%;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -80,21 +83,23 @@
   font-size: 58px;
   font-weight: bold;
   color: $white;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 #user-profile__user-options {
   width: 100%;
-  height: 20%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .user-profile__user-option__wrap {
-  width: 100%;
-  margin-left: 5px;
   box-sizing: border-box;
+  margin-right: 15px;
   .user-profile__user-option__link {
     font-size: 12px;
     color: $grey-light;
@@ -103,23 +108,33 @@
       margin-right: 5px;
     }
   }
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
-.user-profile__user-option__wrap:first-child {
-  margin-bottom: 10px;
+@media screen and (max-width: 1000px) {
+  #user-profile__user-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-profile__user-option__wrap {
+    margin-bottom: 5px;
+  }
 }
 
-.user-profile__user-info__wrap {
+.user-profile__user-history__wrap {
   width: 100%;
-  height: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  .user-profile__user-info {
+  .user-profile__user-history {
     font-size: 12px;
+    margin-bottom: 5px;
     color: $grey-light;
-    margin-bottom: 10px;
   }
 }
 

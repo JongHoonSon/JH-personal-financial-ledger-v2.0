@@ -19,7 +19,7 @@ const logHistory = (req, res, next) => {
 
   req.session.save(function (err) {
     if (err) {
-      res.send("Error occured");
+      return res.status(500).send("세션 오류 발생");
     }
   });
 

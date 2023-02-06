@@ -9,7 +9,8 @@ class CommentModel {
       const comment = await Comment.create(params);
       return comment;
     } catch (error) {
-      error.message = "댓글을 DB에 생성하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "댓글을 DB에 생성하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -26,7 +27,7 @@ class CommentModel {
 
       return comment;
     } catch (error) {
-      error.message = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -40,7 +41,8 @@ class CommentModel {
       await Comment.findByIdAndDelete(commentId);
       return;
     } catch (error) {
-      error.message = "댓글을 DB에서 삭제하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "댓글을 DB에서 삭제하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }

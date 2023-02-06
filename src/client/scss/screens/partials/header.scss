@@ -24,6 +24,9 @@ header {
       font-size: 28px;
       font-weight: 600;
       color: $white;
+      &:hover {
+        color: $grey-bright;
+      }
     }
   }
   .header-nav__list {
@@ -46,10 +49,10 @@ header {
         }
       }
       .header-nav__option-link:hover {
-        color: $grey-bright;
+        color: $grey-light;
       }
       .header-nav__option-link:hover > i {
-        color: $grey-bright;
+        color: $grey-light;
       }
     }
   }

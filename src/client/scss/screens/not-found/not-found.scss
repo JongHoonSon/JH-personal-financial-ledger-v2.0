@@ -1,0 +1,58 @@
+#not__found__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: $grey-light;
+}
+
+#not__found__image {
+  font-size: 120px;
+  margin-bottom: 20px;
+}
+
+#not__found__error-code {
+  font-size: 64px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+#not__found__title {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+#not__found__content__wrap {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#not__found__content__kr,
+#not__found__content__en {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+#not__found__redirect-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: $blue-deep;
+  font-weight: 600;
+  margin-top: 20px;
+
+  span {
+    margin-bottom: 5px;
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+}

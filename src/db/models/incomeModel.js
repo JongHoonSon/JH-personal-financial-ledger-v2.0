@@ -9,7 +9,8 @@ class IncomeModel {
       const income = await Income.create(params);
       return income;
     } catch (error) {
-      error.message = "수입 내역을 DB에 생성하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "수입 내역을 DB에 생성하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -26,7 +27,8 @@ class IncomeModel {
 
       return income;
     } catch (error) {
-      error.message = "수입 내역을 DB에서 찾는 과정에서 에러가 발생했습니다.";
+      error.messageToShow =
+        "수입 내역을 DB에서 찾는 과정에서 에러가 발생했습니다.";
       throw error;
     }
   }

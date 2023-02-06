@@ -10,7 +10,8 @@
     "build:assets": "gulp build",
     "dev:server": "nodemon --exec babel-node src/init.js",
     "dev:assets": "gulp dev",
-    "deploy": "gulp deploy"
+    "deploy": "gulp deploy",
+    "test:build": "node build/init.js"
   },
   "repository": {
     "type": "git",

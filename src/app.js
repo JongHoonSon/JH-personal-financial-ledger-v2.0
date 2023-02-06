@@ -23,6 +23,7 @@ import {
   checkUserLoggedIn,
   checkUserExist,
   errorHandler,
+  createDefaultData,
 } from "./middlewares";
 
 export const app = express();
@@ -56,6 +57,7 @@ app.use(flash());
 app.use(logger);
 app.use(saveResponseLocalData);
 app.use(logPathHistory);
+app.use(createDefaultData);
 
 app.use("/", globalRouter);
 
@@ -69,5 +71,9 @@ app.use("/post", postRouter);
 app.use("/comment", commentRouter);
 app.use("/chart", chartRouter);
 app.use("/last-expense", lastExpenseRouter);
+
+app.get("*", (req, res) => {
+  return res.status(404).render("not-found/not-found");
+});
 
 app.use(errorHandler);

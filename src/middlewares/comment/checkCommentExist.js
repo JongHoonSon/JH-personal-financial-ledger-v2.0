@@ -8,7 +8,8 @@ const checkCommentExist = async (req, res, next) => {
     req.session.comment = comment;
     next();
   } catch (error) {
-    return next(error);
+    next(error);
+    return;
   }
 };
 

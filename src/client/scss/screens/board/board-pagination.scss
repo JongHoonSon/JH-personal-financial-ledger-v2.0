@@ -10,19 +10,19 @@
   box-sizing: border-box;
 }
 
-#board-pagination__prev-page-btn__wrap,
-#board-pagination__next-page-btn__wrap {
+#board-pagination__prev-page-button__wrap,
+#board-pagination__next-page-button__wrap {
   width: 10%;
 }
 
-#board-pagination__page-btns__wrap {
+#board-pagination__page-buttons__wrap {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50%;
 }
 
-.board-pagination__page-btn__wrap {
+.board-pagination__page-button__wrap {
   width: 20px;
   height: 25px;
   margin: 10px;
@@ -36,9 +36,9 @@
   margin-bottom: 5px;
 }
 
-.board-pagination__page-btn,
-#board-pagination__prev-page-btn,
-#board-pagination__next-page-btn {
+.board-pagination__page-button,
+#board-pagination__prev-page-button,
+#board-pagination__next-page-button {
   width: 100%;
   height: 100%;
   display: flex;
@@ -47,25 +47,29 @@
   color: $grey-light;
 }
 
-.board-pagination__page-btn:hover {
+.board-pagination__page-button:hover {
   color: $grey-deep;
 }
 
-#board-pagination__prev-page-btn i,
-#board-pagination__next-page-btn i {
+#board-pagination__prev-page-button i,
+#board-pagination__next-page-button i {
   color: $grey-deep;
 }
 
-#board-pagination__prev-page-btn i:hover,
-#board-pagination__next-page-btn i:hover {
+#board-pagination__prev-page-button i:hover,
+#board-pagination__next-page-button i:hover {
   color: $grey-light;
 }
 
-#board-pagination__current-page-btn {
+#board-pagination__current-page-button {
   color: black;
   background-color: $grey-bright;
   font-weight: 600;
   border: 1px solid $grey;
   border-radius: 5px;
   opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
 }

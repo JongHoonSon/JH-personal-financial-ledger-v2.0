@@ -50,6 +50,10 @@
 #detail-post__title__wrap {
   border-top: 2px solid $grey-bright;
   border-bottom: 2px solid $grey-bright;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #detail-post__title,
@@ -61,9 +65,24 @@
 }
 
 #detail-post__title {
+  width: 80%;
+  height: auto;
   font-size: 20px;
   font-weight: 600;
   color: $grey-deep;
+  margin-bottom: 8px;
+
+  display: block;
+  line-height: 2;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+
+  &:hover {
+    opacity: 0.5;
+  }
 }
 
 #detail-post__date {
@@ -92,8 +111,18 @@
 }
 
 #detail-post__owner-name {
+  width: 300px;
+  display: block;
+  margin-bottom: 3px;
+
   font-size: 13px;
   color: $grey;
+  line-height: 2;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 
 #detail-post__owner__link:hover > #detail-post__owner-name {

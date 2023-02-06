@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
   nickname: {
     type: String,
     required: true,
-    unique: true,
   },
 
   email: {
@@ -112,6 +111,11 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
+  },
+
+  isDeleted: {
+    type: Boolean,
+    default: false,
   },
 });
 

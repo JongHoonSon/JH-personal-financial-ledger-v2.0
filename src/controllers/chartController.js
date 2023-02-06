@@ -1,9 +1,20 @@
 import { userModel } from "./../db/models";
 import { getStringDate, getDaysDiff, getStringAmount } from "../utils";
+import { checkParamNaN, checkParamValue } from "../middlewares";
 
 class ChartController {
   async getChart(req, res, next) {
     const { type, days } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(
+      type,
+      ["income", "expense"],
+      next
+    );
+    if (!isParamCorrectValue) return;
+
+    const { isParamNaN } = checkParamNaN(days, next);
+    if (isParamNaN) return;
 
     const { loggedInUser } = req.session;
     let user;
@@ -18,11 +29,13 @@ class ChartController {
       if (!user) {
         const error = new Error("유저를 DB에서 찾을 수 없습니다.");
         error.statusCode = 404;
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     let categories;

@@ -1,0 +1,30 @@
+@keyframes disappear {
+  from {
+    transform: translate(-50%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50px);
+    opacity: 0;
+  }
+}
+
+.message {
+  min-width: 150px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  padding: 10px 20px;
+  margin: 0 auto;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  background-color: #2ecc71;
+
+  transform: translate(-50%);
+  animation: disappear 0.5s ease-in-out forwards;
+  animation-delay: 3s;
+  &.error {
+    background-color: #e74c3c;
+  }
+}

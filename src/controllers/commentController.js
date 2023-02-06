@@ -13,8 +13,9 @@ class CommentController {
         .findByIdWithPopulate(loggedInUser._id)
         .populate("commentList");
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     let post;
@@ -23,8 +24,10 @@ class CommentController {
         .findByIdWithPopulate(postId)
         .populate("commentList");
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     try {
@@ -39,8 +42,9 @@ class CommentController {
       req.flash("success", "댓글을 생성했습니다.");
       return res.status(200).redirect(`/post/${postId}`);
     } catch (error) {
-      error.message = "댓글을 생성하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "댓글을 생성하는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
   }
 
@@ -55,9 +59,10 @@ class CommentController {
         populate: "commentList",
       });
     } catch (error) {
-      error.message = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -67,21 +72,24 @@ class CommentController {
         .findByIdWithPopulate(loggedInUser._id)
         .populate("commentList");
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
-    checkCommentOwner(comment, user, next);
+    const { isOwner } = checkCommentOwner(comment, user, next);
+    if (!isOwner) return;
 
     try {
       comment.content = newContent;
       await comment.save();
 
       req.flash("success", "댓글을 수정했습니다.");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${comment.post._id}`);
     } catch (error) {
-      error.message = "댓글을 수정하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "댓글을 수정하는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
   }
 
@@ -94,9 +102,10 @@ class CommentController {
         .findByIdWithPopulate(commentId)
         .populate("post");
     } catch (error) {
-      error.message = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
-      return next(error);
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -106,11 +115,13 @@ class CommentController {
         .findByIdWithPopulate(loggedInUser._id)
         .populate("commentList");
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
-    checkCommentOwner(comment, user, next);
+    const { isOwner } = checkCommentOwner(comment, user, next);
+    if (!isOwner) return;
 
     user.commentList = user.commentList.filter(
       (el) => String(el._id) !== String(comment._id)
@@ -119,8 +130,10 @@ class CommentController {
     try {
       await user.save();
     } catch (error) {
-      error.message = "유저 정보를 DB에 저장하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow =
+        "유저 정보를 DB에 저장하는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     let post;
@@ -133,11 +146,14 @@ class CommentController {
         const error = new Error("게시글을 찾을 수 없습니다.");
         error.statusCode = 404;
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     post.commentList = post.commentList.filter(
@@ -146,16 +162,19 @@ class CommentController {
     try {
       await post.save();
     } catch (error) {
-      error.message = "게시글을 DB에 저장하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow =
+        "게시글을 DB에 저장하는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     try {
       await commentModel.findByIdAndDelete(commentId);
       req.flash("success", "댓글을 삭제했습니다.");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${post._id}`);
     } catch (error) {
-      return next(error);
+      next(error);
+      return;
     }
   }
 
@@ -174,11 +193,13 @@ class CommentController {
         const error = new Error("댓글을 찾을 수 없습니다.");
         error.statusCode = 404;
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
     } catch (error) {
-      error.message = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "댓글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     let alreadyLikesThisComment = false;
@@ -191,28 +212,32 @@ class CommentController {
 
     if (alreadyLikesThisComment) {
       req.flash("error", "이미 이 댓글의 좋아요를 눌렀습니다.");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${comment.post._id}`);
     } else {
       try {
         comment.likesUserList.push(user);
         await comment.save();
       } catch (error) {
-        error.message = "댓글을 DB에 저장하는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "댓글을 DB에 저장하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
 
       try {
         user.likesCommentList.push(comment);
         await user.save();
       } catch (error) {
-        error.message = "댓글을 DB에 저장하는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "댓글을 DB에 저장하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/board/전체게시판/1";
-        return next(error);
+        next(error);
+        return;
       }
 
       req.flash("success", "좋아요 완료");
-      return res.sendStatus(200);
+      return res.status(200).json(`/post/${comment.post._id}`);
     }
   }
 }

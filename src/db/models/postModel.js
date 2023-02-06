@@ -9,7 +9,8 @@ class PostModel {
       const post = await Post.create(params);
       return post;
     } catch (error) {
-      error.message = "게시글을 DB에 생성하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에 생성하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -26,7 +27,8 @@ class PostModel {
 
       return post;
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 에러가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 에러가 발생했습니다.";
       throw error;
     }
   }
@@ -40,7 +42,8 @@ class PostModel {
       await Post.findByIdAndDelete(postId);
       return;
     } catch (error) {
-      error.message = "게시글을 DB에서 삭제하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 삭제하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }

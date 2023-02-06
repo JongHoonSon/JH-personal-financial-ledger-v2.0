@@ -1,7 +1,7 @@
 const modalOpenButton = document.querySelector(".modal__open-button");
 
 // 모달창을 띄우는 버튼 클릭시
-const handleModalOpen = (event) => {
+const handleModalOpenButtonClick = (event) => {
   // 모달 버튼의 부모(relative)에 position: static 적용하기 (relative가 적용되어 있으면 화면상에 노출됨)
   const modalOpenButtonParent = document.querySelector(
     ".modal__open-button__parent"
@@ -26,4 +26,4 @@ const handleModalOpen = (event) => {
   });
 };
 
-modalOpenButton.addEventListener("click", handleModalOpen);
+modalOpenButton.addEventListener("click", handleModalOpenButtonClick);

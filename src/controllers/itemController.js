@@ -1,10 +1,13 @@
 import { incomeModel, expenseModel, userModel } from "./../db/models";
 import { sortItem } from "../utils";
-import checkItemOwner from "./../middlewares/item/checkItemOwner";
+import { checkItemOwner, checkParamValue } from "./../middlewares/";
 
 class ItemController {
   async getAddItem(req, res, next) {
     const { itemType } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let pageTitle;
 
@@ -22,8 +25,9 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const { incomeCategories, expenseCategories } = user;
@@ -41,12 +45,24 @@ class ItemController {
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
 
-    console.log("file");
-    console.log(file);
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
-    const user = req.session.loggedInUser;
+    const { loggedInUser } = req.session;
 
+    let user;
     if (itemType === "i") {
+      try {
+        user = await userModel
+          .findByIdWithPopulate(loggedInUser._id)
+          .populate("incomeList");
+      } catch (error) {
+        error.messageToShow =
+          "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+        next(error);
+        return;
+      }
+
       try {
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`
@@ -65,12 +81,26 @@ class ItemController {
         req.flash("success", "수입 내역이 추가되었습니다.");
         return res.status(200).redirect("/item/add/i");
       } catch (error) {
-        error.message = "수입 내역을 추가하는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "수입 내역을 추가하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/item/add/i";
-        return next(error);
+        next(error);
+        return;
       }
     } else {
       const { paymentMethod } = req.body;
+
+      try {
+        user = await userModel
+          .findByIdWithPopulate(loggedInUser._id)
+          .populate("expenseList");
+      } catch (error) {
+        error.messageToShow =
+          "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+        next(error);
+        return;
+      }
+
       try {
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`
@@ -90,15 +120,20 @@ class ItemController {
         req.flash("success", "지출 내역이 추가되었습니다.");
         return res.status(200).redirect("/item/add/e");
       } catch (error) {
-        error.message = "지출 내역을 추가하는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "지출 내역을 추가하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/item/add/e";
-        return next(error);
+        next(error);
+        return;
       }
     }
   }
 
   async getEditItem(req, res, next) {
     const { itemType, itemId } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let item;
     try {
@@ -110,8 +145,9 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -122,11 +158,13 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     const { incomeCategories, expenseCategories } = user;
 
@@ -144,6 +182,9 @@ class ItemController {
     const { date, amount, category, description, cycle } = req.body;
     const { file } = req;
 
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
+
     let item;
     try {
       if (itemType === "i") {
@@ -154,8 +195,9 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -166,11 +208,13 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     try {
       if (itemType === "e") {
@@ -190,13 +234,17 @@ class ItemController {
       req.flash("success", "아이템을 수정했습니다.");
       return res.status(200).json(`/item/${item.type}/${item.id}`);
     } catch (error) {
-      error.message = "아이템을 수정하는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "아이템을 수정하는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
   }
 
   async deleteItem(req, res, next) {
     const { itemType, itemId } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let item;
     try {
@@ -208,8 +256,9 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -220,11 +269,13 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     try {
       if (itemType === "i") {
@@ -246,14 +297,18 @@ class ItemController {
       }
       return res.status(200).json("/");
     } catch (error) {
-      error.message = "아이템을 삭제하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 삭제하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = `/item/${itemType}/${item.id}`;
-      return next(error);
+      next(error);
+      return;
     }
   }
 
   async getDetailItem(req, res, next) {
     const { itemType, itemId } = req.params;
+
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
 
     let item;
     try {
@@ -265,8 +320,9 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -277,11 +333,13 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     return res.render("item/detail-item/detail-item", {
       pageTitle: "상세 내역",
@@ -298,8 +356,9 @@ class ItemController {
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const itemList = new Array();
@@ -329,6 +388,9 @@ class ItemController {
   async pinItem(req, res, next) {
     const { itemType, itemId } = req.params;
 
+    const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
+    if (!isParamCorrectValue) return;
+
     let item;
     try {
       if (itemType === "i") {
@@ -339,8 +401,9 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const loggedInUser = req.session.user;
@@ -351,11 +414,13 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
-      return next(error);
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
-    checkItemOwner(item, user, next);
+    const { isOwner } = checkItemOwner(item, user, next);
+    if (!isOwner) return;
 
     try {
       if (item.pinned === false) {
@@ -373,7 +438,8 @@ class ItemController {
       error.message =
         "아이템을 즐겨찾기에 추가하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = `/item/${itemType}/${item.id}`;
-      return next(error);
+      next(error);
+      return;
     }
   }
 }

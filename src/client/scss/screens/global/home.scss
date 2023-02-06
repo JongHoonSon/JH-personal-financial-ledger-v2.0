@@ -1,0 +1,50 @@
+#home__container {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#home__main-image {
+  font-size: 200px;
+  margin-bottom: 30px;
+}
+
+#home__message__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#home__message {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+}
+
+#home__sub-image__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__sub-image {
+  font-size: 80px;
+  margin: 0px 10px;
+}
+
+#home__sub-image__red {
+  color: #f03e3e;
+}
+
+#home__sub-image__blue {
+  color: #37b24d;
+}
+
+#home__sub-image__green {
+  color: #1c7ed6;
+}

@@ -8,13 +8,13 @@ block content
                     div#detail-post__board
                         a(href=`/board/${post.board.name}/1`)#detail-post__board__link #{post.board.name}
                 div.detail-post__info__wrap#detail-post__title__wrap
-                    div#detail-post__title #{post.title}
+                    a(href=`/post/${post._id}`)#detail-post__title #{post.title}
                     div#detail-post__date #{post.createdAtStringFullDate}
                 div.detail-post__info__wrap
                     div#detail-post__owner
                         a(href=`/user/profile/${post.owner._id}`)#detail-post__owner__link
                             img(src=post.owner.avatarUrl)#detail-post__owner-avatar
-                            span#detail-post__owner-name #{post.owner.name}
+                            span#detail-post__owner-name #{post.owner.nickname}
                     div#detail-post__meta-infos__wrap
                         div#detail-post__views.detail-post__meta-info
                             label.detail-post__meta-info__label 조회 수 
@@ -53,5 +53,5 @@ block content
             include detail-post-comments.pug
 
 block scripts
-    script(src="/assets/js/detail-post.js") 
-    script(src="/assets/js/comment.js") 
+    script(src="/assets/js/post/detail-post.min.js") 
+    script(src="/assets/js/post/comment.min.js") 

@@ -5,7 +5,8 @@ const checkUserLoggedIn = (req, res, next) => {
     const error = new Error("로그인이 필요합니다.");
     error.statusCode = 401;
     error.redirectURL = "/login";
-    return next(error);
+    next(error);
+    return;
   }
 };
 

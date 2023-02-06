@@ -4,6 +4,17 @@ import { boardSchema } from "../schemas";
 const Board = mongoose.model("Board", boardSchema);
 
 class BoardModel {
+  async create(params) {
+    try {
+      const board = await Board.create(params);
+      return board;
+    } catch (error) {
+      error.messageToShow =
+        "게시판을 DB에 생성하는 과정에서 오류가 발생했습니다.";
+      throw error;
+    }
+  }
+
   async find(params) {
     try {
       const board = await Board.find(params);
@@ -16,7 +27,8 @@ class BoardModel {
 
       return board;
     } catch (error) {
-      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -33,7 +45,8 @@ class BoardModel {
 
       return board;
     } catch (error) {
-      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }

@@ -9,7 +9,8 @@ class ExpenseModel {
       const expense = await Expense.create(params);
       return expense;
     } catch (error) {
-      error.message = "지출 내역을 DB에 생성하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "지출 내역을 DB에 생성하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -26,7 +27,8 @@ class ExpenseModel {
 
       return expense;
     } catch (error) {
-      error.message = "지출 내역을 DB에서 찾는 과정에서 에러가 발생했습니다.";
+      error.messageToShow =
+        "지출 내역을 DB에서 찾는 과정에서 에러가 발생했습니다.";
       throw error;
     }
   }
