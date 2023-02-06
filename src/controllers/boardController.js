@@ -1,18 +1,13 @@
 import { boardModel } from "./../db/models";
 import { getCreatedTime } from "../utils";
-import { checkNaN } from "../middlewares";
+import { checkParamNaN } from "../middlewares";
 
 class BoardController {
   async getBoard(req, res, next) {
     const { boardName, pageNum } = req.params;
 
-    console.log("boardName");
-    console.log(boardName);
-    console.log("pageNum");
-    console.log(pageNum);
-
-    const { isNaN } = checkNaN(pageNum, next);
-    if (isNaN) return;
+    const { isParamNaN } = checkParamNaN(pageNum, next);
+    if (isParamNaN) return;
 
     const searchKeyword = boardName === "전체게시판" ? {} : { name: boardName };
 
