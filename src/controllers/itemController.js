@@ -48,9 +48,20 @@ class ItemController {
     const { isParamCorrectValue } = checkParamValue(itemType, ["i", "e"], next);
     if (!isParamCorrectValue) return;
 
-    const user = req.session.loggedInUser;
+    const { loggedInUser } = req.session;
 
+    let user;
     if (itemType === "i") {
+      try {
+        user = await userModel
+          .findByIdWithPopulate(loggedInUser._id)
+          .populate("incomeList");
+      } catch (error) {
+        error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+        next(error);
+        return;
+      }
+
       try {
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`
@@ -76,6 +87,17 @@ class ItemController {
       }
     } else {
       const { paymentMethod } = req.body;
+
+      try {
+        user = await userModel
+          .findByIdWithPopulate(loggedInUser._id)
+          .populate("expenseList");
+      } catch (error) {
+        error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+        next(error);
+        return;
+      }
+
       try {
         const filePath = file
           ? `/assets/img/user-upload-images/${file.filename}`

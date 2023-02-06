@@ -1,4 +1,4 @@
-import { boardModel, postModel } from "./../db/models";
+import { boardModel, postModel, userModel } from "./../db/models";
 import checkPostOwner from "./../middlewares/post/checkPostOwner";
 
 class PostController {
@@ -20,7 +20,18 @@ class PostController {
   async addPost(req, res, next) {
     const { title, boardName, content } = req.body;
 
-    const user = req.session.loggedInUser;
+    const { loggedInUser } = req.session;
+
+    let user;
+    try {
+      user = await userModel
+        .findByIdWithPopulate(loggedInUser._id)
+        .populate("postList");
+    } catch (error) {
+      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
+    }
 
     const board = await boardModel.findOne({ name: boardName });
 
