@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/JongHoonSon/JH-personal-financial-ledger-v2.0#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.264.0",
     "@babel/cli": "^7.17.10",
     "@babel/register": "^7.17.7",
     "babelify": "^10.0.0",
@@ -50,6 +51,7 @@
     "mongoose-auto-increment": "^5.0.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "multer-s3": "^3.0.1",
     "node-sass": "^7.0.1",
     "passport": "^0.6.0",
     "passport-google-oauth": "^2.0.0",
