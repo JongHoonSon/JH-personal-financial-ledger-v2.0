@@ -8,6 +8,11 @@ const s3_client = new S3Client({
     accessKeyId: process.env.AWS_S3_ACCESS_ID,
     secretAccessKey: process.env.AWS_S3_ACCESS_KEY,
   },
+  Condition: {
+    StringEquals: {
+      "s3:x-amz-acl": ["public-read"],
+    },
+  },
 });
 
 const s3_multer = multerS3({
