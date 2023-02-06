@@ -16,7 +16,10 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://www.jh-pfl.o-r.kr/auth/google/callback",
+      callbackURL:
+        process.env.NODE_ENV === "production"
+          ? "https://www.jh-pfl.o-r.kr/auth/google/callback"
+          : "http://localhost:4001/auth/google/callback",
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
