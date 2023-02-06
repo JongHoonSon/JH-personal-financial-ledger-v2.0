@@ -1,8 +1,42 @@
 footer {
   width: 100%;
-  height: 5%;
+  height: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $black;
+}
+
+#footer__title {
+  color: $grey;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+#footer__developer-info__container {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+}
+
+#footer__developer-info__description {
+  color: $grey;
+  margin-right: 10px;
+}
+
+#footer__developer-info__name {
+  color: $grey-light;
+  margin-right: 5px;
+}
+
+#footer__developer__link__github-image {
+  color: $grey-light;
+  font-size: 20px;
+}
+
+#footer__developer__link:hover #footer__developer-info__name,
+#footer__developer__link:hover #footer__developer__link__github-image {
+  color: $red-deep;
+  opacity: 0.8;
 }
