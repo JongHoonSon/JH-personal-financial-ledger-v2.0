@@ -23,6 +23,9 @@ passport.use(
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
+      console.log("profile");
+      console.log(profile);
+
       const exists = await userModel.exists({ email: profile.email });
 
       let user;
@@ -33,9 +36,9 @@ passport.use(
           user = await userModel.create({
             username: profile.id,
             password: "",
-            name: profile.given_name + profile.family_name,
+            name: profile.displayName,
             email: profile.email,
-            nickname: profile.id,
+            nickname: profile.displayName,
             socialAccount: true,
             avatarUrl: "/defaults/images/default-avatar.png",
           });
