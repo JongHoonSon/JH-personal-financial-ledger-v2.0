@@ -28,7 +28,7 @@ class PostController {
         .findByIdWithPopulate(loggedInUser._id)
         .populate("postList");
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -52,7 +52,7 @@ class PostController {
       req.flash("success", "게시글을 작성하였습니다.");
       return res.status(200).redirect(`/post/${newPost._id}`);
     } catch (error) {
-      error.message = "게시글을 생성하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "게시글을 생성하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/post/add";
       next(error);
       return;
@@ -69,7 +69,8 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
       return;
@@ -85,7 +86,8 @@ class PostController {
     try {
       boardList = await boardModel.find({});
     } catch (error) {
-      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -115,7 +117,8 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
       return;
@@ -147,7 +150,7 @@ class PostController {
       req.flash("success", "게시글을 수정했습니다.");
       return res.status(200).json(`/post/${postId}`);
     } catch (error) {
-      error.message = "게시글을 수정하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "게시글을 수정하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
       return;
@@ -164,7 +167,8 @@ class PostController {
         populate: "postList",
       });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
       return;
@@ -193,7 +197,7 @@ class PostController {
         return res.status(200).json(req.session.history.prevPageURL);
       }
     } catch (error) {
-      error.message = "게시글을 삭제하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "게시글을 삭제하는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -213,7 +217,8 @@ class PostController {
           populate: { path: "owner" },
         });
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
       return;
@@ -273,7 +278,8 @@ class PostController {
         .findByIdWithPopulate(postId)
         .populate("likesUserList");
     } catch (error) {
-      error.message = "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시글을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/board/전체게시판/1";
       next(error);
       return;

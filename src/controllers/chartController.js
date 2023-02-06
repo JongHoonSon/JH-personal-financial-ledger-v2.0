@@ -33,7 +33,7 @@ class ChartController {
         return;
       }
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }

@@ -9,7 +9,8 @@ class BoardModel {
       const board = await Board.create(params);
       return board;
     } catch (error) {
-      error.message = "게시판을 DB에 생성하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시판을 DB에 생성하는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -26,7 +27,8 @@ class BoardModel {
 
       return board;
     } catch (error) {
-      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }
@@ -43,7 +45,8 @@ class BoardModel {
 
       return board;
     } catch (error) {
-      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       throw error;
     }
   }

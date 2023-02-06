@@ -25,7 +25,7 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -57,7 +57,8 @@ class ItemController {
           .findByIdWithPopulate(loggedInUser._id)
           .populate("incomeList");
       } catch (error) {
-        error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
         next(error);
         return;
       }
@@ -80,7 +81,8 @@ class ItemController {
         req.flash("success", "수입 내역이 추가되었습니다.");
         return res.status(200).redirect("/item/add/i");
       } catch (error) {
-        error.message = "수입 내역을 추가하는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "수입 내역을 추가하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/item/add/i";
         next(error);
         return;
@@ -93,7 +95,8 @@ class ItemController {
           .findByIdWithPopulate(loggedInUser._id)
           .populate("expenseList");
       } catch (error) {
-        error.message = "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "유저를 DB에서 찾는 과정에서 오류가 발생했습니다.";
         next(error);
         return;
       }
@@ -117,7 +120,8 @@ class ItemController {
         req.flash("success", "지출 내역이 추가되었습니다.");
         return res.status(200).redirect("/item/add/e");
       } catch (error) {
-        error.message = "지출 내역을 추가하는 과정에서 오류가 발생했습니다.";
+        error.messageToShow =
+          "지출 내역을 추가하는 과정에서 오류가 발생했습니다.";
         error.redirectURL = "/item/add/e";
         next(error);
         return;
@@ -141,7 +145,7 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -154,7 +158,7 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -191,7 +195,7 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -204,7 +208,7 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -230,7 +234,7 @@ class ItemController {
       req.flash("success", "아이템을 수정했습니다.");
       return res.status(200).json(`/item/${item.type}/${item.id}`);
     } catch (error) {
-      error.message = "아이템을 수정하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 수정하는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -252,7 +256,7 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -265,7 +269,7 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -293,7 +297,7 @@ class ItemController {
       }
       return res.status(200).json("/");
     } catch (error) {
-      error.message = "아이템을 삭제하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 삭제하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = `/item/${itemType}/${item.id}`;
       next(error);
       return;
@@ -316,7 +320,7 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -329,7 +333,7 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -352,7 +356,7 @@ class ItemController {
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -397,7 +401,7 @@ class ItemController {
           .populate("owner");
       }
     } catch (error) {
-      error.message = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "아이템을 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }
@@ -410,7 +414,7 @@ class ItemController {
         .populate("incomeCategories")
         .populate("expenseCategories");
     } catch (error) {
-      error.message = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }

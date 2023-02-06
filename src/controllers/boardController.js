@@ -18,7 +18,8 @@ class BoardController {
         populate: [{ path: "board" }, { path: "owner" }],
       });
     } catch (error) {
-      error.message = "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "게시판을 DB에서 찾는 과정에서 오류가 발생했습니다.";
       next(error);
       return;
     }

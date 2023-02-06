@@ -146,7 +146,7 @@ class GlobalController {
     try {
       user = await userModel.findOne({ username, socialOnly: false });
     } catch (error) {
-      error.message = "해당하는 아이디를 갖는 유저가 없습니다.";
+      error.messageToShow = "해당하는 아이디를 갖는 유저가 없습니다.";
       error.redirectURL = "/login";
       next(error);
       return;
@@ -171,7 +171,7 @@ class GlobalController {
         return;
       }
     } catch (error) {
-      error.message = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow = "비밀번호를 검증하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/login";
       next(error);
       return;
@@ -187,7 +187,8 @@ class GlobalController {
       req.flash("success", `안녕하세요, ${user.nickname} 님!`);
       return res.status(200).redirect("/");
     } catch (error) {
-      error.message = "유저를 DB에 저장하는 과정에서 오류가 발생했습니다.";
+      error.messageToShow =
+        "유저를 DB에 저장하는 과정에서 오류가 발생했습니다.";
       error.redirectURL = "/login";
       next(error);
       return;
