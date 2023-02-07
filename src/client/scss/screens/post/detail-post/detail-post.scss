@@ -219,6 +219,10 @@
   font-size: 12px;
   padding: 5px;
   box-sizing: border-box;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .detail-post__option-span {
