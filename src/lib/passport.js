@@ -32,6 +32,29 @@ passport.use(
       if (exists) {
         user = await userModel.findOne({ email: profile.email });
       } else {
+        const incomeCategories = [
+          "월급",
+          "주급",
+          "용돈",
+          "은행이자",
+          "주식이윤",
+          "기타",
+        ];
+
+        const expenseCategories = [
+          "식비",
+          "주거비",
+          "통신비",
+          "교통비",
+          "의료비",
+          "생활비",
+          "의류비",
+          "교육비",
+          "주식거래",
+          "주식손해",
+          "기타",
+        ];
+
         try {
           user = await userModel.create({
             username: profile.id,
@@ -41,6 +64,8 @@ passport.use(
             nickname: profile.displayName,
             socialAccount: true,
             avatarUrl: "/defaults/images/default-avatar.png",
+            incomeCategories,
+            expenseCategories,
           });
         } catch (error) {
           console.log(error);
