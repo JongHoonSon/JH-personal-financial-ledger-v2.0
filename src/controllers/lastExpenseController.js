@@ -43,8 +43,7 @@ class LastExpenseController {
         });
       } else {
         sortItem(expenseListByCategories);
-        const lastestItemStringDate =
-          expenseListByCategories[0].createdAtStringDate;
+        const lastestItemStringDate = expenseListByCategories[0].stringDate;
         lastExpenseList.push({
           category: categories[i],
           content: expenseListByCategories[0],

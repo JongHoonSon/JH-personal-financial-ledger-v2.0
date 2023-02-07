@@ -105,7 +105,9 @@ class ItemController {
 
       try {
         const filePath = file
-          ? `/assets/img/user-upload-images/${file.filename}`
+          ? process.env.NODE_ENV === "production"
+            ? file.location
+            : `/assets/img/user-upload-images/${file.filename}`
           : "/defaults/images/empty-image.png";
         const newExpense = await expenseModel.create({
           owner: user,
