@@ -65,7 +65,9 @@ class ItemController {
 
       try {
         const filePath = file
-          ? `/assets/img/user-upload-images/${file.filename}`
+          ? process.env.NODE_ENV === "production"
+            ? file.location
+            : `/assets/img/user-upload-images/${file.filename}`
           : "/defaults/images/empty-image.png";
         const newIncome = await incomeModel.create({
           owner: user,
@@ -222,7 +224,9 @@ class ItemController {
         item.paymentMethod = paymentMethod;
       }
       const filePath = file
-        ? `/assets/img/user-upload-images/${file.filename}`
+        ? process.env.NODE_ENV === "production"
+          ? file.location
+          : `/assets/img/user-upload-images/${file.filename}`
         : item.imageUrl;
       item.date = date;
       item.amount = amount;

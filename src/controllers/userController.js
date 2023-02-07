@@ -84,7 +84,9 @@ class UserController {
 
     try {
       const filePath = file
-        ? `/assets/img/user-upload-images/${file.filename}`
+        ? process.env.NODE_ENV === "production"
+          ? file.location
+          : `/assets/img/user-upload-images/${file.filename}`
         : user.avatarUrl;
       const updatedUser = await userModel.findByIdAndUpdate(
         user._id,

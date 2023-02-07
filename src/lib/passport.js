@@ -16,10 +16,16 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:4001/auth/google/callback",
+      callbackURL:
+        process.env.NODE_ENV === "production"
+          ? "https://www.jh-pfl.o-r.kr/auth/google/callback"
+          : "http://localhost:4001/auth/google/callback",
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
+      console.log("profile");
+      console.log(profile);
+
       const exists = await userModel.exists({ email: profile.email });
 
       let user;
@@ -30,9 +36,9 @@ passport.use(
           user = await userModel.create({
             username: profile.id,
             password: "",
-            name: profile.given_name + profile.family_name,
+            name: profile.displayName,
             email: profile.email,
-            nickname: profile.id,
+            nickname: profile.displayName,
             socialAccount: true,
             avatarUrl: "/defaults/images/default-avatar.png",
           });
