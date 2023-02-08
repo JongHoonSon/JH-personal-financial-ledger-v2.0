@@ -77,7 +77,7 @@ JH Personal Private Ledger(이하 PFL)은 사용자가 등록한 수입/지출 �
 <table>
   <tr>
     <td><strong>기간별 내역 조회</strong></td>
-    <td><strong>유형별 내역 조회(수입, 지출)</strong></td>
+    <td><strong>유형별 내역 조회(전체, 수입, 지출)</strong></td>
   </tr>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/100356649/217254608-2d521f85-de88-4adb-94b1-9f2269f39b18.gif"/></td>
