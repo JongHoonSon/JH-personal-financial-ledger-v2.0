@@ -40,53 +40,33 @@ const handleCommentEditButtonClick = (event) => {
 
   // 수정 버튼 / button.comment__option-button.comment__edit-button
   const commentEditButton = event.target;
-  console.log("commentEditButton");
-  console.log(commentEditButton);
 
   // div.comment-info__right
   const commentInfoRight = commentEditButton.parentElement;
-  console.log("commentInfoRight");
-  console.log(commentInfoRight);
 
   // 삭제 버튼 / button.comment__option-button.comment__delete-button
   const commentDeleteButton = commentInfoRight.childNodes[1];
-  console.log("commentDeleteButton");
-  console.log(commentDeleteButton);
 
   // 확정 버튼 / button.comment__option-button.comment__edit-confirm-button
   const commentEditConfirmButton = commentInfoRight.childNodes[2];
-  console.log("commentEditConfirmButton");
-  console.log(commentEditConfirmButton);
 
   // 취소 버튼 / button.comment__option-button.comment__edit-cancel-button
   const commentEditCancelButton = commentInfoRight.childNodes[3];
-  console.log("commentEditCancelButton");
-  console.log(commentEditCancelButton);
 
   // 댓글 / div.comment-info__wrap
   const commentInfoWrap = commentInfoRight.parentElement;
-  console.log("commentInfoWrap");
-  console.log(commentInfoWrap);
 
   // 댓글 / div.comment
   const comment = commentInfoWrap.parentElement;
-  console.log("comment");
-  console.log(comment);
 
   // div.comment-content__wrap
   const commentContentWrap = comment.childNodes[1];
-  console.log("commentContentWrap");
-  console.log(commentContentWrap);
 
   // 댓글 내용 / pre.comment-content
   const commentContent = commentContentWrap.childNodes[0];
-  console.log("commentContent");
-  console.log(commentContent);
 
   // 댓글 수정 입력 창 / textarea.comment-content__edit-textarea
   const commentContentEditTextarea = commentContentWrap.childNodes[1];
-  console.log("commentContentEditTextarea");
-  console.log(commentContentEditTextarea);
 
   commentEditButton.classList.add("hidden");
   commentDeleteButton.classList.add("hidden");
@@ -119,9 +99,6 @@ const handleCommentEditButtonClick = (event) => {
     commentContentEditTextarea.classList.add("hidden");
   };
 };
-
-console.log("commentEditButtons");
-console.log(commentEditButtons);
 
 commentEditButtons.forEach((commentEditButton) => {
   commentEditButton.addEventListener("click", handleCommentEditButtonClick);

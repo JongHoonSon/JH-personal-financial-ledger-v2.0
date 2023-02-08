@@ -13,7 +13,6 @@ function handleImageUploadInputChange() {
         event.target.result;
     };
     reader.readAsDataURL(imageUploadInput.files[0]);
-    // console.log(imageName);
     imageName.value = imageUploadInput.value;
   } else {
     const originImageUrl = imageUploadInput.dataset.id;

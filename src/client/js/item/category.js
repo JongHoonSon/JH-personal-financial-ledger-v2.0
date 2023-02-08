@@ -77,7 +77,6 @@ sumbitButtonIcon.addEventListener("click", async (e) => {
   });
 
   if (response.status === 200) {
-    console.log("category added success");
     addNewCategoryElement(categoryType, newCategoryName);
   }
 
@@ -105,7 +104,6 @@ const handleDeleteCategory = async (event) => {
 
   if (response.status === 200) {
     removeDeletedCategoryElement(event, categoryType);
-    console.log("delete category success");
   }
 };
 

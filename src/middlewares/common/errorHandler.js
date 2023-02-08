@@ -1,15 +1,4 @@
 const errorHandler = (error, req, res, next) => {
-  console.log("req.method");
-  console.log(req.method);
-
-  console.log('req.headers["sec-fetch-dest"]');
-  console.log(req.headers["sec-fetch-dest"]);
-
-  console.log('req.headers["content-type"]');
-  console.log(req.headers["content-type"]);
-
-  console.log('req.headers["content-length"]');
-  console.log(req.headers["content-length"]);
   if (error) {
     console.log("error");
     console.log(error);

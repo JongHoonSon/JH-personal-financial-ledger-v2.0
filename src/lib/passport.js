@@ -23,9 +23,6 @@ passport.use(
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
-      console.log("profile");
-      console.log(profile);
-
       const exists = await userModel.exists({ email: profile.email });
 
       let user;
@@ -68,7 +65,7 @@ passport.use(
             expenseCategories,
           });
         } catch (error) {
-          console.log(error);
+          return;
         }
       }
 
