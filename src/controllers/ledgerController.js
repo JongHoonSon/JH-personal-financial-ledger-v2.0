@@ -32,9 +32,9 @@ class LedgerController {
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const { incomeList, expenseList } = user;
@@ -126,9 +126,9 @@ class LedgerController {
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const { incomeList, expenseList } = user;
@@ -209,9 +209,9 @@ class LedgerController {
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const { incomeList, expenseList } = user;
@@ -290,9 +290,9 @@ class LedgerController {
         .populate("incomeList")
         .populate("expenseList");
     } catch (error) {
-      console.log(error);
-      req.flash("error", "유저를 불러오는 과정에서 오류가 발생했습니다.");
-      return res.status(500).redirect("/");
+      error.messageToShow = "유저를 불러오는 과정에서 오류가 발생했습니다.";
+      next(error);
+      return;
     }
 
     const { incomeList, expenseList } = user;
