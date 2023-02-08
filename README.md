@@ -113,11 +113,9 @@ JH Personal Private Ledger(이하 PFL)은 사용자가 등록한 수입/지출 �
   
   <tr>
     <td><strong>수입/지출 내역 통계</strong></td>
-    <td><strong></strong></td>
   </tr>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/100356649/217254794-974259fb-8df7-4622-a00e-899a273296e8.gif"/></td>
-    <td></td>
   </tr>
   
 </table>
@@ -127,21 +125,46 @@ JH Personal Private Ledger(이하 PFL)은 사용자가 등록한 수입/지출 �
 
 <table>
   <tr>
-    <td><strong></strong></td>
-    <td><strong></strong></td>
+    <td><strong>게시판 별 게시글 조회</strong></td>
+    <td><strong>게시글 등록</strong></td>
   </tr>
   <tr>
-    <td><img src=""/></td>
-    <td><img src=""/></td>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254838-3c7bcb2c-9a73-4852-a576-34bfe9497946.gif"/></td>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254829-e6c28ee9-b0ca-43f3-b915-4eb440039e7e.gif"/></td>
   </tr>
   
   <tr>
-    <td><strong></strong></td>
-    <td><strong></strong></td>
+    <td><strong>게시글 수정</strong></td>
+    <td><strong>게시글 삭제</strong></td>
   </tr>
   <tr>
-    <td><img src=""/></td>
-    <td><img src=""/></td>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254854-a5fdab33-0b42-466a-98a7-597a9c3451b6.gif"/></td>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254870-b6a430c8-fee8-4bb1-bbc8-c37d0273cff8.gif"/></td>
+  </tr>
+  
+  <tr>
+    <td><strong>게시글의 게시판, 작성자 확인 및 좋아요 기능</strong></td>
+    <td><strong>댓글 등록</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254883-a28d068f-0647-4337-8d86-64e66f55c7b5.gif"/></td>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254932-84f35971-bdba-491c-8c08-94856a0a2a07.gif"/></td>
+  </tr>
+  
+  <tr>
+    <td><strong>댓글 수정</strong></td>
+    <td><strong>댓글 삭제</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254944-0b66a0fa-9de5-45d0-9431-1e58c084c1e2.gif"/></td>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217254960-af94c1cf-ab8e-4594-8c5c-970b2b8043f4.gif"/></td>
+  </tr>
+  
+  <tr>
+    <td><strong>댓글 좋아요</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/100356649/217271945-67c3bdc4-9ecb-4955-b4a0-45d116b49e81.gif"/></td>
   </tr>
 </table>
 
