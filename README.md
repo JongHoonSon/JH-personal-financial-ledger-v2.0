@@ -172,3 +172,5 @@ JH Personal Private Ledger(이하 PFL)은 사용자가 등록한 수입/지출 �
 
 
 ## 🤔 구현 과정에서 고민한 것들
+
+[WKI](https://github.com/JongHoonSon/JH-personal-financial-ledger-v2.0/wiki/%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C-%EA%B3%A0%EB%AF%BC%ED%95%9C-%EA%B2%83%EB%93%A4)
