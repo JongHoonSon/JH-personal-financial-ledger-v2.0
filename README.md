@@ -24,8 +24,10 @@ JH Personal Private Ledger(이하 PFL)은 사용자가 등록한 수입/지출 �
 
 ### 배포
 
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![AWS EC2](https://img.shields.io/badge/AWS_EC2-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![AWS S3](https://img.shields.io/badge/AWS_S3-1ED760.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+![Nginx](https://img.shields.io/badge/pm2-%235391FE.svg?style=for-the-badge&logo=pm2&logoColor=white)
 
 ## 👀 주요 기능
 
